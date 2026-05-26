@@ -205,110 +205,226 @@ def get_added_code(base_code, student_code):
 # -----------------------------
 
 def evaluate_code(code, roll):
-
+    """
+    Evaluate student code against the rubric-based criteria.
+    
+    Rubric Structure (Total 80 marks):
+    Q1A: 8 marks - Compilation and Execution
+    Q1B: 8 marks - Program Analysis and Debugging
+    Q2A: 8 marks - Searching using Arrays and Strings
+    Q2B: 8 marks - Sorting Account Records
+    Q3A: 8 marks - Functional Decomposition
+    Q3B: 8 marks - Pointer-Based Operations
+    Q4A: 8 marks - Structure Enhancement
+    Q4B: 8 marks - New Banking Feature Implementation
+    Q5A: 8 marks - File Generation and Verification
+    Q5B: 8 marks - Optimization and Error Handling
+    """
+    
     if not code.strip():
         return {"error": "No meaningful student code found"}
 
+    # Rubric definition with max marks for each component
+    rubric_max_scores = {
+        "Q1A": {
+            "successful_compilation_and_execution": 2,
+            "demonstration_of_menu_operations": 2,
+            "explanation_of_control_structures": 2,
+            "sample_testing_and_output": 2,
+        },
+        "Q1B": {
+            "testing_effort": 2,
+            "identification_of_issues": 3,
+            "corrected_logic_and_explanation": 3,
+        },
+        "Q2A": {
+            "proper_use_of_arrays_strings": 3,
+            "searching_implementation": 3,
+            "output_correctness": 2,
+        },
+        "Q2B": {
+            "sorting_logic": 3,
+            "correct_implementation": 3,
+            "display_and_testing": 2,
+        },
+        "Q3A": {
+            "function_decomposition": 4,
+            "modular_design_and_readability": 4,
+        },
+        "Q3B": {
+            "proper_pointer_implementation": 4,
+            "explanation_and_correctness": 4,
+        },
+        "Q4A": {
+            "structure_modification": 4,
+            "proper_implementation_and_testing": 4,
+        },
+        "Q4B": {
+            "feature_implementation": 4,
+            "functionality_and_innovation": 4,
+        },
+        "Q5A": {
+            "file_generation": 2,
+            "file_update_verification": 3,
+            "correction_of_file_issues": 3,
+        },
+        "Q5B": {
+            "optimization_techniques": 4,
+            "error_handling_implementation": 4,
+        },
+    }
+
     prompt = f"""
-You are evaluating student-added modifications ONLY.
+You are an expert C programming evaluator assessing student code against a detailed rubric.
 
-Focus on:
-- New logic
-- Improvements
-- Added features
+IMPORTANT:
+1. Evaluate ONLY student-added or modified code
+2. Do NOT count base/template code provided to students
+3. Be precise and strict in following the rubric marks limits
+4. NEVER EXCEED the maximum marks specified for each component
+5. Provide specific, constructive remarks for each criterion
 
-Ignore base/template code.
+Return ONLY valid JSON (no markdown, no backticks, no extra text).
 
-Return STRICT JSON only.
-
-Strictly follow score limits:
-- 5 means max 5
-- 10 means max 10
-- 20 means max 20
-Any violation is incorrect.
+Use this exact JSON structure with the rubric-based questions (Q1A through Q5B):
 
 {{
   "roll_number": "{roll}",
-  "scores": {{
-    "general": {{"self_effort": {{"score": 0,"remarks": ""}},"total": 0}},
-    "comprehension": {{"domain_knowledge": {{"score": 0,"remarks": ""}},"added_functionality_ideas": {{"score": 0,"remarks": ""}},"code_comprehension": {{"score": 0,"remarks": ""}},"total": 0}},
-    "modification": {{"code_improvement": {{"score": 0,"remarks": ""}},"functional_decomposition": {{"score": 0,"remarks": ""}},"memory_optimization": {{"score": 0,"remarks": ""}},"speed_optimization": {{"score": 0,"remarks": ""}},"total": 0}},
-    "innovation": {{"new_features_basic": {{"score": 0,"remarks": ""}},"requirement_translation": {{"score": 0,"remarks": ""}},"added_functionality_simple": {{"score": 0,"remarks": ""}},"added_functionality_advanced": {{"score": 0,"remarks": ""}},"total": 0}}
+  "questions": {{
+    "Q1A": {{
+      "successful_compilation_and_execution": {{"score": 0, "remarks": ""}},
+      "demonstration_of_menu_operations": {{"score": 0, "remarks": ""}},
+      "explanation_of_control_structures": {{"score": 0, "remarks": ""}},
+      "sample_testing_and_output": {{"score": 0, "remarks": ""}},
+      "total": 0
+    }},
+    "Q1B": {{
+      "testing_effort": {{"score": 0, "remarks": ""}},
+      "identification_of_issues": {{"score": 0, "remarks": ""}},
+      "corrected_logic_and_explanation": {{"score": 0, "remarks": ""}},
+      "total": 0
+    }},
+    "Q2A": {{
+      "proper_use_of_arrays_strings": {{"score": 0, "remarks": ""}},
+      "searching_implementation": {{"score": 0, "remarks": ""}},
+      "output_correctness": {{"score": 0, "remarks": ""}},
+      "total": 0
+    }},
+    "Q2B": {{
+      "sorting_logic": {{"score": 0, "remarks": ""}},
+      "correct_implementation": {{"score": 0, "remarks": ""}},
+      "display_and_testing": {{"score": 0, "remarks": ""}},
+      "total": 0
+    }},
+    "Q3A": {{
+      "function_decomposition": {{"score": 0, "remarks": ""}},
+      "modular_design_and_readability": {{"score": 0, "remarks": ""}},
+      "total": 0
+    }},
+    "Q3B": {{
+      "proper_pointer_implementation": {{"score": 0, "remarks": ""}},
+      "explanation_and_correctness": {{"score": 0, "remarks": ""}},
+      "total": 0
+    }},
+    "Q4A": {{
+      "structure_modification": {{"score": 0, "remarks": ""}},
+      "proper_implementation_and_testing": {{"score": 0, "remarks": ""}},
+      "total": 0
+    }},
+    "Q4B": {{
+      "feature_implementation": {{"score": 0, "remarks": ""}},
+      "functionality_and_innovation": {{"score": 0, "remarks": ""}},
+      "total": 0
+    }},
+    "Q5A": {{
+      "file_generation": {{"score": 0, "remarks": ""}},
+      "file_update_verification": {{"score": 0, "remarks": ""}},
+      "correction_of_file_issues": {{"score": 0, "remarks": ""}},
+      "total": 0
+    }},
+    "Q5B": {{
+      "optimization_techniques": {{"score": 0, "remarks": ""}},
+      "error_handling_implementation": {{"score": 0, "remarks": ""}},
+      "total": 0
+    }}
   }},
-  "final": {{"total_out_of_100": 0,"normalized_to_10": 0,"overall_remarks": ""}}
+  "final": {{
+    "total_out_of_80": 0,
+    "normalized_to_20": 0.0,
+    "overall_remarks": ""
+  }}
 }}
 
-Code:
-{code[:12000]}
+Rubric Constraints (MAX MARKS):
+- Q1A total: 8 (each component max as shown)
+- Q1B total: 8 (testing_effort:2, identification:3, correction:3)
+- Q2A total: 8 (arrays:3, searching:3, output:2)
+- Q2B total: 8 (sorting_logic:3, implementation:3, display:2)
+- Q3A total: 8 (decomposition:4, modular:4)
+- Q3B total: 8 (pointer:4, explanation:4)
+- Q4A total: 8 (structure:4, implementation:4)
+- Q4B total: 8 (feature:4, functionality:4)
+- Q5A total: 8 (file_gen:2, verification:3, correction:3)
+- Q5B total: 8 (optimization:4, error_handling:4)
+- FINAL TOTAL: 80 MARKS MAXIMUM
+
+Code to evaluate:
+{code[:15000]}
 """
 
     try:
         response = model.generate_content(prompt)
         text = response.text.strip()
 
-        text = re.sub(r"^```json", "", text)
-        text = re.sub(r"```$", "", text).strip()
-
+        # Extract JSON from response (handle markdown wrapping)
+        text = re.sub(r"^```json\s*", "", text)
+        text = re.sub(r"\s*```$", "", text).strip()
+        
         start = text.find("{")
         end = text.rfind("}") + 1
-
         text = text[start:end]
 
         data = json.loads(text)
 
-        # recompute totals safely
-        total = 0
-        for sec in data["scores"].values():
-            MAX_SCORES = {
-                    "general": {
-                        "self_effort": 5
-                    },
-                    "comprehension": {
-                        "domain_knowledge": 5,
-                        "added_functionality_ideas": 5,
-                        "code_comprehension": 5
-                    },
-                    "modification": {
-                        "code_improvement": 5,
-                        "functional_decomposition": 10,
-                        "memory_optimization": 10,
-                        "speed_optimization": 10
-                    },
-                    "innovation": {
-                        "new_features_basic": 5,
-                        "requirement_translation": 10,
-                        "added_functionality_simple": 10,
-                        "added_functionality_advanced": 20
-                    }
-                }
-            total = 0
+        # CRITICAL: Clamp all scores to rubric maximums and recalculate totals
+        total_score = 0
+        
+        for question_id, question_data in data.get("questions", {}).items():
+            if not isinstance(question_data, dict):
+                continue
+            
+            question_total = 0
+            max_for_question = rubric_max_scores.get(question_id, {})
+            
+            for component, value in question_data.items():
+                if component == "total":
+                    continue
+                
+                if isinstance(value, dict) and "score" in value:
+                    max_score = max_for_question.get(component, 0)
+                    
+                    # Clamp score to maximum allowed
+                    try:
+                        original_score = float(value.get("score", 0))
+                    except (ValueError, TypeError):
+                        original_score = 0
+                    
+                    clamped_score = max(0, min(original_score, max_score))
+                    value["score"] = round(clamped_score, 2)
+                    question_total += clamped_score
+            
+            question_data["total"] = round(question_total, 2)
+            total_score += question_total
 
-            for sec_name, sec in data["scores"].items():
-
-                sec_total = 0
-
-                for field, value in sec.items():
-
-                    if isinstance(value, dict) and "score" in value:
-
-                        max_allowed = MAX_SCORES[sec_name].get(field, 0)
-
-                        # clamp score
-                        score = max(0, min(value["score"], max_allowed))
-
-                        value["score"] = score
-                        sec_total += score
-
-                sec["total"] = sec_total
-                total += sec_total
-
-        data["final"]["total_out_of_100"] = total
-        data["final"]["normalized_to_10"] = round((total/100)*10, 2)
+        # Update final scores
+        final = data.get("final", {})
+        final["total_out_of_80"] = round(total_score, 2)
+        final["normalized_to_20"] = round((total_score / 80) * 20, 2)
 
         return data
 
     except Exception as e:
-        return {"error": "JSON parsing failed", "raw": str(e)}
+        return {"error": "JSON parsing failed", "details": str(e)}
 
 
 # -----------------------------

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero-card">
+        <div>
+          <p class="eyebrow">Interactive evaluation workflow</p>
+          <h1>{{ title }}</h1>
+          <p class="hero-copy">{{ subtitle }}</p>
+        </div>
+        <div class="workflow-pill">Step 1: Add links • Step 2: Run evaluation • Step 3: Review results</div>
+      </header>
+
+      <section class="content-grid">
+        <div class="stack">
+          <section class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Input</p>
+                <h2>Paste GitHub links</h2>
+              </div>
+            </div>
+            <form method="post" class="input-form">
+              <label for="repo_urls">Repository URLs (one per line)</label>
+              <textarea id="repo_urls" name="repo_urls" rows="7" placeholder="https://github.com/user/repo-one&#10;https://github.com/user/repo-two">{{ repo_urls }}</textarea>
+
+              <label for="roll_numbers">Roll numbers (optional, one per line)</label>
+              <textarea id="roll_numbers" name="roll_numbers" rows="4" placeholder="711725UAD136&#10;711725UAD202">{{ roll_numbers }}</textarea>
+
+              <button class="primary-btn" type="submit">Run evaluation</button>
+            </form>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul class="flash-list">
+                  {% for message in messages %}
+                    <li>{{ message }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            {% endwith %}
+          </section>
+
+          <section class="panel">
+            <div class="panel-header compact">
+              <div>
+                <p class="eyebrow">How it works</p>
+                <h3>From links to scored output</h3>
+              </div>
+            </div>
+            <ul class="steps-list">
+              <li>Collect repository links and roll numbers from the form.</li>
+              <li>Run the existing evaluation pipeline against each repository.</li>
+              <li>Generate repo, plagiarism, and evaluation reports automatically.</li>
+            </ul>
+          </section>
+        </div>
+
+        <aside class="stack">
+          <section class="panel">
+            <div class="panel-header compact">
+              <div>
+                <p class="eyebrow">Live summary</p>
+                <h3>Current report snapshot</h3>
+              </div>
+            </div>
+            <div class="stats-grid compact">
+              {% for metric in metrics %}
+              <article class="metric-card metric-{{ metric.tone }}">
+                <p class="metric-label">{{ metric.label }}</p>
+                <p class="metric-value">{{ metric.value }}</p>
+              </article>
+              {% endfor %}
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header compact">
+              <div>
+                <p class="eyebrow">Review focus</p>
+                <h3>Needs attention</h3>
+              </div>
+            </div>
+            <ul class="insight-list">
+              {% for repo in needs_attention %}
+              <li>
+                <div>
+                  <strong>{{ repo.roll_number }}</strong>
+                  <p>{{ repo.remarks[:90] }}</p>
+                </div>
+              </li>
+              {% else %}
+              <li>
+                <div>
+                  <strong>No urgent items</strong>
+                  <p>Everything looks aligned for the next review pass.</p>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </section>
+        </aside>
+      </section>
+
+      <section class="panel panel-large results-panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Results</p>
+            <h2>Evaluation output</h2>
+          </div>
+          <div class="pill-row">
+            <a class="secondary-btn" href="{{ url_for('download_pdf') }}">Download PDF report</a>
+            <span class="pill neutral">{{ summary.public_count }} public</span>
+            <span class="pill success">{{ summary.readme_count }} with README</span>
+          </div>
+        </div>
+
+        <div class="summary-strip">
+          <div>
+            <span class="muted">Average commits</span>
+            <strong>{{ summary.average_commits }}</strong>
+          </div>
+          <div>
+            <span class="muted">Average score</span>
+            <strong>{% if metrics|length >= 3 %}{{ metrics[2].value }}{% else %}0.0/20{% endif %}</strong>
+          </div>
+          <div>
+            <span class="muted">Review focus</span>
+            <strong>{{ needs_attention|length }} flagged</strong>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Roll</th>
+                <th>Repository</th>
+                <th>Status</th>
+                <th>Score</th>
+                <th>Commits</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for repo in repo_rows %}
+              <tr>
+                <td class="mono">{{ repo.roll_number }}</td>
+                <td>
+                  <div class="repo-cell">
+                    <strong>{{ repo.repo.split('/')[-1] }}</strong>
+                    <span>{{ repo.repo }}</span>
+                  </div>
+                </td>
+                <td>
+                  <span class="status-badge status-{{ repo.status.lower().replace(' ', '-') }}">{{ repo.status }}</span>
+                </td>
+                <td>
+                  <div class="score-cell">
+                    <span>{{ repo.normalized }}/20</span>
+                    <div class="progress-bar"><span style="width: {{ repo.progress }}%"></span></div>
+                  </div>
+                </td>
+                <td>{{ repo.commit_count }}</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="5" class="empty-state">No evaluation results yet. Paste repository links and run the workflow.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

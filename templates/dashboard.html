@@ -1,23 +1,28 @@
 {% extends "base.html" %}{% block content %}
-<header class="page-heading"><div><p class="eyebrow">Workspace</p><h1>Evaluation sessions</h1><p class="hero-copy">Create a durable workspace for each evaluation batch. Results remain ready when you return.</p></div></header>
-<section class="stats-grid dashboard-stats">
-  <article class="metric-card metric-indigo"><p class="metric-label">All sessions</p><p class="metric-value">{{ sessions|length }}</p></article>
-  <article class="metric-card metric-emerald"><p class="metric-label">Active</p><p class="metric-value">{{ active_count }}</p></article>
-  <article class="metric-card metric-amber"><p class="metric-label">Completed</p><p class="metric-value">{{ completed_count }}</p></article>
+<header class="page-heading dashboard-heading">
+  <div><p class="eyebrow">Evaluation workspace</p><h1>Evaluation Sessions</h1><p class="hero-copy">Create, resume, and review durable PostgreSQL-backed evaluation workspaces.</p></div>
+  <button class="primary-btn" type="button" onclick="openSessionDialog()">+ New Session</button>
+</header>
+
+<section class="stats-grid dashboard-stats" id="dashboardStats"><article class="metric-card"><p class="metric-label">Loading sessions…</p></article></section>
+<div id="dashboardError" class="api-error" hidden></div>
+<section class="session-groups">
+  <div class="session-group"><div class="section-title"><span class="status-dot active-dot"></span><h2>Active Sessions</h2><span class="count-pill" id="activeCount">0</span></div><div class="session-card-grid" id="activeSessions"></div></div>
+  <div class="session-group"><div class="section-title"><span class="status-dot completed-dot"></span><h2>Completed Sessions</h2><span class="count-pill" id="completedCount">0</span></div><div class="session-card-grid" id="completedSessions"></div></div>
+  <div class="session-group"><div class="section-title"><span class="status-dot archived-dot"></span><h2>Archived Sessions</h2><span class="count-pill" id="archivedCount">0</span></div><div class="session-card-grid" id="archivedSessions"></div></div>
 </section>
-<section class="dashboard-grid">
-  <section class="panel"><div class="panel-header"><div><p class="eyebrow">New workspace</p><h2>Create a session</h2></div></div>
-    <form method="post" action="{{ url_for('create_session') }}" class="input-form">
-      <label for="name">Session name</label><input id="name" name="name" required placeholder="Semester 5 · Batch A">
-      <label for="description">Description <span class="muted">optional</span></label><textarea id="description" name="description" rows="4" placeholder="Add context for this evaluation batch"></textarea>
-      <button class="primary-btn" type="submit">Create session</button>
-    </form>
-  </section>
-  <section class="panel panel-large"><div class="panel-header"><div><p class="eyebrow">History</p><h2>Your sessions</h2></div></div>
-    <div class="session-list">{% for item in sessions %}<a class="session-card" href="{{ url_for('view_session', session_id=item.id) }}">
-      <div><span class="status-badge session-{{ item.status|lower }}">{{ item.status }}</span><h3>{{ item.name }}</h3><p>{{ item.description or 'No description' }}</p></div>
-      <div class="session-meta"><strong>{{ item.evaluated_count or 0 }}/{{ item.repository_count }}</strong><span>evaluated</span><time>{{ item.created_at[:10] }}</time></div>
-    </a>{% else %}<p class="empty-state">No sessions yet. Create the first one to begin.</p>{% endfor %}</div>
-  </section>
-</section>
+
+<dialog id="sessionDialog" class="app-dialog"><form id="sessionForm" class="input-form"><div class="dialog-heading"><div><p class="eyebrow">New workspace</p><h2>Create Evaluation Session</h2></div><button class="icon-btn" type="button" onclick="sessionDialog.close()">×</button></div><label for="sessionName">Session name</label><input id="sessionName" required placeholder="Semester 5 · Batch A"><label for="sessionDescription">Description <span class="muted">optional</span></label><textarea id="sessionDescription" rows="4" placeholder="Add context for this evaluation batch"></textarea><p id="formError" class="row-error"></p><div class="dialog-actions"><button class="secondary-btn" type="button" onclick="sessionDialog.close()">Cancel</button><button class="primary-btn" type="submit">Create Session</button></div></form></dialog>
+
+<script>
+const sessionDialog = document.getElementById('sessionDialog');
+const sessionName=document.getElementById('sessionName'),sessionDescription=document.getElementById('sessionDescription'),formError=document.getElementById('formError');
+const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const dateText = value => value ? new Intl.DateTimeFormat(undefined,{dateStyle:'medium'}).format(new Date(value)) : '—';
+function openSessionDialog(){ document.getElementById('sessionForm').reset(); document.getElementById('formError').textContent=''; sessionDialog.showModal(); }
+function sessionCard(item){ const total=Number(item.repository_count||0), done=Number(item.evaluated_count||0), pct=total?Math.round(done/total*100):0; return `<a class="session-card new-session-card" href="/sessions/${item.id}"><div class="card-top"><span class="status-badge session-${item.status.toLowerCase()}">${esc(item.status)}</span><span class="muted">${dateText(item.created_at)}</span></div><h3>${esc(item.name)}</h3><p>${esc(item.description||'No description')}</p><div class="completion"><div><span>${done} of ${total} repositories</span><strong>${pct}%</strong></div><div class="progress-bar"><span style="width:${pct}%"></span></div></div><div class="card-footer"><span>Updated ${dateText(item.updated_at)}</span><span>Open session →</span></div></a>`; }
+async function loadSessions(){ try{ const response=await fetch('/api/sessions'); if(!response.ok) throw new Error('Unable to load sessions.'); const items=await response.json(); const groups={Active:[],Completed:[],Archived:[]}; items.forEach(item=>(groups[item.status]||groups.Archived).push(item)); for(const [status,list] of Object.entries(groups)){ document.getElementById(status.toLowerCase()+'Count').textContent=list.length; document.getElementById(status.toLowerCase()+'Sessions').innerHTML=list.map(sessionCard).join('')||'<div class="empty-card">No '+status.toLowerCase()+' sessions</div>'; } const repos=items.reduce((n,x)=>n+Number(x.repository_count||0),0); document.getElementById('dashboardStats').innerHTML=`<article class="metric-card metric-indigo"><p class="metric-label">All sessions</p><p class="metric-value">${items.length}</p></article><article class="metric-card metric-emerald"><p class="metric-label">Active</p><p class="metric-value">${groups.Active.length}</p></article><article class="metric-card metric-amber"><p class="metric-label">Completed</p><p class="metric-value">${groups.Completed.length}</p></article><article class="metric-card"><p class="metric-label">Repositories</p><p class="metric-value">${repos}</p></article>`; }catch(error){ const box=document.getElementById('dashboardError'); box.hidden=false; box.textContent=error.message; }}
+document.getElementById('sessionForm').addEventListener('submit',async event=>{ event.preventDefault(); const button=event.submitter; button.disabled=true; const response=await fetch('/api/sessions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:sessionName.value,description:sessionDescription.value})}); const data=await response.json(); button.disabled=false; if(!response.ok){formError.textContent=data.error||'Unable to create session.';return;} location.href='/sessions/'+data.id; });
+loadSessions();
+</script>
 {% endblock %}

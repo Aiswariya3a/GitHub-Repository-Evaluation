@@ -11,9 +11,23 @@ Run `python app.py`, open `http://localhost:5000`, create a session, add
 repositories, and evaluate the pending entries. JSON integrations are available
 under `/api/sessions`.
 
-Session data is stored in `data/evaluation_sessions.db`. The `services/`
-package contains persistence, evaluation orchestration, and saved-data report
-generation. The evaluator in `main.py` is unchanged.
+Session and evaluation data is stored in PostgreSQL through the `services/`
+package. Set `DATABASE_URL` in `.env`; the normalized schema in
+`database/schema.sql` is initialized automatically. Existing SQLite session
+data can be imported once with `python scripts/migrate_to_postgres.py`.
+
+Example connection setting:
+
+```env
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/repository_evaluation
+```
+
+Create the database first, install dependencies with `pip install -r
+requirements.txt`, and then start `app.py`. The application creates tables and
+indexes on startup. The evaluator reads queued repositories from PostgreSQL and
+writes repository facts, rubric questions, criteria, final scores, metadata,
+and plagiarism matches directly back to PostgreSQL; CSV/JSON files are no
+longer used as runtime persistence.
 
 This project is a **Python-based evaluation pipeline** that:
 

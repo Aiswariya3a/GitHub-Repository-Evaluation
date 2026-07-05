@@ -1,8 +1,6 @@
 import re
+import argparse
 
-import requests
-import pandas as pd
-import subprocess
 import os
 import time
 import json
@@ -10,7 +8,6 @@ import google.generativeai as genai
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 
@@ -23,7 +20,6 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 HEADERS = {"Authorization": f"token {GITHUB_TOKEN}"}
 
-CSV_FILE = "repos.csv"
 CLONE_DIR = "repos"
 
 BASE_REPO = "https://github.com/24UCS271-MiniProject/miniProjectSourceCode"
@@ -33,21 +29,31 @@ genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 # -----------------------------
-# LOAD CSV
+# LOAD SESSION REPOSITORIES FROM POSTGRESQL
 # -----------------------------
 
-repos = pd.read_csv(CSV_FILE)
-repos.columns = repos.columns.str.strip().str.lower()
+parser = argparse.ArgumentParser()
+parser.add_argument("--session-id", required=True)
+args = parser.parse_args()
 
-repos["repo_url"] = repos["repo_url"].astype(str).str.strip()
-repos["roll_number"] = repos["roll_number"].astype(str).str.strip()
+from services.repository_service import RepositoryService
+from services.github_service import GitHubService
+from services.analysis_service import AnalysisService
+
+session_store = RepositoryService()
+github_service = GitHubService(GITHUB_TOKEN, CLONE_DIR)
+analysis_service = AnalysisService(session_store)
+repos = [
+    repository for repository in session_store.list_repositories(args.session_id)
+    if repository["status"] == "Evaluating"
+]
 
 # -----------------------------
 # HELPERS
 # -----------------------------
 
 def clean_url(url):
-    return url.strip().replace(".git", "").rstrip("/")
+    return github_service.clean_url(url)
 
 
 # -----------------------------
@@ -55,43 +61,10 @@ def clean_url(url):
 # -----------------------------
 
 def sanitize_name(roll, repo_url):
-    repo_name = repo_url.split("/")[-1]
-    name = f"{roll}_{repo_name}"
-    name = re.sub(r'[^a-zA-Z0-9._-]', '_', name)
-    name = re.sub(r'_+', '_', name)
-    return name[:80]
+    return github_service.sanitize_name(roll, repo_url)
 
 def check_repo(repo_url):
-
-    repo_url = clean_url(repo_url)
-
-    if "github.com/" not in repo_url:
-        return False, False
-
-    repo_path = repo_url.split("github.com/")[1]
-
-    try:
-        api = f"https://api.github.com/repos/{repo_path}"
-        r = requests.get(api, headers=HEADERS)
-
-        if r.status_code != 200:
-            return False, False
-
-        data = r.json()
-        public = not data.get("private", True)
-
-        contents_api = f"https://api.github.com/repos/{repo_path}/contents"
-        files = requests.get(contents_api, headers=HEADERS).json()
-
-        readme = any(
-            isinstance(f, dict) and "readme" in f.get("name", "").lower()
-            for f in files if isinstance(files, list)
-        )
-
-        return public, readme
-
-    except:
-        return False, False
+    return github_service.check_repository(repo_url)
 
 
 # -----------------------------
@@ -99,26 +72,7 @@ def check_repo(repo_url):
 # -----------------------------
 
 def clone_repo(url, roll):
-
-    url = clean_url(url)
-
-    name = sanitize_name(roll, url)
-    path = os.path.join(CLONE_DIR, name)
-
-    if not os.path.exists(path):
-
-        print("Cloning:", url, "→", name)
-
-        result = subprocess.run(
-            ["git", "clone", "--depth", "1", url, path],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL
-        )
-
-        if result.returncode != 0:
-            return None
-
-    return path
+    return github_service.clone(url, roll)
 
 
 # -----------------------------
@@ -126,23 +80,7 @@ def clone_repo(url, roll):
 # -----------------------------
 
 def get_commit_count(repo_url):
-
-    repo_url = clean_url(repo_url)
-    repo_path = repo_url.split("github.com/")[1]
-
-    try:
-        commits_api = f"https://api.github.com/repos/{repo_path}/commits?per_page=1"
-        r = requests.get(commits_api, headers=HEADERS)
-
-        if 'Link' in r.headers:
-            link = r.headers['Link']
-            last = link.split('page=')[-1].split('>')[0]
-            return int(last)
-
-        return len(r.json())
-
-    except:
-        return 0
+    return github_service.commit_count(repo_url)
 
 
 # -----------------------------
@@ -188,16 +126,7 @@ def extract_trans_c(path):
 # -----------------------------
 
 def get_added_code(base_code, student_code):
-
-    base_lines = set(line.strip() for line in base_code.splitlines() if line.strip())
-    student_lines = student_code.splitlines()
-
-    added = [
-        line for line in student_lines
-        if line.strip() and line.strip() not in base_lines
-    ]
-
-    return "\n".join(added)
+    return analysis_service.added_code(base_code, student_code)
 
 
 # -----------------------------
@@ -437,14 +366,11 @@ print("Cloning base repo...")
 BASE_PATH = clone_repo(BASE_REPO, "BASE")
 BASE_CODE = read_code(BASE_PATH)
 
-results = []
-evaluation_results = []
-
 code_corpus = []
 repo_names = []
 roll_numbers = []
 
-for i, row in repos.iterrows():
+for i, row in enumerate(repos):
 
     repo = clean_url(row["repo_url"])
     roll = row["roll_number"]
@@ -475,19 +401,14 @@ for i, row in repos.iterrows():
 
     evaluation = evaluate_code(eval_code, roll)
 
-    evaluation_results.append({
-        "roll_number": roll,
-        "repo": repo,
-        "evaluation": json.dumps(evaluation)
-    })
-
-    results.append({
+    repo_result = {
         "roll_number": roll,
         "repo": repo,
         "public": public,
         "readme_exists": readme,
         "commit_count": commit_count
-    })
+    }
+    analysis_service.save_result(row["id"], repo_result, evaluation)
 
     time.sleep(1.2)
 
@@ -517,12 +438,6 @@ if len(code_corpus) > 1:
                 })
 
 
-# -----------------------------
-# SAVE
-# -----------------------------
-
-pd.DataFrame(results).to_csv("repo_report.csv", index=False)
-pd.DataFrame(plag_pairs).to_csv("plagiarism_report.csv", index=False)
-pd.DataFrame(evaluation_results).to_csv("evaluation_report.csv", index=False)
+analysis_service.save_plagiarism(args.session_id, plag_pairs)
 
 print("Done.")

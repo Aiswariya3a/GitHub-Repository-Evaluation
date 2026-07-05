@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-  <nav class="topbar"><a class="brand" href="{{ url_for('dashboard') }}"><span>RE</span> Repository Evaluation</a><a href="{{ url_for('dashboard') }}">Sessions</a></nav>
+  <nav class="topbar"><a class="brand" href="{{ url_for('session.dashboard') }}"><span>RE</span> Repository Evaluation</a><a href="{{ url_for('session.dashboard') }}">Sessions</a></nav>
   <main class="app-shell">
     {% with messages = get_flashed_messages() %}{% if messages %}<ul class="flash-list">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>{% endif %}{% endwith %}
     {% block content %}{% endblock %}

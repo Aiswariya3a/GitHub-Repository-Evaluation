@@ -6,19 +6,9 @@ import pandas as pd
 import json
 import os
 from PyPDF2 import PdfMerger
+import argparse
 
-
-def safe_read_csv(path, expected_columns=None):
-    if expected_columns is None:
-        expected_columns = []
-    try:
-        df = pd.read_csv(path, dtype=str)
-    except Exception:
-        df = pd.DataFrame(columns=expected_columns)
-    for col in expected_columns:
-        if col not in df.columns:
-            df[col] = ""
-    return df.fillna("")
+from services.repository_service import RepositoryService
 
 
 def normalize_roll(value):
@@ -64,9 +54,17 @@ def as_yes_no(value):
     return "N/A"
 
 
-repo_df = safe_read_csv("repo_report.csv", ["roll_number", "repo", "public", "readme_exists", "commit_count"])
-eval_df = safe_read_csv("evaluation_report.csv", ["roll_number", "repo", "evaluation"])
-plag_df = safe_read_csv("plagiarism_report.csv", ["roll1", "roll2", "similarity"])
+parser = argparse.ArgumentParser()
+parser.add_argument("--session-id", required=True)
+args = parser.parse_args()
+store = RepositoryService()
+saved_repositories = [repo for repo in store.list_repositories(args.session_id) if repo["status"] == "Completed"]
+repo_df = pd.DataFrame([repo["repo_data"] for repo in saved_repositories], columns=["roll_number", "repo", "public", "readme_exists", "commit_count"])
+eval_df = pd.DataFrame([
+    {**repo["evaluation_data"], "evaluation": json.dumps(repo["evaluation_data"]["evaluation"])}
+    for repo in saved_repositories
+], columns=["roll_number", "repo", "evaluation"])
+plag_df = pd.DataFrame(store.plagiarism(args.session_id), columns=["roll1", "roll2", "similarity"])
 
 repo_df["roll_number"] = repo_df["roll_number"].apply(normalize_roll)
 eval_df["roll_number"] = eval_df["roll_number"].apply(normalize_roll)

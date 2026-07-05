@@ -30,6 +30,8 @@ class EvaluationRepository:
                 }
             evaluation = {"questions": question_data, "final": {
                 "total_out_of_80": float(row["total_out_of_80"] or 0),
+                "total_out_of_max": float(row.get("total_score") or row["total_out_of_80"] or 0),
+                "max_score": float(row.get("max_score") or 80),
                 "normalized_to_20": float(row["normalized_to_20"] or 0),
                 "overall_remarks": row["overall_remarks"],
             }}
@@ -43,15 +45,17 @@ class EvaluationRepository:
             return {"error": row["evaluation_error"], "details": row.get("error_details") or ""}
         return evaluation
 
-    def save(self, repository_id, evaluation):
+    def save(self, repository_id, evaluation, rubric_version_id):
         final = evaluation.get("final", {}) if isinstance(evaluation, dict) else {}
         with connect() as db:
-            record = db.execute("""INSERT INTO evaluations(repository_id,total_out_of_80,normalized_to_20,overall_remarks,error,error_details)
-                VALUES (%s,%s,%s,%s,%s,%s) ON CONFLICT(repository_id) DO UPDATE SET
+            total_score=final.get("total_out_of_max",final.get("total_out_of_80"));max_score=final.get("max_score",80)
+            record = db.execute("""INSERT INTO evaluations(repository_id,total_out_of_80,total_score,max_score,normalized_to_20,overall_remarks,error,error_details,rubric_version_id)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT(repository_id) DO UPDATE SET
                 total_out_of_80=EXCLUDED.total_out_of_80,normalized_to_20=EXCLUDED.normalized_to_20,
+                total_score=EXCLUDED.total_score,max_score=EXCLUDED.max_score,
                 overall_remarks=EXCLUDED.overall_remarks,error=EXCLUDED.error,error_details=EXCLUDED.error_details,
-                updated_at=now() RETURNING id""", (repository_id, final.get("total_out_of_80"),
-                final.get("normalized_to_20"), final.get("overall_remarks", ""), evaluation.get("error"), evaluation.get("details"))).fetchone()
+                rubric_version_id=EXCLUDED.rubric_version_id,updated_at=now() RETURNING id""", (repository_id, final.get("total_out_of_80"),
+                total_score,max_score,final.get("normalized_to_20"), final.get("overall_remarks", ""), evaluation.get("error"), evaluation.get("details"),rubric_version_id)).fetchone()
             evaluation_id = record["id"]
             db.execute("DELETE FROM evaluation_questions WHERE evaluation_id=%s", (evaluation_id,))
             db.execute("DELETE FROM evaluation_metadata WHERE evaluation_id=%s", (evaluation_id,))

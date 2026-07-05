@@ -33,9 +33,36 @@ class RepositoryService:
     def mark_failed(self, ids, error): self.repository.mark_failed(ids, error)
     def recover_interrupted_evaluations(self): return self.repository.recover_interrupted()
 
-    def save_repository_evaluation(self, repository_id, repo_data, evaluation):
-        self.evaluations.save(repository_id, evaluation)
+    def save_repository_evaluation(self, repository_id, repo_data, evaluation, rubric_version_id):
+        self.evaluations.save(repository_id, evaluation, rubric_version_id)
         self.repository.save_analysis(repository_id, repo_data)
 
     def save_plagiarism(self, session_id, rows): self.evaluations.save_plagiarism(session_id, rows)
     def plagiarism(self, session_id): return self.evaluations.plagiarism(session_id)
+
+    def dashboard(self):
+        metrics, recent, running, leaderboard, distribution, technologies = self.repository.dashboard_metrics()
+        return {"metrics": metrics, "recent_activity": recent, "running_evaluations": running,
+                "leaderboard": leaderboard, "score_distribution": distribution, "technologies": technologies}
+
+    def repository_detail(self, session_id, repository_id):
+        repository = self.get_repository(session_id, repository_id)
+        if not repository: return None
+        repository["insights"] = self.repository.related_data(repository_id)
+        return repository
+
+    def session_insights(self, session_id):
+        rows = self.list_repositories(session_id)
+        completed = [row for row in rows if row["status"] == "Completed"]
+        distribution = {"0-7": 0, "8-11": 0, "12-15": 0, "16-20": 0}
+        for row in completed:
+            score = float(row.get("normalized_to_20") or 0)
+            distribution["0-7" if score < 8 else "8-11" if score < 12 else "12-15" if score < 16 else "16-20"] += 1
+        timeline = sorted(({"repository_id": row["id"], "roll_number": row["roll_number"], "repo_url": row["repo_url"],
+            "status": row["status"], "at": row["evaluated_at"] or row["updated_at"]} for row in rows), key=lambda item: item["at"], reverse=True)[:12]
+        return {"score_distribution": distribution, "technologies": self.repository.technologies_for_session(session_id), "timeline": timeline}
+
+    def search(self, query):
+        sessions, repositories = self.repository.search(query)
+        return ([{"label": row["label"], "hint": f"{row['hint']} session", "url": f"/sessions/{row['id']}"} for row in sessions] +
+                [{"label": row["label"], "hint": row["hint"], "url": f"/sessions/{row['session_id']}/repositories/{row['id']}"} for row in repositories])

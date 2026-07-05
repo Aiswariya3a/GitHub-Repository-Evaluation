@@ -39,10 +39,15 @@ args = parser.parse_args()
 from services.repository_service import RepositoryService
 from services.github_service import GitHubService
 from services.analysis_service import AnalysisService
+from services.rubric_service import RubricService
+from repositories.session_repository import SessionRepository
 
 session_store = RepositoryService()
 github_service = GitHubService(GITHUB_TOKEN, CLONE_DIR)
 analysis_service = AnalysisService(session_store)
+rubric_service = RubricService()
+evaluation_session = SessionRepository().get(args.session_id)
+rubric = rubric_service.get_version(evaluation_session["rubric_version_id"])
 repos = [
     repository for repository in session_store.list_repositories(args.session_id)
     if repository["status"] == "Evaluating"
@@ -356,6 +361,53 @@ Code to evaluate:
         return {"error": "JSON parsing failed", "details": str(e)}
 
 
+def evaluate_code_dynamic(code, roll, rubric_config):
+    """Evaluate with a stored custom rubric; the built-in evaluator above is never routed here."""
+    if not code.strip():
+        return {"error": "No meaningful student code found"}
+    schema = {category["code"]: {
+        **{criterion["criterion_key"]: {"score": 0, "remarks": ""} for criterion in category["criteria"]},
+        "total": 0,
+    } for category in rubric_config["categories"]}
+    constraints = "\n".join(
+        f"- {category['code']} ({category['name']}): max {float(category['max_score'])}; " +
+        ", ".join(f"{criterion['criterion_key']} max {float(criterion['max_score'])}" for criterion in category["criteria"])
+        for category in rubric_config["categories"]
+    )
+    prompt = f"""You are an expert software-project evaluator.
+Evaluate only the supplied repository code against the rubric below. Be strict and constructive.
+Return ONLY valid JSON using this exact structure:
+{json.dumps({'roll_number': roll, 'questions': schema, 'final': {'total_out_of_max': 0, 'normalized_to_20': 0, 'overall_remarks': ''}}, indent=2)}
+
+Rubric: {rubric_config['name']} version {rubric_config['version']}
+{constraints}
+
+Code to evaluate:
+{code[:15000]}"""
+    try:
+        text = model.generate_content(prompt).text.strip()
+        text = re.sub(r"^```json\s*", "", text); text = re.sub(r"\s*```$", "", text).strip()
+        data = json.loads(text[text.find("{"):text.rfind("}")+1])
+        total = 0
+        for category in rubric_config["categories"]:
+            question = data.setdefault("questions", {}).setdefault(category["code"], {})
+            category_total = 0
+            for criterion in category["criteria"]:
+                value = question.setdefault(criterion["criterion_key"], {"score": 0, "remarks": ""})
+                try: score = float(value.get("score", 0))
+                except (TypeError, ValueError): score = 0
+                score = max(0, min(score, float(criterion["max_score"])))
+                value["score"] = round(score, 2); category_total += score
+            question["total"] = round(category_total, 2); total += category_total
+        maximum = float(rubric_config["total_score"] or 1)
+        data["final"] = {**data.get("final", {}), "total_out_of_80": round(total, 2),
+                         "total_out_of_max": round(total, 2), "max_score": maximum,
+                         "normalized_to_20": round(total / maximum * 20, 2)}
+        return data
+    except Exception as exc:
+        return {"error": "JSON parsing failed", "details": str(exc)}
+
+
 # -----------------------------
 # MAIN
 # -----------------------------
@@ -399,7 +451,7 @@ for i, row in enumerate(repos):
 
     eval_code = added_code if added_code.strip() else trans_code
 
-    evaluation = evaluate_code(eval_code, roll)
+    evaluation = evaluate_code(eval_code, roll) if rubric["is_default"] else evaluate_code_dynamic(eval_code, roll, rubric)
 
     repo_result = {
         "roll_number": roll,
@@ -408,7 +460,7 @@ for i, row in enumerate(repos):
         "readme_exists": readme,
         "commit_count": commit_count
     }
-    analysis_service.save_result(row["id"], repo_result, evaluation)
+    analysis_service.save_result(row["id"], repo_result, evaluation, rubric["version_id"])
 
     time.sleep(1.2)
 

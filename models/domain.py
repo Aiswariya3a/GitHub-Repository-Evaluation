@@ -12,6 +12,7 @@ class EvaluationSession:
     status: str
     created_at: datetime
     updated_at: datetime
+    rubric_version_id: UUID
 
 
 @dataclass(frozen=True)
@@ -34,3 +35,4 @@ class Evaluation:
     overall_remarks: str
     created_at: datetime
     updated_at: datetime
+    rubric_version_id: UUID

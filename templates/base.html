@@ -6,12 +6,33 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
 </head>
 <body>
-  <nav class="topbar"><a class="brand" href="{{ url_for('session.dashboard') }}"><span>RE</span> Repository Evaluation</a><a href="{{ url_for('session.dashboard') }}">Sessions</a></nav>
-  <main class="app-shell">
+  <nav class="topbar"><a class="brand" href="{{ url_for('session.dashboard') }}"><span>RE</span> Repository Evaluation</a><button class="command-trigger" type="button" onclick="openCommandPalette()"><span>Search sessions and repositories</span><kbd>Ctrl K</kbd></button><div class="topbar-actions"><span class="nav-location">{{ title }}</span><span class="avatar">AD</span></div></nav>
+  <div class="application-layout"><aside class="sidebar"><nav>
+    <a class="{{ 'active' if request.endpoint == 'session.dashboard' }}" href="{{ url_for('session.dashboard') }}">Dashboard</a>
+    <a class="{{ 'active' if request.endpoint in ['session.sessions_page','session.detail','repository.detail'] }}" href="{{ url_for('session.sessions_page') }}">Sessions</a>
+    <div class="subnav"><a href="{{ url_for('session.sessions_page') }}#activeSessions">Active</a><a href="{{ url_for('session.sessions_page') }}#completedSessions">Completed</a><a href="{{ url_for('session.sessions_page') }}#archivedSessions">Archived</a></div>
+    <a class="{{ 'active' if request.endpoint == 'session.reports_page' }}" href="{{ url_for('session.reports_page') }}">Reports</a>
+    <a class="{{ 'active' if request.endpoint == 'session.analytics_page' }}" href="{{ url_for('session.analytics_page') }}">Analytics</a>
+    <a class="{{ 'active' if request.blueprint == 'rubric' }}" href="{{ url_for('rubric.index') }}">Rubrics</a>
+    <a class="{{ 'active' if request.endpoint == 'session.settings_page' }}" href="{{ url_for('session.settings_page') }}">Settings</a>
+  </nav></aside><main class="app-shell">
     {% with messages = get_flashed_messages() %}{% if messages %}<ul class="flash-list">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>{% endif %}{% endwith %}
     {% block content %}{% endblock %}
-  </main>
+  </main></div>
+  <div id="toastStack" class="toast-stack" aria-live="polite"></div>
+  <dialog id="confirmDialog" class="app-dialog confirm-dialog"><h2 id="confirmTitle">Confirm action</h2><p id="confirmMessage" class="settings-copy"></p><div class="dialog-actions"><button class="secondary-btn" onclick="resolveConfirmation(false)">Cancel</button><button id="confirmAction" class="danger-btn" onclick="resolveConfirmation(true)">Confirm</button></div></dialog>
+  <dialog id="commandPalette" class="command-palette"><div class="command-input"><span>⌕</span><input id="commandSearch" autocomplete="off" placeholder="Search or jump to…"><kbd>Esc</kbd></div><div id="commandResults" class="command-results"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div></dialog>
+  <script>
+  let confirmationResolver=null,commandItems=[];
+  function toast(message,tone='success'){const item=document.createElement('div');item.className='toast '+tone;item.innerHTML=`<span>${tone==='success'?'✓':'!'}</span><p>${message}</p>`;toastStack.appendChild(item);requestAnimationFrame(()=>item.classList.add('show'));setTimeout(()=>{item.classList.remove('show');setTimeout(()=>item.remove(),250)},3500)}
+  function confirmAction(message,title='Confirm action'){confirmTitle.textContent=title;confirmMessage.textContent=message;confirmDialog.showModal();return new Promise(resolve=>confirmationResolver=resolve)}
+  function resolveConfirmation(value){confirmDialog.close();if(confirmationResolver)confirmationResolver(value);confirmationResolver=null}
+  async function openCommandPalette(){commandPalette.showModal();commandSearch.value='';commandSearch.focus();commandItems=[{label:'Dashboard',hint:'Overview',url:'/'},{label:'Sessions',hint:'All sessions',url:'/sessions'},{label:'Reports',hint:'Downloads',url:'/reports'},{label:'Analytics',hint:'Insights',url:'/analytics'}];renderCommands('')}
+  async function renderCommands(query){let matches=commandItems;if(query.trim()){const data=await fetch('/api/search?q='+encodeURIComponent(query)).then(r=>r.json());matches=data.results}commandResults.innerHTML=matches.slice(0,12).map((x,i)=>`<a href="${x.url}" class="command-result"><span>${x.label}</span><small>${x.hint}</small>${i===0?'<kbd>Enter</kbd>':''}</a>`).join('')||'<p class="empty-state">No matching session or repository.</p>'}
+  commandSearch.addEventListener('input',e=>renderCommands(e.target.value));commandSearch.addEventListener('keydown',e=>{if(e.key==='Enter'){const first=commandResults.querySelector('a');if(first)location.href=first.href}});document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openCommandPalette()}if(e.key==='Escape'&&commandPalette.open)commandPalette.close()});
+  </script>
 </body>
 </html>

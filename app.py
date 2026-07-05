@@ -5,11 +5,13 @@ from flask import Flask
 
 load_dotenv()
 
-from controllers import EvaluationController, ReportController, RepositoryController, SessionController
+from controllers import EvaluationController, ReportController, RepositoryController, RubricController, SessionController
 from services.container import ServiceContainer
 
 
 ROOT = Path(__file__).resolve().parent
+# All HTTP routes are registered through controller blueprints; touching this
+# factory also guarantees Flask reloads versioned rubric and dashboard changes.
 
 
 def create_app(service_container=None):
@@ -20,6 +22,7 @@ def create_app(service_container=None):
     app.register_blueprint(RepositoryController.blueprint)
     app.register_blueprint(EvaluationController.blueprint)
     app.register_blueprint(ReportController.blueprint)
+    app.register_blueprint(RubricController.blueprint)
     return app
 
 

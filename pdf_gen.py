@@ -9,6 +9,8 @@ from PyPDF2 import PdfMerger
 import argparse
 
 from services.repository_service import RepositoryService
+from repositories.session_repository import SessionRepository
+from services.rubric_service import RubricService
 
 
 def normalize_roll(value):
@@ -58,7 +60,44 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--session-id", required=True)
 args = parser.parse_args()
 store = RepositoryService()
+session_record = SessionRepository().get(args.session_id)
 saved_repositories = [repo for repo in store.list_repositories(args.session_id) if repo["status"] == "Completed"]
+
+
+def resolve_rubric_snapshot(repo_row=None):
+    version_id = None
+    if isinstance(repo_row, dict):
+        version_id = repo_row.get("evaluation_rubric_version_id") or repo_row.get("rubric_version_id")
+    if not version_id:
+        version_id = session_record.get("rubric_version_id")
+    rubric_config = RubricService().get_version(version_id) if version_id else None
+    if rubric_config:
+        return {
+            "name": rubric_config.get("name") or session_record.get("rubric_name") or "C Programming - Banking Transaction Assignment",
+            "version": rubric_config.get("version") or session_record.get("rubric_version") or 1,
+            "type": rubric_config.get("rubric_type") or session_record.get("rubric_type") or "System",
+            "config": rubric_config,
+            "max_score": float(rubric_config.get("total_score", 80) or 80),
+            "category_max_scores": {item["code"]: float(item["max_score"]) for item in rubric_config.get("categories", [])},
+            "question_titles": {item["code"]: item["name"] for item in rubric_config.get("categories", [])},
+        }
+    return {
+        "name": session_record.get("rubric_name") or "C Programming - Banking Transaction Assignment",
+        "version": session_record.get("rubric_version") or 1,
+        "type": session_record.get("rubric_type") or "System",
+        "config": None,
+        "max_score": 80,
+        "category_max_scores": {},
+        "question_titles": {},
+    }
+
+
+report_rubric = resolve_rubric_snapshot(saved_repositories[0] if saved_repositories else None)
+rubric_name = report_rubric["name"]
+rubric_version = report_rubric["version"]
+rubric_type = report_rubric["type"]
+rubric_max_score = report_rubric["max_score"]
+category_max_scores = report_rubric["category_max_scores"]
 repo_df = pd.DataFrame([repo["repo_data"] for repo in saved_repositories], columns=["roll_number", "repo", "public", "readme_exists", "commit_count"])
 eval_df = pd.DataFrame([
     {**repo["evaluation_data"], "evaluation": json.dumps(repo["evaluation_data"]["evaluation"])}
@@ -88,18 +127,7 @@ section_style = ParagraphStyle(name="section", parent=styles["Heading3"], textCo
 body_style = ParagraphStyle(name="body", parent=styles["BodyText"], fontSize=9, leading=12)
 
 # Question metadata for display
-question_info = {
-    "Q1A": "Program Compilation and Execution",
-    "Q1B": "Program Analysis and Debugging",
-    "Q2A": "Searching using Arrays and Strings",
-    "Q2B": "Sorting Account Records",
-    "Q3A": "Functional Decomposition",
-    "Q3B": "Pointer-Based Operations",
-    "Q4A": "Structure Enhancement",
-    "Q4B": "New Banking Feature Implementation",
-    "Q5A": "File Generation and Verification",
-    "Q5B": "Optimization and Error Handling",
-}
+question_info = {}
 
 
 def get_plagiarism(roll):
@@ -155,6 +183,14 @@ for roll in all_rolls:
     repo = repo_map.loc[roll].to_dict() if roll in repo_map.index else {}
     eval_row = eval_map.loc[roll].to_dict() if roll in eval_map.index else {}
     evaluation = eval_row.get("evaluation_obj", {})
+    rubric_snapshot = resolve_rubric_snapshot(repo)
+    rubric_name = rubric_snapshot["name"]
+    rubric_version = rubric_snapshot["version"]
+    rubric_type = rubric_snapshot["type"]
+    rubric_config = rubric_snapshot["config"]
+    rubric_max_score = rubric_snapshot["max_score"]
+    category_max_scores = rubric_snapshot["category_max_scores"]
+    question_titles = rubric_snapshot["question_titles"]
 
     doc = SimpleDocTemplate(
         f"student_reports/{roll}.pdf",
@@ -171,6 +207,7 @@ for roll in all_rolls:
     content.append(Spacer(1, 8))
     content.append(Paragraph(f"<b>Roll Number:</b> {roll}", body_style))
     content.append(Paragraph(f"<b>Repository:</b> {repo.get('repo') or eval_row.get('repo') or 'Not available'}", body_style))
+    content.append(Paragraph(f"<b>Rubric:</b> {rubric_name} · Version {rubric_version} · {rubric_type}", body_style))
     content.append(Spacer(1, 10))
 
     # Repository Information
@@ -207,7 +244,7 @@ for roll in all_rolls:
     content.append(Paragraph("FINAL SCORE SUMMARY", subtitle_style))
     summary_table = Table(
         [
-            [Paragraph("<b>Total Out of 80</b>", body_style), Paragraph(str(total_out_of_80), body_style)],
+            [Paragraph(f"<b>Total Out of {rubric_max_score:g}</b>", body_style), Paragraph(str(total_out_of_80), body_style)],
             [Paragraph("<b>Normalized to 20</b>", body_style), Paragraph(str(normalized_to_20), body_style)],
         ],
         colWidths=[200, 310],
@@ -239,9 +276,9 @@ for roll in all_rolls:
                 continue
             
             # Question header
-            question_title = question_info.get(question_id, question_id)
+            question_title = question_titles.get(question_id, question_info.get(question_id, question_id)) or question_id
             question_total = question_data.get("total", 0)
-            content.append(Paragraph(f"<b>{question_id}: {question_title}</b> (Total: {question_total}/8)", section_style))
+            content.append(Paragraph(f"<b>{question_id}: {question_title}</b> (Total: {question_total}/{category_max_scores.get(question_id, 8):g})", section_style))
             
             # Question evaluation table
             content.append(build_question_table(question_data))
@@ -315,6 +352,8 @@ def generate_preamble():
     # Title
     content.append(Paragraph("Consolidated Evaluation Report", title_style))
     content.append(Spacer(1, 14))
+    content.append(Paragraph(f"<b>Rubric:</b> {report_rubric['name']} · Version {report_rubric['version']} · {report_rubric['type']}", body_style))
+    content.append(Spacer(1, 10))
 
     # Summary Statistics
     content.append(Paragraph("SUMMARY STATISTICS", section_style))
@@ -322,10 +361,10 @@ def generate_preamble():
         [
             [Paragraph("<b>Total Students</b>", body_style), Paragraph(str(total_students), body_style)],
             [Paragraph("<b>Evaluated Students</b>", body_style), Paragraph(str(evaluated_students), body_style)],
-            [Paragraph("<b>Average Score (out of 80)</b>", body_style), Paragraph(f"{avg_score_80}", body_style)],
+            [Paragraph(f"<b>Average Score (out of {rubric_max_score:g})</b>", body_style), Paragraph(f"{avg_score_80}", body_style)],
             [Paragraph("<b>Average Score (out of 20)</b>", body_style), Paragraph(f"{avg_score_20}", body_style)],
-            [Paragraph("<b>Highest Score (out of 80)</b>", body_style), Paragraph(str(max_score_80), body_style)],
-            [Paragraph("<b>Lowest Score (out of 80)</b>", body_style), Paragraph(str(min_score_80), body_style)],
+            [Paragraph(f"<b>Highest Score (out of {rubric_max_score:g})</b>", body_style), Paragraph(str(max_score_80), body_style)],
+            [Paragraph(f"<b>Lowest Score (out of {rubric_max_score:g})</b>", body_style), Paragraph(str(min_score_80), body_style)],
             [Paragraph("<b>Plagiarism Cases (≥ 0.80)</b>", body_style), Paragraph(str(len(high_plag)), body_style)],
         ],
         colWidths=[250, 260],
@@ -346,7 +385,7 @@ def generate_preamble():
     content.append(Paragraph("STUDENT COVERAGE OVERVIEW", subtitle_style))
     overview_rows = [[
         Paragraph("<b>Roll No</b>", body_style),
-        Paragraph("<b>Out of 80</b>", body_style),
+        Paragraph(f"<b>Out of {rubric_max_score:g}</b>", body_style),
         Paragraph("<b>Out of 20</b>", body_style),
         Paragraph("<b>Commits</b>", body_style),
         Paragraph("<b>Public</b>", body_style),

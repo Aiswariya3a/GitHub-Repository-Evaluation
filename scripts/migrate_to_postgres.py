@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT))
 from database import connect, initialize_database
 from services.session_service import SessionService
 from services.repository_service import RepositoryService
+from services.rubric_service import RubricService
 
 
 SOURCE = ROOT / "data" / "evaluation_sessions.db"
@@ -39,7 +40,7 @@ def as_bool(value):
     return str(value).strip().lower() in {"true", "1", "yes"}
 
 
-def migrate_legacy_reports(repositories):
+def migrate_legacy_reports(repositories, default_version):
     repo_rows = csv_rows("repo_report.csv")
     evaluation_rows = csv_rows("evaluation_report.csv")
     plagiarism_rows = csv_rows("plagiarism_report.csv")
@@ -48,9 +49,9 @@ def migrate_legacy_reports(repositories):
     session_id = uuid.uuid5(uuid.NAMESPACE_URL, "repository-evaluation:legacy-reports")
     with connect() as db:
         db.execute(
-            """INSERT INTO evaluation_sessions(id,name,description,status)
-            VALUES (%s,'Imported legacy reports','Imported from the former global CSV persistence.','Completed')
-            ON CONFLICT(id) DO NOTHING""", (session_id,)
+            """INSERT INTO evaluation_sessions(id,name,description,status,rubric_version_id)
+            VALUES (%s,'Imported legacy reports','Imported from the former global CSV persistence.','Completed',%s)
+            ON CONFLICT(id) DO NOTHING""", (session_id,default_version)
         )
     repo_by_roll = {str(row.get("roll_number", "")).strip(): row for row in repo_rows}
     eval_by_roll = {str(row.get("roll_number", "")).strip(): row for row in evaluation_rows}
@@ -69,7 +70,7 @@ def migrate_legacy_reports(repositories):
             "public": as_bool(repo_row.get("public")),
             "readme_exists": as_bool(repo_row.get("readme_exists")),
             "commit_count": int(float(repo_row.get("commit_count") or 0)),
-        }, evaluation)
+        }, evaluation, default_version)
     repositories.save_plagiarism(session_id, [{
         "roll1": row.get("roll1", ""), "roll2": row.get("roll2", ""),
         "similarity": float(row.get("similarity") or 0),
@@ -79,7 +80,8 @@ def migrate_legacy_reports(repositories):
 def main():
     load_dotenv(ROOT / ".env")
     initialize_database()
-    SessionService()
+    rubrics=RubricService()
+    SessionService(default_rubric_version_id=rubrics.default_version_id)
     repositories = RepositoryService()
     if SOURCE.exists():
         source = sqlite3.connect(SOURCE)
@@ -87,9 +89,9 @@ def main():
         with connect() as target:
             for session in source.execute("SELECT * FROM evaluation_sessions"):
                 target.execute(
-                    """INSERT INTO evaluation_sessions(id,name,description,status,created_at,updated_at)
-                    VALUES (%s,%s,%s,%s,%s,%s) ON CONFLICT(id) DO NOTHING""",
-                    (session["id"], session["name"], session["description"], session["status"], session["created_at"], session["updated_at"]),
+                    """INSERT INTO evaluation_sessions(id,name,description,status,created_at,updated_at,rubric_version_id)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s) ON CONFLICT(id) DO NOTHING""",
+                    (session["id"], session["name"], session["description"], session["status"], session["created_at"], session["updated_at"],rubrics.default_version_id),
                 )
             for repository in source.execute("SELECT * FROM session_repositories"):
                 repo_data, evaluation_row = decode(repository["repo_data"]), decode(repository["evaluation_data"])
@@ -106,11 +108,11 @@ def main():
                     evaluation = evaluation_row.get("evaluation", evaluation_row)
                     if isinstance(evaluation, str):
                         evaluation = json.loads(evaluation)
-                    repositories.save_repository_evaluation(repository["id"], repo_data, evaluation)
+                    repositories.save_repository_evaluation(repository["id"], repo_data, evaluation, rubrics.default_version_id)
             for item in source.execute("SELECT roll1,roll2,similarity,session_id FROM plagiarism_results"):
                 repositories.save_plagiarism(item["session_id"], [dict(item)])
         source.close()
-    migrate_legacy_reports(repositories)
+    migrate_legacy_reports(repositories, rubrics.default_version_id)
     print("Legacy session data migrated to PostgreSQL.")
 
 

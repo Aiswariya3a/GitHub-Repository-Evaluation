@@ -1,5 +1,26 @@
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
+CREATE TABLE IF NOT EXISTS rubrics (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(), name TEXT NOT NULL, description TEXT NOT NULL DEFAULT '',
+    rubric_type TEXT NOT NULL CHECK(rubric_type IN ('System','Custom')), is_default BOOLEAN NOT NULL DEFAULT FALSE,
+    is_read_only BOOLEAN NOT NULL DEFAULT FALSE, is_archived BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(), updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE TABLE IF NOT EXISTS rubric_versions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(), rubric_id UUID NOT NULL REFERENCES rubrics(id) ON DELETE CASCADE,
+    version INTEGER NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT now(), UNIQUE(rubric_id,version)
+);
+CREATE TABLE IF NOT EXISTS rubric_categories (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(), rubric_version_id UUID NOT NULL REFERENCES rubric_versions(id) ON DELETE CASCADE,
+    code TEXT NOT NULL, name TEXT NOT NULL, max_score NUMERIC(8,2) NOT NULL, sort_order INTEGER NOT NULL DEFAULT 0,
+    UNIQUE(rubric_version_id,code)
+);
+CREATE TABLE IF NOT EXISTS rubric_criteria (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(), category_id UUID NOT NULL REFERENCES rubric_categories(id) ON DELETE CASCADE,
+    criterion_key TEXT NOT NULL, name TEXT NOT NULL, max_score NUMERIC(8,2) NOT NULL, sort_order INTEGER NOT NULL DEFAULT 0,
+    UNIQUE(category_id,criterion_key)
+);
+
 CREATE TABLE IF NOT EXISTS evaluation_sessions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL,
@@ -8,6 +29,7 @@ CREATE TABLE IF NOT EXISTS evaluation_sessions (
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+ALTER TABLE evaluation_sessions ADD COLUMN IF NOT EXISTS rubric_version_id UUID REFERENCES rubric_versions(id);
 
 CREATE TABLE IF NOT EXISTS repositories (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -36,6 +58,9 @@ CREATE TABLE IF NOT EXISTS evaluations (
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+ALTER TABLE evaluations ADD COLUMN IF NOT EXISTS rubric_version_id UUID REFERENCES rubric_versions(id);
+ALTER TABLE evaluations ADD COLUMN IF NOT EXISTS total_score NUMERIC(8,2);
+ALTER TABLE evaluations ADD COLUMN IF NOT EXISTS max_score NUMERIC(8,2);
 
 CREATE TABLE IF NOT EXISTS evaluation_questions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -72,6 +97,10 @@ CREATE TABLE IF NOT EXISTS evaluation_metadata (id UUID PRIMARY KEY DEFAULT gen_
 CREATE TABLE IF NOT EXISTS plagiarism_results (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), session_id UUID NOT NULL REFERENCES evaluation_sessions(id) ON DELETE CASCADE, repository1_id UUID REFERENCES repositories(id) ON DELETE CASCADE, repository2_id UUID REFERENCES repositories(id) ON DELETE CASCADE, roll1 TEXT NOT NULL, roll2 TEXT NOT NULL, similarity DOUBLE PRECISION NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT now(), updated_at TIMESTAMPTZ NOT NULL DEFAULT now(), UNIQUE(session_id, roll1, roll2));
 
 CREATE INDEX IF NOT EXISTS idx_sessions_status ON evaluation_sessions(status);
+CREATE INDEX IF NOT EXISTS idx_sessions_rubric ON evaluation_sessions(rubric_version_id);
+CREATE INDEX IF NOT EXISTS idx_rubric_versions_rubric ON rubric_versions(rubric_id);
+CREATE INDEX IF NOT EXISTS idx_rubric_categories_version ON rubric_categories(rubric_version_id);
+CREATE INDEX IF NOT EXISTS idx_rubric_criteria_category ON rubric_criteria(category_id);
 CREATE INDEX IF NOT EXISTS idx_repositories_session ON repositories(session_id);
 CREATE INDEX IF NOT EXISTS idx_repositories_status ON repositories(session_id, evaluation_status);
 CREATE INDEX IF NOT EXISTS idx_evaluations_repository ON evaluations(repository_id);

@@ -1,8 +1,24 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, abort, jsonify, render_template, request
 
 from .common import services
 
 repository_controller = Blueprint("repository", __name__)
+
+@repository_controller.get("/api/search")
+def search_api():
+    query = request.args.get("q", "").strip()
+    return jsonify(results=services().repositories.search(query))
+
+@repository_controller.get("/sessions/<session_id>/repositories/<repository_id>")
+def detail(session_id, repository_id):
+    repository = services().repositories.get_repository(session_id, repository_id)
+    if not repository: abort(404)
+    return render_template("repository_detail.html", title=repository["roll_number"], session_id=session_id, repository_id=repository_id)
+
+@repository_controller.get("/api/sessions/<session_id>/repositories/<repository_id>")
+def detail_api(session_id, repository_id):
+    repository = services().repositories.repository_detail(session_id, repository_id)
+    return jsonify(repository=repository) if repository else (jsonify(error="Repository not found."), 404)
 
 @repository_controller.post("/api/sessions/<session_id>/repositories")
 def add_api(session_id):

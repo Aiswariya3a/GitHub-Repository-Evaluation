@@ -1,5 +1,20 @@
 # Automated GitHub Repository Evaluation & Plagiarism Detection
 
+## Evaluation sessions
+
+The web application is organized around persistent evaluation sessions. Each
+session owns its repositories and saved evaluator output, can be resumed,
+completed, archived, or deleted, and generates PDF reports without re-running
+evaluation.
+
+Run `python app.py`, open `http://localhost:5000`, create a session, add
+repositories, and evaluate the pending entries. JSON integrations are available
+under `/api/sessions`.
+
+Session data is stored in `data/evaluation_sessions.db`. The `services/`
+package contains persistence, evaluation orchestration, and saved-data report
+generation. The evaluator in `main.py` is unchanged.
+
 This project is a **Python-based evaluation pipeline** that:
 
 * Validates student GitHub repositories

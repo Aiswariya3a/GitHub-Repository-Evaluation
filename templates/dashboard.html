@@ -1,0 +1,23 @@
+{% extends "base.html" %}{% block content %}
+<header class="page-heading"><div><p class="eyebrow">Workspace</p><h1>Evaluation sessions</h1><p class="hero-copy">Create a durable workspace for each evaluation batch. Results remain ready when you return.</p></div></header>
+<section class="stats-grid dashboard-stats">
+  <article class="metric-card metric-indigo"><p class="metric-label">All sessions</p><p class="metric-value">{{ sessions|length }}</p></article>
+  <article class="metric-card metric-emerald"><p class="metric-label">Active</p><p class="metric-value">{{ active_count }}</p></article>
+  <article class="metric-card metric-amber"><p class="metric-label">Completed</p><p class="metric-value">{{ completed_count }}</p></article>
+</section>
+<section class="dashboard-grid">
+  <section class="panel"><div class="panel-header"><div><p class="eyebrow">New workspace</p><h2>Create a session</h2></div></div>
+    <form method="post" action="{{ url_for('create_session') }}" class="input-form">
+      <label for="name">Session name</label><input id="name" name="name" required placeholder="Semester 5 · Batch A">
+      <label for="description">Description <span class="muted">optional</span></label><textarea id="description" name="description" rows="4" placeholder="Add context for this evaluation batch"></textarea>
+      <button class="primary-btn" type="submit">Create session</button>
+    </form>
+  </section>
+  <section class="panel panel-large"><div class="panel-header"><div><p class="eyebrow">History</p><h2>Your sessions</h2></div></div>
+    <div class="session-list">{% for item in sessions %}<a class="session-card" href="{{ url_for('view_session', session_id=item.id) }}">
+      <div><span class="status-badge session-{{ item.status|lower }}">{{ item.status }}</span><h3>{{ item.name }}</h3><p>{{ item.description or 'No description' }}</p></div>
+      <div class="session-meta"><strong>{{ item.evaluated_count or 0 }}/{{ item.repository_count }}</strong><span>evaluated</span><time>{{ item.created_at[:10] }}</time></div>
+    </a>{% else %}<p class="empty-state">No sessions yet. Create the first one to begin.</p>{% endfor %}</div>
+  </section>
+</section>
+{% endblock %}

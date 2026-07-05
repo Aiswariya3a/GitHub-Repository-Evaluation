@@ -1,259 +1,236 @@
 from __future__ import annotations
 
 import json
-import subprocess
-import sys
 from pathlib import Path
 
-import pandas as pd
-from flask import Flask, flash, redirect, render_template, request, send_file, url_for
+from flask import Flask, abort, flash, jsonify, redirect, render_template, request, send_file, url_for
 
+from services.evaluation_service import EvaluationService
+from services.report_service import ReportService
+from services.session_service import SessionService, VALID_STATUSES
+
+
+ROOT = Path(__file__).resolve().parent
 app = Flask(__name__)
 app.secret_key = "repo-eval-workflow"
-ROOT = Path(__file__).resolve().parent
+sessions = SessionService(ROOT / "data" / "evaluation_sessions.db")
+sessions.recover_interrupted_evaluations()
+evaluator = EvaluationService(ROOT, sessions)
+reports = ReportService(ROOT, sessions)
 
 
-def read_csv_if_available(path: Path) -> pd.DataFrame:
-    if not path.exists() or path.stat().st_size == 0:
-        return pd.DataFrame()
-
-    try:
-        return pd.read_csv(path)
-    except Exception:
-        return pd.DataFrame()
-
-
-def parse_evaluation(payload: object) -> dict[str, object]:
-    if payload is None or pd.isna(payload):
-        return {
-            "score": 0,
-            "normalized": 0.0,
-            "remarks": "No evaluation available yet.",
-            "status": "Pending",
-        }
-
-    try:
-        data = payload if isinstance(payload, dict) else json.loads(str(payload))
-    except Exception:
-        return {
-            "score": 0,
-            "normalized": 0.0,
-            "remarks": "Evaluation payload could not be parsed.",
-            "status": "Pending",
-        }
-
-    final = data.get("final", {}) or {}
-    total = float(final.get("total_out_of_80", 0) or 0)
-    normalized = float(final.get("normalized_to_20", round(total / 4, 2)) or 0)
-    remarks = str(final.get("overall_remarks", "Evaluation completed."))
-
-    if normalized >= 16:
-        status = "Strong"
-    elif normalized >= 12:
-        status = "On track"
-    elif normalized >= 8:
-        status = "Needs review"
-    else:
-        status = "Needs attention"
-
-    return {
-        "score": int(total),
-        "normalized": round(normalized, 2),
-        "remarks": remarks,
-        "status": status,
-    }
-
-
-def build_dashboard_context() -> tuple[list[dict], list[dict], list[dict], dict]:
-    repo_df = read_csv_if_available(ROOT / "repo_report.csv")
-    evaluation_df = read_csv_if_available(ROOT / "evaluation_report.csv")
-    plagiarism_df = read_csv_if_available(ROOT / "plagiarism_report.csv")
-
-    if not repo_df.empty:
-        repo_df = repo_df.copy()
-        repo_df.columns = [str(c).strip() for c in repo_df.columns]
-
-    if not evaluation_df.empty:
-        evaluation_df = evaluation_df.copy()
-        evaluation_df.columns = [str(c).strip() for c in evaluation_df.columns]
-
-    repo_rows: list[dict] = []
-    for _, row in repo_df.iterrows():
-        roll = str(row.get("roll_number", "")).strip()
-        repo_url = str(row.get("repo", "")).strip() or "Repository unavailable"
-        public = bool(row.get("public", False)) if not pd.isna(row.get("public", False)) else False
-        readme = bool(row.get("readme_exists", False)) if not pd.isna(row.get("readme_exists", False)) else False
-        commit_count = int(row.get("commit_count", 0)) if not pd.isna(row.get("commit_count", 0)) else 0
-
-        evaluation_row = None
-        if not evaluation_df.empty:
-            by_roll = evaluation_df[evaluation_df["roll_number"].astype(str).str.strip() == roll] if "roll_number" in evaluation_df.columns else pd.DataFrame()
-            if by_roll.empty and "repo" in evaluation_df.columns:
-                by_roll = evaluation_df[evaluation_df["repo"].astype(str).str.strip() == repo_url]
-            if not by_roll.empty:
-                evaluation_row = by_roll.iloc[0]
-
-        evaluation = parse_evaluation(evaluation_row.get("evaluation") if evaluation_row is not None else None)
-
-        if not public:
-            status = "Blocked"
-        elif not readme:
-            status = "Missing README"
-        else:
-            status = str(evaluation["status"])
-
-        repo_rows.append(
-            {
-                "roll_number": roll,
-                "repo": repo_url,
-                "public": public,
-                "readme": readme,
-                "commit_count": commit_count,
-                "score": int(evaluation["score"]),
-                "normalized": float(evaluation["normalized"]),
-                "remarks": str(evaluation["remarks"]),
-                "status": status,
-                "progress": min(100, max(8, int(float(evaluation["normalized"]) / 20 * 100))),
-            }
-        )
-
-    repo_rows = sorted(repo_rows, key=lambda item: item["normalized"], reverse=True)
-    total_repos = len(repo_rows)
-    ready_count = sum(1 for item in repo_rows if item["status"] in {"Strong", "On track"})
-    public_count = sum(1 for item in repo_rows if item["public"])
-    readme_count = sum(1 for item in repo_rows if item["readme"])
-    average_score = round(sum(item["normalized"] for item in repo_rows) / total_repos, 2) if total_repos else 0.0
-    average_commits = round(sum(item["commit_count"] for item in repo_rows) / total_repos, 1) if total_repos else 0.0
-    plagiarism_count = len(plagiarism_df) if not plagiarism_df.empty else 0
-
-    metrics = [
-        {"label": "Total repositories", "value": total_repos, "tone": "indigo"},
-        {"label": "Ready to review", "value": ready_count, "tone": "emerald"},
-        {"label": "Avg. score", "value": f"{average_score:.1f}/20", "tone": "amber"},
-        {"label": "Plagiarism flags", "value": plagiarism_count, "tone": "red"},
-    ]
-
-    return repo_rows, metrics, [item for item in repo_rows if item["status"] in {"Needs attention", "Missing README", "Blocked"}], {
-        "public_count": public_count,
-        "readme_count": readme_count,
-        "average_commits": average_commits,
-        "top_repos": repo_rows[:4],
-    }
-
-
-def parse_repo_input(urls_text: str, rolls_text: str) -> list[dict]:
+def parse_repo_input(urls_text: str, rolls_text: str):
     urls = [line.strip() for line in urls_text.splitlines() if line.strip()]
     rolls = [line.strip() for line in rolls_text.splitlines() if line.strip()]
-
-    if not urls:
-        return []
-
-    if not rolls:
-        rolls = [f"student-{index + 1}" for index in range(len(urls))]
-    elif len(rolls) < len(urls):
-        rolls.extend([f"student-{index + 1}" for index in range(len(rolls), len(urls))])
-    elif len(rolls) > len(urls):
-        rolls = rolls[: len(urls)]
-
-    return [{"roll": roll, "repo": url} for roll, url in zip(rolls, urls)]
+    rolls += [f"student-{index + 1}" for index in range(len(rolls), len(urls))]
+    return [{"roll": rolls[index], "repo": url} for index, url in enumerate(urls)]
 
 
-def run_evaluation(entries: list[dict]) -> tuple[bool, str]:
+def parse_evaluation(payload):
+    if isinstance(payload, str):
+        try:
+            payload = json.loads(payload)
+        except (TypeError, json.JSONDecodeError):
+            payload = {}
+    final = (payload or {}).get("final", {}) or {}
+    total = float(final.get("total_out_of_80", 0) or 0)
+    normalized = float(final.get("normalized_to_20", total / 4) or 0)
+    if normalized >= 16:
+        label = "Strong"
+    elif normalized >= 12:
+        label = "On track"
+    elif normalized >= 8:
+        label = "Needs review"
+    else:
+        label = "Needs attention"
+    return total, round(normalized, 2), str(final.get("overall_remarks", "Evaluation completed.")), label
+
+
+def as_bool(value):
+    return value is True or str(value).strip().lower() in {"true", "1", "yes"}
+
+
+def session_context(session_id):
+    session = sessions.get_session(session_id)
+    if not session:
+        abort(404)
+    rows = []
+    for repository in sessions.repositories(session_id):
+        repo_data, evaluation_row = repository["repo_data"], repository["evaluation_data"]
+        evaluation = evaluation_row.get("evaluation", {}) if evaluation_row else {}
+        total, normalized, remarks, label = parse_evaluation(evaluation)
+        status = repository["status"]
+        is_public = as_bool(repo_data.get("public", False))
+        has_readme = as_bool(repo_data.get("readme_exists", False))
+        if status == "Completed":
+            if not is_public:
+                label = "Blocked"
+            elif not has_readme:
+                label = "Missing README"
+            status = label
+        rows.append({**repository, "repo": repository["repo_url"], "score": total, "normalized": normalized,
+                     "remarks": remarks, "display_status": status, "commit_count": repo_data.get("commit_count", 0),
+                     "public": is_public, "readme": has_readme,
+                     "progress": 100 if repository["status"] == "Completed" else (50 if repository["status"] == "Evaluating" else 8)})
+    completed = [row for row in rows if row["status"] == "Completed"]
+    average = sum(row["normalized"] for row in completed) / len(completed) if completed else 0
+    return session, rows, {
+        "total": len(rows), "completed": len(completed), "pending": sum(row["status"] in {"Pending", "Failed"} for row in rows),
+        "average": round(average, 1), "public": sum(row["public"] for row in completed),
+        "readme": sum(row["readme"] for row in completed),
+    }
+
+
+@app.get("/")
+def dashboard():
+    all_sessions = sessions.list_sessions()
+    return render_template("dashboard.html", title="Evaluation Sessions", sessions=all_sessions,
+                           active_count=sum(item["status"] == "Active" for item in all_sessions),
+                           completed_count=sum(item["status"] == "Completed" for item in all_sessions))
+
+
+@app.post("/sessions")
+def create_session():
+    try:
+        session = sessions.create_session(request.form.get("name", ""), request.form.get("description", ""))
+        flash("Evaluation session created.")
+        return redirect(url_for("view_session", session_id=session["id"]))
+    except ValueError as exc:
+        flash(str(exc))
+        return redirect(url_for("dashboard"))
+
+
+@app.get("/sessions/<session_id>")
+def view_session(session_id):
+    session, repositories, summary = session_context(session_id)
+    return render_template("session.html", title=session["name"], session=session, repositories=repositories, summary=summary)
+
+
+@app.post("/sessions/<session_id>/repositories")
+def add_repositories(session_id):
+    entries = parse_repo_input(request.form.get("repo_urls", ""), request.form.get("roll_numbers", ""))
     if not entries:
-        return False, "Add at least one repository URL before running the evaluation."
+        flash("Add at least one repository URL.")
+    else:
+        try:
+            added = sessions.add_repositories(session_id, entries)
+            flash(f"Added {added} repositories. Duplicates were left unchanged.")
+        except (LookupError, ValueError) as exc:
+            flash(str(exc))
+    return redirect(url_for("view_session", session_id=session_id))
 
-    backup = None
-    repos_path = ROOT / "repos.csv"
-    if repos_path.exists():
-        backup = repos_path.read_text(encoding="utf-8")
 
+@app.post("/sessions/<session_id>/evaluate")
+def evaluate_session(session_id):
+    session = sessions.get_session(session_id)
+    if not session:
+        abort(404)
+    if session["status"] != "Active":
+        flash("Only active sessions can run evaluations.")
+    else:
+        try:
+            count = evaluator.evaluate_pending(session_id)
+            flash(f"Evaluation completed for {count} repositories." if count else "All repositories already have saved evaluations.")
+        except Exception as exc:
+            flash(f"Evaluation failed: {exc}")
+    return redirect(url_for("view_session", session_id=session_id))
+
+
+@app.post("/sessions/<session_id>/status")
+def update_session_status(session_id):
+    status = request.form.get("status", "")
     try:
-        pd.DataFrame(
-            [{"roll_number": entry["roll"], "repo_url": entry["repo"]} for entry in entries]
-        ).to_csv(repos_path, index=False)
-
-        completed = subprocess.run(
-            [sys.executable, str(ROOT / "main.py")],
-            cwd=str(ROOT),
-            capture_output=True,
-            text=True,
-            timeout=1800,
-        )
-
-        if completed.returncode != 0:
-            return False, completed.stderr.strip() or completed.stdout.strip() or "The evaluator did not complete successfully."
-
-        return True, "Evaluation completed."
-    except subprocess.TimeoutExpired:
-        return False, "The evaluation timed out. Try a smaller batch or check your API configuration."
-    except Exception as exc:
-        return False, f"Evaluation failed: {exc}"
-    finally:
-        if backup is None:
-            repos_path.unlink(missing_ok=True)
-        else:
-            repos_path.write_text(backup, encoding="utf-8")
+        sessions.set_status(session_id, status)
+        flash(f"Session marked {status.lower()}.")
+    except ValueError as exc:
+        flash(str(exc))
+    return redirect(url_for("view_session", session_id=session_id))
 
 
-@app.route("/download-pdf")
-def download_pdf():
+@app.post("/sessions/<session_id>/delete")
+def delete_session(session_id):
+    sessions.delete_session(session_id)
+    flash("Session deleted.")
+    return redirect(url_for("dashboard"))
+
+
+@app.get("/sessions/<session_id>/report")
+def download_report(session_id):
+    if not sessions.get_session(session_id):
+        abort(404)
     try:
-        completed = subprocess.run(
-            [sys.executable, str(ROOT / "pdf_gen.py")],
-            cwd=str(ROOT),
-            capture_output=True,
-            text=True,
-            timeout=1800,
-        )
-
-        if completed.returncode != 0:
-            flash(completed.stderr.strip() or completed.stdout.strip() or "PDF generation failed.")
-            return redirect(url_for("index"))
-
-        pdf_path = ROOT / "Final_Consolidated_Report.pdf"
-        if not pdf_path.exists():
-            flash("The consolidated PDF report was not generated.")
-            return redirect(url_for("index"))
-
-        return send_file(pdf_path, as_attachment=True, download_name="Final_Consolidated_Report.pdf")
-    except subprocess.TimeoutExpired:
-        flash("PDF generation timed out. Please try again.")
-        return redirect(url_for("index"))
+        temp, path = reports.generate(session_id)
+        response = send_file(path, as_attachment=True, download_name=f"session-{session_id}-report.pdf")
+        response.call_on_close(temp.cleanup)
+        return response
     except Exception as exc:
-        flash(f"PDF generation failed: {exc}")
-        return redirect(url_for("index"))
+        flash(str(exc))
+        return redirect(url_for("view_session", session_id=session_id))
 
 
-@app.route("/", methods=["GET", "POST"])
-def index():
-    repo_rows, metrics, needs_attention, summary = build_dashboard_context()
-    message = None
+# JSON APIs mirror the browser workflow for integrations and progress polling.
+@app.get("/api/sessions")
+def api_sessions():
+    return jsonify(sessions.list_sessions())
 
-    if request.method == "POST":
-        entries = parse_repo_input(request.form.get("repo_urls", ""), request.form.get("roll_numbers", ""))
-        if not entries:
-            flash("Add at least one repository URL to start an evaluation.")
-        else:
-            success, message = run_evaluation(entries)
-            if success:
-                flash("Evaluation completed. Review the latest results below.")
-            else:
-                flash(message)
 
-        repo_rows, metrics, needs_attention, summary = build_dashboard_context()
+@app.post("/api/sessions")
+def api_create_session():
+    payload = request.get_json(silent=True) or {}
+    try:
+        return jsonify(sessions.create_session(payload.get("name", ""), payload.get("description", ""))), 201
+    except ValueError as exc:
+        return jsonify(error=str(exc)), 400
 
-    return render_template(
-        "index.html",
-        title="Repository Evaluation Studio",
-        subtitle="Paste GitHub links, run the evaluation workflow, and inspect the scored results in one place.",
-        metrics=metrics,
-        repo_rows=repo_rows,
-        needs_attention=needs_attention,
-        summary=summary,
-        message=message,
-        repo_urls=request.form.get("repo_urls", "") if request.method == "POST" else "",
-        roll_numbers=request.form.get("roll_numbers", "") if request.method == "POST" else "",
-    )
+
+@app.get("/api/sessions/<session_id>")
+def api_session(session_id):
+    session, repositories, summary = session_context(session_id)
+    return jsonify(session=session, repositories=repositories, summary=summary)
+
+
+@app.patch("/api/sessions/<session_id>")
+def api_update_session(session_id):
+    payload = request.get_json(silent=True) or {}
+    try:
+        if not sessions.set_status(session_id, payload.get("status", "")):
+            return jsonify(error="Session not found."), 404
+        return jsonify(sessions.get_session(session_id))
+    except ValueError as exc:
+        return jsonify(error=str(exc), allowed_statuses=sorted(VALID_STATUSES)), 400
+
+
+@app.post("/api/sessions/<session_id>/repositories")
+def api_add_repositories(session_id):
+    payload = request.get_json(silent=True) or {}
+    entries = payload.get("repositories", [])
+    normalized = [{"repo": str(item.get("repo_url", "")).strip(),
+                   "roll": str(item.get("roll_number") or f"student-{index + 1}").strip()}
+                  for index, item in enumerate(entries) if str(item.get("repo_url", "")).strip()]
+    try:
+        return jsonify(added=sessions.add_repositories(session_id, normalized)), 201
+    except LookupError as exc:
+        return jsonify(error=str(exc)), 404
+    except ValueError as exc:
+        return jsonify(error=str(exc)), 409
+
+
+@app.post("/api/sessions/<session_id>/evaluate")
+def api_evaluate_session(session_id):
+    session = sessions.get_session(session_id)
+    if not session:
+        return jsonify(error="Session not found."), 404
+    if session["status"] != "Active":
+        return jsonify(error="Only active sessions can run evaluations."), 409
+    try:
+        return jsonify(evaluated=evaluator.evaluate_pending(session_id))
+    except Exception as exc:
+        return jsonify(error=str(exc)), 500
+
+
+@app.delete("/api/sessions/<session_id>")
+def api_delete_session(session_id):
+    return ("", 204) if sessions.delete_session(session_id) else (jsonify(error="Session not found."), 404)
 
 
 if __name__ == "__main__":

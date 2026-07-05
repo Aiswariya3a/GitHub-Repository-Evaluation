@@ -21,6 +21,30 @@ body {
   color: var(--text);
   min-height: 100vh;
 }
+.topbar { height: 68px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 max(24px, calc((100vw - 1440px) / 2 + 24px)); background: rgba(2, 6, 23, .82); backdrop-filter: blur(16px); position: sticky; top: 0; z-index: 10; }
+.topbar a { color: var(--muted); text-decoration: none; font-weight: 600; }
+.topbar .brand { color: var(--text); display: flex; align-items: center; gap: 10px; }
+.brand span { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--indigo); color: white; font-size: .76rem; }
+.page-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding: 28px 4px 22px; }
+.page-heading h1 { margin-bottom: 7px; }
+.dashboard-grid { display: grid; grid-template-columns: minmax(300px,.65fr) minmax(500px,1.35fr); gap: 20px; }
+.dashboard-stats { grid-template-columns: repeat(3, minmax(0,1fr)); margin-bottom: 20px; }
+.session-stats { grid-template-columns: repeat(4, minmax(0,1fr)); margin-bottom: 20px; }
+.session-list { display: flex; flex-direction: column; gap: 10px; }
+.session-card { display: flex; justify-content: space-between; gap: 20px; color: var(--text); text-decoration: none; padding: 18px; border: 1px solid var(--border); border-radius: 18px; background: rgba(2,8,23,.36); transition: border-color 160ms ease, transform 160ms ease; }
+.session-card:hover { border-color: rgba(99,102,241,.7); transform: translateY(-1px); }
+.session-card h3 { margin: 10px 0 5px; }
+.session-card p { color: var(--muted); font-size: .9rem; }
+.session-meta { display: grid; min-width: 100px; text-align: right; align-content: center; }
+.session-meta strong { font-size: 1.25rem; }.session-meta span,.session-meta time { color: var(--muted); font-size: .76rem; }
+.session-active { background: rgba(16,185,129,.14); color: #86efac; }.session-completed { background: rgba(79,70,229,.2); color: #c7d2fe; }.session-archived { background: rgba(148,163,184,.12); color: #cbd5e1; }
+.title-row,.action-row { display: flex; align-items: center; gap: 10px; }.title-row { margin: 7px 0; }.title-row h1 { margin: 0; }
+.action-row form { margin: 0; }.back-link { color: #a5b4fc; text-decoration: none; font-size: .86rem; }
+.danger-btn { background: rgba(239,68,68,.14); color: #fda4af; border: 1px solid rgba(239,68,68,.3); }
+input { width: 100%; border: 1px solid rgba(148,163,184,.2); border-radius: 14px; background: rgba(2,8,23,.7); color: var(--text); padding: 12px 14px; font: inherit; }
+input:focus { outline: 2px solid rgba(79,70,229,.35); border-color: var(--indigo); }
+.repo-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 14px; align-items: end; }.repo-form > div { display: flex; flex-direction: column; gap: 8px; }
+.add-panel { margin-bottom: 20px; }.row-error { color: #fda4af; font-size: .74rem; margin-top: 5px; max-width: 260px; }.status-pending,.status-evaluating { background: rgba(245,158,11,.14); color: #fcd34d; }.status-failed { background: rgba(239,68,68,.14); color: #fda4af; }
 
 .app-shell { max-width: 1440px; margin: 0 auto; padding: 24px; }
 .hero-card, .panel, .metric-card {
@@ -181,9 +205,14 @@ th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color
 
 @media (max-width: 960px) {
   .content-grid { grid-template-columns: 1fr; }
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .session-stats { grid-template-columns: repeat(2,1fr); }
+  .repo-form { grid-template-columns: 1fr 1fr; }.repo-form button { grid-column: 1/-1; }
 }
 @media (max-width: 680px) {
   .app-shell { padding: 16px; }
   .hero-card { flex-direction: column; align-items: flex-start; gap: 14px; }
   .summary-strip { grid-template-columns: 1fr; }
+  .page-heading { align-items: flex-start; flex-direction: column; }.action-row { flex-wrap: wrap; }
+  .dashboard-stats,.session-stats { grid-template-columns: 1fr; }.repo-form { grid-template-columns: 1fr; }.session-card { flex-direction: column; }.session-meta { text-align: left; }
 }

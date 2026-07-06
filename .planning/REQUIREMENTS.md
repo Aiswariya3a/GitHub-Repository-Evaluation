@@ -98,56 +98,56 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ING-01 | | Pending |
-| ING-02 | | Pending |
-| ING-03 | | Pending |
-| ING-04 | | Pending |
-| ING-05 | | Pending |
-| ING-06 | | Pending |
-| ING-07 | | Pending |
-| ING-08 | | Pending |
-| AGN-01 | | Pending |
-| AGN-02 | | Pending |
-| AGN-03 | | Pending |
-| AGN-04 | | Pending |
-| AGN-05 | | Pending |
-| AGN-06 | | Pending |
-| EVA-01 | | Pending |
-| EVA-02 | | Pending |
-| EVA-03 | | Pending |
-| EVA-04 | | Pending |
-| EVA-05 | | Pending |
-| EVA-06 | | Pending |
-| EVA-07 | | Pending |
-| FDB-01 | | Pending |
-| FDB-02 | | Pending |
-| FDB-03 | | Pending |
-| ORC-01 | | Pending |
-| ORC-02 | | Pending |
-| ORC-03 | | Pending |
-| ORC-04 | | Pending |
-| ORC-05 | | Pending |
-| ORC-06 | | Pending |
-| ORC-07 | | Pending |
-| OLL-01 | | Pending |
-| OLL-02 | | Pending |
-| OLL-03 | | Pending |
-| OLL-04 | | Pending |
-| OLL-05 | | Pending |
-| TST-01 | | Pending |
-| TST-02 | | Pending |
-| TST-03 | | Pending |
-| TST-04 | | Pending |
-| CLN-01 | | Pending |
-| CLN-02 | | Pending |
-| CLN-03 | | Pending |
-| CLN-04 | | Pending |
-| CLN-05 | | Pending |
+| ING-01 | Phase 1 | Pending |
+| ING-02 | Phase 1 | Pending |
+| ING-03 | Phase 1 | Pending |
+| ING-04 | Phase 1 | Pending |
+| ING-05 | Phase 1 | Pending |
+| ING-06 | Phase 1 | Pending |
+| ING-07 | Phase 1 | Pending |
+| ING-08 | Phase 1 | Pending |
+| AGN-01 | Phase 2 | Pending |
+| AGN-02 | Phase 2 | Pending |
+| AGN-03 | Phase 2 | Pending |
+| AGN-04 | Phase 2 | Pending |
+| AGN-05 | Phase 2 | Pending |
+| AGN-06 | Phase 2 | Pending |
+| EVA-01 | Phase 2 | Pending |
+| EVA-02 | Phase 2 | Pending |
+| EVA-03 | Phase 2 | Pending |
+| EVA-04 | Phase 2 | Pending |
+| EVA-05 | Phase 2 | Pending |
+| EVA-06 | Phase 2 | Pending |
+| EVA-07 | Phase 2 | Pending |
+| FDB-01 | Phase 2 | Pending |
+| FDB-02 | Phase 2 | Pending |
+| FDB-03 | Phase 2 | Pending |
+| ORC-01 | Phase 2 | Pending |
+| ORC-02 | Phase 2 | Pending |
+| ORC-03 | Phase 2 | Pending |
+| ORC-04 | Phase 2 | Pending |
+| ORC-05 | Phase 2 | Pending |
+| ORC-06 | Phase 2 | Pending |
+| ORC-07 | Phase 2 | Pending |
+| OLL-01 | Phase 2 | Pending |
+| OLL-02 | Phase 2 | Pending |
+| OLL-03 | Phase 2 | Pending |
+| OLL-04 | Phase 2 | Pending |
+| OLL-05 | Phase 2 | Pending |
+| TST-01 | Phase 3 | Pending |
+| TST-02 | Phase 3 | Pending |
+| TST-03 | Phase 3 | Pending |
+| TST-04 | Phase 3 | Pending |
+| CLN-01 | Phase 3 | Pending |
+| CLN-02 | Phase 3 | Pending |
+| CLN-03 | Phase 3 | Pending |
+| CLN-04 | Phase 3 | Pending |
+| CLN-05 | Phase 3 | Pending |
 
 **Coverage:**
-- v1 requirements: 44 total
-- Mapped to phases: 0
-- Unmapped: 44 ⚠️
+- v1 requirements: 45 total
+- Mapped to phases: 45 ✓
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-07-06*

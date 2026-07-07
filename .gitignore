@@ -4,3 +4,5 @@ student_reports/
 repos/
 .planning/
 .agents/
+__pycache__/
+*.pyc

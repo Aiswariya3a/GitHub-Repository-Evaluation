@@ -16,6 +16,9 @@ from .ollama_router import (
 from .repo_understanding_agent import RepoUnderstandingAgent
 from .code_understanding_agent import CodeUnderstandingAgent
 from .collaboration_agent import CollaborationAgent
+from .rubric_evaluation_agent import RubricEvaluationAgent, RUBRIC_EVALUATION_SYSTEM_PROMPT
+from .score_aggregator import aggregate_scores
+from .evidence_router import route_evidence, EVIDENCE_ROUTING_MAP
 
 __all__ = [
     "BaseAgent",
@@ -27,7 +30,12 @@ __all__ = [
     "REPO_UNDERSTANDING_SYSTEM_PROMPT",
     "CODE_UNDERSTANDING_SYSTEM_PROMPT",
     "COLLABORATION_SYSTEM_PROMPT",
+    "RUBRIC_EVALUATION_SYSTEM_PROMPT",
     "RepoUnderstandingAgent",
     "CodeUnderstandingAgent",
     "CollaborationAgent",
+    "RubricEvaluationAgent",
+    "aggregate_scores",
+    "route_evidence",
+    "EVIDENCE_ROUTING_MAP",
 ]

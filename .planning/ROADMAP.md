@@ -10,7 +10,7 @@
 
 ## Phases
 
-- [ ] **Phase 1: Ingestion Pipeline** — Build independent data ingestion: clone repos, discover files, parse code, compute metrics, persist to JSON and PostgreSQL
+- [x] **Phase 1: Ingestion Pipeline** — Build independent data ingestion: clone repos, discover files, parse code, compute metrics, persist to JSON and PostgreSQL (completed 2026-07-07)
 - [ ] **Phase 2: Evaluation Pipeline** — Build agents, orchestrator, Ollama integration, rubric evaluation, and feedback generation; full end-to-end pipeline
 - [ ] **Phase 3: Cleanup & Testing** — Remove old monolithic engine, clear old data, add unit/integration/contract tests
 
@@ -47,12 +47,12 @@ Phase 3 (Cleanup & Testing) ─── depends on new pipeline existing
 4. All ingestion artifacts exist as readable JSON files in the session working directory AND are persisted to PostgreSQL tables (repository metadata + code metrics)
 5. Language-agnostic file discovery correctly identifies and parses Python, JavaScript, Java, and other common languages without hardcoded path patterns
 
-**Plans:** 3 plans
+**Plans:** 3/3 plans complete
 
 Plans:
-- [ ] 01-01-PLAN.md — Foundation Layer: models, config, GitHub metadata, DB migration + repository
-- [ ] 01-02-PLAN.md — File Processing Pipeline: file discovery, code parsing, metrics, delta detection
-- [ ] 01-03-PLAN.md — Output & Orchestration: snapshot builder, JSON output, DB persistence, orchestrator
+- [x] 01-01-PLAN.md — Foundation Layer: models, config, GitHub metadata, DB migration + repository
+- [x] 01-02-PLAN.md — File Processing Pipeline: file discovery, code parsing, metrics, delta detection
+- [x] 01-03-PLAN.md — Output & Orchestration: snapshot builder, JSON output, DB persistence, orchestrator
 
 ---
 
@@ -72,7 +72,13 @@ Plans:
 5. All inference uses the correct Ollama model routing — code agents receive Qwen2.5-Coder 3B, feedback/reasoning agents receive Phi-4 Mini — with temperature=0 for reproducibility; Ollama connectivity is validated at startup
 6. Final evaluation results (scores, evidence, feedback) are persisted to PostgreSQL and viewable in the existing dashboard
 
-**Plans:** TBD (will be created by `/gsd-plan-phase 2`)
+**Plans:** 4 plans across 3 waves
+
+Plans:
+- [ ] 02-01-PLAN.md — Foundation: Ollama client, agent base class, JSON schemas (Wave 1)
+- [ ] 02-02-PLAN.md — Capability Extraction Agents: Repo Understanding, Code Understanding, Collaboration (Wave 2)
+- [ ] 02-03-PLAN.md — Rubric Evaluation: evidence routing, criterion evaluation, deterministic score aggregation (Wave 2)
+- [ ] 02-04-PLAN.md — Orchestrator, Feedback Agent, PostgreSQL persistence, PipelineService (Wave 3)
 
 ---
 
@@ -99,8 +105,8 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Ingestion Pipeline | 0/3 | Plans created | - |
-| 2. Evaluation Pipeline | 0/0 | Not started | - |
+| 1. Ingestion Pipeline | 3/3 | Complete    | 2026-07-07 |
+| 2. Evaluation Pipeline | 0/4 | Plans created | - |
 | 3. Cleanup & Testing | 0/0 | Not started | - |
 
 ---

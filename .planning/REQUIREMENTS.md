@@ -7,14 +7,14 @@
 
 ### Ingestion Pipeline
 
-- [ ] **ING-01**: System can clone a student GitHub repository into a working directory
-- [ ] **ING-02**: System fetches GitHub metadata (commits, contributors, PRs, issues) via API
-- [ ] **ING-03**: System discovers source files dynamically by extension and shebang (language-agnostic)
-- [ ] **ING-04**: System parses source files to extract functions, classes, imports, and docstrings
-- [ ] **ING-05**: System computes code metrics (lines of code, cyclomatic complexity, comment ratio)
-- [ ] **ING-06**: System compares student code against a base repository if configured (delta detection)
-- [ ] **ING-07**: System writes all ingestion results to structured JSON in the working directory
-- [ ] **ING-08**: System persists repository metadata and code metrics to PostgreSQL
+- [x] **ING-01**: System can clone a student GitHub repository into a working directory
+- [x] **ING-02**: System fetches GitHub metadata (commits, contributors, PRs, issues) via API
+- [x] **ING-03**: System discovers source files dynamically by extension and shebang (language-agnostic)
+- [x] **ING-04**: System parses source files to extract functions, classes, imports, and docstrings
+- [x] **ING-05**: System computes code metrics (lines of code, cyclomatic complexity, comment ratio)
+- [x] **ING-06**: System compares student code against a base repository if configured (delta detection)
+- [x] **ING-07**: System writes all ingestion results to structured JSON in the working directory
+- [x] **ING-08**: System persists repository metadata and code metrics to PostgreSQL
 
 ### Capability Extraction Agents
 
@@ -98,14 +98,14 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ING-01 | Phase 1 | Pending |
-| ING-02 | Phase 1 | Pending |
-| ING-03 | Phase 1 | Pending |
-| ING-04 | Phase 1 | Pending |
-| ING-05 | Phase 1 | Pending |
-| ING-06 | Phase 1 | Pending |
-| ING-07 | Phase 1 | Pending |
-| ING-08 | Phase 1 | Pending |
+| ING-01 | Phase 1 | Complete |
+| ING-02 | Phase 1 | Complete |
+| ING-03 | Phase 1 | Complete |
+| ING-04 | Phase 1 | Complete |
+| ING-05 | Phase 1 | Complete |
+| ING-06 | Phase 1 | Complete |
+| ING-07 | Phase 1 | Complete |
+| ING-08 | Phase 1 | Complete |
 | AGN-01 | Phase 2 | Pending |
 | AGN-02 | Phase 2 | Pending |
 | AGN-03 | Phase 2 | Pending |

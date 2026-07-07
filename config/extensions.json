@@ -1,0 +1,124 @@
+{
+  "extensions": [
+    {
+      "extensions": [".py", ".pyw"],
+      "name": "Python",
+      "shebang_patterns": ["python", "python3"],
+      "comment_syntax": {
+        "single": "#",
+        "multi_start": null,
+        "multi_end": null
+      }
+    },
+    {
+      "extensions": [".js", ".jsx", ".mjs"],
+      "name": "JavaScript",
+      "shebang_patterns": ["node", "deno"],
+      "comment_syntax": {
+        "single": "//",
+        "multi_start": "/*",
+        "multi_end": "*/"
+      }
+    },
+    {
+      "extensions": [".ts", ".tsx"],
+      "name": "TypeScript",
+      "shebang_patterns": [],
+      "comment_syntax": {
+        "single": "//",
+        "multi_start": "/*",
+        "multi_end": "*/"
+      }
+    },
+    {
+      "extensions": [".java"],
+      "name": "Java",
+      "shebang_patterns": [],
+      "comment_syntax": {
+        "single": "//",
+        "multi_start": "/*",
+        "multi_end": "*/"
+      }
+    },
+    {
+      "extensions": [".c"],
+      "name": "C",
+      "shebang_patterns": [],
+      "comment_syntax": {
+        "single": "//",
+        "multi_start": "/*",
+        "multi_end": "*/"
+      }
+    },
+    {
+      "extensions": [".cpp", ".cc", ".cxx"],
+      "name": "C++",
+      "shebang_patterns": [],
+      "comment_syntax": {
+        "single": "//",
+        "multi_start": "/*",
+        "multi_end": "*/"
+      }
+    },
+    {
+      "extensions": [".h", ".hpp"],
+      "name": "C/C++ Header",
+      "shebang_patterns": [],
+      "comment_syntax": {
+        "single": "//",
+        "multi_start": "/*",
+        "multi_end": "*/"
+      }
+    },
+    {
+      "extensions": [".html", ".htm"],
+      "name": "HTML",
+      "shebang_patterns": [],
+      "comment_syntax": {
+        "single": null,
+        "multi_start": "<!--",
+        "multi_end": "-->"
+      }
+    },
+    {
+      "extensions": [".css"],
+      "name": "CSS",
+      "shebang_patterns": [],
+      "comment_syntax": {
+        "single": null,
+        "multi_start": "/*",
+        "multi_end": "*/"
+      }
+    },
+    {
+      "extensions": [".rb"],
+      "name": "Ruby",
+      "shebang_patterns": ["ruby"],
+      "comment_syntax": {
+        "single": "#",
+        "multi_start": "=begin",
+        "multi_end": "=end"
+      }
+    },
+    {
+      "extensions": [".go"],
+      "name": "Go",
+      "shebang_patterns": [],
+      "comment_syntax": {
+        "single": "//",
+        "multi_start": "/*",
+        "multi_end": "*/"
+      }
+    },
+    {
+      "extensions": [".rs"],
+      "name": "Rust",
+      "shebang_patterns": [],
+      "comment_syntax": {
+        "single": "//",
+        "multi_start": "/*",
+        "multi_end": "*/"
+      }
+    }
+  ]
+}

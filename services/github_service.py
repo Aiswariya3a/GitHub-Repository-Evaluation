@@ -40,3 +40,100 @@ class GitHubService:
             if "Link" in response.headers: return int(response.headers["Link"].split("page=")[-1].split(">")[0])
             return len(response.json())
         except Exception: return 0
+
+    def get_contributors(self, repo_url: str) -> list[dict]:
+        repo_path = self.clean_url(repo_url).split("github.com/")[1]
+        contributors = []
+        url = f"https://api.github.com/repos/{repo_path}/contributors?per_page=100"
+        try:
+            while url:
+                response = requests.get(url, headers=self.headers)
+                if response.status_code != 200:
+                    break
+                for item in response.json():
+                    if isinstance(item, dict):
+                        contributors.append({
+                            "login": item.get("login", ""),
+                            "contributions": item.get("contributions", 0),
+                        })
+                link_header = response.headers.get("Link", "")
+                if 'rel="next"' in link_header:
+                    for part in link_header.split(","):
+                        if 'rel="next"' in part:
+                            url = part.split(";")[0].strip().strip("<>")
+                            break
+                else:
+                    url = None
+        except Exception:
+            pass
+        return contributors
+
+    def get_pull_requests(self, repo_url: str) -> tuple[int, list[dict]]:
+        repo_path = self.clean_url(repo_url).split("github.com/")[1]
+        prs = []
+        url = f"https://api.github.com/repos/{repo_path}/pulls?state=all&per_page=100"
+        try:
+            while url:
+                response = requests.get(url, headers=self.headers)
+                if response.status_code != 200:
+                    break
+                for item in response.json():
+                    if isinstance(item, dict):
+                        prs.append({
+                            "number": item.get("number", 0),
+                            "title": item.get("title", ""),
+                            "state": item.get("state", ""),
+                        })
+                link_header = response.headers.get("Link", "")
+                if 'rel="next"' in link_header:
+                    for part in link_header.split(","):
+                        if 'rel="next"' in part:
+                            url = part.split(";")[0].strip().strip("<>")
+                            break
+                else:
+                    url = None
+        except Exception:
+            pass
+        return len(prs), prs
+
+    def get_issues(self, repo_url: str) -> tuple[int, list[dict]]:
+        repo_path = self.clean_url(repo_url).split("github.com/")[1]
+        issues = []
+        url = f"https://api.github.com/repos/{repo_path}/issues?state=all&per_page=100"
+        try:
+            while url:
+                response = requests.get(url, headers=self.headers)
+                if response.status_code != 200:
+                    break
+                for item in response.json():
+                    if isinstance(item, dict) and "pull_request" not in item:
+                        issues.append({
+                            "number": item.get("number", 0),
+                            "title": item.get("title", ""),
+                            "state": item.get("state", ""),
+                        })
+                link_header = response.headers.get("Link", "")
+                if 'rel="next"' in link_header:
+                    for part in link_header.split(","):
+                        if 'rel="next"' in part:
+                            url = part.split(";")[0].strip().strip("<>")
+                            break
+                else:
+                    url = None
+        except Exception:
+            pass
+        return len(issues), issues
+
+    def get_full_metadata(self, repo_url: str) -> dict:
+        commits = self.commit_count(repo_url)
+        contributors = self.get_contributors(repo_url)
+        pr_count, prs = self.get_pull_requests(repo_url)
+        issue_count, issues = self.get_issues(repo_url)
+        return {
+            "commits_count": commits,
+            "contributors": contributors,
+            "pull_requests_count": pr_count,
+            "pull_requests": prs,
+            "issues_count": issue_count,
+            "issues": issues,
+        }

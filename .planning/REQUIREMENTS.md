@@ -23,7 +23,7 @@
 - [ ] **AGN-03**: Collaboration Analysis Agent analyzes commits, contributors, PRs, and issues for collaboration metrics
 - [ ] **AGN-04**: All capability agents run in parallel (they are independent)
 - [ ] **AGN-05**: Each agent reads from ingestion JSON and writes structured capability JSON to working directory
-- [ ] **AGN-06**: Each agent output validates against a predefined JSON Schema
+- [x] **AGN-06**: Each agent output validates against a predefined JSON Schema
 
 ### Rubric Evaluation
 
@@ -53,11 +53,11 @@
 
 ### Ollama Integration
 
-- [ ] **OLL-01**: Ollama host and port are configurable via environment variables
-- [ ] **OLL-02**: Code understanding agents use Qwen2.5-Coder 3B (`qwen2.5-coder:3b`)
-- [ ] **OLL-03**: Reasoning and feedback agents use Phi-4 Mini (`phi-4-mini:3.8b`)
-- [ ] **OLL-04**: System validates Ollama connectivity and model availability at startup
-- [ ] **OLL-05**: All inference uses temperature=0 for reproducibility
+- [x] **OLL-01**: Ollama host and port are configurable via environment variables
+- [x] **OLL-02**: Code understanding agents use Qwen2.5-Coder 3B (`qwen2.5-coder:3b`)
+- [x] **OLL-03**: Reasoning and feedback agents use Phi-4 Mini (`phi-4-mini:3.8b`)
+- [x] **OLL-04**: System validates Ollama connectivity and model availability at startup
+- [x] **OLL-05**: All inference uses temperature=0 for reproducibility
 
 ### Testing
 
@@ -111,7 +111,7 @@
 | AGN-03 | Phase 2 | Pending |
 | AGN-04 | Phase 2 | Pending |
 | AGN-05 | Phase 2 | Pending |
-| AGN-06 | Phase 2 | Pending |
+| AGN-06 | Phase 2 | Complete |
 | EVA-01 | Phase 2 | Pending |
 | EVA-02 | Phase 2 | Pending |
 | EVA-03 | Phase 2 | Pending |
@@ -129,11 +129,11 @@
 | ORC-05 | Phase 2 | Pending |
 | ORC-06 | Phase 2 | Pending |
 | ORC-07 | Phase 2 | Pending |
-| OLL-01 | Phase 2 | Pending |
-| OLL-02 | Phase 2 | Pending |
-| OLL-03 | Phase 2 | Pending |
-| OLL-04 | Phase 2 | Pending |
-| OLL-05 | Phase 2 | Pending |
+| OLL-01 | Phase 2 | Complete |
+| OLL-02 | Phase 2 | Complete |
+| OLL-03 | Phase 2 | Complete |
+| OLL-04 | Phase 2 | Complete |
+| OLL-05 | Phase 2 | Complete |
 | TST-01 | Phase 3 | Pending |
 | TST-02 | Phase 3 | Pending |
 | TST-03 | Phase 3 | Pending |

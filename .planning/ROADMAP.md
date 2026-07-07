@@ -75,7 +75,7 @@ Plans:
 **Plans:** 4 plans across 3 waves
 
 Plans:
-- [ ] 02-01-PLAN.md — Foundation: Ollama client, agent base class, JSON schemas (Wave 1)
+- [x] 02-01-PLAN.md — Foundation: Ollama client, agent base class, JSON schemas (Wave 1)
 - [ ] 02-02-PLAN.md — Capability Extraction Agents: Repo Understanding, Code Understanding, Collaboration (Wave 2)
 - [ ] 02-03-PLAN.md — Rubric Evaluation: evidence routing, criterion evaluation, deterministic score aggregation (Wave 2)
 - [ ] 02-04-PLAN.md — Orchestrator, Feedback Agent, PostgreSQL persistence, PipelineService (Wave 3)
@@ -106,7 +106,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Ingestion Pipeline | 3/3 | Complete    | 2026-07-07 |
-| 2. Evaluation Pipeline | 0/4 | Plans created | - |
+| 2. Evaluation Pipeline | 1/4 | Wave 1 complete | 2026-07-07 |
 | 3. Cleanup & Testing | 0/0 | Not started | - |
 
 ---

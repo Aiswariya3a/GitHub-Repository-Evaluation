@@ -47,7 +47,12 @@ Phase 3 (Cleanup & Testing) ─── depends on new pipeline existing
 4. All ingestion artifacts exist as readable JSON files in the session working directory AND are persisted to PostgreSQL tables (repository metadata + code metrics)
 5. Language-agnostic file discovery correctly identifies and parses Python, JavaScript, Java, and other common languages without hardcoded path patterns
 
-**Plans:** TBD (will be created by `/gsd-plan-phase 1`)
+**Plans:** 3 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Foundation Layer: models, config, GitHub metadata, DB migration + repository
+- [ ] 01-02-PLAN.md — File Processing Pipeline: file discovery, code parsing, metrics, delta detection
+- [ ] 01-03-PLAN.md — Output & Orchestration: snapshot builder, JSON output, DB persistence, orchestrator
 
 ---
 
@@ -94,7 +99,7 @@ Phase 3 (Cleanup & Testing) ─── depends on new pipeline existing
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Ingestion Pipeline | 0/0 | Not started | - |
+| 1. Ingestion Pipeline | 0/3 | Plans created | - |
 | 2. Evaluation Pipeline | 0/0 | Not started | - |
 | 3. Cleanup & Testing | 0/0 | Not started | - |
 

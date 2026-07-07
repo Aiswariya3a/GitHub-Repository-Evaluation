@@ -2,3 +2,5 @@ venv/
 .env
 student_reports/
 repos/
+.planning/
+.agents/

@@ -16,9 +16,9 @@
 
 - **Milestone:** 1.0 — SLM Pipeline Replacement
 - **Phase:** 1 (Ingestion Pipeline)
-- **Phase Status:** Not started
-- **Current Plan:** None yet
-- **Plan Status:** N/A
+- **Phase Status:** Plans created
+- **Current Plan:** 01-01-PLAN.md (Wave 1 — Foundation Layer)
+- **Plan Status:** Not started
 - **Overall Progress:** [###-------------------] 0%
 
 ---
@@ -30,7 +30,7 @@
 | Total v1 requirements | 45 | 45 | ✓ Fully scoped |
 | Mapped to phases | 45 | 45 | ✓ 100% coverage |
 | Phases defined | 3 | 3-5 | ✓ Coarse granularity |
-| Plans created | 0 | — | Awaiting gsd-plan-phase |
+| Plans created | 0 | — | Context ready — awaiting gsd-plan-phase |
 | Plans completed | 0 | — | — |
 
 ---
@@ -46,6 +46,11 @@
 | Phase 2 = All agents + orchestrator + evaluation + Ollama | Tightly coupled pipeline; one delivery boundary | 2026-07-06 |
 | Phase 3 = Cleanup + Testing | New pipeline must exist before removing old engine or testing it | 2026-07-06 |
 | All 45 requirements mapped | No orphans; every requirement assigned to exactly one phase | 2026-07-06 |
+| Phase 1 output = Project Snapshot JSON | Single hierarchical JSON per repo, rubric-agnostic, self-contained | 2026-07-06 |
+| File discovery: extension + shebang | Configurable mapping, no hardcoded paths | 2026-07-06 |
+| Parse: Python ast, regex for others | Built-in ast for Python; no tree-sitter v1 | 2026-07-06 |
+| Delta: three-level hierarchical | Repo → file → symbol levels; symbol-level primary for agents | 2026-07-06 |
+| Ingestion DB: JSONB in single table | Separated from evaluation schema; full snapshot + key columns | 2026-07-06 |
 
 ### Open Questions
 
@@ -70,12 +75,12 @@ None.
 - Initialized project structure
 - Created PROJECT.md, REQUIREMENTS.md, config.json
 - Ran research phase
-- Created ROADMAP.md and STATE.md (this session)
+- Created ROADMAP.md and STATE.md
+- Discussed Phase 1 (Ingestion Pipeline) — context captured
 
 ### Next Session
-- Approve ROADMAP.md
 - Run `/gsd-plan-phase 1` to create plans for Phase 1 (Ingestion Pipeline)
 
 ---
 
-*Last updated: 2026-07-06*
+*Last updated: 2026-07-06 (Phase 1 context gathered)*

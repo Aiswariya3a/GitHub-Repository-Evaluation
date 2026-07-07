@@ -2,16 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 2
-status: wave_1_complete
-last_updated: 2026-07-07T10:44:24.000Z
+current_plan: 02-04
+status: wave_2_complete
+last_updated: "2026-07-07T11:00:00.000Z"
 progress:
   total_phases: 3
   completed_phases: 1
   total_plans: 7
-  completed_plans: 4
-  percent: 57
-stopped_at: Phase 2 Wave 1 complete (02-01 Foundation) — ready for Wave 2 parallel execution
+  completed_plans: 6
+  percent: 86
 ---
 
 # STATE.md
@@ -30,18 +29,18 @@ stopped_at: Phase 2 Wave 1 complete (02-01 Foundation) — ready for Wave 2 para
 
 ## Current Position
 
-Phase: 2 (Evaluation Pipeline) — WAVE 1 COMPLETE
-Plan: 02-02 (Capability Agents) — next to execute
+Phase: 2 (Evaluation Pipeline) — WAVE 2 COMPLETE
+Plan: 02-04 (Orchestrator + Feedback + Persistence) — next to execute
 
 - **Milestone:** 1.0 — SLM Pipeline Replacement
 - **Phase:** 2
-- **Phase Status:** Wave 1 complete (02-01 Foundation)
+- **Phase Status:** Wave 2 complete (02-02 + 02-03)
 - **Wave 1:** 02-01 (Foundation — Ollama + Agent Base + Schemas) ✓ COMPLETE
-- **Wave 2:** 02-02 (Capability Agents) + 02-03 (Rubric Evaluation) — ready for parallel execution
-- **Wave 3:** 02-04 (Orchestrator + Feedback + Persistence)
-- **Current Plan:** 02-02
+- **Wave 2:** 02-02 (Capability Agents) + 02-03 (Rubric Evaluation) ✓ COMPLETE
+- **Wave 3:** 02-04 (Orchestrator + Feedback + Persistence) — ready for execution
+- **Current Plan:** 02-04
 - **Plan Status:** Plans created — ready for execution
-- **Overall Progress:** [############--------] 57%
+- **Overall Progress:** [##################--] 86%
 
 ---
 
@@ -53,7 +52,7 @@ Plan: 02-02 (Capability Agents) — next to execute
 | Mapped to phases | 45 | 45 | ✓ 100% coverage |
 | Phases defined | 3 | 3-5 | ✓ Coarse granularity |
 | Plans created | 7 | — | Phase 1 (3) + Phase 2 (4) |
-| Plans completed | 4 | — | Phase 1 (3) + Phase 2 Wave 1 (1) |
+| Plans completed | 6 | — | Phase 1 (3) + Phase 2 Wave 1 (1) + Wave 2 (2) |
 
 ---
 
@@ -77,6 +76,15 @@ Plan: 02-02 (Capability Agents) — next to execute
 | D-01: Agents are in-process Python classes with run() interface | Implemented via BaseAgent abstract class | 2026-07-07 |
 | Temperature=0 enforced silently | All non-zero temps overridden with log warning for reproducibility | 2026-07-07 |
 | 5 self-contained JSON Schema definitions (no $ref) | Direct use with jsonschema.validate() without external resolution | 2026-07-07 |
+| D-03: Evidence routing via EVIDENCE_ROUTING_MAP | Category→section mapping in evidence_router.py with fuzzy matching | 2026-07-07 |
+| D-05: Each criterion returns remarks (mini-feedback) | Implemented in RubricEvaluationAgent and CriterionEvaluation model | 2026-07-07 |
+| D-08: Default max_parallel_agents=2 | Configurable; enforced by orchestrator ThreadPoolExecutor | 2026-07-07 |
+| D-11: Idempotent file-based output | Each agent writes to output_path if provided; filesystem IS state | 2026-07-07 |
+| Code agents → "code" model (Qwen2.5-Coder 3B) | RepoUnderstandingAgent + CodeUnderstandingAgent | 2026-07-07 |
+| Collaboration/Evaluation → "reasoning" model (Phi-4 Mini) | CollaborationAgent + RubricEvaluationAgent per OLL-03 | 2026-07-07 |
+| Evidence truncation at 8000 chars | Prevents context window overflow (Pitfall 2) | 2026-07-07 |
+| Score aggregation is pure Python (no LLM) | aggregate_scores() uses round(), min(), max() only | 2026-07-07 |
+| Missing criteria scored 0 with confidence_warning | Handles partial pipeline failures gracefully | 2026-07-07 |
 
 ### Open Questions
 
@@ -112,14 +120,15 @@ None.
   - BaseAgent abstract class with run() contract
   - 5 JSON Schema definitions for all agent output types
   - Evaluation subpackage structure created
+- **Executed Phase 2 Wave 2 (Plans 02-02 + 02-03)** — Capability Agents + Rubric Evaluation complete:
+  - Plan 02-02: 3 capability extraction agents (Repo Understanding, Code Understanding, Collaboration)
+  - Plan 02-03: Rubric evaluation engine (evidence routing, criterion evaluation, score aggregation)
+  - All agents inherit from BaseAgent with schema validation and file-based output
 
 ### Next Session
 
-- Execute Wave 2 (Plans 02-02 + 02-03 in parallel):
-  - Plan 02-02: Capability Extraction Agents (Repo Understanding, Code Understanding, Collaboration)
-  - Plan 02-03: Rubric Evaluation Agent (evidence routing, criterion evaluation, score aggregation)
-- Then Wave 3 (Plan 02-04): Orchestrator, Feedback Agent, PostgreSQL persistence
+- Execute Wave 3 (Plan 02-04): Orchestrator, Feedback Agent, PostgreSQL persistence
 
 ---
 
-*Last updated: 2026-07-06 (Phase 1 context gathered)*
+*Last updated: 2026-07-07 (Phase 2 Wave 2 complete)*

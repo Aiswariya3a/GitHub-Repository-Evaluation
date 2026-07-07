@@ -1,0 +1,149 @@
+"""Repository Understanding Agent — analyzes repository structure from ingestion data.
+
+Reads a ProjectSnapshot (ingestion JSON) and produces a structured summary of
+the repository's architecture, languages, key files, and risk flags.
+
+This agent uses the "code" Ollama model (Qwen2.5-Coder 3B) for structural
+analysis of the codebase.
+"""
+
+import json
+import logging
+from typing import Optional
+
+from services.evaluation.agent_base import BaseAgent
+from services.evaluation.schemas import REPO_UNDERSTANDING_SCHEMA
+from services.evaluation.ollama_router import REPO_UNDERSTANDING_SYSTEM_PROMPT
+
+logger = logging.getLogger(__name__)
+
+
+class RepoUnderstandingAgent(BaseAgent):
+    """Analyzes repository structure and identifies key characteristics.
+
+    Reads ingestion ProjectSnapshot data and produces:
+      - Language distribution
+      - Key files with roles and importance
+      - Structural summary of the codebase
+      - Risk flags for potential concerns
+
+    This agent is designed to run independently (AGN-04), reads only from
+    input_data (AGN-05), and writes validated structured output.
+    """
+
+    def run(
+        self,
+        input_data: dict,
+        output_path: Optional[str] = None,
+    ) -> dict:
+        """Execute repository understanding analysis.
+
+        Args:
+            input_data: ProjectSnapshot dict containing:
+                - repo_stats: Repository statistics (language breakdown, LOC, etc.)
+                - files: List of file records with paths, languages, metrics
+                - repository_metadata: Basic repo metadata
+            output_path: If provided, writes validated output to this path.
+
+        Returns:
+            dict: Validated repository understanding output conforming to
+                REPO_UNDERSTANDING_SCHEMA.
+        """
+        # Extract relevant sections from input_data (AGN-05: no DB access)
+        repo_stats = input_data.get("repo_stats", {})
+        files = input_data.get("files", [])
+        repo_metadata = input_data.get("repository_metadata", {})
+
+        # Build a concise user prompt with repository overview
+        # Include only path + language + loc for token efficiency (Pitfall 2)
+        file_summaries = self._build_file_summary(files)
+
+        user_prompt = (
+            "Repository Overview:\n"
+            f"- Name: {repo_metadata.get('name', repo_metadata.get('url', 'unknown'))}\n"
+            f"- Language breakdown: {json.dumps(repo_stats.get('language_breakdown', {}), indent=2)}\n"
+            f"- Total files: {repo_stats.get('file_count', len(files))}\n"
+            f"- Total LOC: {repo_stats.get('total_loc', 0)}\n"
+            f"- Code LOC: {repo_stats.get('code_loc', 0)}\n"
+            f"- Average complexity: {repo_stats.get('average_complexity', 0)}\n\n"
+            "Files:\n"
+            f"{file_summaries}\n\n"
+            f"Repository URL: {repo_metadata.get('url', 'N/A')}\n"
+        )
+
+        logger.info(
+            "RepoUnderstandingAgent running: %d files, %d LOC",
+            repo_stats.get("file_count", 0),
+            repo_stats.get("total_loc", 0),
+        )
+
+        # Call Ollama with "code" model per OLL-02
+        result = self.ollama.infer(
+            model_role="code",
+            system_prompt=REPO_UNDERSTANDING_SYSTEM_PROMPT,
+            user_prompt=user_prompt,
+            format="json",
+        )
+
+        # Validate against schema (T-02-01 mitigation)
+        is_valid, errors = self._validate_output(result, REPO_UNDERSTANDING_SCHEMA)
+        if not is_valid:
+            logger.error(
+                "RepoUnderstandingAgent output failed schema validation: %s",
+                "; ".join(errors),
+            )
+            result = {
+                "languages": repo_stats.get("language_breakdown", {}),
+                "key_files": [
+                    {
+                        "path": f.get("path", "unknown"),
+                        "role": "unknown",
+                        "importance": "medium",
+                    }
+                    for f in files[:5]
+                ],
+                "total_files": repo_stats.get("file_count", len(files)),
+                "total_loc": repo_stats.get("total_loc", 0),
+                "structural_summary": "Schema validation failed — unable to generate analysis.",
+                "risk_flags": ["Schema validation failed"],
+            }
+
+        # Write output if path provided (AGN-05, D-11)
+        if output_path:
+            self._write_output(result, output_path)
+
+        return result
+
+    def _build_file_summary(self, files: list[dict], max_files: int = 30) -> str:
+        """Build a concise file summary string.
+
+        Limits listing to max_files to stay within token context window.
+        Files are sorted by LOC descending so the most significant files
+        appear first.
+
+        Args:
+            files: List of file record dicts.
+            max_files: Maximum number of files to list individually.
+
+        Returns:
+            str: Formatted file summary.
+        """
+        # Sort by LOC descending
+        sorted_files = sorted(
+            files,
+            key=lambda f: f.get("loc", f.get("code_loc", 0)) or 0,
+            reverse=True,
+        )
+
+        lines = []
+        for i, f in enumerate(sorted_files):
+            if i >= max_files:
+                remaining = len(sorted_files) - max_files
+                lines.append(f"... and {remaining} more files")
+                break
+            path = f.get("path", "unknown")
+            lang = f.get("language", "unknown")
+            loc = f.get("loc", f.get("code_loc", 0))
+            lines.append(f"  {path} ({lang}, {loc} LOC)")
+
+        return "\n".join(lines)

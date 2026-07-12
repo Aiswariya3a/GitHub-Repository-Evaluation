@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 02-04
+current_plan: 1
 status: wave_2_complete
-last_updated: "2026-07-07T11:00:00.000Z"
+last_updated: "2026-07-12T04:30:00.000Z"
 progress:
   total_phases: 3
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 7
-  completed_plans: 6
-  percent: 86
+  completed_plans: 7
+  percent: 67
 ---
 
 # STATE.md
@@ -23,24 +23,23 @@ progress:
 
 **Core Value:** Accurately evaluate student code against any instructor-defined rubric using a modular, rubric-agnostic pipeline of specialized SLM agents — where every evaluation is reproducible, evidence-based, and debugging is straightforward.
 
-**Current Focus:** Phase 2 — evaluation pipeline
+**Current Focus:** Phase 2 complete — ready for Phase 3 (Cleanup & Testing)
 
 ---
 
 ## Current Position
 
-Phase: 2 (Evaluation Pipeline) — WAVE 2 COMPLETE
-Plan: 02-04 (Orchestrator + Feedback + Persistence) — next to execute
+Phase: 2 (Evaluation Pipeline) — COMPLETE ✓
 
 - **Milestone:** 1.0 — SLM Pipeline Replacement
 - **Phase:** 2
-- **Phase Status:** Wave 2 complete (02-02 + 02-03)
-- **Wave 1:** 02-01 (Foundation — Ollama + Agent Base + Schemas) ✓ COMPLETE
-- **Wave 2:** 02-02 (Capability Agents) + 02-03 (Rubric Evaluation) ✓ COMPLETE
-- **Wave 3:** 02-04 (Orchestrator + Feedback + Persistence) — ready for execution
-- **Current Plan:** 02-04
-- **Plan Status:** Plans created — ready for execution
-- **Overall Progress:** [##################--] 86%
+- **Phase Status:** Complete
+- **Wave 1:** 02-01 (Foundation) ✓ COMPLETE
+- **Wave 2:** 02-02 + 02-03 (Capability Agents + Rubric Evaluation) ✓ COMPLETE
+- **Wave 3:** 02-04 (Orchestrator + Feedback + Persistence) ✓ COMPLETE
+- **Current Plan:** 4/4
+- **Plan Status:** All plans complete
+- **Overall Progress:** [####################] 100% (Phase 2)
 
 ---
 
@@ -52,7 +51,7 @@ Plan: 02-04 (Orchestrator + Feedback + Persistence) — next to execute
 | Mapped to phases | 45 | 45 | ✓ 100% coverage |
 | Phases defined | 3 | 3-5 | ✓ Coarse granularity |
 | Plans created | 7 | — | Phase 1 (3) + Phase 2 (4) |
-| Plans completed | 6 | — | Phase 1 (3) + Phase 2 Wave 1 (1) + Wave 2 (2) |
+| Plans completed | 7 | — | Phase 1 (3) + Phase 2 (4) |
 
 ---
 
@@ -85,6 +84,9 @@ Plan: 02-04 (Orchestrator + Feedback + Persistence) — next to execute
 | Evidence truncation at 8000 chars | Prevents context window overflow (Pitfall 2) | 2026-07-07 |
 | Score aggregation is pure Python (no LLM) | aggregate_scores() uses round(), min(), max() only | 2026-07-07 |
 | Missing criteria scored 0 with confidence_warning | Handles partial pipeline failures gracefully | 2026-07-07 |
+
+  | Orchestrator pipeline: 6 steps with file-based recovery | Idempotent step detection via output file existence; partial failure handling | 2026-07-12 |
+  | FeedbackAgent uses "reasoning" model (Phi-4 Mini) | Follows OLL-03 model routing for reasoning tasks | 2026-07-12 |
 
 ### Open Questions
 
@@ -124,10 +126,16 @@ None.
   - Plan 02-02: 3 capability extraction agents (Repo Understanding, Code Understanding, Collaboration)
   - Plan 02-03: Rubric evaluation engine (evidence routing, criterion evaluation, score aggregation)
   - All agents inherit from BaseAgent with schema validation and file-based output
+- **Executed Phase 2 Wave 3 (Plan 02-04)** — Orchestrator, Feedback Agent, PostgreSQL persistence complete:
+  - EvaluationOrchestrator: full 6-step pipeline lifecycle with parallel scheduling, retry, file-based recovery
+  - FeedbackAgent: generates structured strengths/weaknesses/suggestions from aggregated scores
+  - PipelineService: high-level entry point for controller integration
+  - Migration 002: evaluation_results table with JSONB columns and indexes
+  - All agents wire together: ingestion → capability → rubric → aggregation → feedback → persistence
 
 ### Next Session
 
-- Execute Wave 3 (Plan 02-04): Orchestrator, Feedback Agent, PostgreSQL persistence
+- Discuss Phase 3 (Cleanup & Testing) — remove old engine, clear old data, add tests
 
 ---
 

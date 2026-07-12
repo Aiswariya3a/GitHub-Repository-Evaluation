@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 2/4
-status: plan_2_complete
-last_updated: "2026-07-12T11:32:00.000Z"
+current_plan: 3/4
+status: plan_3_complete
+last_updated: "2026-07-12T12:30:00.000Z"
 progress:
   total_phases: 3
   completed_phases: 2
   total_plans: 11
-  completed_plans: 10
-  percent: 73
+  completed_plans: 11
+  percent: 82
 ---
 
 # STATE.md
@@ -29,15 +29,16 @@ progress:
 
 ## Current Position
 
-Phase: 3 (Cleanup & Testing) — Wave 1
+Phase: 3 (Cleanup & Testing) — Wave 2
 
 - **Milestone:** 1.0 — SLM Pipeline Replacement
 - **Phase:** 3
 - **Phase Status:** In Progress
 - **Plan 01:** Archive old engine + wire PipelineService ✓ COMPLETE
 - **Plan 02:** Remove legacy Evaluation models + archive old tables ✓ COMPLETE
-- **Current Plan:** 2/4
-- **Plan Status:** Domain model cleanup and migration complete
+- **Plan 03:** Test Infrastructure + Unit Tests ✓ COMPLETE
+- **Current Plan:** 3/4
+- **Plan Status:** Unit tests for all 5 agents, all 5 schemas, score aggregation, and evidence routing
 - **Overall Progress:** 82% (11/11 plans complete)
 
 ---
@@ -50,7 +51,8 @@ Phase: 3 (Cleanup & Testing) — Wave 1
 | Mapped to phases | 45 | 45 | ✓ 100% coverage |
 | Phases defined | 3 | 3-5 | ✓ Coarse granularity |
 | Plans created | 11 | — | Phase 1 (3) + Phase 2 (4) + Phase 3 (4) |
-| Plans completed | 11 | — | Phase 1 (3) + Phase 2 (4) + Phase 3 (2) |
+| Plans completed | 11 | — | Phase 1 (3) + Phase 2 (4) + Phase 3 (3) |
+| Tests created | 86 | — | 5 test files covering agents, schemas, aggregation, routing |
 
 ---
 
@@ -86,6 +88,9 @@ Phase: 3 (Cleanup & Testing) — Wave 1
 
   | Orchestrator pipeline: 6 steps with file-based recovery | Idempotent step detection via output file existence; partial failure handling | 2026-07-12 |
   | FeedbackAgent uses "reasoning" model (Phi-4 Mini) | Follows OLL-03 model routing for reasoning tasks | 2026-07-12 |
+  | Agent tests use mocked OllamaClient.infer() returning dict directly | Agents call with format="json", so mock returns parsed dict, not {"response": ...} | 2026-07-12 |
+  | _find_best_routing_key assumes lowercased input | route_evidence() lowercases before calling; internal function tests pass lowercased | 2026-07-12 |
+  | _filter_snapshot preserves '[]' in array wildcard keys | Routing map uses files[].functions notation; output dict uses 'files[]' as key | 2026-07-12 |
 
 ### Open Questions
 
@@ -134,16 +139,19 @@ None.
 
 ### Last Session
 
-- **Executed Phase 3 Plan 2 (03-02)** — Remove legacy Evaluation models + archive old tables complete:
-  - Evaluation class removed from models/domain.py and models/__init__.py
-  - Old save() and hydrate() methods removed from repositories/evaluation_repository.py
-  - flatten_metadata() and import json removed (no longer needed)
-  - save_evaluation_result(), get_evaluation_result(), save_plagiarism(), plagiarism() preserved
-  - database/migration_003_archive_old_tables.sql created with 4 _archive table renames and index renames
+- **Executed Phase 3 Plan 3 (03-03)** — Test Infrastructure + Unit Tests complete:
+  - Added pytest and pytest-mock to requirements.txt
+  - Created tests/conftest.py with 7 shared fixtures (mock_ollama_client, sample_snapshot, sample_rubric, etc.)
+  - Created tests/test_agents.py: 14 tests for all 5 agents with mocked Ollama responses
+  - Created tests/test_schemas.py: 30 JSON Schema contract tests for all 5 schemas
+  - Created tests/test_score_aggregator.py: 15 tests for aggregate_scores() (basic, missing, clamping, low confidence, edge cases)
+  - Created tests/test_evidence_router.py: 20 tests for route_evidence() and internal functions
+  - All 86 tests pass without Ollama, PostgreSQL, or GitHub
+  - Fixed sample_snapshot fixture data format (imports, function field names) to match production parser
 
 ### Next Session
 
-- Continue Phase 3 — remaining plans (03-03, 03-04)
+- Continue Phase 3 — remaining plans (03-04)
 
 ---
 

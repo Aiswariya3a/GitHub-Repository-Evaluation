@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 1
-status: wave_2_complete
-last_updated: "2026-07-12T04:30:00.000Z"
+current_plan: 1/4
+status: plan_1_complete
+last_updated: "2026-07-12T11:28:00.000Z"
 progress:
   total_phases: 3
   completed_phases: 2
-  total_plans: 7
-  completed_plans: 7
-  percent: 67
+  total_plans: 11
+  completed_plans: 10
+  percent: 73
 ---
 
 # STATE.md
@@ -29,17 +29,15 @@ progress:
 
 ## Current Position
 
-Phase: 2 (Evaluation Pipeline) — COMPLETE ✓
+Phase: 3 (Cleanup & Testing) — Wave 1
 
 - **Milestone:** 1.0 — SLM Pipeline Replacement
-- **Phase:** 2
-- **Phase Status:** Complete
-- **Wave 1:** 02-01 (Foundation) ✓ COMPLETE
-- **Wave 2:** 02-02 + 02-03 (Capability Agents + Rubric Evaluation) ✓ COMPLETE
-- **Wave 3:** 02-04 (Orchestrator + Feedback + Persistence) ✓ COMPLETE
-- **Current Plan:** 4/4
-- **Plan Status:** All plans complete
-- **Overall Progress:** [####################] 100% (Phase 2)
+- **Phase:** 3
+- **Phase Status:** In Progress
+- **Plan 01:** Archive old engine + wire PipelineService ✓ COMPLETE
+- **Current Plan:** 1/4
+- **Plan Status:** Archive and wiring complete
+- **Overall Progress:** 73% (10/11 plans complete)
 
 ---
 
@@ -50,8 +48,8 @@ Phase: 2 (Evaluation Pipeline) — COMPLETE ✓
 | Total v1 requirements | 45 | 45 | ✓ Fully scoped |
 | Mapped to phases | 45 | 45 | ✓ 100% coverage |
 | Phases defined | 3 | 3-5 | ✓ Coarse granularity |
-| Plans created | 7 | — | Phase 1 (3) + Phase 2 (4) |
-| Plans completed | 7 | — | Phase 1 (3) + Phase 2 (4) |
+| Plans created | 11 | — | Phase 1 (3) + Phase 2 (4) + Phase 3 (4) |
+| Plans completed | 10 | — | Phase 1 (3) + Phase 2 (4) + Phase 3 (1) |
 
 ---
 
@@ -107,7 +105,7 @@ None.
 
 ## Session Continuity
 
-### Last Session
+### Previous Sessions
 
 - Initialized project structure
 - Created PROJECT.md, REQUIREMENTS.md, config.json
@@ -133,10 +131,18 @@ None.
   - Migration 002: evaluation_results table with JSONB columns and indexes
   - All agents wire together: ingestion → capability → rubric → aggregation → feedback → persistence
 
+### Last Session
+
+- **Executed Phase 3 Plan 1 (03-01)** — Archive old engine + wire PipelineService complete:
+  - main.py and evaluation_service.py archived under archive/ with git history preserved
+  - ServiceContainer updated to use PipelineService (with try/except for T-03-02)
+  - services/__init__.py no longer exports EvaluationService
+  - Controller endpoints updated to use evaluate_session_repositories() with {evaluated, results} return shape
+
 ### Next Session
 
-- Discuss Phase 3 (Cleanup & Testing) — remove old engine, clear old data, add tests
+- Continue Phase 3 — remaining plans (03-02, 03-03, 03-04)
 
 ---
 
-*Last updated: 2026-07-07 (Phase 2 Wave 2 complete)*
+*Last updated: 2026-07-12 (Phase 3 Plan 1 complete)*

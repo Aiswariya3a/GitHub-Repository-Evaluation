@@ -68,11 +68,11 @@
 
 ### Cleanup
 
-- [ ] **CLN-01**: Remove old single-prompt evaluation logic from `main.py`
+- [x] **CLN-01**: Remove old single-prompt evaluation logic from `main.py`
 - [ ] **CLN-02**: Remove old evaluation data from PostgreSQL
-- [ ] **CLN-03**: Remove duplicate evaluation code paths (`evaluate_code` + `evaluate_code_dynamic`)
+- [x] **CLN-03**: Remove duplicate evaluation code paths (`evaluate_code` + `evaluate_code_dynamic`)
 - [ ] **CLN-04**: Remove or archive legacy `models/domain.py` dead code
-- [ ] **CLN-05**: Ensure only one evaluation engine exists in the codebase
+- [x] **CLN-05**: Ensure only one evaluation engine exists in the codebase
 
 ## v2 Requirements
 
@@ -138,11 +138,11 @@
 | TST-02 | Phase 3 | Pending |
 | TST-03 | Phase 3 | Pending |
 | TST-04 | Phase 3 | Pending |
-| CLN-01 | Phase 3 | Pending |
+| CLN-01 | Phase 3 | Complete |
 | CLN-02 | Phase 3 | Pending |
-| CLN-03 | Phase 3 | Pending |
+| CLN-03 | Phase 3 | Complete |
 | CLN-04 | Phase 3 | Pending |
-| CLN-05 | Phase 3 | Pending |
+| CLN-05 | Phase 3 | Complete |
 
 **Coverage:**
 - v1 requirements: 45 total

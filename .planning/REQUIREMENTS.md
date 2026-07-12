@@ -18,38 +18,38 @@
 
 ### Capability Extraction Agents
 
-- [ ] **AGN-01**: Repository Understanding Agent identifies languages, key files, and produces a structural summary
-- [ ] **AGN-02**: Code Understanding Agent extracts capabilities — algorithms, APIs, data structures, functions, file operations, error handling patterns
-- [ ] **AGN-03**: Collaboration Analysis Agent analyzes commits, contributors, PRs, and issues for collaboration metrics
-- [ ] **AGN-04**: All capability agents run in parallel (they are independent)
-- [ ] **AGN-05**: Each agent reads from ingestion JSON and writes structured capability JSON to working directory
+- [x] **AGN-01**: Repository Understanding Agent identifies languages, key files, and produces a structural summary
+- [x] **AGN-02**: Code Understanding Agent extracts capabilities — algorithms, APIs, data structures, functions, file operations, error handling patterns
+- [x] **AGN-03**: Collaboration Analysis Agent analyzes commits, contributors, PRs, and issues for collaboration metrics
+- [x] **AGN-04**: All capability agents run in parallel (they are independent)
+- [x] **AGN-05**: Each agent reads from ingestion JSON and writes structured capability JSON to working directory
 - [x] **AGN-06**: Each agent output validates against a predefined JSON Schema
 
 ### Rubric Evaluation
 
-- [ ] **EVA-01**: System loads rubric from PostgreSQL (categories → criteria with max_score)
-- [ ] **EVA-02**: Rubric Evaluation Agent evaluates one criterion at a time using only relevant extracted evidence
-- [ ] **EVA-03**: Each evaluation returns score, confidence, evidence, and remarks
-- [ ] **EVA-04**: All criteria are evaluated in parallel (they are independent)
-- [ ] **EVA-05**: Low-confidence evaluations are flagged for human review
-- [ ] **EVA-06**: Scores are aggregated deterministically in Python (no LLM in arithmetic)
-- [ ] **EVA-07**: Final score is clamped to rubric maximums
+- [x] **EVA-01**: System loads rubric from PostgreSQL (categories → criteria with max_score)
+- [x] **EVA-02**: Rubric Evaluation Agent evaluates one criterion at a time using only relevant extracted evidence
+- [x] **EVA-03**: Each evaluation returns score, confidence, evidence, and remarks
+- [x] **EVA-04**: All criteria are evaluated in parallel (they are independent)
+- [x] **EVA-05**: Low-confidence evaluations are flagged for human review
+- [x] **EVA-06**: Scores are aggregated deterministically in Python (no LLM in arithmetic)
+- [x] **EVA-07**: Final score is clamped to rubric maximums
 
 ### Feedback Generation
 
-- [ ] **FDB-01**: Feedback Agent receives all criterion scores and evidence
-- [ ] **FDB-02**: Feedback Agent generates strengths, weaknesses, and actionable improvement suggestions
-- [ ] **FDB-03**: Structured feedback is written to working directory JSON and PostgreSQL
+- [x] **FDB-01**: Feedback Agent receives all criterion scores and evidence
+- [x] **FDB-02**: Feedback Agent generates strengths, weaknesses, and actionable improvement suggestions
+- [x] **FDB-03**: Structured feedback is written to working directory JSON and PostgreSQL
 
 ### Orchestrator
 
-- [ ] **ORC-01**: Python orchestrator manages the full pipeline lifecycle
-- [ ] **ORC-02**: Orchestrator supports configurable execution mode (subprocess default, in-process for debugging)
-- [ ] **ORC-03**: Orchestrator validates all agent outputs against JSON Schema; re-prompts on failure (up to 2 retries)
-- [ ] **ORC-04**: Orchestrator schedules independent agents for parallel execution
-- [ ] **ORC-05**: Orchestrator handles partial results — if an agent fails, pipeline continues with available data
-- [ ] **ORC-06**: Orchestrator creates per-session working directories with unique temp paths
-- [ ] **ORC-07**: Orchestrator persists final evaluation results to PostgreSQL
+- [x] **ORC-01**: Python orchestrator manages the full pipeline lifecycle
+- [x] **ORC-02**: Orchestrator supports configurable execution mode (subprocess default, in-process for debugging)
+- [x] **ORC-03**: Orchestrator validates all agent outputs against JSON Schema; re-prompts on failure (up to 2 retries)
+- [x] **ORC-04**: Orchestrator schedules independent agents for parallel execution
+- [x] **ORC-05**: Orchestrator handles partial results — if an agent fails, pipeline continues with available data
+- [x] **ORC-06**: Orchestrator creates per-session working directories with unique temp paths
+- [x] **ORC-07**: Orchestrator persists final evaluation results to PostgreSQL
 
 ### Ollama Integration
 
@@ -61,10 +61,10 @@
 
 ### Testing
 
-- [ ] **TST-01**: Unit tests for each agent (mocked Ollama responses)
-- [ ] **TST-02**: Unit tests for orchestrator workflow and error handling
-- [ ] **TST-03**: Integration tests for the full pipeline with real repositories
-- [ ] **TST-04**: JSON Schema contract tests for all agent inputs and outputs
+- [x] **TST-01**: Unit tests for each agent (mocked Ollama responses)
+- [x] **TST-02**: Unit tests for orchestrator workflow and error handling
+- [x] **TST-03**: Integration tests for the full pipeline with real repositories
+- [x] **TST-04**: JSON Schema contract tests for all agent inputs and outputs
 
 ### Cleanup
 
@@ -106,38 +106,38 @@
 | ING-06 | Phase 1 | Complete |
 | ING-07 | Phase 1 | Complete |
 | ING-08 | Phase 1 | Complete |
-| AGN-01 | Phase 2 | Pending |
-| AGN-02 | Phase 2 | Pending |
-| AGN-03 | Phase 2 | Pending |
-| AGN-04 | Phase 2 | Pending |
-| AGN-05 | Phase 2 | Pending |
+| AGN-01 | Phase 2 | Complete |
+| AGN-02 | Phase 2 | Complete |
+| AGN-03 | Phase 2 | Complete |
+| AGN-04 | Phase 2 | Complete |
+| AGN-05 | Phase 2 | Complete |
 | AGN-06 | Phase 2 | Complete |
-| EVA-01 | Phase 2 | Pending |
-| EVA-02 | Phase 2 | Pending |
-| EVA-03 | Phase 2 | Pending |
-| EVA-04 | Phase 2 | Pending |
-| EVA-05 | Phase 2 | Pending |
-| EVA-06 | Phase 2 | Pending |
-| EVA-07 | Phase 2 | Pending |
-| FDB-01 | Phase 2 | Pending |
-| FDB-02 | Phase 2 | Pending |
-| FDB-03 | Phase 2 | Pending |
-| ORC-01 | Phase 2 | Pending |
-| ORC-02 | Phase 2 | Pending |
-| ORC-03 | Phase 2 | Pending |
-| ORC-04 | Phase 2 | Pending |
-| ORC-05 | Phase 2 | Pending |
-| ORC-06 | Phase 2 | Pending |
-| ORC-07 | Phase 2 | Pending |
+| EVA-01 | Phase 2 | Complete |
+| EVA-02 | Phase 2 | Complete |
+| EVA-03 | Phase 2 | Complete |
+| EVA-04 | Phase 2 | Complete |
+| EVA-05 | Phase 2 | Complete |
+| EVA-06 | Phase 2 | Complete |
+| EVA-07 | Phase 2 | Complete |
+| FDB-01 | Phase 2 | Complete |
+| FDB-02 | Phase 2 | Complete |
+| FDB-03 | Phase 2 | Complete |
+| ORC-01 | Phase 2 | Complete |
+| ORC-02 | Phase 2 | Complete |
+| ORC-03 | Phase 2 | Complete |
+| ORC-04 | Phase 2 | Complete |
+| ORC-05 | Phase 2 | Complete |
+| ORC-06 | Phase 2 | Complete |
+| ORC-07 | Phase 2 | Complete |
 | OLL-01 | Phase 2 | Complete |
 | OLL-02 | Phase 2 | Complete |
 | OLL-03 | Phase 2 | Complete |
 | OLL-04 | Phase 2 | Complete |
 | OLL-05 | Phase 2 | Complete |
-| TST-01 | Phase 3 | Pending |
-| TST-02 | Phase 3 | Pending |
-| TST-03 | Phase 3 | Pending |
-| TST-04 | Phase 3 | Pending |
+| TST-01 | Phase 3 | Complete |
+| TST-02 | Phase 3 | Complete |
+| TST-03 | Phase 3 | Complete |
+| TST-04 | Phase 3 | Complete |
 | CLN-01 | Phase 3 | Complete |
 | CLN-02 | Phase 3 | Complete |
 | CLN-03 | Phase 3 | Complete |

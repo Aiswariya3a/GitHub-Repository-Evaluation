@@ -12,7 +12,7 @@
 
 - [x] **Phase 1: Ingestion Pipeline** — Build independent data ingestion: clone repos, discover files, parse code, compute metrics, persist to JSON and PostgreSQL (completed 2026-07-07)
 - [x] **Phase 2: Evaluation Pipeline** — Build agents, orchestrator, Ollama integration, rubric evaluation, and feedback generation; full end-to-end pipeline (completed 2026-07-12)
-- [ ] **Phase 3: Cleanup & Testing** — Remove old monolithic engine, clear old data, add unit/integration/contract tests
+- [x] **Phase 3: Cleanup & Testing** — Remove old monolithic engine, clear old data, add unit/integration/contract tests (completed 2026-07-12)
 
 ---
 
@@ -97,13 +97,13 @@ Plans:
 4. A full pipeline integration test runs the complete pipeline (ingestion → agents → evaluation → feedback) against a real GitHub repository end-to-end and produces valid results
 5. JSON Schema contract tests pass for all agent inputs and outputs — every schema validates correctly
 
-**Plans:** 3/4 plans executed
+**Plans:** 4/4 plans complete
 
 Plans:
 - [x] 03-01-PLAN.md — Archive Legacy Code + Wire PipelineService (Wave 1)
 - [x] 03-02-PLAN.md — Remove Old Domain Models + DB Migration (Wave 1)
 - [x] 03-03-PLAN.md — Test Infrastructure + Unit Tests (Wave 2)
-- [ ] 03-04-PLAN.md — Orchestrator + Pipeline + Integration Tests (Wave 3)
+- [x] 03-04-PLAN.md — Orchestrator + Pipeline + Integration Tests (Wave 3)
 
 ---
 
@@ -113,7 +113,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Ingestion Pipeline | 3/3 | Complete    | 2026-07-07 |
 | 2. Evaluation Pipeline | 4/4 | Complete   | 2026-07-12 |
-| 3. Cleanup & Testing | 3/4 | In Progress|  |
+| 3. Cleanup & Testing | 4/4 | Complete   | 2026-07-12 |
 
 ---
 

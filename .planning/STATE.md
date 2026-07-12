@@ -1,9 +1,9 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.0
-milestone_name: milestone
+milestone_name: SLM Pipeline Replacement
 current_plan: 4/4
-status: phase_3_complete
+status: milestone_complete
 last_updated: "2026-07-12T13:00:00.000Z"
 progress:
   total_phases: 3
@@ -23,7 +23,7 @@ progress:
 
 **Core Value:** Accurately evaluate student code against any instructor-defined rubric using a modular, rubric-agnostic pipeline of specialized SLM agents — where every evaluation is reproducible, evidence-based, and debugging is straightforward.
 
-**Current Focus:** All 3 phases complete — ready for milestone completion
+**Current Focus:** Milestone v1.0 complete — planning next milestone
 
 ---
 
@@ -159,7 +159,7 @@ None.
 
 ### Next Session
 
-- Milestone v1.0 complete — ready for `/gsd-complete-milestone`
+- Milestone v1.0 shipped — start next milestone with `/gsd-new-milestone`
 
 ---
 

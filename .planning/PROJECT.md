@@ -2,47 +2,42 @@
 
 ## What This Is
 
-A web-based evaluation system that assesses student GitHub repositories against instructor-defined rubrics. The evaluation engine is being redesigned from a single monolithic LLM prompt into a pipeline of specialized small language model (SLM) agents running on Ollama. The system ingests repositories, extracts capabilities via focused agents, evaluates each rubric criterion independently, and produces scored reports with feedback.
+A web-based evaluation system that assesses student GitHub repositories against instructor-defined rubrics using a modular pipeline of specialized small language model (SLM) agents running on Ollama. The system ingests repositories, extracts capabilities via focused agents, evaluates each rubric criterion independently, and produces scored reports with feedback.
 
 ## Core Value
 
 Accurately evaluate student code against any instructor-defined rubric using a modular, rubric-agnostic pipeline of specialized SLM agents — where every evaluation is reproducible, evidence-based, and debugging is straightforward.
 
+## Current State
+
+**Shipped:** v1.0 — SLM Pipeline Replacement (2026-07-12)
+**Phases:** 4 phases, 12 plans
+**Tests:** 110 passing (2 integration gated)
+**Architecture:** Multi-agent SLM pipeline with Ollama (Qwen2.5-Coder 3B + Phi-4 Mini)
+**Tech stack:** Python 3.11+, PostgreSQL, Ollama, Flask, pytest
+
+All 45 v1 requirements implemented and verified. The old monolithic Gemini-based evaluation engine has been fully replaced with a modular pipeline supporting parallel agent execution, deterministic score aggregation, and file-based recovery.
+
 ## Requirements
 
 ### Validated
 
-Existing capabilities preserved from the current codebase:
-
-- ✓ Repository validation (public + README check) — existing
-- ✓ Automated cloning via git subprocess — existing
-- ✓ GitHub API integration (commit count, metadata) — existing
-- ✓ Plagiarism detection (TF-IDF + cosine similarity) — existing
-- ✓ PDF report generation (individual + consolidated via ReportLab) — existing
-- ✓ Session management (CRUD, resume, archive) — existing
-- ✓ Custom rubric creation, versioning, and per-session assignment — existing
-- ✓ PostgreSQL persistence with normalized schema — existing
-- ✓ Flask web dashboard with server-rendered templates — existing
-- ✓ Search across sessions and repositories — existing
+- ✓ Independent data ingestion pipeline (ING-01 through ING-08) — v1.0
+- ✓ Repository Understanding Agent (AGN-01) — v1.0
+- ✓ Code Understanding Agent (AGN-02) — v1.0
+- ✓ Collaboration Analysis Agent (AGN-03) — v1.0
+- ✓ Parallel agent execution (AGN-04) — v1.0
+- ✓ Schema-validated agent output (AGN-05, AGN-06) — v1.0
+- ✓ Rubric evaluation with evidence routing (EVA-01 through EVA-07) — v1.0
+- ✓ Feedback generation (FDB-01 through FDB-03) — v1.0
+- ✓ Full pipeline orchestrator (ORC-01 through ORC-07) — v1.0
+- ✓ Ollama integration with model routing (OLL-01 through OLL-05) — v1.0
+- ✓ Unit/integration/schema tests (TST-01 through TST-04) — v1.0
+- ✓ Legacy code cleanup (CLN-01 through CLN-05) — v1.0
 
 ### Active
 
-- [ ] **ING-01**: Independent data ingestion pipeline — clones repo, fetches GitHub metadata (commits, contributors, PRs, issues), parses source files, extracts functions/structures/metrics, stores both to JSON files and PostgreSQL
-- [ ] **ING-02**: Language-agnostic file discovery — dynamically detects file types instead of relying on fixed paths or extensions
-- [ ] **ING-03**: Base repository comparison — computes delta between student and base repo during ingestion
-- [ ] **ORC-01**: Python orchestrator — manages workflow, schedules agents (parallel where possible), handles retries, aggregates scores, stores results
-- [ ] **ORC-02**: Configurable execution mode — subprocess (default) or in-process agent execution
-- [ ] **AGN-01**: Repository Understanding Agent — identifies languages, discovers important files, summarizes project structure, outputs structured JSON
-- [ ] **AGN-02**: Code Understanding Agent — analyzes implementation, extracts capabilities, detects algorithms, APIs, data structures, functions, file operations, error handling
-- [ ] **AGN-03**: Collaboration Analysis Agent — analyzes commits, contributors, PRs, issues, collaboration metrics
-- [ ] **AGN-04**: Rubric Evaluation Agent — evaluates one criterion at a time using extracted evidence; returns score, confidence, evidence, remarks
-- [ ] **AGN-05**: Feedback Generation Agent — generates strengths, weaknesses, and actionable feedback from criteria evaluations
-- [ ] **OLL-01**: Ollama integration — configurable host/port, automatic model selection per agent type (Qwen2.5-Coder 3B for code tasks, Phi-4 Mini for reasoning/feedback)
-- [ ] **OLL-02**: Model routing — route requests to the appropriate SLM based on agent role
-- [ ] **TST-01**: Unit tests for each agent
-- [ ] **TST-02**: Integration tests for the full pipeline
-- [ ] **CLN-01**: Remove monolithic evaluation engine from `main.py`
-- [ ] **CLN-02**: Clear existing evaluation results from database
+No active v1 requirements remain. Next milestone will define v2 requirements.
 
 ### Out of Scope
 
@@ -56,11 +51,27 @@ Existing capabilities preserved from the current codebase:
 
 ## Context
 
-**Current state:** A functional Flask-based evaluation system where a single Gemini prompt handles repository understanding, code analysis, rubric scoring, and feedback generation. The monolithic approach produces large prompts, inconsistent scoring, and is difficult to debug or customize.
+Shipped v1.0 with the complete multi-agent SLM evaluation pipeline. The replacement of the monolithic Gemini-based engine is fully complete. Current codebase:
 
-**Target state:** A modular pipeline running local SLMs via Ollama. Each agent has a single responsibility and receives only the context it needs. Agents communicate via structured JSON files on disk. The orchestrator handles workflow, parallelism, and deterministic score aggregation.
+- **Language:** Python 3.11+
+- **Database:** PostgreSQL with 3 migrations (ingestion_records, evaluation_results, archived old tables)
+- **SLM runtime:** Ollama with Qwen2.5-Coder 3B (code) and Phi-4 Mini (reasoning)
+- **Tests:** 110 passing (100 non-integration + 10 new _set_nested + 2 integration gated)
+- **Architecture:** Modular pipeline: ingestion → 3 parallel capability agents → rubric evaluation → aggregation → feedback → persistence
+- **Key design decisions:** File-based agent communication, deterministic score aggregation, configurable model routing, temperature=0 enforcement
 
-**Prior codebase mapping** exists at `.planning/codebase/` documenting the full architecture, stack, conventions, and concerns.
+Prior codebase mapping at `.planning/codebase/` documents the full architecture, stack, conventions, and concerns.
+
+## Next Milestone Goals
+
+The v1.0 requirements are fully shipped. Future milestones could include:
+
+- Additional SLM models (Qwen3-Coder, DeepSeek-Coder)
+- Additional capability agents (Documentation Analysis, Complexity Analysis)
+- Human-in-the-loop review for low-confidence evaluations
+- Performance benchmarks and optimization
+- Containerization for deployment
+- Multi-language parsing via tree-sitter
 
 ## Constraints
 
@@ -75,36 +86,22 @@ Existing capabilities preserved from the current codebase:
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Complete replacement, not gradual migration | No production users; avoids dual-maintenance complexity | — Pending |
-| Refactor `main.py` into orchestrator | Preserves CLI pattern and subprocess architecture; orchestrator becomes the new evaluator | — Pending |
-| Hybrid orchestration | Central orchestrator for high-level flow; agents can run in parallel chains | — Pending |
-| JSON files on disk for agent communication | Simple, debuggable, decouples agents from each other and from the database | — Pending |
-| Keep Flask UI | Existing dashboard works; update templates to show multi-agent results | — Pending |
-| Two SLM models | Qwen2.5-Coder 3B for code understanding tasks; Phi-4 Mini for reasoning/feedback | — Pending |
-| Configurable Ollama host/port | Supports local dev, CI, and remote GPU server | — Pending |
-| Configurable execution mode | Default subprocess; in-process available for debugging | — Pending |
-| Language-agnostic ingestion | Build generic framework from start; dynamic file type detection | — Pending |
-| Partial results on agent failure | Continue with available data; note which agents failed | — Pending |
-| Preserve existing rubric format and scoring model | Categories + criteria with points; no changes needed | — Pending |
-| Clear existing evaluation results | Fresh start; no backward compatibility needed | — Pending |
-| Trigger via same HTTP endpoint | Replace `evaluation_service.py` subprocess call with orchestrator | — Pending |
+| Complete replacement, not gradual migration | No production users; avoids dual-maintenance complexity | ✓ Good — clean slate for new pipeline |
+| Refactor `main.py` into orchestrator | Preserves CLI pattern; orchestrator becomes the new evaluator | ✓ Good — 6-step pipeline with file-based recovery |
+| JSON files on disk for agent communication | Simple, debuggable, decouples agents from each other and from the database | ✓ Good — idempotent, easy to debug |
+| Keep Flask UI | Existing dashboard works; update templates to show multi-agent results | ✓ Good — controller updated for new return shape |
+| Two SLM models | Qwen2.5-Coder 3B for code; Phi-4 Mini for reasoning/feedback | ✓ Good — correct model routing for task types |
+| Configurable Ollama host/port | Supports local dev, CI, and remote GPU server | ✓ Good — env vars with sensible defaults |
+| Language-agnostic ingestion | Dynamic file type detection (extension + shebang) | ✓ Good — 12 languages supported |
+| Partial results on agent failure | Continue with available data; note which agents failed | ✓ Good — resilient pipeline |
+| Preserve existing rubric format | Categories + criteria with points; no changes needed | ✓ Good — backward compatible |
+| Temperature=0 enforced silently | Reproducibility for all SLM inference | ✓ Good — overrides non-zero values with log warning |
 
 ## Evolution
 
 This document evolves at phase transitions and milestone boundaries.
 
-**After each phase transition** (via `/gsd-transition`):
-1. Requirements invalidated? → Move to Out of Scope with reason
-2. Requirements validated? → Move to Validated with phase reference
-3. New requirements emerged? → Add to Active
-4. Decisions to log? → Add to Key Decisions
-5. "What This Is" still accurate? → Update if drifted
-
-**After each milestone** (via `/gsd-complete-milestone`):
-1. Full review of all sections
-2. Core Value check — still the right priority?
-3. Audit Out of Scope — reasons still valid?
-4. Update Context with current state
+- **v1.0 shipped:** All 45 requirements moved to Validated. Full review completed. Core Value confirmed correct. Out of Scope audit passed.
 
 ---
-*Last updated: 2026-07-06 after initialization*
+*Last updated: 2026-07-12 after v1.0 milestone*

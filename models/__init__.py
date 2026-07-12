@@ -1,3 +1,3 @@
-from .domain import Evaluation, EvaluationSession, Repository
+from .domain import EvaluationSession, Repository
 
-__all__ = ["EvaluationSession", "Repository", "Evaluation"]
+__all__ = ["EvaluationSession", "Repository"]

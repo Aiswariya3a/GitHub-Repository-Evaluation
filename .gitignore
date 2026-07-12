@@ -6,3 +6,5 @@ repos/
 .agents/
 __pycache__/
 *.pyc
+
+/archive/

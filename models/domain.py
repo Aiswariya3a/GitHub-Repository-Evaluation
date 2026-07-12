@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from datetime import datetime
-from decimal import Decimal
 from uuid import UUID
 
 
@@ -25,14 +24,3 @@ class Repository:
     created_at: datetime
     updated_at: datetime
 
-
-@dataclass(frozen=True)
-class Evaluation:
-    id: UUID
-    repository_id: UUID
-    total_out_of_80: Decimal | None
-    normalized_to_20: Decimal | None
-    overall_remarks: str
-    created_at: datetime
-    updated_at: datetime
-    rubric_version_id: UUID

@@ -1,3 +1,4 @@
+# Archived in Phase 3 — replaced by PipelineService
 from __future__ import annotations
 
 import subprocess

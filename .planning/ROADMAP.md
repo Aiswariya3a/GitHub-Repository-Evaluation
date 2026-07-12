@@ -26,6 +26,9 @@ Phase 2 (Evaluation) ─── depends on ingestion data
     │
     ▼
 Phase 3 (Cleanup & Testing) ─── depends on new pipeline existing
+    │
+    ▼
+Phase 4 (Gap Closure) ─── depends on Phase 3 completing
 ```
 
 ---
@@ -105,6 +108,25 @@ Plans:
 - [x] 03-03-PLAN.md — Test Infrastructure + Unit Tests (Wave 2)
 - [x] 03-04-PLAN.md — Orchestrator + Pipeline + Integration Tests (Wave 3)
 
+### Phase 4: Gap Closure
+
+**Goal:** Address remaining tech debt before milestone close — generate phase verifications, fix known stubs, validate integration tests.
+
+**Depends on:** Phase 3
+
+**Requirements:** TST-03 (integration test validation), CLN-06 (tech debt)
+
+**Success Criteria:**
+1. All 3 phases have VERIFICATION.md files documenting plan/requirements/evidence coverage
+2. `_set_nested` bug in `evidence_router.py` is fixed with tests
+3. Integration tests are validated (or documented as requiring external setup)
+4. Source-contributing AI used in this project fully documented
+
+**Plans:** 0/1 plans executed
+
+Plans:
+- [ ] 04-01-PLAN.md — Generate phase verifications, fix stubs, validate integration tests
+
 ---
 
 ## Progress
@@ -114,6 +136,7 @@ Plans:
 | 1. Ingestion Pipeline | 3/3 | Complete    | 2026-07-07 |
 | 2. Evaluation Pipeline | 4/4 | Complete   | 2026-07-12 |
 | 3. Cleanup & Testing | 4/4 | Complete   | 2026-07-12 |
+| 4. Gap Closure | 0/1 | In Progress | |
 
 ---
 

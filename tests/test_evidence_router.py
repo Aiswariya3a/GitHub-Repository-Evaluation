@@ -10,6 +10,7 @@ from services.evaluation.evidence_router import (
     route_evidence,
     _find_best_routing_key,
     _filter_snapshot,
+    _set_nested,
     EVIDENCE_ROUTING_MAP,
 )
 
@@ -219,3 +220,57 @@ class TestFilterSnapshot:
         result = _filter_snapshot(snapshot, ["repo_stats", "nonexistent"])
         assert "repo_stats" in result
         assert "nonexistent" not in result
+
+
+class TestSetNested:
+    """Tests for _set_nested — internal function for building nested dicts."""
+
+    def test_set_single_key(self):
+        """Single key sets value at top level."""
+        d = {}
+        _set_nested(d, ["key1"], "value1")
+        assert d == {"key1": "value1"}
+
+    def test_set_two_levels(self):
+        """Two-level path creates intermediate dict and sets value."""
+        d = {}
+        _set_nested(d, ["level1", "level2"], "deep")
+        assert d == {"level1": {"level2": "deep"}}
+
+    def test_set_three_levels(self):
+        """Three-level path creates all intermediate dicts correctly."""
+        d = {}
+        _set_nested(d, ["a", "b", "c"], 42)
+        assert d == {"a": {"b": {"c": 42}}}
+
+    def test_set_overwrites_existing(self):
+        """Setting on an existing key overwrites the value."""
+        d = {"a": {"b": 1}}
+        _set_nested(d, ["a", "b"], 2)
+        assert d["a"]["b"] == 2
+
+    def test_set_appends_to_existing(self):
+        """Setting a sibling key preserves existing structure."""
+        d = {"a": {"b": 1}}
+        _set_nested(d, ["a", "c"], 2)
+        assert d["a"] == {"b": 1, "c": 2}
+
+    def test_set_deep_with_existing_intermediate(self):
+        """Setting deep path when intermediate already exists."""
+        d = {"x": {"y": {}}}
+        _set_nested(d, ["x", "y", "z"], "val")
+        assert d["x"]["y"]["z"] == "val"
+
+    def test_set_empty_keys(self):
+        """Empty keys list does nothing."""
+        d = {"a": 1}
+        _set_nested(d, [], "value")
+        assert d == {"a": 1}
+
+    def test_set_with_array_intermediate_keys(self):
+        """Keys with [] notation — should create dict, not list."""
+        d = {}
+        _set_nested(d, ["files[]", "name"], "test")
+        assert "files[]" in d
+        assert isinstance(d["files[]"], dict)
+        assert d["files[]"]["name"] == "test"

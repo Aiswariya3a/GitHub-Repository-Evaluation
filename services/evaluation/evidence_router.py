@@ -165,7 +165,7 @@ def _set_nested(d: dict, keys: list[str], value) -> None:
     current = d
     for key in keys[:-1]:
         if key not in current:
-            current[key] = {} if key != keys[-2] else []
+            current[key] = {}
         current = current[key]
     if keys:
         current[keys[-1]] = value

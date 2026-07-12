@@ -66,9 +66,11 @@ def sample_snapshot():
                 "language": "c",
                 "loc": 200,
                 "code_loc": 160,
-                "functions": [{"name": "main", "line_start": 1, "line_end": 50}],
+                "functions": [{"name": "main", "lineno": 1, "end_lineno": 50}],
                 "classes": [],
-                "imports": ["#include <stdio.h>"],
+                "imports": [
+                    {"module": "stdio.h", "names": [], "alias": None},
+                ],
                 "docstrings": [],
             },
             {
@@ -76,9 +78,11 @@ def sample_snapshot():
                 "language": "python",
                 "loc": 100,
                 "code_loc": 80,
-                "functions": [{"name": "helper", "line_start": 1, "line_end": 20}],
+                "functions": [{"name": "helper", "lineno": 1, "end_lineno": 20}],
                 "classes": [],
-                "imports": ["import os"],
+                "imports": [
+                    {"module": "os", "names": [], "alias": None},
+                ],
                 "docstrings": ["Helper function docstring"],
             },
         ],

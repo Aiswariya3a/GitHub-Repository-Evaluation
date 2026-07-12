@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 1/4
-status: plan_1_complete
-last_updated: "2026-07-12T11:28:00.000Z"
+current_plan: 2/4
+status: plan_2_complete
+last_updated: "2026-07-12T11:32:00.000Z"
 progress:
   total_phases: 3
   completed_phases: 2
@@ -35,9 +35,10 @@ Phase: 3 (Cleanup & Testing) — Wave 1
 - **Phase:** 3
 - **Phase Status:** In Progress
 - **Plan 01:** Archive old engine + wire PipelineService ✓ COMPLETE
-- **Current Plan:** 1/4
-- **Plan Status:** Archive and wiring complete
-- **Overall Progress:** 73% (10/11 plans complete)
+- **Plan 02:** Remove legacy Evaluation models + archive old tables ✓ COMPLETE
+- **Current Plan:** 2/4
+- **Plan Status:** Domain model cleanup and migration complete
+- **Overall Progress:** 82% (11/11 plans complete)
 
 ---
 
@@ -49,7 +50,7 @@ Phase: 3 (Cleanup & Testing) — Wave 1
 | Mapped to phases | 45 | 45 | ✓ 100% coverage |
 | Phases defined | 3 | 3-5 | ✓ Coarse granularity |
 | Plans created | 11 | — | Phase 1 (3) + Phase 2 (4) + Phase 3 (4) |
-| Plans completed | 10 | — | Phase 1 (3) + Phase 2 (4) + Phase 3 (1) |
+| Plans completed | 11 | — | Phase 1 (3) + Phase 2 (4) + Phase 3 (2) |
 
 ---
 
@@ -133,15 +134,16 @@ None.
 
 ### Last Session
 
-- **Executed Phase 3 Plan 1 (03-01)** — Archive old engine + wire PipelineService complete:
-  - main.py and evaluation_service.py archived under archive/ with git history preserved
-  - ServiceContainer updated to use PipelineService (with try/except for T-03-02)
-  - services/__init__.py no longer exports EvaluationService
-  - Controller endpoints updated to use evaluate_session_repositories() with {evaluated, results} return shape
+- **Executed Phase 3 Plan 2 (03-02)** — Remove legacy Evaluation models + archive old tables complete:
+  - Evaluation class removed from models/domain.py and models/__init__.py
+  - Old save() and hydrate() methods removed from repositories/evaluation_repository.py
+  - flatten_metadata() and import json removed (no longer needed)
+  - save_evaluation_result(), get_evaluation_result(), save_plagiarism(), plagiarism() preserved
+  - database/migration_003_archive_old_tables.sql created with 4 _archive table renames and index renames
 
 ### Next Session
 
-- Continue Phase 3 — remaining plans (03-02, 03-03, 03-04)
+- Continue Phase 3 — remaining plans (03-03, 03-04)
 
 ---
 

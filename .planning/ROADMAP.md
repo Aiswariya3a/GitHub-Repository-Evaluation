@@ -97,7 +97,13 @@ Plans:
 4. A full pipeline integration test runs the complete pipeline (ingestion → agents → evaluation → feedback) against a real GitHub repository end-to-end and produces valid results
 5. JSON Schema contract tests pass for all agent inputs and outputs — every schema validates correctly
 
-**Plans:** TBD (will be created by `/gsd-plan-phase 3`)
+**Plans:** 4 plans across 3 waves
+
+Plans:
+- [ ] 03-01-PLAN.md — Archive Legacy Code + Wire PipelineService (Wave 1)
+- [ ] 03-02-PLAN.md — Remove Old Domain Models + DB Migration (Wave 1)
+- [ ] 03-03-PLAN.md — Test Infrastructure + Unit Tests (Wave 2)
+- [ ] 03-04-PLAN.md — Orchestrator + Pipeline + Integration Tests (Wave 3)
 
 ---
 
@@ -107,7 +113,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Ingestion Pipeline | 3/3 | Complete    | 2026-07-07 |
 | 2. Evaluation Pipeline | 4/4 | Complete   | 2026-07-12 |
-| 3. Cleanup & Testing | 0/0 | Not started | - |
+| 3. Cleanup & Testing | 0/4 | Not started | - |
 
 ---
 

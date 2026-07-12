@@ -118,7 +118,7 @@ def _filter_snapshot(snapshot: dict, sections: list[str]) -> dict:
                     )
                     if extracted is not None:
                         _set_nested(result, parts[:parts.index(part) + 1], extracted)
-                    valid = True
+                    valid = False  # already handled — skip outer _set_nested at line 130
                     break
                 else:
                     valid = False

@@ -1,7 +1,6 @@
 """Application services for session persistence, evaluation orchestration, and ingestion."""
 
 from .analysis_service import AnalysisService
-from .evaluation_service import EvaluationService
 from .github_service import GitHubService
 from .ingestion_service import IngestionService
 from .ollama_client import OllamaClient
@@ -14,7 +13,6 @@ from .evaluation.pipeline_service import PipelineService
 __all__ = [
     "SessionService",
     "RepositoryService",
-    "EvaluationService",
     "GitHubService",
     "AnalysisService",
     "ReportService",

@@ -9,6 +9,7 @@ from .report_service import ReportService
 from .repository_service import RepositoryService
 from .session_service import SessionService
 from .rubric_service import RubricService
+from .evaluation.pipeline_service import PipelineService
 
 __all__ = [
     "SessionService",
@@ -20,4 +21,5 @@ __all__ = [
     "RubricService",
     "IngestionService",
     "OllamaClient",
+    "PipelineService",
 ]

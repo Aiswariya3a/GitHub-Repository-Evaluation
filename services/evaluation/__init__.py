@@ -19,6 +19,9 @@ from .collaboration_agent import CollaborationAgent
 from .rubric_evaluation_agent import RubricEvaluationAgent, RUBRIC_EVALUATION_SYSTEM_PROMPT
 from .score_aggregator import aggregate_scores
 from .evidence_router import route_evidence, EVIDENCE_ROUTING_MAP
+from .orchestrator import EvaluationOrchestrator
+from .pipeline_service import PipelineService
+from .feedback_agent import FeedbackAgent, FEEDBACK_SYSTEM_PROMPT
 
 __all__ = [
     "BaseAgent",
@@ -35,6 +38,9 @@ __all__ = [
     "CodeUnderstandingAgent",
     "CollaborationAgent",
     "RubricEvaluationAgent",
+    "FeedbackAgent",
+    "EvaluationOrchestrator",
+    "PipelineService",
     "aggregate_scores",
     "route_evidence",
     "EVIDENCE_ROUTING_MAP",

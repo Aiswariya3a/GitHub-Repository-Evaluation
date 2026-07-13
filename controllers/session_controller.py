@@ -22,8 +22,8 @@ def settings_page(): return render_template("settings.html", title="Settings")
 
 @session_controller.get("/sessions/<session_id>")
 def detail(session_id):
-    session, repositories, summary = session_context(session_id)
-    return render_template("session.html", title=session["name"], session=session, repositories=repositories, summary=summary)
+    session, repositories, summary, plagiarism = session_context(session_id)
+    return render_template("session.html", title=session["name"], session=session, repositories=repositories, summary=summary, plagiarism=plagiarism)
 
 @session_controller.get("/api/sessions")
 def list_api(): return jsonify(services().sessions.list_sessions())
@@ -36,9 +36,9 @@ def create_api():
 
 @session_controller.get("/api/sessions/<session_id>")
 def detail_api(session_id):
-    session, repositories, summary = session_context(session_id)
+    session, repositories, summary, plagiarism = session_context(session_id)
     return jsonify(session=session, repositories=repositories, summary=summary,
-                   insights=services().repositories.session_insights(session_id))
+                   plagiarism=plagiarism, insights=services().repositories.session_insights(session_id))
 
 @session_controller.get("/api/dashboard")
 def dashboard_api(): return jsonify(services().repositories.dashboard())

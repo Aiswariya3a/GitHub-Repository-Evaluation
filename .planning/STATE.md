@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Frontend Dashboard
-current_plan: 2/4
+current_plan: 3/4
 status: in_progress
-last_updated: "2026-07-13T11:26:00.000Z"
+last_updated: "2026-07-13T06:30:00.000Z"
 progress:
   total_phases: 5
   completed_phases: 4
-  total_plans: 12
-  completed_plans: 12
-  percent: 100
+  total_plans: 16
+  completed_plans: 15
+  percent: 94
 ---
 
 # STATE.md
@@ -36,11 +36,11 @@ Phase: 5 (Frontend Dashboard)
 - **Phase Status:** In Progress
 - **Plan 01:** Fix PDF report generation pipeline ✓ COMPLETE
 - **Plan 02:** Ingestion snapshot + evaluation detail tabs ✓ COMPLETE
-- **Plan 03:** Collaboration tab + low-confidence filter + plagiarism view: PENDING
+- **Plan 03:** Plagiarism results + JS extraction + analytics enhancement ✓ COMPLETE
 - **Plan 04:** Analytics page + UX polish: PENDING
-- **Current Plan:** 2/4
-- **Plan Status:** Plan 02 complete — repository.js created with ingestion, evaluation detail, collaboration tab renderers; inline JS extracted from templates/repository_detail.html
-- **Overall Progress:** 12/12 plans complete across all phases
+- **Current Plan:** 3/4
+- **Plan Status:** Plan 03 complete — plagiarism data in API, common.js shared utilities, session.js/dashboard.js/reports.js created, all inline JS extracted from templates, plagiarism section + low-confidence filter added to session page, analytics enhanced with score distribution + session comparison
+- **Overall Progress:** 15/16 plans complete across all phases
 
 ---
 
@@ -139,7 +139,21 @@ None.
   - Migration 002: evaluation_results table with JSONB columns and indexes
   - All agents wire together: ingestion → capability → rubric → aggregation → feedback → persistence
 
-### Last Session (05-02)
+### Last Session (05-03)
+
+- **Executed Phase 5 Plan 3 (05-03)** — Plagiarism Results + JS Extraction + Analytics Enhancement complete:
+  - Added plagiarism data + `has_low_confidence` boolean to session API response (4-tuple return from session_context())
+  - Created `static/js/common.js` with shared utilities (esc, date, toast, confirmAction, statusTone, empty) on window.*
+  - Created `static/js/session.js` with full session detail page logic including plagiarism tab renderer and low-confidence filter
+  - Created `static/js/dashboard.js` with dashboard session listing, overview KPIs, and analytics page handlers (3 DOMContentLoaded blocks)
+  - Created `static/js/reports.js` with reports listing logic
+  - Extracted all inline JavaScript from 6 templates (base, session, dashboard, overview, reports, analytics)
+  - Added plagiarism section to session page with similarity table
+  - Added LowConfidence filter chip to session filter bar
+  - Added score distribution histogram + session comparison table to analytics page
+  - References to common.js loaded first; page-specific JS files use window.* utilities
+
+### Previous Session
 
 - **Executed Phase 5 Plan 2 (05-02)** — Ingestion Snapshot + Evaluation Detail Tabs complete:
   - Created `static/js/repository.js` with `renderIngestionTab()`, `renderEvaluationDetailTab()`, `renderCollaborationTab()` functions
@@ -148,19 +162,8 @@ None.
   - Added low-confidence sidebar warning indicators
   - Added `.confidence-badge`, `.detail-row`, `.timeline-item`, `.score-bar` CSS classes to dashboard.css
 
-### Previous Session
-
-- **Executed Phase 5 Plan 1 (05-01)** — Fix PDF Report Generation Pipeline complete:
-  - Refactored pdf_gen.py from standalone CLI script into callable module with generate_pdf(session_id, output_dir) entry function
-  - All module-level code guarded behind if __name__ == "__main__"
-  - Updated resolve_rubric_snapshot(), build_question_table(), get_plagiarism() to accept parameters instead of closure variables
-  - generate_preamble() and merge_pdfs() accept output_dir parameter
-  - report_service.py updated to import generate_pdf directly (lazy import to break circular dependency)
-  - Removed subprocess.run() from report generation flow
-
 ### Next Session
 
-- Execute Phase 5 Plan 3: Collaboration tab + low-confidence filter + plagiarism view
 - Execute Phase 5 Plan 4: Analytics page + UX polish
 
 ---

@@ -2,7 +2,7 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Frontend Dashboard
-current_plan: 1/4
+current_plan: 2/4
 status: in_progress
 last_updated: "2026-07-13T11:26:00.000Z"
 progress:
@@ -35,11 +35,11 @@ Phase: 5 (Frontend Dashboard)
 - **Phase:** 5
 - **Phase Status:** In Progress
 - **Plan 01:** Fix PDF report generation pipeline ✓ COMPLETE
-- **Plan 02:** Ingestion snapshot + evaluation detail tabs: PENDING
+- **Plan 02:** Ingestion snapshot + evaluation detail tabs ✓ COMPLETE
 - **Plan 03:** Collaboration tab + low-confidence filter + plagiarism view: PENDING
 - **Plan 04:** Analytics page + UX polish: PENDING
-- **Current Plan:** 1/4
-- **Plan Status:** Plan 01 complete — pdf_gen.py refactored, report_service.py uses direct import
+- **Current Plan:** 2/4
+- **Plan Status:** Plan 02 complete — repository.js created with ingestion, evaluation detail, collaboration tab renderers; inline JS extracted from templates/repository_detail.html
 - **Overall Progress:** 12/12 plans complete across all phases
 
 ---
@@ -139,7 +139,16 @@ None.
   - Migration 002: evaluation_results table with JSONB columns and indexes
   - All agents wire together: ingestion → capability → rubric → aggregation → feedback → persistence
 
-### Last Session
+### Last Session (05-02)
+
+- **Executed Phase 5 Plan 2 (05-02)** — Ingestion Snapshot + Evaluation Detail Tabs complete:
+  - Created `static/js/repository.js` with `renderIngestionTab()`, `renderEvaluationDetailTab()`, `renderCollaborationTab()` functions
+  - Extracted all inline JS from `repository_detail.html` to external JS file
+  - Added Ingestion and Evaluation Detail tab buttons and panels to template
+  - Added low-confidence sidebar warning indicators
+  - Added `.confidence-badge`, `.detail-row`, `.timeline-item`, `.score-bar` CSS classes to dashboard.css
+
+### Previous Session
 
 - **Executed Phase 5 Plan 1 (05-01)** — Fix PDF Report Generation Pipeline complete:
   - Refactored pdf_gen.py from standalone CLI script into callable module with generate_pdf(session_id, output_dir) entry function
@@ -151,7 +160,6 @@ None.
 
 ### Next Session
 
-- Execute Phase 5 Plan 2: Ingestion snapshot + evaluation detail tabs
 - Execute Phase 5 Plan 3: Collaboration tab + low-confidence filter + plagiarism view
 - Execute Phase 5 Plan 4: Analytics page + UX polish
 

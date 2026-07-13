@@ -23,7 +23,7 @@
 <summary>🔄 v2.0 Frontend Dashboard (Phase 5) — IN PROGRESS</summary>
 
 - [x] Plan 01: Fix PDF report generation pipeline — completed 2026-07-13
-- [ ] Plan 02: Ingestion snapshot + evaluation detail tabs — pending
+- [x] Plan 02: Ingestion snapshot + evaluation detail tabs — completed 2026-07-13
 - [ ] Plan 03: Collaboration tab + low-confidence filter + plagiarism view — pending
 - [ ] Plan 04: Analytics page + UX polish — pending
 
@@ -37,7 +37,7 @@
 | 2. Evaluation Pipeline | v1.0 | 4/4 | Complete | 2026-07-12 |
 | 3. Cleanup & Testing | v1.0 | 4/4 | Complete | 2026-07-12 |
 | 4. Gap Closure | v1.0 | 1/1 | Complete | 2026-07-12 |
-| 5. Frontend Dashboard | v2.0 | 1/4 | In Progress | 2026-07-13 |
+| 5. Frontend Dashboard | v2.0 | 2/4 | In Progress | 2026-07-13 |
 
 ## Coverage Map
 

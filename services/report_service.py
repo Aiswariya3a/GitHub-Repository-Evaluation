@@ -3,7 +3,6 @@ import tempfile
 from pathlib import Path
 
 from .repository_service import RepositoryService
-from pdf_gen import generate_pdf
 
 
 class ReportService:
@@ -11,6 +10,7 @@ class ReportService:
         self.root, self.repositories = root, repositories
 
     def generate(self, session_id: str):
+        from pdf_gen import generate_pdf
         temp = tempfile.TemporaryDirectory(prefix="evaluation-report-")
         directory = Path(temp.name)
         try:

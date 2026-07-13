@@ -1,3 +1,6 @@
+/* ==========================================
+   BASE - Variables, Reset, Typography
+   ========================================== */
 :root {
   color-scheme: dark;
   --bg: #020617;
@@ -21,6 +24,10 @@ body {
   color: var(--text);
   min-height: 100vh;
 }
+
+/* ==========================================
+   LAYOUT - App Shell, Sidebar, Topbar, Grids
+   ========================================== */
 .topbar { height: 68px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 max(24px, calc((100vw - 1440px) / 2 + 24px)); background: rgba(2, 6, 23, .82); backdrop-filter: blur(16px); position: sticky; top: 0; z-index: 10; }
 .topbar a { color: var(--muted); text-decoration: none; font-weight: 600; }
 .topbar .brand { color: var(--text); display: flex; align-items: center; gap: 10px; }
@@ -53,6 +60,11 @@ input { width: 100%; border: 1px solid rgba(148,163,184,.2); border-radius: 14px
 input:focus { outline: 2px solid rgba(79,70,229,.35); border-color: var(--indigo); }
 .repo-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 14px; align-items: end; }.repo-form > div { display: flex; flex-direction: column; gap: 8px; }
 .add-panel { margin-bottom: 20px; }.row-error { color: #fda4af; font-size: .74rem; margin-top: 5px; max-width: 260px; }.status-pending,.status-evaluating { background: rgba(245,158,11,.14); color: #fcd34d; }.status-failed { background: rgba(239,68,68,.14); color: #fda4af; }
+
+
+/* ==========================================
+   COMPONENTS - Buttons, Cards, Dialogs, Forms, Tables, Badges, Progress Bars
+   ========================================== */
 
 .app-shell { max-width: 1440px; margin: 0 auto; padding: 24px; }
 .hero-card, .panel, .metric-card {
@@ -209,7 +221,13 @@ th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color
 .score-cell { display: flex; flex-direction: column; gap: 6px; min-width: 140px; }
 .progress-bar { width: 100%; height: 8px; border-radius: 999px; background: rgba(148, 163, 184, 0.16); overflow: hidden; }
 .progress-bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--indigo), var(--emerald)); }
+
+/* ==========================================
+   STATES - Loading Skeletons, Empty States, Error Messages
+   ========================================== */
 .empty-state { color: var(--muted); text-align: center; padding: 20px 10px; }
+.flash-messages{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.flash-item{padding:12px 16px;border-radius:12px;background:var(--panel);border:1px solid rgba(239,68,68,.25);color:#fda4af;font-size:.88rem;line-height:1.5}
 .dashboard-heading { align-items: center; }
 .session-groups { display: grid; gap: 28px; }
 .session-group { display: grid; gap: 13px; }
@@ -223,6 +241,7 @@ th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color
 .new-session-card { display: block; min-height: 235px; padding: 20px; }
 .new-session-card .card-top,.new-session-card .card-footer,.completion > div:first-child { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .new-session-card h3 { margin: 18px 0 7px; font-size: 1.08rem; }.new-session-card p { min-height: 42px; line-height: 1.45; }
+.new-session-card .card-top .delete-btn { background: transparent; color: var(--muted); border: 0; padding: 2px 6px; font-size: 1.1rem; border-radius: 6px; line-height: 1; cursor: pointer; margin-left: auto; }.new-session-card .card-top .delete-btn:hover { color: #fda4af; background: rgba(239,68,68,.15); }
 .completion { margin-top: 22px; }.completion > div:first-child { margin-bottom: 8px; color: var(--muted); font-size: .78rem; }.completion strong { color: var(--text); }
 .card-footer { border-top: 1px solid var(--border); margin-top: 18px; padding-top: 13px; color: var(--muted); font-size: .75rem; }
 .empty-card { display: grid; place-items: center; min-height: 130px; border: 1px dashed var(--border); border-radius: 18px; color: var(--muted); }
@@ -236,7 +255,6 @@ th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color
 .mini-progress { width: 110px; height: 4px; border-radius: 99px; overflow: hidden; background: rgba(148,163,184,.15); margin-top: 7px; }.mini-progress span { display: block; height: 100%; background: linear-gradient(90deg,var(--indigo),var(--emerald)); }.mini-progress.running span { width: 45%; animation: progress-slide 1.2s ease-in-out infinite alternate; }
 @keyframes progress-slide { from { transform: translateX(-30%); } to { transform: translateX(150%); } }
 .row-actions { display: flex; flex-wrap: wrap; gap: 7px; }.table-btn { display: inline-flex; text-decoration: none; border: 1px solid var(--border); border-radius: 9px; padding: 7px 9px; background: rgba(148,163,184,.08); color: #cbd5e1; font-size: .75rem; font-weight: 600; }.table-btn.primary { background: rgba(79,70,229,.2); color: #c7d2fe; border-color: rgba(79,70,229,.35); }
-.row-error { color: #fda4af; font-size: .74rem; margin-top: 5px; max-width: 280px; }.status-pending,.status-evaluating { background: rgba(245,158,11,.14); color: #fcd34d; }.status-failed { background: rgba(239,68,68,.14); color: #fda4af; }
 .link-btn { text-decoration: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; padding: 10px 16px; font-weight: 600; }
 .dashboard-kpis { grid-template-columns: repeat(4,minmax(0,1fr)); margin-bottom: 20px; }
 .overview-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 20px; }
@@ -248,6 +266,11 @@ th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color
 .distribution { display:flex; flex-direction:column; gap:12px; }.distribution > div { display:grid; grid-template-columns:minmax(70px,1fr) 3fr 38px; align-items:center; gap:10px; font-size:.8rem; }.distribution-bar { height:8px; border-radius:99px; background:rgba(148,163,184,.13); overflow:hidden; }.distribution-bar i { display:block; height:100%; background:linear-gradient(90deg,var(--indigo),var(--emerald)); border-radius:inherit; }
 .repo-cell a { color:var(--text); text-decoration:none; }.repo-cell a:hover { color:#a5b4fc; }.small-value { font-size:1rem; }
 .detail-list { display:flex; flex-direction:column; margin-top:12px; }.detail-list > div { display:flex; justify-content:space-between; gap:14px; padding:10px 0; border-bottom:1px solid var(--border); }.detail-list span { color:var(--muted); font-size:.82rem; text-align:right; }.three-columns { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }.three-columns .panel { box-shadow:none; background:rgba(2,8,23,.2); }
+
+
+/* ==========================================
+   RESPONSIVE - Media Queries
+   ========================================== */
 
 @media (max-width: 960px) {
   .application-layout { grid-template-columns: 1fr; }.sidebar { min-height:auto; border-right:0; border-bottom:1px solid var(--border); padding:10px 16px; }.sidebar nav { position:static; flex-direction:row; overflow-x:auto; }.sidebar .subnav { display:none; }

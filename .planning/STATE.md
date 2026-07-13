@@ -1,15 +1,15 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: SLM Pipeline Replacement
-current_plan: 4/4
-status: milestone_complete
-last_updated: "2026-07-12T13:00:00.000Z"
+milestone: v2.0
+milestone_name: Frontend Dashboard
+current_plan: 1/4
+status: in_progress
+last_updated: "2026-07-13T11:26:00.000Z"
 progress:
-  total_phases: 3
-  completed_phases: 3
-  total_plans: 11
-  completed_plans: 11
+  total_phases: 5
+  completed_phases: 4
+  total_plans: 12
+  completed_plans: 12
   percent: 100
 ---
 
@@ -29,18 +29,18 @@ progress:
 
 ## Current Position
 
-Phase: 3 (Cleanup & Testing)
+Phase: 5 (Frontend Dashboard)
 
-- **Milestone:** 1.0 — SLM Pipeline Replacement
-- **Phase:** 3
-- **Phase Status:** Complete
-- **Plan 01:** Archive old engine + wire PipelineService ✓ COMPLETE
-- **Plan 02:** Remove legacy Evaluation models + archive old tables ✓ COMPLETE
-- **Plan 03:** Test Infrastructure + Unit Tests ✓ COMPLETE
-- **Plan 04:** Orchestrator + Pipeline + Integration Tests ✓ COMPLETE
-- **Current Plan:** 4/4
-- **Plan Status:** All plans complete — 102 tests passing (100 non-integration + 2 integration)
-- **Overall Progress:** 100% (11/11 plans complete)
+- **Milestone:** 2.0 — Frontend Dashboard
+- **Phase:** 5
+- **Phase Status:** In Progress
+- **Plan 01:** Fix PDF report generation pipeline ✓ COMPLETE
+- **Plan 02:** Ingestion snapshot + evaluation detail tabs: PENDING
+- **Plan 03:** Collaboration tab + low-confidence filter + plagiarism view: PENDING
+- **Plan 04:** Analytics page + UX polish: PENDING
+- **Current Plan:** 1/4
+- **Plan Status:** Plan 01 complete — pdf_gen.py refactored, report_service.py uses direct import
+- **Overall Progress:** 12/12 plans complete across all phases
 
 ---
 
@@ -92,6 +92,7 @@ Phase: 3 (Cleanup & Testing)
   | Agent tests use mocked OllamaClient.infer() returning dict directly | Agents call with format="json", so mock returns parsed dict, not {"response": ...} | 2026-07-12 |
   | _find_best_routing_key assumes lowercased input | route_evidence() lowercases before calling; internal function tests pass lowercased | 2026-07-12 |
   | _filter_snapshot preserves '[]' in array wildcard keys | Routing map uses files[].functions notation; output dict uses 'files[]' as key | 2026-07-12 |
+  | Lazy import of generate_pdf inside report_service.generate() | Breaks circular dependency (pdf_gen -> services -> pdf_gen) | 2026-07-13 |
 
 ### Open Questions
 
@@ -140,26 +141,19 @@ None.
 
 ### Last Session
 
-- **Executed Phase 3 Plan 3 (03-03)** — Test Infrastructure + Unit Tests complete:
-  - Added pytest and pytest-mock to requirements.txt
-  - Created tests/conftest.py with 7 shared fixtures (mock_ollama_client, sample_snapshot, sample_rubric, etc.)
-  - Created tests/test_agents.py: 14 tests for all 5 agents with mocked Ollama responses
-  - Created tests/test_schemas.py: 30 JSON Schema contract tests for all 5 schemas
-  - Created tests/test_score_aggregator.py: 15 tests for aggregate_scores() (basic, missing, clamping, low confidence, edge cases)
-  - Created tests/test_evidence_router.py: 20 tests for route_evidence() and internal functions
-  - All 86 tests pass without Ollama, PostgreSQL, or GitHub
-  - Fixed sample_snapshot fixture data format (imports, function field names) to match production parser
-
-- **Executed Phase 3 Plan 4 (03-04)** — Orchestrator + Pipeline + Integration Tests complete:
-  - Expanded tests/test_orchestrator.py: 15 tests covering workflow lifecycle, retry logic, partial failure, corrupted file recovery
-  - Created tests/test_pipeline_service.py: 8 tests for PipelineService with mocked orchestrator
-  - Created tests/test_integration.py: 2 integration tests gated behind RUN_INTEGRATION_TESTS env var
-  - Registered pytest integration marker in pytest.ini
-  - All 102 tests pass (100 non-integration, 2 skipped without env var)
+- **Executed Phase 5 Plan 1 (05-01)** — Fix PDF Report Generation Pipeline complete:
+  - Refactored pdf_gen.py from standalone CLI script into callable module with generate_pdf(session_id, output_dir) entry function
+  - All module-level code guarded behind if __name__ == "__main__"
+  - Updated resolve_rubric_snapshot(), build_question_table(), get_plagiarism() to accept parameters instead of closure variables
+  - generate_preamble() and merge_pdfs() accept output_dir parameter
+  - report_service.py updated to import generate_pdf directly (lazy import to break circular dependency)
+  - Removed subprocess.run() from report generation flow
 
 ### Next Session
 
-- Milestone v1.0 shipped — start next milestone with `/gsd-new-milestone`
+- Execute Phase 5 Plan 2: Ingestion snapshot + evaluation detail tabs
+- Execute Phase 5 Plan 3: Collaboration tab + low-confidence filter + plagiarism view
+- Execute Phase 5 Plan 4: Analytics page + UX polish
 
 ---
 

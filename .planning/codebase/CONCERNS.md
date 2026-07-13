@@ -1,232 +1,244 @@
 # Codebase Concerns
 
-**Analysis Date:** 2026-07-06
+**Analysis Date:** 2026-07-13
 
 ## Tech Debt
 
-### Hardcoded Flask Secret Key
-- **Issue:** `app.secret_key` is a hardcoded string `"repo-eval-workflow"` — identical across all deployments.
-- **Files:** `app.py:19`
-- **Impact:** Session signing uses a predictable key. If an attacker obtains any session cookie, they can forge arbitrary Flask session data. No environment variable override mechanism exists.
-- **Fix approach:** Read `SECRET_KEY` from environment (e.g., `os.getenv("SECRET_KEY", os.urandom(32).hex())`) and generate a random fallback at startup.
+### Hardcoded Flask Secret Key in Production
+- **Issue:** `app.py` hardcodes `app.secret_key = "repo-eval-workflow"` as a literal string (line 20). This is insecure for any deployment — Flask uses this key for signing session cookies and flash messages. An attacker who knows this value can forge session cookies.
+- **Files:** `app.py:20`
+- **Impact:** Session forgery, CSRF token compromise, potential privilege escalation.
+- **Fix approach:** Read `SECRET_KEY` from environment variable with a fallback for development only:
+  ```python
+  app.secret_key = os.getenv("FLASK_SECRET_KEY", os.urandom(24).hex())
+  ```
+  Warn (not silently fallback) if environment variable is missing in non-dev mode.
 
-### Debug Mode Enabled in Default Run
-- **Issue:** `app.run(debug=True, host="0.0.0.0", port=5000)` enables the Werkzeug debugger and full tracebacks on port 5000 bound to all interfaces.
-- **Files:** `app.py:32`
-- **Impact:** In production-like environments, arbitrary remote code execution is possible through the debugger console. Stack traces may leak paths, environment variables, or query contents.
-- **Fix approach:** Gate `debug=True` behind an environment variable check (e.g., `FLASK_ENV=development` or a `--debug` CLI flag).
+### Bare `except:` Clauses Throughout Controllers
+- **Issue:** Multiple controller endpoints wrap entire handler bodies in bare `except Exception as exc: return jsonify(error=str(exc)), 500` blocks. This swallows all exceptions indiscriminately including `KeyboardInterrupt`, `SystemExit`, and `GeneratorExit` (though the `as exc` pattern does at least keep `BaseException` separate). More critically, it leaks internal error details to API clients.
+- **Files:**
+  - `controllers/evaluation_controller.py:27,42,54`
+  - `controllers/report_controller.py:15,23`
+  - `controllers/common.py:36`
+- **Impact:** Internal server errors always return 500 with the exception message exposed to the caller. No logging of stack traces occurs.
+- **Fix approach:** Replace with structured error handling:
+  ```python
+  except Exception as exc:
+      logger.exception("Evaluation failed for session %s", session_id)
+      return jsonify(error="An internal error occurred."), 500
+  ```
 
-### Hardcoded Plagiarism Threshold
-- **Issue:** Cosine similarity threshold of 0.8 is hardcoded with no configuration override.
-- **Files:** `main.py:485`
-- **Impact:** Cannot tune sensitivity per session or rubric. A 0.79 result is silently discarded with no record. No mechanism exists to review near-miss pairs.
-- **Fix approach:** Make the threshold a session-level setting or environment variable, and optionally log near-miss pairs.
+### Silent Exception Swallowing in Service Layer
+- **Issue:** Multiple service methods use bare `except: pass` or `except Exception: pass` patterns, silently discarding errors without logging.
+- **Files:**
+  - `services/github_service.py:50-51,61,79,110-111,139-140,171-172,202-203,222-223` — nearly every GitHub API method catches `Exception` and returns empty/default values with no logging
+  - `services/ingestion_service.py:82-83,127-128,165-166` — catches and silently ignores errors during metadata fetch, file parsing, delta detection
+  - `services/repository_service.py:87-88,93-94,96-98` — catches and ignores errors during repository detail hydration
+  - `database/postgres.py:31` — migration execution silently ignores failures
+- **Impact:** Errors silently disappear, making debugging extremely difficult. A broken GitHub API call, corrupt ingestion record, or failed migration could go unnoticed for days.
+- **Fix approach:** Add at minimum `logger.warning()` or `logger.exception()` before `pass` in non-critical paths. For data-critical paths, re-raise or explicitly handle.
 
-### Hardcoded Base Repository URL
-- **Issue:** The base/template repository URL is hardcoded at module level in `main.py`.
-- **Files:** `main.py:25`
-- **Impact:** Changing the base repo requires code modification. This URL is also session-specific (different assignments use different base repos) but is shared globally.
-- **Fix approach:** Store the base repo URL as a session-level database column, or pass it as a CLI argument.
+### Abandoned `archive/` Directory Contains Old Gemini-Based Evaluation Code
+- **Issue:** `archive/main.py` (496 lines) references `GEMINI_API_KEY` and uses a completely different evaluation pipeline (Google Generative AI + scikit-learn). This is dead code that references a potentially sensitive environment variable name (`GEMINI_API_KEY`). `archive/evaluation_service.py` is a replaced by `pipeline_service.py`.
+- **Files:** `archive/main.py`, `archive/evaluation_service.py`
+- **Impact:** Dead code adds cognitive load, creates confusion about which pipeline is active, and the reference to `GEMINI_API_KEY` is misleading. The archive should be deleted or clearly documented.
+- **Fix approach:** Delete `archive/` directory. The current pipeline (`pipeline_service.py`) is the active implementation.
 
-### Arbitrary Fixed Rate-Limit Sleep
-- **Issue:** `time.sleep(1.2)` between repository evaluations is an arbitrary fixed delay with no connection to actual API rate limits.
-- **Files:** `main.py:465`
-- **Impact:** Too slow for large batches (60+ repos), too fast if GitHub API rate limits are hit. No retry or backoff logic exists.
-- **Fix approach:** Check GitHub API `X-RateLimit-Remaining` headers and implement adaptive delay/retry.
+### Database Migrations Silently Fail
+- **Issue:** `database/postgres.py:26-32` iterates over `migration_*.sql` files and silently `pass`es on any exception. This means a failed migration (e.g., duplicate column, type conflict) is invisible.
+- **Files:** `database/postgres.py:26-32`
+- **Impact:** Schema can be in an inconsistent state without anyone knowing. Later code that depends on migrated columns will fail with confusing errors.
+- **Fix approach:** Log migration failures and either re-raise or track applied migrations in a `_migrations` table so only unapplied migrations run.
 
-### Arbitrary Code Truncation at 15000 Characters
-- **Issue:** Both `evaluate_code` and `evaluate_code_dynamic` truncate submitted code to 15000 characters with no warning.
-- **Files:** `main.py:306`, `main.py:386`
-- **Impact:** Student submissions exceeding 15000 chars are silently truncated. The evaluator scores incomplete code, producing unreliable results with no audit trail.
-- **Fix approach:** Log truncation events, consider the code length as part of evaluation metadata, and ideally support multi-turn Gemini invocations for large codebases.
+### SQL Injection Risk via f-String in RepositoryRepository.related_data
+- **Issue:** `repositories/repository_repository.py:90` uses an f-string to construct a SQL query:
+  ```python
+  return {table: db.execute(f"SELECT * FROM {table} WHERE repository_id=%s ORDER BY created_at DESC", (repository_id,)).fetchall() for table in tables}
+  ```
+  While `repository_id` is parameterized, the `table` names come from a hardcoded tuple at line 87-88. Currently safe because the table names are developer-controlled, but the pattern is fragile and any future dynamic table name would introduce SQL injection.
+- **Files:** `repositories/repository_repository.py:86-90`
+- **Impact:** Low now, but the pattern is a ticking bomb. If `tables` ever becomes user-controllable, it's a critical SQL injection.
+- **Fix approach:** Validate table names against a whitelist:
+  ```python
+  VALID_TABLES = {"code_quality", "documentation", ...}
+  assert table in VALID_TABLES, f"Invalid table: {table}"
+  ```
 
-### Models Module is Dead Code
-- **Issue:** `models/domain.py` defines frozen dataclasses (`EvaluationSession`, `Repository`, `Evaluation`) that are never imported or used anywhere in the application. All data flows through raw dictionaries.
-- **Files:** `models/domain.py` (all 3 classes), `models/__init__.py`
-- **Impact:** 38 lines of dead code that create confusion about the type system. New contributors may think typed objects are in use when they are not.
-- **Fix approach:** Either adopt the dataclasses throughout services/repositories (type-safe refactor), or remove the file entirely.
-
-## Known Bugs
-
-### GitHub Commit Count Extraction Fragile
-- **Symptoms:** `commit_count` parses pagination links from the GitHub API `Link` header by splitting on `page=` and `>`. If GitHub changes the Link header format, this returns 0 silently.
-- **Files:** `github_service.py:36-42`
-- **Trigger:** Any repository whose commit list spans more than one page (per_page=1 is used, so effectively every repo with >1 commit triggers pagination parsing).
-- **Workaround:** None — the method returns 0 on any exception, hiding the failure.
-- **Fix:** Use a proper pagination library or parse the `Link` header with a regex/parser rather than fragile string splitting.
-
-### Base Code Delta Can Include Comment-Only Differences
-- **Symptoms:** `AnalysisService.added_code` compares line-by-line stripped content. If a student adds comments to a base-code line, the line appears different and is treated as "added," but functionally the change may be trivial. Conversely, whitespace-only changes get stripped away.
-- **Files:** `services/analysis_service.py:4-7`
-- **Trigger:** Any student who reformats or comments base code without adding logic will be credited with that code as their own.
-- **Fix:** Use AST-level diffing or token-based comparison rather than line-level stripped text matching.
-
-### Evaluate Code Uses Fragile JSON Extraction
-- **Symptoms:** Both `evaluate_code` and `evaluate_code_dynamic` extract JSON from the Gemini response via regex and manual bracket matching (`text.find("{")`, `text.rfind("}")`). If the model returns markdown-wrapped JSON with nested braces (e.g., inside remarks), extraction can produce truncated or malformed JSON.
-- **Files:** `main.py:314-319`, `main.py:389`
-- **Trigger:** Gemini model returning explanatory text before/after JSON, or remarks containing brace characters.
-- **Fix:** Use a strict JSON extraction strategy — request only raw JSON from the model, validate with `json.loads()`, and retry with a correction prompt on failure.
-
-### Session "Progress" Values Are Display-Level Fictions
-- **Symptoms:** The `session_context` function in `common.py` assigns hardcoded progress bar percentages: 100 for Completed, 50 for Evaluating, 8 for everything else.
-- **Files:** `controllers/common.py:33`
-- **Trigger:** Any non-Completed/Evaluating status gets 8%, which misrepresents actual progress (e.g., a newly added Pending repository shows near 0% progress as 8%).
-- **Fix:** Remove the progress field entirely or derive it from actual steps in the pipeline rather than status-based arbitrary numbers.
+### `print()` Statements Used Instead of Logging in Production Code
+- **Issue:** Several files use `print()` for operational output rather than structured logging, making log aggregation and level-based filtering impossible.
+- **Files:**
+  - `services/github_service.py:67` — `print("Cloning:", url, "→", ...)`
+  - `services/ollama_client.py:303-314` — `print()` in `__main__` block (less critical)
+  - `pdf_gen.py:317, 424, 440` — progress prints
+- **Impact:** Cannot control verbosity, no timestamps, no structured output for log aggregation tools.
+- **Fix approach:** Replace with `logging.getLogger(__name__).info(...)`.
 
 ## Security Considerations
 
-### No Input Validation on Repository URLs or Roll Numbers
-- **Risk:** Repository URLs and roll numbers from user input are passed directly to `subprocess.run(["git", "clone", ..., url, path])` in `github_service.py:33`. A malicious URL with shell metacharacters could lead to command injection, though mitigated by subprocess not using a shell. Roll numbers stored in filenames (`sanitize_name`) use a regex filter (`[^a-zA-Z0-9._-]`), providing basic sanitization.
-- **Files:** `services/github_service.py:14-16`, `services/github_service.py:29-34`
-- **Current mitigation:** `subprocess.run` does not use `shell=True`. The sanitize_name filter strips non-alphanumeric characters.
-- **Recommendations:** Validate repo URLs with a URL parser before passing to git; validate roll numbers match expected patterns (e.g., university format). Add allow-list validation at the controller layer.
+### Hardcoded Secret Key
+- **Risk:** Session forgery and CSRF token manipulation.
+- **Files:** `app.py:20`
+- **Current mitigation:** None. The key is a hardcoded development-only value.
+- **Recommendations:** Load from environment variable `FLASK_SECRET_KEY`. Rotate on deploy.
 
-### No Rate Limiting or Authentication on API Endpoints
-- **Risk:** All `/api/*` endpoints are publicly accessible with no authentication, authorization, or rate limiting. The API allows creating/archiving/deleting sessions and rubrics.
-- **Files:** All controllers under `controllers/`
+### GitHub Token Exposure Risk
+- **Risk:** `GITHUB_TOKEN` is read from `os.environ` (`.env` file) and used as a Bearer token in all GitHub API calls. If any exception handler ever leaks response bodies or logs the request headers, the token could be exposed.
+- **Files:** `services/github_service.py:12`
+- **Current mitigation:** The token is used only in `Authorization` headers, never logged. No explicit sanitization.
+- **Recommendations:** Add explicit guard: never log `self.headers` (which contains the Bearer token). Consider using GitHub App installation tokens for fine-grained permissions.
+
+### Bare Exception Handlers Leak Internal Details
+- **Risk:** `controllers/evaluation_controller.py` and several other controllers return `jsonify(error=str(exc))` with 500 status. This leaks internal implementation details (file paths, DB error messages, stack trace frames) to API consumers.
+- **Files:** `controllers/evaluation_controller.py:27,42,54`, `controllers/report_controller.py:15,23`
 - **Current mitigation:** None.
-- **Recommendations:** Add Flask session-based authentication (at minimum), rate limiting via Flask-Limiter, and CORS restrictions if exposed beyond localhost.
+- **Recommendations:** Return generic error messages to clients. Log full details server-side.
 
-### GitHub Token Exposed as Module-Level Global
-- **Risk:** `GITHUB_TOKEN` and `GEMINI_API_KEY` are loaded from environment and stored as module-level variables. The `HEADERS` dictionary in `main.py:21` includes the token in plaintext in memory for the process lifetime.
-- **Files:** `main.py:14-15`, `main.py:21`
-- **Current mitigation:** None — token is in a Python global for the entire process.
-- **Recommendations:** Scope token access to individual function calls rather than module globals. Consider using a secrets manager.
-
-### No CSRF Protection
-- **Risk:** Flask-WTF CSRF protection is not used. State-changing POST/PUT/DELETE endpoints lack CSRF tokens. An attacker who tricks an admin into visiting a crafted page could create sessions, add repositories, or delete rubrics.
-- **Files:** All `controllers/*.py` — no CSRF middleware or token validation.
-- **Current mitigation:** None.
-- **Recommendations:** Enable Flask-WTF CSRF protection globally, especially for endpoints that modify state.
+### Old Gemini API Key Reference in Dead Code
+- **Risk:** `archive/main.py:16` references `GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")`. If `.env` contains this key, it's accessible via dead code path.
+- **Files:** `archive/main.py:16`
+- **Current mitigation:** The `archive/` directory is excluded from the main import path.
+- **Recommendations:** Delete `archive/` directory entirely.
 
 ## Performance Bottlenecks
 
-### Sequential Repository Evaluation
-- **Problem:** `main.py` processes repositories one at a time in a single loop with `time.sleep(1.2)` between iterations. For 100 repositories, this takes at least 2 minutes plus Gemini API time (often 5-15s per call) — potentially 15+ minutes total.
-- **Files:** `main.py:425-465`
-- **Cause:** Single-threaded sequential design with fixed sleep.
-- **Improvement path:** Use concurrent.futures with controlled concurrency (e.g., 3-5 parallel workers) to overlap Gemini API calls. Remove the fixed sleep; use actual rate-limit awareness.
+### Synchronous Per-Repository Processing in Pipeline
+- **Problem:** `PipelineService.evaluate_session_repositories` (`pipeline_service.py:87-106`) processes repositories sequentially in a `for` loop. Each repository evaluation can take 30-300 seconds (LLM inference). With 50+ repositories, this means 25+ minutes of wall-clock time for a session.
+- **Files:** `services/evaluation/pipeline_service.py:87-106`
+- **Cause:** Sequential loop with no parallelism across repositories.
+- **Improvement path:** Use `concurrent.futures.ThreadPoolExecutor` to evaluate multiple repositories in parallel, bounded by a configurable `max_parallel_repos` setting. Consider a background task queue (Celery, RQ, or APScheduler) for large sessions.
 
-### All Code Read Into Memory at Once
-- **Problem:** `read_code` concatenates all source file contents into a single in-memory string. For large repositories, this can be hundreds of KB/MB, and is then duplicated for TF-IDF vectorization.
-- **Files:** `main.py:95-108`
-- **Cause:** Naive concatenation without streaming or size limits.
-- **Improvement path:** Set a per-repository code size limit, or sample files rather than reading everything. Stream code through generators where possible.
+### 30-Minute Hardcoded Timeout for PDF Generation
+- **Problem:** `services/report_service.py:23` sets `timeout=1800` (30 minutes) for the `pdf_gen.py` subprocess. If the process hangs, the HTTP request thread is blocked for 30 minutes.
+- **Files:** `services/report_service.py:23`
+- **Cause:** The PDF generation is a single-threaded subprocess with a generous hard timeout.
+- **Improvement path:** Move PDF generation to a background task. Return a 202 Accepted with a job ID, and poll for completion. Alternatively, reduce timeout and retry.
 
-### Evaluation DB Per-Question N+1 Queries
-- **Problem:** Hydrating evaluation data in `evaluation_repository.py:23-27` executes one query to fetch questions, then N queries for criteria (one per question). For a rubric with 10 questions, this is 11 round-trips per evaluation.
-- **Files:** `repositories/evaluation_repository.py:22-27`
-- **Cause:** Cursor-based per-question criteria fetching.
-- **Improvement path:** Use a single JOIN query to fetch all questions and their criteria in one round trip.
+### Full-Snapshot Ingestion for Every Evaluation
+- **Problem:** `orchestrator.py:231-253` re-runs the full ingestion pipeline (clone + parse + metrics + delta detection) on every evaluation. For repositories that have already been cloned and ingested, this is wasted work.
+- **Files:** `services/evaluation/orchestrator.py:231-253`
+- **Cause:** Ingestion is not cached per-repository across evaluations. Every `force=False` call still re-ingests because the orchestrator checks step files, not the ingestion DB.
+- **Improvement path:** Check `ingestion_repository` for an existing record before re-ingesting. Only re-ingest if `force=True` or if no record exists.
 
-### Repository Detail Loads 10 Extra Tables Via N+1
-- **Problem:** `repository_repository.related_data()` executes 10 separate `SELECT *` queries to fetch insights for a single repository (one per table: code_quality, documentation, collaboration, project_health, technologies, contributors, commits, pull_requests, issues, files).
-- **Files:** `repositories/repository_repository.py:79-83`
-- **Cause:** Direct per-table querying without JOINs or lazy loading.
-- **Improvement path:** Use a single query with JOINs across tables, or lazy-load tabs on the frontend via separate API endpoints.
-
-### Dashboard Metrics Query Multiple Tables
-- **Problem:** `dashboard_metrics` executes 5+ separate aggregate queries for the dashboard page. Each query scans large portions of the database.
-- **Files:** `repositories/repository_repository.py:51-77`
-- **Cause:** Modular but unoptimized query design.
-- **Improvement path:** Introduce a materialized dashboard summary table that refreshes periodically, or combine queries into fewer round-trips.
-
-### Duplicate Virtual Environments
-- **Problem:** Two virtual environment directories exist: `venv/` (ignored in `.gitignore`) and `.venv/` (not listed in `.gitignore`). This causes confusion about which environment is active and wastes disk space.
-- **Files:** `venv/`, `.venv/`, `.gitignore:1` (only `venv/` listed)
-- **Fix:** Remove one of `venv/` or `.venv/`. Add the chosen one to `.gitignore`.
+### Evidence Truncation Without User Awareness
+- **Problem:** `rubric_evaluation_agent.py:87-94` truncates evidence at 8000 characters with a logger warning. The agent still evaluates with truncated data, potentially producing inaccurate scores.
+- **Similarly:** `feedback_agent.py:109-110` truncates the scores summary at 8000 chars.
+- **Files:** `services/evaluation/rubric_evaluation_agent.py:87-94`, `services/evaluation/feedback_agent.py:109-110`
+- **Cause:** Context window limits on the SLM models.
+- **Improvement path:** Log the truncation ratio (e.g., "truncated 60% of evidence") so operators can identify when evaluation quality may be degraded. Consider adaptive prompting that summarizes truncated sections before passing to the model.
 
 ## Fragile Areas
 
-### Gemini API Response Parsing
-- **Files:** `main.py:310-321`, `main.py:388-390`
-- **Why fragile:** JSON extraction relies on string operations (`text.find("{")`, `text.rfind("}")`) and regex to strip markdown wrapping. If the Gemini model changes its response format, adds nested braces in remarks, or returns structured content, the parsing fails with a generic "JSON parsing failed" error. The error details are passed back but not stored in the evaluation record.
-- **Safe modification:** Add a validation retry loop: if initial JSON parsing fails, re-prompt the model asking it to fix the JSON. Log raw model output alongside parsed data for debugging.
-- **Test coverage:** No tests exist for this parsing logic.
+### Evidence Router Uses Fuzzy String Matching
+- **Files:** `services/evaluation/evidence_router.py:56-87`
+- **Why fragile:** The `_find_best_routing_key` function uses case-insensitive substring matching in both directions (category contains key, key contains category). This is fragile — a rubric category code like "Q1A_implementation_details" could match "implementation" when it should match "documentation".
+- **Safe modification:** When adding new EVIDENCE_ROUTING_MAP entries, ensure category codes are unambiguous. Consider prefix-based matching or exact match with a defined naming convention for rubric category codes.
+- **Test coverage:** `tests/test_evidence_router.py` exists (276 lines) covering this module.
 
-### Module-Level API Key Dependency
-- **Files:** `main.py:14-15,28-29`
-- **Why fragile:** `GITHUB_TOKEN` and `GEMINI_API_KEY` are loaded at module import time. If these environment variables are not set, `main.py` crashes at `genai.configure()` with a hard-to-debug error. Running `main.py` directly also re-executes the entire evaluation pipeline — there is no dry-run or validation-only mode.
-- **Safe modification:** Wrap API configuration in a lazy-initialization function with clear error messages. Add a `--validate` flag that checks environment and connectivity without starting evaluation.
+### Ingestion Service Has Deep Nesting & Single Responsibility Violation
+- **Files:** `services/ingestion_service.py`
+- **Why fragile:** 261 lines with 9 sequential stages (clone, metadata, discovery, parse, metrics, delta, build, write, persist), all in one method (`ingest()`). Any stage failure cascades into the `error` string accumulation pattern. Adding a new stage requires modifying this single massive method.
+- **Safe modification:** Extract each stage into its own private method. Use dependency injection configuration for stage ordering.
+- **Test coverage:** No dedicated test file for the ingestion service or any of the ingestion sub-modules (`code_parser.py`, `file_discoverer.py`, `delta_detector.py`, `metrics_calculator.py`, `snapshot_builder.py`).
 
-### Session Context Summary Relies on Map Lookups
-- **Files:** `controllers/common.py:20-38`
-- **Why fragile:** `session_context` iterates all repositories to build a summary, using dictionary access patterns like `repo_data.get("public") is True` and `repo_data.get("readme_exists") is True`. If a repository row lacks these fields (e.g., newly added, not yet checked), the boolean checks produce incorrect results. The commit_count defaults to 0 silently.
-- **Safe modification:** Add explicit null/None checks and provide meaningful defaults. Log missing expected fields during hydration.
+### GitHub Service Retry/Error Handling Is Inconsistent
+- **Files:** `services/github_service.py`
+- **Why fragile:** Every API method wraps the body in `try/except Exception: return default_value`. There is no retry logic, no rate-limit handling (GitHub API returns 403 with `X-RateLimit-Remaining: 0`), no pagination protection for repos with >100 pages, and no logging on failure. If the GitHub API is slow or rate-limited, the entire pipeline silently returns empty data.
+- **Safe modification:** Add `tenacity` retry decorator with exponential backoff for rate limits (retry-After header). Log warnings on API failures.
+- **Test coverage:** No dedicated test file for `GitHubService`.
 
-### PDF Generation Re-queries Database on Every Report
-- **Files:** `pdf_gen.py:63-64`, `pdf_gen.py:101-106`
-- **Why fragile:** PDF generation re-fetches all session repositories from the database, re-constructs DataFrames, resolves rubric snapshots, and generates individual PDFs for every student. If a session has 200+ repositories, this takes significant time and memory. A single failed PDF halts report generation.
-- **Safe modification:** Generate PDFs individually on demand (already partially supported via `/sessions/.../repositories/.../report`). Skip or tolerate individual failures rather than failing the entire batch.
+### Schema Validation in RepoUnderstandingAgent Falls Back to Default Output on Failure
+- **Files:** `services/evaluation/repo_understanding_agent.py:89-110`, `code_understanding_agent.py:76-100`, `collaboration_agent.py:72-94`
+- **Why fragile:** When schema validation fails, agents return a hardcoded fallback dict (e.g., `{"languages": repo_stats..., "structural_summary": "Schema validation failed..."}`). This means downstream pipeline stages receive valid-format but semantically empty data. The pipeline continues with `pipeline_status = "partial"` but the fallback data is indistinguishable from real data to consumers.
+- **Safe modification:** Raise a distinct exception type on schema failure so the orchestrator can differentiate "agent ran but got low-quality results" from "agent failed entirely."
+- **Test coverage:** Covered by `tests/test_agents.py` (501 lines) with schema validation tests.
 
-### evaluate_code_dynamic Single-Line Density
-- **Files:** `main.py:365-408`
-- **Why fragile:** This function uses extremely dense single-line expressions (e.g., `schema = {category["code"]: {**{...}, "total": 0} ...}` at lines 368-371, and inline semicolon-separated statements at line 389). The score-clamping logic at lines 392-405 is deeply nested in dictionary comprehensions. Any modification is error-prone.
-- **Safe modification:** Break the function into clearly named helper functions for schema construction, prompt building, response parsing, and score clamping. Each helper should have a single responsibility.
-
-### Subprocess Spawn for Evaluation and Reports
-- **Files:** `services/evaluation_service.py:39-43`, `services/report_service.py:21-24`
-- **Why fragile:** Both `EvaluationService` and `ReportService` spawn `main.py` or `pdf_gen.py` as subprocesses via `sys.executable`. This creates a new Python interpreter process for every operation. The subprocess inherits environment variables, the virtual environment must match, and the 1800-second timeout can kill long-running reports. Error messages from stderr are returned to the user via flash messages (in report generation) or raised as RuntimeError (in evaluation).
-- **Safe modification:** Refactor `main.py` and `pdf_gen.py` into importable functions that can be called in-process. Remove the subprocess indirection entirely.
+### Database Initialization Runs on Every SessionService Instantiation
+- **Files:** `services/session_service.py:11-13`
+- **Why fragile:** `initialize_database()` is called in `SessionService.__init__()`, which is called on every Flask request via the service container. This means schema re-execution and migration re-attempts happen on every request. While Postgres's `IF NOT EXISTS` guards prevent errors, the migration loop re-attempts all migrations every time.
+- **Safe modification:** Move `initialize_database()` to application startup in `app.py` `create_app()`, not in the service constructor.
+- **Test coverage:** No test for `initialize_database()` behavior.
 
 ## Scaling Limits
 
-### Single-Process Subprocess Architecture
-- **Current capacity:** One evaluation at a time per server process. Each evaluation batches all pending repositories for a session and runs them sequentially.
-- **Limit:** Multiple concurrent evaluation requests from different sessions execute serially due to `_evaluation_lock` in `evaluation_service.py:29`. The subprocess architecture also prevents horizontal scaling — only one Flask process can run evaluations.
-- **Scaling path:** Replace subprocess-based evaluation with an async task queue (Celery/Redis or similar). Remove the global evaluation lock. Allow concurrent evaluations across sessions.
+### Known Capacity Constraints
 
-### Flattened Metadata Storage
-- **Current capacity:** `flatten_metadata` recursively converts nested dicts/lists into key-value pairs with dot-notation keys (e.g., `questions.Q1A.score`).
-- **Limit:** Deeply nested evaluation metadata (10+ levels) produces very long keys. Large lists produce many rows (one per list element), which increases DB storage linearly with no query benefit.
-- **Scaling path:** Store complex metadata as a JSONB column rather than an EAV (entity-attribute-value) pattern. Query JSONB directly for the few cases where metadata is accessed.
+| Resource | Current | Limit | Scaling Path |
+|----------|---------|-------|-------------|
+| Sequential repo evaluation | 1 repo at a time | Memory/thread pool | Parallel evaluation via ThreadPoolExecutor |
+| LLM inference (Ollama client) | 300s timeout per call | Model context window | Use streaming, reduce max tokens |
+| PDF generation timeout | 1800s / 30 min | HTTP request timeout | Background task queue |
+| Evidence truncation | 8000 chars per criterion | Model context window | Hierarchical summarization |
+| File count in prompts | 30 files (repo), 10 files (code) | Token budget | Dynamic chunking based on token count |
+
+### Single-Process Bottleneck
+- **Problem:** The entire Flask application runs in a single process with ASGI (`asgiref.wsgi.WsgiToAsgi`) wrapping the WSGI app. Long-running evaluations block the entire server from handling other requests.
+- **Files:** `app.py:30`
+- **Scaling path:** Separate the evaluation pipeline into a background worker process. Use PostgreSQL as the job queue. Flask handles only CRUD and status polling.
 
 ## Dependencies at Risk
 
-### Google Generative AI SDK (google-generativeai)
-- **Risk:** The SDK (`google.generativeai`) is pinned in `requirements.txt` but may require frequent version updates to match Gemini model API changes. Version `0.8.x` added breaking changes to `GenerativeModel.generate_content()`. The evaluation pipeline depends entirely on correct JSON output from the model — any change to the response format breaks evaluation.
-- **Impact:** Broken evaluations, silent score inaccuracies. No warning when the model returns unexpected output.
-- **Migration plan:** Pin to a known-good version and test explicitly before upgrading. Add a model response validator that checks for expected JSON structure before proceeding.
+### Ollama Model Availability
+- **Risk:** The entire evaluation pipeline depends on two SLM models (`qwen2.5-coder:3b` and `phi-4-mini:3.8b`) being available on a local Ollama instance. If Ollama is down, models are not pulled, or GPU memory is insufficient, the pipeline fails immediately at `validate_connectivity()`.
+- **Impact:** Pipeline cannot run without these specific models.
+- **Migration plan:** Abstract model deployment behind a strategy pattern — allow plugging in remote API endpoints (OpenAI-compatible, Anthropic, etc.) as alternatives to local Ollama.
 
-### psycopg (v3)
-- **Risk:** `psycopg` v3 is a relatively new major version with a smaller community than `psycopg2`. Compatibility issues with older PostgreSQL versions or unusual configurations may arise.
-- **Impact:** Connection failures in deployment environments with custom PostgreSQL setups.
-- **Migration plan:** Ensure minimum PostgreSQL version is documented. Fall back to `psycopg2-binary` if compatibility issues surface.
+### psycopg v3 Binary Dependency
+- **Risk:** `psycopg[binary]==3.2.9` in `requirements.txt` bundles a pre-compiled binary. This works on most platforms but can fail on unusual architectures (ARM, RISC-V). The `binary` extra also obscures the actual dependency.
+- **Impact:** Installation failure on non-x86 platforms.
+- **Migration plan:** Pin `psycopg>=3.2,<4.0` without the `[binary]` extra and document that `psycopg[c]` may be needed for performance.
 
-## Missing Critical Features
-
-### No Evaluation Preview or Audit Trail
-- **Problem:** Before running evaluations, there is no way to preview which code will be sent to the Gemini API, or verify that repository URLs are reachable. After evaluation, there is no audit trail showing what code was actually evaluated — only scores are stored.
-- **Blocks:** Debugging incorrect evaluations, verifying evaluation fairness, reviewing edge cases.
-- **Files:** `controllers/evaluation_controller.py`, `main.py`
-- **Priority:** Medium
-
-### No Cancellation for Running Evaluations
-- **Problem:** Once evaluation is started, there is no way to cancel it. The subprocess runs until completion or the 1800-second timeout. Users cannot abort a misconfigured evaluation without restarting the server.
-- **Blocks:** Operator control over the evaluation pipeline.
-- **Files:** `services/evaluation_service.py`
-- **Priority:** Low
-
-### No Logging Framework for the Evaluation Pipeline
-- **Problem:** `main.py` uses `print()` statements for all logging. There is no structured logging, log levels, or log file output. Debugging failed evaluations requires reading terminal output that may have scrolled away.
-- **Blocks:** Post-mortem debugging of failed evaluations, production observability.
-- **Files:** `main.py` (all `print()` statements), `services/evaluation_service.py` (uses `print()` at lines 35-38, 46)
-- **Priority:** Medium
+### scikit-learn Imported but Only in Archived Code
+- **Risk:** `scikit-learn==1.8.0` is in `requirements.txt` but only used in the archived `main.py` (via `TfidfVectorizer` and `cosine_similarity`). The active pipeline does not use scikit-learn.
+- **Impact:** Unnecessary dependency adds ~50MB to the deployment and increased attack surface.
+- **Migration plan:** Remove scikit-learn from `requirements.txt` since it's unused by the active pipeline.
 
 ## Test Coverage Gaps
 
-### No Test Files Exist
-- **What's not tested:** The entire codebase. There are zero test files — no unit tests, integration tests, or end-to-end tests. All services, repositories, controllers, and the evaluation pipeline are untested.
-- **Files:** All `.py` files under `services/`, `repositories/`, `controllers/`, `main.py`, `pdf_gen.py`, `database/postgres.py`
-- **Risk:** Any code change may silently break evaluation logic, score clamping, database writes, PDF generation, or the Gemini integration. Refactoring is high-risk without a test safety net.
-- **Priority:** High
+### Untested Areas (High Priority)
 
-### Critical Untested Logic
-- **What's not tested:** Score clamping logic (`evaluate_code` lines 326-356), JSON parsing resilience, plagiarism threshold logic, session creation workflows, error recovery for failed repositories.
-- **Files:** `main.py:326-356`, `main.py:310-321`, `repositories/evaluation_repository.py:48-70`
-- **Risk:** The most complex and business-critical code (score clamping, JSON parsing, transaction evaluation save) has zero test coverage. A bug in score clamping would silently produce incorrect grades.
-- **Priority:** High
+| Area | Files | Risk | Priority |
+|------|-------|------|----------|
+| **Controllers** (6 files) | `controllers/*.py` | HTTP API layer has zero tests — broken endpoints ship silently | High |
+| **GitHubService** | `services/github_service.py` | External API interaction with no contract tests | High |
+| **Ingestion pipeline** | `services/ingestion_service.py`, `services/ingestion/*.py` | Core data pipeline has no unit tests | High |
+| **Database layer** | `database/postgres.py`, `database/__init__.py` | Schema initialization and connection management untested | High |
+| **Repositories** (5 files) | `repositories/*.py` | SQL query correctness is untested | High |
+| **Flask integration** | `app.py` | App factory, blueprint registration, ASGI wrapping untested | Medium |
+| **Service layer** (5 files) | `services/*.py` (github, ingestion, report, rubric, session) | Business logic orchestration untested | Medium |
+| **PDF generation** | `pdf_gen.py` (440 lines) | Report generation is untested, requires real DB data | Medium |
+| **Migration scripts** | `scripts/migrate_to_postgres.py` | One-time data migration untested | Medium |
+
+### What IS Tested
+- **Agent pipeline** (`tests/test_agents.py`): All 5 agents with mock Ollama — **good coverage**
+- **Score aggregation** (`tests/test_score_aggregator.py`): Deterministic math with various scenarios — **good coverage**
+- **Evidence routing** (`tests/test_evidence_router.py`): Route key matching and snapshot filtering — **good coverage**
+- **Orchestrator** (`tests/test_orchestrator.py`): Pipeline lifecycle, retry logic, parallel execution — **good coverage**
+- **Pipeline service** (`tests/test_pipeline_service.py`): High-level evaluation flow — **good coverage**
+- **Schemas** (`tests/test_schemas.py`): JSON Schema validation — **good coverage**
+
+### Integration Testing Gap
+- **Files:** `tests/test_integration.py`
+- **What's not tested:** The full pipeline end-to-end with real Ollama + real GitHub + real PostgreSQL. The integration test exists (122 lines) but is gated behind `RUN_INTEGRATION_TESTS=1` and is not run in CI.
+- **Risk:** The interaction between ingestion, Ollama inference, and DB persistence is never validated in automated CI.
+- **Priority:** Medium — mitigatable by manual smoke testing.
+
+## Missing Critical Features
+
+### No Evaluation Cancellation Mechanism
+- **Problem:** Once an evaluation starts (especially session-level), there is no way to cancel it. The Flask request hangs until the pipeline completes or times out.
+- **Blocks:** Operational control during long-running evaluations.
+- **Fix approach:** Store evaluation job state in DB with a `cancel_requested` flag. Pipeline checks this flag between repository evaluations.
+
+### No Authentication / User System
+- **Problem:** The Flask app has no authentication middleware. Any user who can reach the server can create sessions, run evaluations, and view all results. The hardcoded secret key makes session forging trivial.
+- **Blocks:** Deployment to any multi-tenant or internet-facing environment.
+- **Fix approach:** Add Flask-Login or a simple token-based auth. Protect write endpoints.
+
+### No Audit Logging
+- **Problem:** There is no record of who performed what action. Session creation, repository addition, evaluation runs, and rubric modifications are not logged to an audit trail.
+- **Blocks:** Academic integrity auditing.
+- **Fix approach:** Add a simple `audit_log` table and middleware that logs all state-changing API calls.
 
 ---
 
-*Concerns audit: 2026-07-06*
+*Concerns audit: 2026-07-13*

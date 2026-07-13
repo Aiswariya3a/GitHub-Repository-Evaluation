@@ -1,98 +1,120 @@
 # External Integrations
 
-**Analysis Date:** 2026-07-06
+**Analysis Date:** 2026-07-13
 
 ## APIs & External Services
 
-**AI / LLM:**
-- **Google Gemini** - AI-based code evaluation against a rubric
-  - SDK: `google-generativeai==0.8.6`
-  - Model: `gemini-2.5-flash` (configured in `main.py:29`)
-  - Auth: `GEMINI_API_KEY` env var
-  - Usage: Student code is sent via prompt to generate structured JSON evaluation scores for 10 rubric questions (Q1A-Q5B)
-  - Prompt includes full rubric definition, max score constraints, and code (truncated to 15,000 chars)
-  - Rate limiting: 1.2s sleep between evaluations (`time.sleep(1.2)` in `main.py:465`)
+**GitHub REST API v3:**
+- Used for: Repository metadata retrieval, commit history, contributor analysis, pull request/issue stats, repository existence/visibility checks
+- Client: Custom `GitHubService` class in `services/github_service.py`
+- Auth: Bearer token via `GITHUB_TOKEN` env var in HTTP `Authorization` header
+- Rate limiting: No explicit client-side rate-limit handling (relies on GitHub's standard rate limits; unauthenticated requests have stricter limits)
+- Endpoints used:
+  - `GET /repos/{owner}/{repo}` — repo metadata (`services/github_service.py:31`)
+  - `GET /repos/{owner}/{repo}/contents` — file listing for README detection (`services/github_service.py:60`)
+  - `GET /repos/{owner}/{repo}/commits` — commit history with pagination (`services/github_service.py:74`)
+  - `GET /repos/{owner}/{repo}/contributors` — contributor list (`services/github_service.py:117`)
+  - `GET /repos/{owner}/{repo}/pulls` — pull requests with pagination (`services/github_service.py:146`)
+  - `GET /repos/{owner}/{repo}/issues` — issues with pagination, PRs filtered out (`services/github_service.py:178`)
 
-**Version Control / Source Code:**
-- **GitHub REST API v3** - Repository validation and commit counting
-  - SDK: `requests` library (direct HTTP calls)
-  - Auth: `GITHUB_TOKEN` env var (passed as `Authorization: token <token>` header)
-  - Endpoints used:
-    - `GET /repos/{owner}/{repo}` — check repo existence and visibility (`services/github_service.py:23`)
-    - `GET /repos/{owner}/{repo}/contents` — list root files for README detection (`services/github_service.py:25`)
-    - `GET /repos/{owner}/{repo}/commits?per_page=1` — commit count via `Link` header pagination (`services/github_service.py:39`)
+**Ollama API (local):**
+- Used for: SLM (Small Language Model) inference for code evaluation, repository understanding, collaboration analysis, rubric evaluation, and feedback generation
+- Client: Custom `OllamaClient` class in `services/ollama_client.py`
+- Connection: HTTP on `OLLAMA_HOST:OLLAMA_PORT` (default `http://localhost:11434`)
+- Endpoints used:
+  - `GET /api/tags` — connectivity validation and model availability check (`ollama_client.py:122`)
+  - `POST /api/generate` — inference with temperature=0, streaming disabled (`ollama_client.py:228-229`)
+- Models:
+  - `qwen2.5-coder:3b` — code understanding and repository analysis tasks ("code" role)
+  - `phi-4-mini:3.8b` — collaboration/feedback/reasoning tasks ("reasoning" role)
+- Custom exceptions: `OllamaConnectionError`, `OllamaModelNotFoundError`, `OllamaAPIError`
 
 ## Data Storage
 
 **Databases:**
-- **PostgreSQL** (primary and only database)
-  - Connection: `DATABASE_URL` env var (e.g. `postgresql://postgres:postgres@localhost:5432/repository_evaluation`)
-  - Client: `psycopg` 3.2.9 (binary distribution) with `dict_row` row factory
-  - Module: `database/postgres.py`
-  - Schema: `database/schema.sql` (16 tables, ~20 indexes)
-  - Auto-initialized on app startup via `initialize_database()` (idempotent — uses `CREATE TABLE IF NOT EXISTS` and `ALTER TABLE ADD COLUMN IF NOT EXISTS`)
 
-**Database Schema (16 tables):**
-| Table | Purpose |
-|-------|---------|
-| `evaluation_sessions` | Root aggregate — evaluation session metadata |
-| `repositories` | Repositories within a session, with evaluation status |
-| `evaluations` | Top-level evaluation results per repository |
-| `evaluation_questions` | Per-question breakdown (Q1A–Q5B etc) |
-| `evaluation_criteria` | Per-criterion scores and remarks |
-| `evaluation_metadata` | Arbitrary key-value metadata on evaluations |
-| `rubrics` | Rubric definitions (System/Custom) |
-| `rubric_versions` | Versioned rubric snapshots |
-| `rubric_categories` | Category definitions within a rubric version |
-| `rubric_criteria` | Criterion definitions within a category |
-| `plagiarism_results` | Plagiarism similarity pairs per session |
-| `code_quality`, `documentation`, `collaboration`, `project_health` | Repository metrics tables |
-| `technologies`, `contributors`, `commits`, `pull_requests`, `issues`, `files` | Repository inspection data |
+| Type | Provider | Connection | Client | Schema |
+|------|----------|------------|--------|--------|
+| Primary | PostgreSQL | `DATABASE_URL` env var | `psycopg` 3.2.9 (dict_row factory) | `database/schema.sql` (169 lines) |
+| Legacy | SQLite | `data/evaluation_sessions.db` | `sqlite3` stdlib | Migrated to PostgreSQL via `scripts/migrate_to_postgres.py` |
+
+**PostgreSQL Database Schema (`database/schema.sql`):**
+- 18 tables total:
+  - `rubrics`, `rubric_versions`, `rubric_categories`, `rubric_criteria` — Rubric management
+  - `evaluation_sessions` — Evaluation session tracking
+  - `repositories` — Repository records with GitHub metadata columns
+  - `evaluations`, `evaluation_questions`, `evaluation_criteria` — Legacy evaluation tables (archived by migration 003)
+  - `evaluation_results` — New pipeline evaluation results (JSONB storage for agent outputs)
+  - `ingestion_records` — Snapshot storage (JSONB)
+  - `code_quality`, `documentation`, `collaboration`, `project_health`, `technologies`, `contributors`, `commits`, `pull_requests`, `issues`, `files`, `evaluation_metadata` — Detailed repository metadata
+  - `plagiarism_results` — Plagiarism similarity scores between repository pairs
+- Extension: `pgcrypto` for `gen_random_uuid()`
+- Indexes: 24 indexes across all tables for query performance
+
+**Database Migrations:**
+- `database/migration_001_ingestion.sql` — Adds `ingestion_records` table with GIN indexes on JSONB
+- `database/migration_002_evaluation_results.sql` — Adds `evaluation_results` table for new pipeline
+- `database/migration_003_archive_old_tables.sql` — Renames old evaluation tables to `_archive_` prefix
 
 **File Storage:**
-- **Local filesystem only**
-  - Cloned repos stored in `repos/` directory (auto-created, gitignored)
-  - Student PDF reports stored in `student_reports/` directory (gitignored)
-  - Consolidated PDF written to project root as `Final_Consolidated_Report.pdf`
+- Local filesystem only:
+  - `repos/` — Cloned git repositories (`.gitignore`-listed)
+  - `snapshots/` — Ingestion JSON snapshots
+  - `evaluations/{session}/{repo}/` — Pipeline step output cache (idempotent recovery via JSON files)
+  - `student_reports/` — Generated PDF reports (`.gitignore`-listed)
+  - `archive/` — Archived data (`.gitignore`-listed)
 
 **Caching:**
-- None detected
+- Step output caching on local filesystem (`evaluations/{session_id}/{repository_id}/{step}.json`) — enables idempotent pipeline recovery per D-11/D-12
+- No external caching service (Redis/Memcached)
 
 ## Authentication & Identity
 
 **Auth Provider:**
-- None. The application uses a hardcoded `app.secret_key = "repo-eval-workflow"` for Flask session signing in `app.py:19`
-- No user authentication, login, or identity management
-- The app is designed for local/trusted-network use only
+- None (custom Flask secret key only)
+- Implementation: `app.secret_key = "repo-eval-workflow"` in `app.py:20` — hardcoded string for Flask session cookies
+- No user authentication, no login system, no multi-user support
+- All API endpoints are unauthenticated
 
 ## Monitoring & Observability
 
 **Error Tracking:**
-- None. Errors are printed to stdout/stderr (Flask terminal output). No Sentry, Datadog, or similar.
+- None (no Sentry, Datadog, or similar)
 
-**Logs:**
-- Plain `print()` statements throughout the codebase (`main.py`, `services/`)
-- Flask development server logging (stdout/stderr)
-- No structured logging, no log levels, no log file persistence
+**Logging:**
+- Python `logging` module with `logging.getLogger(__name__)` throughout
+- `INFO` level for production operations, `DEBUG` for detailed agent tracing
+- No structured logging, no log aggregation, no log rotation configuration
+
+**Health Checks:**
+- `OllamaClient.validate_connectivity()` (`ollama_client.py:104`) — checks server reachability and model availability
+- No application-level health endpoint exposed
 
 ## CI/CD & Deployment
 
 **Hosting:**
-- None. Runs locally with Flask development server only.
+- Not detected — no Dockerfile, docker-compose, `Procfile`, or deployment manifests found
+- Designed to run locally with `uvicorn` on port 5001
 
 **CI Pipeline:**
-- None. No `.github/workflows/`, no CI config files detected.
+- None detected — no GitHub Actions, Jenkins, or other CI configuration
 
 ## Environment Configuration
 
 **Required env vars:**
-- `GITHUB_TOKEN` — GitHub personal access token (classic or fine-grained with repo access)
-- `GEMINI_API_KEY` — Google AI Studio API key for Gemini
-- `DATABASE_URL` — PostgreSQL connection URL (`postgresql://user:pass@host:port/dbname`)
+| Variable | Required | Default | Source |
+|----------|----------|---------|--------|
+| `DATABASE_URL` | Yes | — | `database/postgres.py:11` |
+| `GITHUB_TOKEN` | Yes (for API) | `""` | `services/github_service.py:11` |
+| `OLLAMA_HOST` | No | `http://localhost` | `services/ollama_client.py:70` |
+| `OLLAMA_PORT` | No | `11434` | `services/ollama_client.py:71` |
+| `OLLAMA_TIMEOUT` | No | `300` | `services/ollama_client.py:75` |
+| `OLLAMA_CODE_MODEL` | No | `qwen2.5-coder:3b` | `services/ollama_client.py:83` |
+| `OLLAMA_REASONING_MODEL` | No | `phi-4-mini:3.8b` | `services/ollama_client.py:84` |
 
 **Secrets location:**
-- `.env` file in project root (listed in `.gitignore`)
-- Example template: `example.env`
+- `.env` file at project root (listed in `.gitignore`)
+- `GITHUB_TOKEN` stored in `.env` — loaded via `python-dotenv`
 
 ## Webhooks & Callbacks
 
@@ -102,16 +124,37 @@
 **Outgoing:**
 - None
 
-## Other Integrations
+## Service Architecture Map
 
-**Google Fonts:**
-- Inter and JetBrains Mono fonts loaded from `fonts.googleapis.com` in `templates/base.html:6-7`
+```
+┌─────────────────────┐      ┌──────────────────────┐
+│     Flask App        │      │    Ollama Server      │
+│   (app.py:5001)      │─────▶│  (localhost:11434)    │
+│                      │ HTTP │  qwen2.5-coder:3b     │
+│  OllamaClient         │◀────│  phi-4-mini:3.8b      │
+└──────────┬───────────┘      └──────────────────────┘
+           │
+           │ HTTP
+           ▼
+┌──────────────────────┐
+│   GitHub API v3       │
+│  api.github.com       │
+│  (GITHUB_TOKEN auth)  │
+└──────────────────────┘
 
-**Subprocess Executables (system dependencies):**
-- `git` — used for shallow cloning (`git clone --depth 1`) in `services/github_service.py:33`
-- `python` — used to spawn `main.py` and `pdf_gen.py` as subprocesses from Flask (`services/evaluation_service.py:40`, `services/report_service.py:22`)
-- These require `git` CLI to be installed on the host system
+┌──────────────────────┐
+│   PostgreSQL          │
+│  DATABASE_URL         │
+│  (psycopg 3.2.9)     │
+└──────────────────────┘
+
+Local Filesystem:
+├── repos/              (git clones)
+├── snapshots/          (ingestion cache)
+├── evaluations/        (step output cache)
+└── student_reports/    (PDF output)
+```
 
 ---
 
-*Integration audit: 2026-07-06*
+*Integration audit: 2026-07-13*

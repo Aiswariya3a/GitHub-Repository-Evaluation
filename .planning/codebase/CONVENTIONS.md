@@ -1,190 +1,260 @@
 # Coding Conventions
 
-**Analysis Date:** 2026-07-06
+**Analysis Date:** 2026-07-13
 
 ## Naming Patterns
 
 **Files:**
-- `snake_case.py` — All Python files use lowercase with underscores (`app.py`, `session_service.py`, `repository_repository.py`)
-- `UPPERCASE.md` — Documentation markdown files (`ARCHITECTURE.md`, `README.md`, `RUBRIC_MAPPING.md`)
+- Python modules use `snake_case.py` (e.g., `evaluation_controller.py`, `pipeline_service.py`, `ollama_client.py`)
+- Test files use `test_<module_name>.py` (e.g., `test_agents.py`, `test_orchestrator.py`)
+- Package `__init__.py` files present in all subpackages
 
 **Functions:**
-- `snake_case` for all functions and methods (`create_session()`, `list_repositories()`, `evaluate_pending()`)
-- Private/helper methods prefixed with underscore (`_hydrate()`, `_insert_categories()`)
-- Single-line functions often defined on same line as def (`def services(): return current_app.extensions["services"]`)
-- Static methods use `@staticmethod` decorator on its own line
+- `snake_case` for all functions and methods (e.g., `evaluate_repository()`, `_run_agent_with_retry()`, `route_evidence()`)
+- Private/helper methods prefixed with underscore (e.g., `_step_output_path()`, `_detect_completed_steps()`, `_filter_snapshot()`)
+- Static methods on agents use `@staticmethod` decorator (e.g., `_normalize_output()` in `repo_understanding_agent.py`)
+- Abstract methods inherited from `BaseAgent` use `@abstractmethod`
 
 **Variables:**
-- `snake_case` for all local variables (`session_id`, `repo_url`, `code_corpus`, `rubric_config`)
-- Module-level constants in `UPPER_SNAKE_CASE` (`GITHUB_TOKEN`, `GEMINI_API_KEY`, `BASE_REPO`, `CLONE_DIR`, `DEFAULT_RUBRIC_ID`, `VALID_STATUSES`)
+- `snake_case` for all variables (e.g., `session_dir`, `criterion_results`, `mock_ollama_client`)
+- Constants in `UPPER_SNAKE_CASE` (e.g., `REPO_UNDERSTANDING_SCHEMA`, `FEEDBACK_SCHEMA`, `EVIDENCE_ROUTING_MAP`, `VALID_STATUSES`, `FEEDBACK_SYSTEM_PROMPT`)
 
 **Types:**
-- `PascalCase` for classes (`SessionService`, `ServiceContainer`, `EvaluationRepository`, `RubricController`)
-- Type hints inconsistently applied — some files use them (`__init__(self, root: Path, repositories: RepositoryService)` in `evaluation_service.py`), but many older files skip them entirely (`main.py` has no type annotations)
-- Domain models use `@dataclass` with typed fields (`EvaluationSession`, `Repository`, `Evaluation` in `models/domain.py`)
-- `Union` style uses `X | None` syntax (Python 3.10+) in `models/domain.py` (`total_out_of_80: Decimal | None`)
+- Classes use `PascalCase` (e.g., `EvaluationOrchestrator`, `PipelineService`, `RepoUnderstandingAgent`, `OllamaClient`, `AggregatedScore`)
+- Custom exceptions use `PascalCase` with `Error` suffix (e.g., `OllamaConnectionError`, `OllamaModelNotFoundError`, `OllamaAPIError`)
+- Dataclasses use `PascalCase` (e.g., `RepositoryMetadata`, `ProjectSnapshot`, `CriterionEvaluation`, `CategoryScore`)
 
 ## Code Style
 
 **Formatting:**
-- No formatter detected — no `.prettierrc`, `.ruff.toml`, or `pyproject.toml` with formatting config
-- Inconsistent spacing: some files (controllers, services) are dense with minimal whitespace; `main.py` and `pdf_gen.py` use generous blank lines
-- No enforced line length limit — lines extend to 200+ characters in several files (`rubric_controller.py` line 29, `repository_repository.py` lines 67-69)
-- Multiple statements on one line used occasionally: `row=db.execute("SELECT is_read_only FROM rubrics WHERE id=%s",(rubric_id,)).fetchone()` in `rubric_repository.py`
-- Semicolons used in `main.py` line 389 to chain statements: `text = re.sub(r"^```json\s*", "", text); text = re.sub(r"\s*```$", "", text).strip()`
-- Semicolons heavily used in inline JavaScript in templates for HTML attribute minimization
+- No explicit formatter config detected (no `.prettierrc`, `biome.json`, etc.) — standard Python style
+- Indentation: 4 spaces (Python standard)
+- Line length: varied, some long single-expression lines in controller routes
+- Imports sorted: standard library first, then third-party, then local (separated by blank lines)
 
 **Linting:**
-- No linter config detected — no `.pylintrc`, `.flake8`, `pyproject.toml`, `ruff.toml`, `eslint`, or `biome.json`
-- Code quality reliance is on manual review only
-
-**String Style:**
-- Double quotes `"..."` used consistently across all Python files
-- Inline SQL in double-quoted strings with `%s` placeholders for psycopg parameters
-
-**Indentation:**
-- 4 spaces per level (PEP 8 standard)
-- Single-space indentation sometimes used in densely packed multi-line expressions within `pdf_gen.py` style assignments
-- Jinja2 template indentation uses 2 spaces
+- No linter config files detected (no `.eslintrc*`, `setup.cfg` with flake8, `pyproject.toml` with ruff/black, etc.)
 
 ## Import Organization
 
-**Order:**
-1. **Standard library** — `import re`, `import os`, `from pathlib import Path`, `import json`
-2. **Third-party** — `from flask import ...`, `import psycopg`, `import google.generativeai as genai`, `from sklearn...`
-3. **Local application** — `from database import connect`, `from .common import services`
-4. `from __future__ import annotations` used at the very top of `evaluation_service.py`, `report_service.py`, `database/postgres.py`, `scripts/migrate_to_postgres.py`
+**Order (consistent across all files):**
+1. Standard library modules (`json`, `os`, `logging`, `abc`, `typing`, `dataclasses`)
+2. Third-party libraries (`pytest`, `flask`, `jsonschema`, `requests`, `pydantic`)
+3. Local application imports (from `services`, `models`, `repositories`, `controllers`)
+
+**Examples of patterns:**
+
+From `services/evaluation/orchestrator.py`:
+```python
+import json
+import os
+import shutil
+import time
+import logging
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timezone
+from typing import Optional
+
+from services.evaluation.repo_understanding_agent import RepoUnderstandingAgent
+from services.evaluation.schemas import (
+    REPO_UNDERSTANDING_SCHEMA,
+    CODE_UNDERSTANDING_SCHEMA,
+    ...
+)
+```
+
+From `tests/test_agents.py`:
+```python
+import json
+from unittest.mock import MagicMock, PropertyMock
+
+import jsonschema
+import pytest
+
+from services.evaluation.repo_understanding_agent import RepoUnderstandingAgent
+from services.evaluation.schemas import (
+    REPO_UNDERSTANDING_SCHEMA,
+    ...
+)
+```
 
 **Path Aliases:**
-- No path aliases configured (no `pyproject.toml` or `sys.path` manipulation except in migration script)
-- Intra-package imports use relative syntax: `from .common import services`, `from .repository_service import RepositoryService`
-- `scripts/migrate_to_postgres.py` does `sys.path.insert(0, str(ROOT))` for access to app modules
+- All local imports use full package paths relative to project root (e.g., `from services.evaluation.agent_base import BaseAgent`, `from models.evaluation_models import AggregatedScore`)
+- No import aliases (`as`) used except for standard library modules where needed
 
-**`__init__.py` Barrel Files:**
-- Every package (`controllers/`, `services/`, `repositories/`, `database/`, `models/`) exports its public API via `__init__.py` using `from .module import ClassName` with `__all__`
+**Barrel files (`__init__.py`):**
+- `services/__init__.py`: re-exports all service classes
+- `services/evaluation/__init__.py`: re-exports agents, schemas, prompts, orchestrator, pipeline, utility functions
+- `models/__init__.py`: re-exports `EvaluationSession` and `Repository` dataclasses
+- `repositories/__init__.py`: re-exports all repository classes
+- `tests/__init__.py`: empty file (package marker only)
+- All barrel files define `__all__` lists
 
 ## Error Handling
 
 **Patterns:**
-- **Service layer:** Raises typed exceptions — `ValueError` for input validation, `LookupError` for missing resources, `PermissionError` for forbidden operations (`session_service.py`, `rubric_service.py`)
-- **Controller layer:** Catches exceptions from services and returns JSON error responses with appropriate HTTP status codes (`evaluation_controller.py`, `session_controller.py`)
-- **Repository layer:** Exceptions propagate up; no try/except around database operations
-- **Bare except:** Used in `main.py` lines 105-106 and 122-123 (`except: pass`) — an anti-pattern that silently swallows all exceptions
-- **Gemini API calls:** Wrapped in try/except with fallback to error dict (`main.py` lines 309-361)
 
-**Validation Pattern:**
-```python
-# session_service.py
-def create_session(self, name, description="", rubric_version_id=None):
-    name = str(name).strip()
-    if not name:
-        raise ValueError("Session name is required.")
-```
+1. **Custom exception classes** for domain-specific errors:
+   ```python
+   # services/ollama_client.py
+   class OllamaConnectionError(Exception):
+       def __init__(self, message: str = ""):
+           super().__init__(message or "Cannot connect to Ollama. ...")
 
-**Error response pattern:**
-```python
-# Common pattern in controllers
-return jsonify(error="Session not found."), 404
-return jsonify(error=str(exc)), 400
-```
+   class OllamaModelNotFoundError(Exception):
+       def __init__(self, model: str, message: str = ""):
+           self.model = model
+           super().__init__(message or f"Required model '{model}' is not available. ...")
+   ```
+
+2. **Try/except with graceful fallback** — agents catch LLM failures and return safe fallback output:
+   ```python
+   # services/evaluation/repo_understanding_agent.py
+   try:
+       result = self.ollama.infer(...)
+   except ...:
+       result = {
+           "languages": repo_stats.get("language_breakdown", {}),
+           "key_files": [...],
+           "structural_summary": "Schema validation failed — unable to generate analysis.",
+           ...
+       }
+   ```
+
+3. **Retry logic with logging** — orchestrator retries agent calls on failure:
+   ```python
+   # services/evaluation/orchestrator.py
+   def _run_agent_with_retry(self, agent, agent_name, ...):
+       for attempt in range(1 + self.max_retries):
+           try:
+               result = agent.run(input_data, output_path)
+               valid, errors = agent._validate_output(result, schema)
+               if valid:
+                   return result
+           except Exception as e:
+               logger.error(f"{agent_name} attempt {attempt + 1}: error: {e}")
+       self.failed_agents.append(agent_name)
+       return None
+   ```
+
+4. **HTTP error responses** — controllers return `(jsonify(error=...), status_code)` tuples:
+   ```python
+   # controllers/evaluation_controller.py
+   if not session:
+       return None, (jsonify(error="Session not found."), 404)
+   ```
+
+5. **Exception chaining** with `raise ... from exc`:
+   ```python
+   # services/container.py
+   except Exception as exc:
+       raise RuntimeError(f"Failed to initialize PipelineService: {exc}") from exc
+   ```
+
+6. **Guard clauses** for missing data — functions check for None/empty and return early:
+   ```python
+   if not snapshot:
+       return {"status": "failed", "error": "Ingestion produced no snapshot", ...}
+   ```
 
 ## Logging
 
-**Framework:** `print()` statements throughout — no logging module used.
-- `main.py` uses `print()` for progress: `print(f"[{i+1}] Processing:", repo)`
-- `evaluation_service.py` uses `print()` with `flush=True`
-- `pdf_gen.py` uses `print()` for status: `print("Individual PDFs generated.")`
-- Flash messages via Flask's `flash()` for UI feedback in `report_controller.py`
+**Framework:** Python standard `logging` module.
 
 **Patterns:**
-- `print("Cloning repo...")` simple status strings
-- `print(f"[session {session_id}] Starting main.py for {len(pending)} repository/repositories...", flush=True)` formatted subprocess info
-- No structured logging, no log levels, no log files
+- Module-level logger: `logger = logging.getLogger(__name__)` at top of every module
+- Five distinct log levels used: `debug`, `info`, `warning`, `error`, `exception` (via logger.exception)
+- Structured log messages with context (agent name, attempt count, file counts)
+- No structured logging (JSON) — plain text messages
+
+**Examples:**
+```python
+logger.info(f"Recovery: {step} output found at {path}, skipping")
+logger.warning(f"Recovery: {step} output corrupted at {path}, will re-run")
+logger.error(f"Failed to persist results to PostgreSQL: {e}")
+logger.debug("Routing criterion '%s' -> key '%s' -> %d sections", category, key, len(sections))
+```
 
 ## Comments
 
 **When to Comment:**
-- Section headers using `# ---- TITLE ----` pattern in `main.py` and `pdf_gen.py`
-- Occasional inline comments explaining logic decisions (`# CRITICAL: Clamp all scores to rubric maximums`)
-- Docstrings on public module-level functions (`"""Evaluate student code against the rubric-based criteria."""`)
-- Architecture notes at module top in `app.py` (`# All HTTP routes are registered through controller blueprints`)
+- Module-level docstrings explain purpose of each file (in `"""triple quotes"""`)
+- Class-level docstrings describe responsibilities and design decisions
+- Method-level docstrings follow Google-style with `Args:`, `Returns:`, `Raises:` sections
+- Inline comments for non-obvious logic or cross-references to design documents (e.g., `# ORC-03`, `# D-11`, `# EVA-07`, `# T-02-04`)
+- Section separators: `# --- Step 1: Ingestion ---`
+- Test docstrings explain what scenario is being tested (e.g., `"""Agent returns valid repo understanding output matching schema."""`)
 
-**JSDoc/TSDoc:** Not applicable — this is a Python project
-
-**Pattern:**
-```python
-# -----------------------------
-# GEMINI EVALUATION
-# -----------------------------
-
-def evaluate_code(code, roll):
-    """
-    Evaluate student code against the rubric-based criteria.
-    
-    Rubric Structure (Total 80 marks):
-    Q1A: 8 marks - Compilation and Execution
-    ...
-    """
-```
+**JSDoc/TSDoc:**
+- Not applicable (Python project)
 
 ## Function Design
 
 **Size:**
-- Most functions are small (1-15 lines) single-responsibility units
-- `main.py:evaluate_code()` is the largest at ~200 lines, containing inline prompt template and JSON processing logic
-- `pdf_gen.py:generate_preamble()` at ~100 lines is another notable large function
+- Agent `run()` methods: ~50-80 lines
+- Orchestrator methods: up to ~70 lines for `_run_agent_with_retry`, ~250 lines for `evaluate()` (the main pipeline method)
+- Controller endpoints: typically 5-15 lines
+- Helper/utility functions: 10-25 lines
 
 **Parameters:**
-- Service methods typically accept 2-5 parameters
-- Repository methods use `session_id`, `repository_id`, `rubric_version_id` UUIDs consistently
-- Some functions accept optional overrides (`repository=None`, `runner=None`) for testability
+- Type annotations always used (e.g., `def run(self, input_data: dict, output_path: Optional[str] = None) -> dict:`)
+- Optional parameters default to `None` or sensible defaults
+- Keyword arguments for configuration in constructors
 
 **Return Values:**
-- Services return dicts (from database rows) or raise exceptions
-- Repositories return raw `dict_row` results from psycopg
-- Boolean returns for status checks: `return bool(db.execute(...).rowcount)`
-- Some methods chain returns with inline expressions: `def get(self, session_id): return self.repository.get(session_id)`
+- Always typed (functions that can fail return `Optional[dict]` with `None` for failure)
+- Consistent dict-shaped returns with `pipeline_status`, `total_score`, etc.
 
 ## Module Design
 
 **Exports:**
-- Each package `__init__.py` exports all public classes via explicit imports and `__all__` list
+- Each `__init__.py` barrel file uses explicit `__all__` lists
+- Individual modules export all public classes/functions (no `__all__` in non-barrel files)
 
 **Barrel Files:**
-- `controllers/__init__.py` exports both classes and blueprint instances
 - `services/__init__.py` exports all service classes
+- `services/evaluation/__init__.py` exports agents, schemas, prompts, router, pipeline
+- `models/__init__.py` exports domain dataclasses
 - `repositories/__init__.py` exports all repository classes
 
-**Blueprint Registration Pattern:**
+## Class Design
+
+**Flask Blueprint pattern** in controllers:
 ```python
-# controllers/session_controller.py
-session_controller = Blueprint("session", __name__)
+# controllers/evaluation_controller.py
+evaluation_controller = Blueprint("evaluation", __name__)
 
-# ... route handlers ...
+@evaluation_controller.post("/api/sessions/<session_id>/evaluate")
+def evaluate_session(session_id):
+    ...
 
-class SessionController:
-    blueprint = session_controller
+class EvaluationController:
+    blueprint = evaluation_controller
 ```
 
-**Layered Architecture:**
+**Abstract Base Agent pattern:**
+```python
+class BaseAgent(ABC):
+    def __init__(self, ollama_client=None, execution_mode="in_process"):
+        self.ollama = ollama_client or OllamaClient()
+        self.execution_mode = execution_mode
+
+    @abstractmethod
+    def run(self, input_data: dict, output_path=None) -> dict: ...
 ```
-Controller (HTTP/Flask) → Service (business logic) → Repository (database) → PostgreSQL
+
+**Dataclass models** for type-safe data contracts:
+```python
+@dataclass
+class AggregatedScore:
+    total_score: float
+    max_score: float
+    normalized_to_20: float
+    percentage: float
+    categories: list[CategoryScore] = field(default_factory=list)
+    low_confidence_criteria: list[str] = field(default_factory=list)
 ```
-- Controllers never access database directly
-- Services orchestrate business logic and cross-repository operations
-- Repositories handle raw SQL via psycopg
-
-## Database Patterns
-
-**Connection:**
-- `with connect() as db:` context manager in every database method
-- `connect()` returns `psycopg.connect()` with `dict_row` row factory
-- SQL strings inline with `execute()`, `fetchone()`, `fetchall()`
-
-**Schema Management:**
-- `initialize_database()` reads `schema.sql` and executes it idempotently with `CREATE TABLE IF NOT EXISTS`
-- Schema evolves via `ALTER TABLE ADD COLUMN IF NOT EXISTS` statements
 
 ---
 
-*Convention analysis: 2026-07-06*
+*Convention analysis: 2026-07-13*

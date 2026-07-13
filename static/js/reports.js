@@ -25,6 +25,10 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(function(items) {
             reports = items.filter(function(x) { return Number(x.evaluated_count) > 0; });
             draw();
+        })
+        .catch(function(err) {
+            var errEl = document.getElementById('reportsError');
+            if (errEl) { errEl.hidden = false; errEl.textContent = 'Failed to load reports: ' + err.message; }
         });
 
     if (reportSearch) {

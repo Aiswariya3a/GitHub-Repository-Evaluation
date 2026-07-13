@@ -20,7 +20,7 @@
     <a class="{{ 'active' if request.blueprint == 'rubric' }}" href="{{ url_for('rubric.index') }}">Rubrics</a>
     <a class="{{ 'active' if request.endpoint == 'session.settings_page' }}" href="{{ url_for('session.settings_page') }}">Settings</a>
   </nav></aside><main class="app-shell">
-    {% with messages = get_flashed_messages() %}{% if messages %}<ul class="flash-list">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>{% endif %}{% endwith %}
+    {% with messages = get_flashed_messages() %}{% if messages %}<div class="flash-messages">{% for message in messages %}<div class="flash-item">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
     {% block content %}{% endblock %}
   </main></div>
   <div id="toastStack" class="toast-stack" aria-live="polite"></div>

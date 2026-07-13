@@ -217,6 +217,9 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch('/api/dashboard').then(function(r) { return r.json(); }),
         fetch('/api/sessions').then(function(r) { return r.json(); })
     ]).then(function(results) {
+        // Clear error on success
+        var errEl = document.getElementById('analyticsError');
+        if (errEl) errEl.hidden = true;
         var d = results[0], s = results[1];
         var m = d.metrics;
 
@@ -264,5 +267,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 return '<div><span>' + window.esc(x.name) + '</span><div class="distribution-bar"><i style="width:' + pct + '%"></i></div><strong>' + pct + '%</strong></div>';
             }).join('') || '<p class="empty-state">No sessions available.</p>';
         }
+    }).catch(function(err) {
+        var errEl = document.getElementById('analyticsError');
+        if (errEl) { errEl.hidden = false; errEl.textContent = 'Failed to load analytics: ' + err.message; }
     });
 });

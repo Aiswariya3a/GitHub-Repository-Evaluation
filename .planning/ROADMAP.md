@@ -22,7 +22,7 @@
 <details open>
 <summary>🔄 v2.0 Frontend Dashboard (Phase 5) — PLANNING</summary>
 
-- [ ] Phase 5: Frontend Dashboard (0/0 plans) — planning
+- [ ] Phase 5: Frontend Dashboard (4/0 plans) — planned
 
 </details>
 
@@ -34,7 +34,7 @@
 | 2. Evaluation Pipeline | v1.0 | 4/4 | Complete | 2026-07-12 |
 | 3. Cleanup & Testing | v1.0 | 4/4 | Complete | 2026-07-12 |
 | 4. Gap Closure | v1.0 | 1/1 | Complete | 2026-07-12 |
-| 5. Frontend Dashboard | v2.0 | 0/0 | Planning | — |
+| 5. Frontend Dashboard | v2.0 | 0/4 | Planned | — |
 
 ## Coverage Map
 

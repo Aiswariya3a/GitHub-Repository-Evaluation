@@ -70,6 +70,7 @@ class CodeUnderstandingAgent(BaseAgent):
             user_prompt=user_prompt,
             format="json",
         )
+        result = self._normalize_output(result)
 
         # Validate against schema (T-02-02 mitigation)
         is_valid, errors = self._validate_output(result, CODE_UNDERSTANDING_SCHEMA)
@@ -103,6 +104,80 @@ class CodeUnderstandingAgent(BaseAgent):
             self._write_output(result, output_path)
 
         return result
+
+    @staticmethod
+    def _normalize_output(result: dict) -> dict:
+        if not isinstance(result, dict):
+            return result
+        key_map = {
+            "capabilities": ["capabilities", "Capabilities"],
+            "algorithms": ["algorithms", "Algorithms", "algorithms_used"],
+            "apis": ["apis", "APIs", "Apis", "api_and_libraries_leveraged", "api_and_libraries"],
+            "data_structures": ["data_structures", "DataStructures", "dataStructures",
+                                "data_structures_implemented_or_used"],
+            "error_handling": ["error_handling", "ErrorHandling", "errorHandling",
+                               "error_handling_approaches_and_coverage"],
+        }
+        normalized = {}
+        recognized = False
+        for target, aliases in key_map.items():
+            for alias in aliases:
+                if alias in result:
+                    normalized[target] = result[alias]
+                    recognized = True
+                    break
+        if not recognized:
+            return result
+
+        # Fix nested structure: LLM sometimes puts algorithms/apis/etc under a single "capabilities" key
+        caps = normalized.get("capabilities")
+        if isinstance(caps, dict):
+            for key in ("algorithms", "apis", "data_structures", "error_handling"):
+                if key in caps and key not in normalized:
+                    normalized[key] = caps[key]
+            normalized["capabilities"] = caps.get("capabilities", caps.get("Capabilities", []))
+
+        # Normalize capabilities items
+        cap_list = normalized.get("capabilities", [])
+        if isinstance(cap_list, list):
+            rebuilt = []
+            for item in cap_list:
+                if isinstance(item, dict):
+                    rebuilt.append({
+                        "name": item.get("name", item.get("Name", item.get("capability", ""))),
+                        "description": item.get("description", item.get("Description", "")),
+                        "files": item.get("files", item.get("Files", item.get("file", []))),
+                        "confidence": item.get("confidence", item.get("Confidence",
+                                        item.get("confidence_level", item.get("ConfidenceLevel", 0)))),
+                    })
+            normalized["capabilities"] = rebuilt
+
+        # Normalize error_handling
+        eh = normalized.get("error_handling", {})
+        if isinstance(eh, dict):
+            has = eh.get("has_error_handling", eh.get("HasErrorHandling"))
+            if has is None:
+                has = bool(eh.get("patterns", eh.get("Patterns", [])))
+            normalized["error_handling"] = {
+                "has_error_handling": has,
+                "patterns": eh.get("patterns", eh.get("Patterns", [])),
+            }
+        elif isinstance(eh, list):
+            normalized["error_handling"] = {
+                "has_error_handling": bool(eh),
+                "patterns": [str(e) for e in eh],
+            }
+
+        # Ensure arrays
+        for k in ("algorithms", "apis", "data_structures"):
+            val = normalized.get(k)
+            if isinstance(val, list):
+                normalized[k] = [str(v) if not isinstance(v, str) else v for v in val]
+            elif val is None:
+                normalized[k] = []
+            elif isinstance(val, dict):
+                normalized[k] = list(val.values()) if any(isinstance(v, str) for v in val.values()) else [str(val)]
+        return normalized
 
     def _build_code_analysis_prompt(
         self,

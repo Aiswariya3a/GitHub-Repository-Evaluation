@@ -13,6 +13,7 @@ import os
 from abc import ABC, abstractmethod
 from typing import Optional
 
+import jsonschema
 from services.ollama_client import OllamaClient
 
 
@@ -92,8 +93,6 @@ class BaseAgent(ABC):
         Returns:
             tuple[bool, list[str]]: (is_valid, list_of_error_messages)
         """
-        import jsonschema
-
         try:
             jsonschema.validate(instance=output, schema=schema)
             return True, []

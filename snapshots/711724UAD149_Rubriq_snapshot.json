@@ -1,0 +1,6827 @@
+{
+  "repository_metadata": {
+    "url": "https://github.com/Aiswariya3a/Rubriq",
+    "clone_url": "https://github.com/Aiswariya3a/Rubriq",
+    "clone_timestamp": "2026-07-12T12:19:42.185199+00:00",
+    "status": "success",
+    "base_repo_url": null
+  },
+  "github_metadata": {
+    "commits_count": 3,
+    "recent_commits": [],
+    "contributors": [],
+    "pull_requests_count": 0,
+    "pull_requests": [],
+    "issues_count": 0,
+    "issues": [],
+    "is_public": false,
+    "readme_exists": false
+  },
+  "repo_stats": {
+    "total_loc": 14835,
+    "code_loc": 12626,
+    "file_count": 91,
+    "total_complexity": 602,
+    "average_complexity": 6.62,
+    "comment_ratio": 0.0285,
+    "language_breakdown": {
+      "Python": 38,
+      "HTML": 4,
+      "TypeScript": 48,
+      "CSS": 1
+    }
+  },
+  "files": [
+    {
+      "path": "backend/api/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/api/analysis.py",
+      "language": "Python",
+      "loc": 126,
+      "code_loc": 101,
+      "comment_lines": 4,
+      "comment_ratio": 0.0317,
+      "cyclomatic_complexity": 10,
+      "functions": [
+        {
+          "name": "_ensure_eval_state",
+          "lineno": 20,
+          "end_lineno": 24,
+          "complexity": 2,
+          "docstring": "Ensure eval_state exists on a notebook (backward compat)."
+        },
+        {
+          "name": "_get_analysis_generator",
+          "lineno": 31,
+          "end_lineno": 37,
+          "complexity": 2,
+          "docstring": "Lazy-initialized singleton for the analysis generator."
+        },
+        {
+          "name": "analyze_notebook",
+          "lineno": 41,
+          "end_lineno": 125,
+          "complexity": 6,
+          "docstring": "Trigger viva + weak areas analysis for a completed evaluation (per D-03).\n\nValidates session and evaluation exist, then runs the combined analysis LLM call.\nReturns AnalysisResult as JSON with viva_questions and weak_areas."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "APIRouter",
+            "HTTPException"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation.scoring_models",
+          "names": [
+            "EvaluationContext"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "SessionStatus"
+          ],
+          "alias": null
+        },
+        {
+          "module": "storage.session_store",
+          "names": [
+            "session_store"
+          ],
+          "alias": null
+        },
+        {
+          "module": "llm.client",
+          "names": [
+            "LLMClient"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation.analysis_generator",
+          "names": [
+            "AnalysisGenerator"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "NotebookEvaluationState"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "API endpoint for viva + weak areas analysis (per D-03, NOT SSE).\n\nTriggered via POST /api/analyze/{session_id} after evaluation completes.\nConsumes EvaluationContext + EvaluationResult from session (per D-04).",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/api/batch.py",
+      "language": "Python",
+      "loc": 423,
+      "code_loc": 337,
+      "comment_lines": 18,
+      "comment_ratio": 0.0426,
+      "cyclomatic_complexity": 57,
+      "functions": [
+        {
+          "name": "trigger_batch_evaluate",
+          "lineno": 39,
+          "end_lineno": 83,
+          "complexity": 4,
+          "docstring": "Trigger batch evaluation for all notebooks in a session.\n\nRequires rubric_config to be set on the session (BATE-01).\nReturns 202 Accepted immediately \u2014 frontend polls status endpoint\nfor per-notebook progress (P4-D03)."
+        },
+        {
+          "name": "get_batch_status",
+          "lineno": 87,
+          "end_lineno": 154,
+          "complexity": 13,
+          "docstring": "Get per-notebook evaluation progress for a batch session.\n\nReturns per-notebook status array for polling (P4-D03).\nFrontend polls every 2\u20133 seconds."
+        },
+        {
+          "name": "get_batch_comparison",
+          "lineno": 158,
+          "end_lineno": 220,
+          "complexity": 8,
+          "docstring": "Get comparison data for the batch dashboard table (per D-01).\n\nReturns per-notebook aggregate + criterion-level scores.\nDoes NOT return full EvaluationResult \u2014 access individual notebook\nendpoint for detailed data."
+        },
+        {
+          "name": "re_evaluate_notebook",
+          "lineno": 224,
+          "end_lineno": 346,
+          "complexity": 20,
+          "docstring": "Re-run full AI evaluation on a single notebook (per D-03).\n\nRuns the full pipeline: understanding \u2192 evaluation \u2192 analysis.\nPreserves existing overrides (stored on the notebook's evaluation).\nIncrements evaluation_version."
+        },
+        {
+          "name": "recalculate_notebook",
+          "lineno": 350,
+          "end_lineno": 422,
+          "complexity": 12,
+          "docstring": "Deterministic recalculation after overrides/weight changes (per D-03).\n\nNo LLM call \u2014 recalculates aggregate scores from existing criterion\nscores and current rubric weights. Increments evaluation_version.\nThis is the fast path for \"Apply Changes\" in the dashboard."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "asyncio",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "APIRouter",
+            "HTTPException"
+          ],
+          "alias": null
+        },
+        {
+          "module": "batch.orchestrator",
+          "names": [
+            "BatchOrchestrator"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.evaluation",
+          "names": [
+            "ComparisonResponse",
+            "ComparisonRow",
+            "ComparisonRowScore",
+            "extract_student_name"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "NotebookStatus",
+            "SessionStatus"
+          ],
+          "alias": null
+        },
+        {
+          "module": "storage.session_store",
+          "names": [
+            "session_store"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "NotebookEvaluationState"
+          ],
+          "alias": null
+        },
+        {
+          "module": "core.parser",
+          "names": [
+            "extract_cells_for_llm"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation.scoring_models",
+          "names": [
+            "EvaluationContext"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.evaluation",
+          "names": [
+            "ReportStatus"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "API endpoints for batch evaluation \u2014 trigger + status polling.\n\nP4-D02: Bounded concurrency (default 2), semaphore-based.\nP4-D03: Polling endpoint for per-notebook progress.\nP4-D04: Single rubric for entire batch, applied at evaluate time.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/api/evaluate.py",
+      "language": "Python",
+      "loc": 217,
+      "code_loc": 179,
+      "comment_lines": 8,
+      "comment_ratio": 0.0369,
+      "cyclomatic_complexity": 22,
+      "functions": [
+        {
+          "name": "_ensure_eval_state",
+          "lineno": 19,
+          "end_lineno": 23,
+          "complexity": 2,
+          "docstring": "Ensure eval_state exists on a notebook (backward compat)."
+        },
+        {
+          "name": "evaluate_notebook",
+          "lineno": 31,
+          "end_lineno": 124,
+          "complexity": 8,
+          "docstring": "Evaluate a notebook against its rubric (non-streaming).\n\nConsumes the 7-domain EvaluationContext stored by the understanding phase.\nPerforms per-criterion scoring and aggregate calculation.\nReturns the complete EvaluationResult as JSON."
+        },
+        {
+          "name": "stream_evaluation",
+          "lineno": 128,
+          "end_lineno": 216,
+          "complexity": 9,
+          "docstring": "Stream evaluation progress as Server-Sent Events.\n\nConsumes the 7-domain EvaluationContext from the understanding phase.\nReturns an SSE stream with per-criterion scores and final result."
+        },
+        {
+          "name": "event_stream",
+          "lineno": 191,
+          "end_lineno": 214,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "APIRouter",
+            "HTTPException"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi.responses",
+          "names": [
+            "StreamingResponse"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation.scoring_models",
+          "names": [
+            "EvaluationContext"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "SessionStatus"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.evaluation",
+          "names": [
+            "RubricTemplate"
+          ],
+          "alias": null
+        },
+        {
+          "module": "storage.session_store",
+          "names": [
+            "session_store"
+          ],
+          "alias": null
+        },
+        {
+          "module": "llm.client",
+          "names": [
+            "LLMClient"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation.evaluator",
+          "names": [
+            "EvaluationGenerator"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "NotebookEvaluationState"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.evaluation",
+          "names": [
+            "EvaluationResult"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "API endpoints for AI-powered notebook evaluation.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/api/export.py",
+      "language": "Python",
+      "loc": 326,
+      "code_loc": 257,
+      "comment_lines": 15,
+      "comment_ratio": 0.046,
+      "cyclomatic_complexity": 49,
+      "functions": [
+        {
+          "name": "_get_notebook_with_eval",
+          "lineno": 33,
+          "end_lineno": 41,
+          "complexity": 3,
+          "docstring": "Find notebook by filename. Returns (notebook, index) or raises 404."
+        },
+        {
+          "name": "_ensure_pdf_for_notebook",
+          "lineno": 44,
+          "end_lineno": 108,
+          "complexity": 10,
+          "docstring": "Generate PDF for a notebook if it doesn't exist or is stale (D-05).\n\nReturns the file path of the PDF."
+        },
+        {
+          "name": "export_batch_zip",
+          "lineno": 112,
+          "end_lineno": 170,
+          "complexity": 7,
+          "docstring": "Download all PDF reports as a single ZIP archive (per D-05, EXPT-01).\n\nGenerates fresh PDFs only for notebooks where pdf_version < evaluation_version.\nReturns a ZIP file containing all PDF reports.\nAccepts mode parameter: scorecard, detailed, or both (generates two PDFs per notebook)."
+        },
+        {
+          "name": "export_batch_csv",
+          "lineno": 174,
+          "end_lineno": 239,
+          "complexity": 12,
+          "docstring": "Download a CSV spreadsheet of all scores across the batch (per D-06, EXPT-02).\n\nColumns: Student Name, Filename, Status, [per-criterion columns...],\nAggregate Score, Aggregate Percentage."
+        },
+        {
+          "name": "get_cohort_summary",
+          "lineno": 243,
+          "end_lineno": 325,
+          "complexity": 17,
+          "docstring": "Get cohort aggregate data for dashboard widget (per D-07, EXPT-03).\n\nReturns score distribution histogram buckets, class average,\nand grade breakdown for the dashboard CohortSummaryWidget.\nNOT a PDF export \u2014 displayed as dashboard widget."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "csv",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "io",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "zipfile",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "APIRouter",
+            "HTTPException",
+            "Query"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi.responses",
+          "names": [
+            "StreamingResponse"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.evaluation",
+          "names": [
+            "ComparisonRow",
+            "ComparisonRowScore",
+            "extract_student_name",
+            "ScoreDistribution",
+            "GradeBreakdown",
+            "CohortSummary",
+            "ReportMode",
+            "ReportRequest"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "NotebookStatus"
+          ],
+          "alias": null
+        },
+        {
+          "module": "storage.session_store",
+          "names": [
+            "session_store"
+          ],
+          "alias": null
+        },
+        {
+          "module": "reports.pdf_generator",
+          "names": [
+            "ReportGenerator"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.evaluation",
+          "names": [
+            "ReportInfo",
+            "ReportStatus"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "API endpoints for batch export \u2014 ZIP, CSV, cohort summary (Phase 6).\n\nD-05: Versioned PDF caching \u2014 generates fresh PDFs only when stale.\nD-06: CSV columns \u2014 one per criterion + aggregate score + aggregate percentage.\nD-07: Cohort summary as dashboard widget (not PDF export).",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/api/reports.py",
+      "language": "Python",
+      "loc": 233,
+      "code_loc": 191,
+      "comment_lines": 7,
+      "comment_ratio": 0.03,
+      "cyclomatic_complexity": 17,
+      "functions": [
+        {
+          "name": "_ensure_eval_state",
+          "lineno": 22,
+          "end_lineno": 26,
+          "complexity": 2,
+          "docstring": "Ensure eval_state exists on a notebook (backward compat)."
+        },
+        {
+          "name": "generate_report",
+          "lineno": 31,
+          "end_lineno": 135,
+          "complexity": 6,
+          "docstring": "Trigger PDF report generation for a completed evaluation (per D-26).\n\nAccepts ReportRequest body (mode, student_name, assignment_name, course_name).\nReturns immediately with a report_id and status.\nThe report is generated synchronously and stored in the session for download."
+        },
+        {
+          "name": "get_report_status",
+          "lineno": 139,
+          "end_lineno": 174,
+          "complexity": 3,
+          "docstring": "Poll report generation status (per D-26).\n\nReturns current ReportInfo status and metadata."
+        },
+        {
+          "name": "download_report",
+          "lineno": 178,
+          "end_lineno": 232,
+          "complexity": 6,
+          "docstring": "Download the completed PDF report (per D-26).\n\nReturns the PDF file if generation is complete.\nIf still generating, returns 400 with instructions to poll /status first."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "APIRouter",
+            "HTTPException"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi.responses",
+          "names": [
+            "FileResponse"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.evaluation",
+          "names": [
+            "ReportRequest",
+            "ReportMode",
+            "ReportInfo",
+            "ReportStatus"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "SessionStatus"
+          ],
+          "alias": null
+        },
+        {
+          "module": "storage.session_store",
+          "names": [
+            "session_store"
+          ],
+          "alias": null
+        },
+        {
+          "module": "reports.pdf_generator",
+          "names": [
+            "ReportGenerator"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "NotebookEvaluationState"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "API endpoints for PDF report generation and download.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/api/rubric.py",
+      "language": "Python",
+      "loc": 107,
+      "code_loc": 81,
+      "comment_lines": 2,
+      "comment_ratio": 0.0187,
+      "cyclomatic_complexity": 10,
+      "functions": [
+        {
+          "name": "_load_templates",
+          "lineno": 20,
+          "end_lineno": 71,
+          "complexity": 7,
+          "docstring": "Load and cache rubric templates from YAML files.\n\nScans backend/config/rubric_templates/ for all .yaml files,\nparses and validates each with RubricTemplate, and returns\na lightweight response list (name + criteria count)."
+        },
+        {
+          "name": "list_rubric_templates",
+          "lineno": 75,
+          "end_lineno": 82,
+          "complexity": 1,
+          "docstring": "List all pre-built rubric templates with their names and criteria.\n\nReturns a lightweight list of templates (name, criteria_count, criteria)\nfrom YAML files in the rubric_templates directory."
+        },
+        {
+          "name": "save_rubric",
+          "lineno": 86,
+          "end_lineno": 106,
+          "complexity": 2,
+          "docstring": "Save a custom rubric configuration to a session (per D-04).\n\nAccepts a RubricTemplate JSON body and associates it with the\ngiven session for later evaluation."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "yaml",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "APIRouter",
+            "HTTPException"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.evaluation",
+          "names": [
+            "Criterion",
+            "RubricTemplate"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "SessionStatus"
+          ],
+          "alias": null
+        },
+        {
+          "module": "storage.session_store",
+          "names": [
+            "session_store"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "API endpoints for rubric template management.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/api/understand.py",
+      "language": "Python",
+      "loc": 167,
+      "code_loc": 134,
+      "comment_lines": 7,
+      "comment_ratio": 0.0419,
+      "cyclomatic_complexity": 14,
+      "functions": [
+        {
+          "name": "_ensure_eval_state",
+          "lineno": 20,
+          "end_lineno": 24,
+          "complexity": 2,
+          "docstring": "Ensure eval_state exists on a notebook (backward compat)."
+        },
+        {
+          "name": "understand_notebook",
+          "lineno": 32,
+          "end_lineno": 107,
+          "complexity": 5,
+          "docstring": "Generate a 7-domain EvaluationContext for a notebook.\n\nCalls UnderstandingGenerator to produce the canonical EvaluationContext,\nconverts it to the frontend-compatible UnderstandingResult shape for the\nresponse, and stores the full EvaluationContext in the session for\nconsumption by later phases (evaluation, viva, reports)."
+        },
+        {
+          "name": "stream_understanding",
+          "lineno": 111,
+          "end_lineno": 166,
+          "complexity": 5,
+          "docstring": "Stream AI understanding generation as Server-Sent Events (per D-24).\n\nReturns an SSE stream that sends 'start', 'chunk', and 'done' events\nas the LLM generates the understanding analysis word by word."
+        },
+        {
+          "name": "event_stream",
+          "lineno": 154,
+          "end_lineno": 164,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "APIRouter",
+            "HTTPException"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi.responses",
+          "names": [
+            "StreamingResponse"
+          ],
+          "alias": null
+        },
+        {
+          "module": "core.parser",
+          "names": [
+            "extract_cells_for_llm"
+          ],
+          "alias": null
+        },
+        {
+          "module": "core.understanding",
+          "names": [
+            "UnderstandingGenerator"
+          ],
+          "alias": null
+        },
+        {
+          "module": "llm.client",
+          "names": [
+            "LLMClient"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "SessionStatus"
+          ],
+          "alias": null
+        },
+        {
+          "module": "storage.session_store",
+          "names": [
+            "session_store"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "NotebookEvaluationState"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "API endpoints for AI-powered notebook understanding.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/api/upload.py",
+      "language": "Python",
+      "loc": 289,
+      "code_loc": 230,
+      "comment_lines": 20,
+      "comment_ratio": 0.0692,
+      "cyclomatic_complexity": 31,
+      "functions": [
+        {
+          "name": "upload_notebook",
+          "lineno": 20,
+          "end_lineno": 157,
+          "complexity": 12,
+          "docstring": "Upload a Jupyter notebook (.ipynb) file for evaluation.\n\nAccepts a single .ipynb file, validates it, parses it with nbformat,\nsaves it to a session-scoped temp directory, and returns a structured\nsummary of the parsed notebook.\n\nIf no session_id header is provided, a new session is created.\nIf session_id is provided, the notebook is added to that session."
+        },
+        {
+          "name": "upload_notebook_batch",
+          "lineno": 164,
+          "end_lineno": 288,
+          "complexity": 19,
+          "docstring": "Upload multiple Jupyter notebook (.ipynb) files in a single request.\n\nValidates each file independently (extension, size, nbformat structure).\nPer-file errors do NOT halt the batch \u2014 returns per-file success/error\nstatus so faculty can see which files were accepted and which failed.\n\nMax 50 files per request (T-04-01 DoS mitigation)."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Optional"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "APIRouter",
+            "File",
+            "Header",
+            "HTTPException",
+            "UploadFile"
+          ],
+          "alias": null
+        },
+        {
+          "module": "core.parser",
+          "names": [
+            "parse_notebook",
+            "validate_notebook"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "SessionStatus"
+          ],
+          "alias": null
+        },
+        {
+          "module": "storage.session_store",
+          "names": [
+            "session_store"
+          ],
+          "alias": null
+        },
+        {
+          "module": "storage.upload_handler",
+          "names": [
+            "UploadHandler"
+          ],
+          "alias": null
+        },
+        {
+          "module": "config.settings",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "UploadedNotebook"
+          ],
+          "alias": null
+        },
+        {
+          "module": "config.settings",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "NotebookEvaluationState",
+            "NotebookStatus",
+            "UploadedNotebook"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "API endpoint for notebook file upload.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/api/viva_reports.py",
+      "language": "Python",
+      "loc": 228,
+      "code_loc": 185,
+      "comment_lines": 6,
+      "comment_ratio": 0.0263,
+      "cyclomatic_complexity": 15,
+      "functions": [
+        {
+          "name": "_ensure_eval_state",
+          "lineno": 27,
+          "end_lineno": 31,
+          "complexity": 2,
+          "docstring": "Ensure eval_state exists on a notebook (backward compat)."
+        },
+        {
+          "name": "generate_viva_report",
+          "lineno": 36,
+          "end_lineno": 131,
+          "complexity": 4,
+          "docstring": "Trigger viva + weak areas PDF report generation (per D-15).\n\nValidates session and analysis_result exist, then generates the viva PDF.\nReturns immediately with report_id and status.\nThe report is generated synchronously and stored for download."
+        },
+        {
+          "name": "get_viva_report_status",
+          "lineno": 135,
+          "end_lineno": 170,
+          "complexity": 3,
+          "docstring": "Poll viva report generation status.\n\nReturns current viva ReportInfo status and metadata."
+        },
+        {
+          "name": "download_viva_report",
+          "lineno": 174,
+          "end_lineno": 227,
+          "complexity": 6,
+          "docstring": "Download the completed viva PDF report (per D-15).\n\nReturns the PDF file if generation is complete.\nIf still generating, returns 400 with instructions to poll /status first."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "APIRouter",
+            "HTTPException"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi.responses",
+          "names": [
+            "FileResponse"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.evaluation",
+          "names": [
+            "ReportRequest",
+            "ReportMode",
+            "ReportInfo",
+            "ReportStatus"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "SessionStatus"
+          ],
+          "alias": null
+        },
+        {
+          "module": "storage.session_store",
+          "names": [
+            "session_store"
+          ],
+          "alias": null
+        },
+        {
+          "module": "reports.pdf_generator",
+          "names": [
+            "ReportGenerator"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "NotebookEvaluationState"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "API endpoints for viva + weak areas PDF report generation and download (per D-11 through D-15).\n\nFollows the same POST \u2192 poll status \u2192 download pattern as reports.py.\nStandalone PDF report (NOT part of scorecard or detailed grading report \u2014 per D-11).",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app.py",
+      "language": "Python",
+      "loc": 79,
+      "code_loc": 60,
+      "comment_lines": 3,
+      "comment_ratio": 0.038,
+      "cyclomatic_complexity": 3,
+      "functions": [
+        {
+          "name": "_register_routers",
+          "lineno": 12,
+          "end_lineno": 36,
+          "complexity": 1,
+          "docstring": "Lazily import and register API routers.\n\nCalled during lifespan startup to avoid import errors for modules\nthat may not exist yet during testing or development."
+        },
+        {
+          "name": "lifespan",
+          "lineno": 40,
+          "end_lineno": 51,
+          "complexity": 1,
+          "docstring": "Application lifespan: initialize on startup, clean up on shutdown."
+        },
+        {
+          "name": "health_check",
+          "lineno": 72,
+          "end_lineno": 78,
+          "complexity": 1,
+          "docstring": "Simple health check endpoint."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "contextlib",
+          "names": [
+            "asynccontextmanager"
+          ],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "FastAPI"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi.middleware.cors",
+          "names": [
+            "CORSMiddleware"
+          ],
+          "alias": null
+        },
+        {
+          "module": "config.settings",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "api.batch",
+          "names": [
+            "router"
+          ],
+          "alias": null
+        },
+        {
+          "module": "api.upload",
+          "names": [
+            "router"
+          ],
+          "alias": null
+        },
+        {
+          "module": "api.understand",
+          "names": [
+            "router"
+          ],
+          "alias": null
+        },
+        {
+          "module": "api.rubric",
+          "names": [
+            "router"
+          ],
+          "alias": null
+        },
+        {
+          "module": "api.evaluate",
+          "names": [
+            "router"
+          ],
+          "alias": null
+        },
+        {
+          "module": "api.export",
+          "names": [
+            "router"
+          ],
+          "alias": null
+        },
+        {
+          "module": "api.reports",
+          "names": [
+            "router"
+          ],
+          "alias": null
+        },
+        {
+          "module": "api.analysis",
+          "names": [
+            "router"
+          ],
+          "alias": null
+        },
+        {
+          "module": "api.viva_reports",
+          "names": [
+            "router"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "FastAPI application factory for the ML Notebook Evaluator backend.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/batch/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/batch/orchestrator.py",
+      "language": "Python",
+      "loc": 164,
+      "code_loc": 127,
+      "comment_lines": 6,
+      "comment_ratio": 0.0366,
+      "cyclomatic_complexity": 10,
+      "functions": [
+        {
+          "name": "_set_failed",
+          "lineno": 158,
+          "end_lineno": 163,
+          "complexity": 2,
+          "docstring": "Mark a notebook as failed with the given error message."
+        },
+        {
+          "name": "__init__",
+          "lineno": 50,
+          "end_lineno": 54,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "evaluate_all",
+          "lineno": 56,
+          "end_lineno": 90,
+          "complexity": 5,
+          "docstring": "Evaluate all notebooks in a session with bounded concurrency.\n\nSets rubric_config on the session (shared across batch per P4-D04).\nLaunches concurrent tasks for all notebooks, respecting the semaphore\nlimit so at most batch_concurrency notebooks run simultaneously.\n\nArgs:\n    session: The session containing notebooks to evaluate.\n    rubric: The rubric to apply to all notebooks."
+        },
+        {
+          "name": "_evaluate_single",
+          "lineno": 92,
+          "end_lineno": 155,
+          "complexity": 2,
+          "docstring": "Run the full evaluation pipeline for a single notebook.\n\nPipeline: understanding \u2192 evaluation \u2192 analysis.\nEach stage updates the session store so progress is visible via\nthe polling endpoint. One notebook failure does NOT block others.\n\nThe semaphore is acquired before processing and released on completion\nor error. This bounds the concurrency to batch_concurrency."
+        }
+      ],
+      "classes": [
+        {
+          "name": "BatchOrchestrator",
+          "lineno": 42,
+          "end_lineno": 155,
+          "docstring": "Orchestrates batch evaluation with bounded concurrency.\n\nUses asyncio.Semaphore to limit concurrent notebook evaluations to\nsettings.batch_concurrency (default 2). Each notebook runs through\nthe full pipeline independently before moving to the next stage.",
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 50,
+              "end_lineno": 54,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "evaluate_all",
+              "lineno": 56,
+              "end_lineno": 90,
+              "complexity": 5,
+              "docstring": "Evaluate all notebooks in a session with bounded concurrency.\n\nSets rubric_config on the session (shared across batch per P4-D04).\nLaunches concurrent tasks for all notebooks, respecting the semaphore\nlimit so at most batch_concurrency notebooks run simultaneously.\n\nArgs:\n    session: The session containing notebooks to evaluate.\n    rubric: The rubric to apply to all notebooks."
+            },
+            {
+              "name": "_evaluate_single",
+              "lineno": 92,
+              "end_lineno": 155,
+              "complexity": 2,
+              "docstring": "Run the full evaluation pipeline for a single notebook.\n\nPipeline: understanding \u2192 evaluation \u2192 analysis.\nEach stage updates the session store so progress is visible via\nthe polling endpoint. One notebook failure does NOT block others.\n\nThe semaphore is acquired before processing and released on completion\nor error. This bounds the concurrency to batch_concurrency."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "asyncio",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "config.settings",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "core.parser",
+          "names": [
+            "extract_cells_for_llm"
+          ],
+          "alias": null
+        },
+        {
+          "module": "core.understanding",
+          "names": [
+            "UnderstandingGenerator"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation.analysis_generator",
+          "names": [
+            "AnalysisGenerator"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation.evaluator",
+          "names": [
+            "EvaluationGenerator"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation.scoring_models",
+          "names": [
+            "EvaluationContext"
+          ],
+          "alias": null
+        },
+        {
+          "module": "llm.client",
+          "names": [
+            "LLMClient"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.evaluation",
+          "names": [
+            "RubricTemplate"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "NotebookEvaluationState",
+            "NotebookStatus",
+            "SessionState",
+            "UploadedNotebook"
+          ],
+          "alias": null
+        },
+        {
+          "module": "storage.session_store",
+          "names": [
+            "session_store"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "BatchOrchestrator \u2014 semaphore-bound concurrent batch evaluation.\n\nEvaluates multiple notebooks through the full pipeline (understanding \u2192\nevaluation \u2192 analysis) with bounded concurrency (default 2 at a time,\nconfigurable via settings.batch_concurrency).\n\nOne notebook failure does NOT block others (per P4-D02 continue-to-end).",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/config/__init__.py",
+      "language": "Python",
+      "loc": 4,
+      "code_loc": 2,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "settings",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/config/settings.py",
+      "language": "Python",
+      "loc": 38,
+      "code_loc": 16,
+      "comment_lines": 7,
+      "comment_ratio": 0.1842,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "Settings",
+          "lineno": 6,
+          "end_lineno": 34,
+          "docstring": "Application configuration loaded from .env file and environment variables.\n\nAll settings are read from environment variables with .env file fallback.",
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "pydantic_settings",
+          "names": [
+            "BaseSettings",
+            "SettingsConfigDict"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Application settings loaded from environment variables.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/core/__init__.py",
+      "language": "Python",
+      "loc": 4,
+      "code_loc": 2,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "parser",
+          "names": [
+            "validate_notebook",
+            "parse_notebook",
+            "extract_cells_for_llm"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/core/parser.py",
+      "language": "Python",
+      "loc": 252,
+      "code_loc": 195,
+      "comment_lines": 17,
+      "comment_ratio": 0.0675,
+      "cyclomatic_complexity": 46,
+      "functions": [
+        {
+          "name": "validate_notebook",
+          "lineno": 13,
+          "end_lineno": 68,
+          "complexity": 13,
+          "docstring": "Validate that content is a valid .ipynb file conforming to nbformat schema.\n\nChecks:\n- Valid JSON\n- nbformat >= 4\n- Has cells array\n- Cells have cell_type and source\n\nReturns (is_valid, list_of_errors)."
+        },
+        {
+          "name": "parse_notebook",
+          "lineno": 71,
+          "end_lineno": 171,
+          "complexity": 18,
+          "docstring": "Parse .ipynb bytes into ParsedNotebook model using nbformat.\n\nExtracts all cells, classifies by type, detects cells with errors\n(outputs containing 'error' or 'ename').\n\nIdentifies imported libraries by scanning code cells for import/from statements."
+        },
+        {
+          "name": "_detect_libraries",
+          "lineno": 174,
+          "end_lineno": 197,
+          "complexity": 4,
+          "docstring": "Detect imported libraries from Python source code.\n\nMatches patterns like:\n- import pandas\n- from sklearn.model_selection import train_test_split\n- import numpy as np"
+        },
+        {
+          "name": "extract_cells_for_llm",
+          "lineno": 210,
+          "end_lineno": 251,
+          "complexity": 11,
+          "docstring": "Format notebook cells into a text representation for LLM consumption.\n\n    Format: \"[Cell 1 (code)]\n{source}\n[Output]\n{output_text}\n\n\"\n    Includes ALL cells per D-21 (code + markdown + outputs).\n    "
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "re",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Optional"
+          ],
+          "alias": null
+        },
+        {
+          "module": "nbformat",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "nbformat",
+          "names": [
+            "NotebookNode"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.notebook",
+          "names": [
+            "CellType",
+            "NotebookCell",
+            "ParsedNotebook"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Notebook parser using nbformat to extract cells, validate structure, and detect anomalies.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/core/understanding.py",
+      "language": "Python",
+      "loc": 193,
+      "code_loc": 161,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 21,
+      "functions": [
+        {
+          "name": "_extract_libraries",
+          "lineno": 117,
+          "end_lineno": 132,
+          "complexity": 3,
+          "docstring": "Heuristic: extract library names from implementation description."
+        },
+        {
+          "name": "_extract_techniques",
+          "lineno": 135,
+          "end_lineno": 156,
+          "complexity": 3,
+          "docstring": "Heuristic: extract DS/ML technique names from methodology description."
+        },
+        {
+          "name": "_build_summary",
+          "lineno": 159,
+          "end_lineno": 173,
+          "complexity": 3,
+          "docstring": "Assemble a narrative summary from the 7-domain context."
+        },
+        {
+          "name": "_build_quality",
+          "lineno": 176,
+          "end_lineno": 192,
+          "complexity": 8,
+          "docstring": "Derive a brief quality assessment from the 7-domain context."
+        },
+        {
+          "name": "__init__",
+          "lineno": 48,
+          "end_lineno": 49,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "to_frontend_format",
+          "lineno": 52,
+          "end_lineno": 60,
+          "complexity": 1,
+          "docstring": "Convert canonical EvaluationContext to frontend-compatible shape."
+        },
+        {
+          "name": "generate",
+          "lineno": 63,
+          "end_lineno": 114,
+          "complexity": 2,
+          "docstring": "Analyze notebook content and return structured EvaluationContext.\n\nArgs:\n    notebook_text: Formatted notebook text from extract_cells_for_llm().\n\nReturns:\n    EvaluationContext with 7 domain-oriented sections."
+        }
+      ],
+      "classes": [
+        {
+          "name": "UnderstandingResult",
+          "lineno": 24,
+          "end_lineno": 37,
+          "docstring": "Backward-compatible shape for the frontend AISummary display.\n\nKept unchanged so the frontend UnderstandingResult type does not need\nto change. Converted from EvaluationContext via `to_frontend_format()`.",
+          "methods": []
+        },
+        {
+          "name": "UnderstandingGenerator",
+          "lineno": 40,
+          "end_lineno": 114,
+          "docstring": "Generates a 7-domain EvaluationContext from a parsed notebook.\n\nUses LLM to read and interpret full notebook content (code + markdown + outputs per D-21).\nPrompt asks purely for understanding \u2014 no rubric evaluation (per D-22).\nOutputs the canonical 7-domain EvaluationContext consumed by all downstream phases.",
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 48,
+              "end_lineno": 49,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "to_frontend_format",
+              "lineno": 52,
+              "end_lineno": 60,
+              "complexity": 1,
+              "docstring": "Convert canonical EvaluationContext to frontend-compatible shape."
+            },
+            {
+              "name": "generate",
+              "lineno": 63,
+              "end_lineno": 114,
+              "complexity": 2,
+              "docstring": "Analyze notebook content and return structured EvaluationContext.\n\nArgs:\n    notebook_text: Formatted notebook text from extract_cells_for_llm().\n\nReturns:\n    EvaluationContext with 7 domain-oriented sections."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "pydantic",
+          "names": [
+            "BaseModel",
+            "Field"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation.scoring_models",
+          "names": [
+            "EvaluationContext"
+          ],
+          "alias": null
+        },
+        {
+          "module": "llm.client",
+          "names": [
+            "LLMClient"
+          ],
+          "alias": null
+        },
+        {
+          "module": "llm.retry",
+          "names": [
+            "async_retry"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "UnderstandingGenerator for AI-powered notebook analysis (Phase 1).\n\nGenerates a 7-domain EvaluationContext from a parsed notebook using LLM.\nThe prompt asks purely for understanding with no rubric evaluation (per D-22).\nFull notebook content sent to LLM (code + markdown + outputs per D-21).\nStructured JSON output format (per D-14 revised).\n\nThe result is consumed by all downstream phases (evaluation, viva, weak areas,\nreports) \u2014 no second LLM understanding call during evaluation.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/evaluation/__init__.py",
+      "language": "Python",
+      "loc": 2,
+      "code_loc": 1,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [
+        {
+          "text": "Evaluation engine \u2014 rubric-based notebook evaluation using two-phase LLM strategy.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/evaluation/analysis_generator.py",
+      "language": "Python",
+      "loc": 86,
+      "code_loc": 61,
+      "comment_lines": 5,
+      "comment_ratio": 0.0581,
+      "cyclomatic_complexity": 6,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 28,
+          "end_lineno": 29,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "analyze",
+          "lineno": 32,
+          "end_lineno": 85,
+          "complexity": 5,
+          "docstring": "Run the combined viva + weak areas analysis (per D-02).\n\nArgs:\n    evaluation_context: The 7-domain EvaluationContext from understanding phase.\n    evaluation_result: The EvaluationResult with scores, weaknesses, evidence.\n\nReturns:\n    AnalysisResult with viva_questions and weak_areas."
+        }
+      ],
+      "classes": [
+        {
+          "name": "AnalysisGenerator",
+          "lineno": 21,
+          "end_lineno": 85,
+          "docstring": "Generates viva questions and weak areas from evaluation context and result.\n\nSingle combined LLM call (per D-02) \u2014 not two separate calls.\nFollows the same generator pattern as EvaluationGenerator from evaluator.py.",
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 28,
+              "end_lineno": 29,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "analyze",
+              "lineno": 32,
+              "end_lineno": 85,
+              "complexity": 5,
+              "docstring": "Run the combined viva + weak areas analysis (per D-02).\n\nArgs:\n    evaluation_context: The 7-domain EvaluationContext from understanding phase.\n    evaluation_result: The EvaluationResult with scores, weaknesses, evidence.\n\nReturns:\n    AnalysisResult with viva_questions and weak_areas."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "llm.client",
+          "names": [
+            "LLMClient"
+          ],
+          "alias": null
+        },
+        {
+          "module": "llm.retry",
+          "names": [
+            "async_retry"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation.scoring_models",
+          "names": [
+            "EvaluationContext"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation.analysis_prompt",
+          "names": [
+            "build_analysis_prompt"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.analysis",
+          "names": [
+            "AnalysisResult",
+            "VivaQuestion",
+            "WeakArea"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.evaluation",
+          "names": [
+            "EvaluationResult"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "AnalysisGenerator \u2014 combined viva questions + weak areas LLM generator (per D-01, D-02).\n\nSingle combined LLM call produces both viva questions and weak areas from the\n7-domain EvaluationContext and EvaluationResult.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/evaluation/analysis_prompt.py",
+      "language": "Python",
+      "loc": 97,
+      "code_loc": 84,
+      "comment_lines": 1,
+      "comment_ratio": 0.0103,
+      "cyclomatic_complexity": 1,
+      "functions": [
+        {
+          "name": "build_analysis_prompt",
+          "lineno": 14,
+          "end_lineno": 96,
+          "complexity": 1,
+          "docstring": "Build the combined analysis prompt for viva + weak areas generation.\n\nArgs:\n    evaluation_context: The 7-domain EvaluationContext from the understanding phase.\n    evaluation_result: The EvaluationResult with scores, weaknesses, and evidence.\n\nReturns:\n    Tuple of (system_prompt, user_prompt) for the single combined LLM call (per D-02)."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "evaluation.scoring_models",
+          "names": [
+            "EvaluationContext"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.evaluation",
+          "names": [
+            "EvaluationResult"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Builds the combined viva questions + weak areas analysis prompt (per D-02, D-04).\n\nThe analysis prompt receives the 7-domain EvaluationContext and the EvaluationResult\n(scores, per-criterion weaknesses, evidence_found) to generate structured output.\nSingle combined prompt \u2014 NOT two separate prompts (per D-02).",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/evaluation/evaluator.py",
+      "language": "Python",
+      "loc": 283,
+      "code_loc": 237,
+      "comment_lines": 5,
+      "comment_ratio": 0.0177,
+      "cyclomatic_complexity": 37,
+      "functions": [
+        {
+          "name": "_extract_strengths_from_context",
+          "lineno": 227,
+          "end_lineno": 246,
+          "complexity": 10,
+          "docstring": "Derive strengths from the 7-domain EvaluationContext."
+        },
+        {
+          "name": "_extract_techniques_from_context",
+          "lineno": 249,
+          "end_lineno": 263,
+          "complexity": 3,
+          "docstring": "Derive techniques from the 7-domain EvaluationContext."
+        },
+        {
+          "name": "_extract_concerns_from_context",
+          "lineno": 266,
+          "end_lineno": 282,
+          "complexity": 8,
+          "docstring": "Derive areas of concern from the 7-domain EvaluationContext."
+        },
+        {
+          "name": "__init__",
+          "lineno": 35,
+          "end_lineno": 36,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_score_criterion",
+          "lineno": 39,
+          "end_lineno": 80,
+          "complexity": 3,
+          "docstring": "Score a single criterion using the shared 7-domain EvaluationContext."
+        },
+        {
+          "name": "_calculate_aggregate",
+          "lineno": 82,
+          "end_lineno": 93,
+          "complexity": 2,
+          "docstring": "Calculate weighted average aggregate (per D-16).\n\nReturns:\n    Tuple of (aggregate_score, aggregate_percentage).\n    aggregate_score = sum(score * weight/100) for each criterion\n    aggregate_percentage = (aggregate_score / 5) * 100"
+        },
+        {
+          "name": "evaluate",
+          "lineno": 95,
+          "end_lineno": 165,
+          "complexity": 7,
+          "docstring": "Run evaluation: per-criterion scoring \u2192 aggregate.\n\nUses the pre-built EvaluationContext from Phase 1 UnderstandingGenerator.\nNo separate understanding call (per D-14 revised).\n\nArgs:\n    parsed_notebook: The parsed notebook to evaluate.\n    rubric: The rubric template to evaluate against.\n    evaluation_context: The 7-domain EvaluationContext from Phase 1.\n    progress_callback: Optional async callback for progress updates.\n        Called with (step_name: str, is_complete: bool).\n\nReturns:\n    EvaluationResult with all scores and aggregate."
+        },
+        {
+          "name": "evaluate_streaming",
+          "lineno": 167,
+          "end_lineno": 224,
+          "complexity": 3,
+          "docstring": "Streaming version of evaluate \u2014 yields SSE-compatible event dicts.\n\nYields dicts with 'type' and 'data' fields for each step of the evaluation."
+        }
+      ],
+      "classes": [
+        {
+          "name": "EvaluationGenerator",
+          "lineno": 27,
+          "end_lineno": 224,
+          "docstring": "Evaluates a notebook against a rubric using the 7-domain EvaluationContext.\n\nPhase 1 (understanding) is handled by UnderstandingGenerator.\nThis class performs Phase 2: sequential per-criterion scoring with\nbackpressure (per D-19), using the stored EvaluationContext.",
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 35,
+              "end_lineno": 36,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "_score_criterion",
+              "lineno": 39,
+              "end_lineno": 80,
+              "complexity": 3,
+              "docstring": "Score a single criterion using the shared 7-domain EvaluationContext."
+            },
+            {
+              "name": "_calculate_aggregate",
+              "lineno": 82,
+              "end_lineno": 93,
+              "complexity": 2,
+              "docstring": "Calculate weighted average aggregate (per D-16).\n\nReturns:\n    Tuple of (aggregate_score, aggregate_percentage).\n    aggregate_score = sum(score * weight/100) for each criterion\n    aggregate_percentage = (aggregate_score / 5) * 100"
+            },
+            {
+              "name": "evaluate",
+              "lineno": 95,
+              "end_lineno": 165,
+              "complexity": 7,
+              "docstring": "Run evaluation: per-criterion scoring \u2192 aggregate.\n\nUses the pre-built EvaluationContext from Phase 1 UnderstandingGenerator.\nNo separate understanding call (per D-14 revised).\n\nArgs:\n    parsed_notebook: The parsed notebook to evaluate.\n    rubric: The rubric template to evaluate against.\n    evaluation_context: The 7-domain EvaluationContext from Phase 1.\n    progress_callback: Optional async callback for progress updates.\n        Called with (step_name: str, is_complete: bool).\n\nReturns:\n    EvaluationResult with all scores and aggregate."
+            },
+            {
+              "name": "evaluate_streaming",
+              "lineno": 167,
+              "end_lineno": 224,
+              "complexity": 3,
+              "docstring": "Streaming version of evaluate \u2014 yields SSE-compatible event dicts.\n\nYields dicts with 'type' and 'data' fields for each step of the evaluation."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "asyncio",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "llm.client",
+          "names": [
+            "LLMClient"
+          ],
+          "alias": null
+        },
+        {
+          "module": "llm.retry",
+          "names": [
+            "async_retry"
+          ],
+          "alias": null
+        },
+        {
+          "module": "core.parser",
+          "names": [
+            "extract_cells_for_llm"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.notebook",
+          "names": [
+            "ParsedNotebook"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.evaluation",
+          "names": [
+            "RubricTemplate",
+            "Criterion",
+            "CriterionScore",
+            "EvaluationResult",
+            "ReportMode"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation.scoring_models",
+          "names": [
+            "EvaluationContext"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation.prompt_builder",
+          "names": [
+            "build_criterion_prompt"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "EvaluationGenerator \u2014 single-phase LLM evaluation of notebooks against rubrics.\n\nConsumes the 7-domain EvaluationContext produced by Phase 1 UnderstandingGenerator\n(per D-14 revised). No longer makes a separate understanding LLM call.\nPer-criterion scoring with sequential backpressure (per D-19).",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/evaluation/prompt_builder.py",
+      "language": "Python",
+      "loc": 83,
+      "code_loc": 76,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 2,
+      "functions": [
+        {
+          "name": "build_criterion_prompt",
+          "lineno": 8,
+          "end_lineno": 82,
+          "complexity": 2,
+          "docstring": "Build prompt for Phase 2: Per-criterion scoring.\n\nArgs:\n    criterion_name: Name of the criterion being evaluated\n    criterion_description: What this criterion measures\n    pass_condition: What qualifies as passing for this criterion\n    weight: Criterion weight percentage\n    evaluation_context: The 7-domain EvaluationContext from Phase 1 (serialized JSON)\n    capability: Optional capability/competency description for this criterion\n\nReturns:\n    Tuple of (system_prompt, user_prompt) for this criterion."
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [
+        {
+          "text": "Builds prompts for the two-phase LLM evaluation strategy.\n\nUnderstanding prompt is now in core/understanding.py (7-domain EvaluationContext).\nThis module provides only the per-criterion scoring prompt.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/evaluation/scoring_models.py",
+      "language": "Python",
+      "loc": 28,
+      "code_loc": 21,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "EvaluationContext",
+          "lineno": 10,
+          "end_lineno": 27,
+          "docstring": "Canonical 7-domain shared understanding of the notebook (per D-14 revised).\n\nProduced by UnderstandingGenerator in Phase 1, consumed by all downstream\nphases (evaluation, viva, weak areas, reports). Replaces the previous\n7-field flat structure with domain-oriented sections.",
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "pydantic",
+          "names": [
+            "BaseModel",
+            "Field"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Internal models for the evaluation pipeline.\n\nEvaluationContext: 7-domain structured understanding produced by Phase 1\nUnderstandingGenerator and consumed by Phase 2 per-criterion scoring (per D-14 revised).",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/llm/__init__.py",
+      "language": "Python",
+      "loc": 5,
+      "code_loc": 3,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "client",
+          "names": [
+            "LLMClient",
+            "LLMResponse"
+          ],
+          "alias": null
+        },
+        {
+          "module": "retry",
+          "names": [
+            "async_retry",
+            "MaxRetriesExceeded"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/llm/client.py",
+      "language": "Python",
+      "loc": 94,
+      "code_loc": 75,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 8,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 18,
+          "end_lineno": 21,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "__init__",
+          "lineno": 31,
+          "end_lineno": 36,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "generate",
+          "lineno": 39,
+          "end_lineno": 75,
+          "complexity": 3,
+          "docstring": "Send a chat completion request to the opencode API.\n\nSupports standard chat completions. The opencode API is OpenAI-compatible.\nTemperature 0.1 for consistency (near-deterministic but allows slight variation).\n\nArgs:\n    messages: List of message dicts with 'role' and 'content' keys.\n    response_format: Optional format spec (e.g., {\"type\": \"json_object\"}).\n    temperature: Sampling temperature (0.0-2.0).\n    max_tokens: Maximum tokens in the response.\n\nReturns:\n    LLMResponse with content, model, and usage info."
+        },
+        {
+          "name": "generate_streaming",
+          "lineno": 77,
+          "end_lineno": 93,
+          "complexity": 3,
+          "docstring": "Streaming version of generate. Yields content chunks as they arrive."
+        }
+      ],
+      "classes": [
+        {
+          "name": "LLMResponse",
+          "lineno": 15,
+          "end_lineno": 21,
+          "docstring": "Structured response from an LLM generation call.",
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 18,
+              "end_lineno": 21,
+              "complexity": 1,
+              "docstring": null
+            }
+          ]
+        },
+        {
+          "name": "LLMClient",
+          "lineno": 24,
+          "end_lineno": 93,
+          "docstring": "Abstraction over OpenAI-compatible API for the opencode LLM backend.\n\nUses the standard OpenAI Python SDK with a custom base URL pointed at\nthe opencode API endpoint (per D-08, D-11).",
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 31,
+              "end_lineno": 36,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "generate",
+              "lineno": 39,
+              "end_lineno": 75,
+              "complexity": 3,
+              "docstring": "Send a chat completion request to the opencode API.\n\nSupports standard chat completions. The opencode API is OpenAI-compatible.\nTemperature 0.1 for consistency (near-deterministic but allows slight variation).\n\nArgs:\n    messages: List of message dicts with 'role' and 'content' keys.\n    response_format: Optional format spec (e.g., {\"type\": \"json_object\"}).\n    temperature: Sampling temperature (0.0-2.0).\n    max_tokens: Maximum tokens in the response.\n\nReturns:\n    LLMResponse with content, model, and usage info."
+            },
+            {
+              "name": "generate_streaming",
+              "lineno": 77,
+              "end_lineno": 93,
+              "complexity": 3,
+              "docstring": "Streaming version of generate. Yields content chunks as they arrive."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "typing",
+          "names": [
+            "AsyncGenerator",
+            "Optional"
+          ],
+          "alias": null
+        },
+        {
+          "module": "openai",
+          "names": [
+            "AsyncOpenAI"
+          ],
+          "alias": null
+        },
+        {
+          "module": "config.settings",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "llm.retry",
+          "names": [
+            "async_retry"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "LLM client abstraction over OpenAI-compatible API for the opencode LLM backend.\n\nUses the standard OpenAI Python SDK with a custom base URL pointed at\nthe opencode API endpoint (per D-08, D-11).",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/llm/retry.py",
+      "language": "Python",
+      "loc": 54,
+      "code_loc": 44,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 12,
+      "functions": [
+        {
+          "name": "async_retry",
+          "lineno": 18,
+          "end_lineno": 53,
+          "complexity": 4,
+          "docstring": "Async retry decorator with exponential backoff.\n\nRetries on any exception. Logs each retry. Raises MaxRetriesExceeded after max_attempts.\nDelay sequence: base_delay, base_delay*backoff, base_delay*backoff^2, ...\n\nArgs:\n    max_attempts: Maximum number of retry attempts (default: 3 per D-23).\n    base_delay: Initial delay in seconds before first retry (default: 1.0).\n    backoff: Multiplicative factor for delay between retries (default: 2.0)."
+        },
+        {
+          "name": "decorator",
+          "lineno": 29,
+          "end_lineno": 52,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "wrapper",
+          "lineno": 31,
+          "end_lineno": 51,
+          "complexity": 4,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "MaxRetriesExceeded",
+          "lineno": 13,
+          "end_lineno": 15,
+          "docstring": "Raised when all retry attempts fail.",
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "asyncio",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "functools",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Async retry decorator with exponential backoff (per D-23).\n\nRetries failed LLM API calls up to max_attempts times with exponential backoff delay.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/models/__init__.py",
+      "language": "Python",
+      "loc": 12,
+      "code_loc": 10,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "notebook",
+          "names": [
+            "CellType",
+            "NotebookCell",
+            "ParsedNotebook"
+          ],
+          "alias": null
+        },
+        {
+          "module": "session",
+          "names": [
+            "SessionStatus",
+            "UploadedNotebook",
+            "SessionState"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/models/analysis.py",
+      "language": "Python",
+      "loc": 65,
+      "code_loc": 49,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "VivaQuestion",
+          "lineno": 12,
+          "end_lineno": 27,
+          "docstring": "A notebook-specific viva question with expected answer (per D-05, D-06, D-07).\n\nAt least one question per category (code_reasoning, methodology_choices,\nconceptual_understanding) \u2014 remaining questions based on notebook content.",
+          "methods": []
+        },
+        {
+          "name": "WeakArea",
+          "lineno": 30,
+          "end_lineno": 44,
+          "docstring": "An identified weak area with evidence and improvement suggestion (per D-08, D-09, D-10).\n\nUses criterion scores and weaknesses from EvaluationResult as primary signal.\nSuggestions must be actionable (\"review pandas fillna\" not \"improve data skills\").",
+          "methods": []
+        },
+        {
+          "name": "AnalysisResult",
+          "lineno": 47,
+          "end_lineno": 64,
+          "docstring": "Combined analysis result from a single LLM call (per D-02).\n\nContains both viva questions and weak areas, generated together.",
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pydantic",
+          "names": [
+            "BaseModel",
+            "Field"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Pydantic models for viva question and weak area analysis (per D-05, D-06, D-09, D-10).\n\nProduced by AnalysisGenerator as a single combined LLM call (per D-02).\nStored in session as a serialized dict via model_dump(mode=\"json\").",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/models/evaluation.py",
+      "language": "Python",
+      "loc": 187,
+      "code_loc": 140,
+      "comment_lines": 1,
+      "comment_ratio": 0.0053,
+      "cyclomatic_complexity": 6,
+      "functions": [
+        {
+          "name": "extract_student_name",
+          "lineno": 168,
+          "end_lineno": 186,
+          "complexity": 3,
+          "docstring": "Extract student name from filename per D-02 convention.\n\nDefault convention: underscore-separated, first two tokens = first/last name.\nExamples:\n    alice_smith_project.ipynb -> \"Alice Smith\"\n    bob_jones_hw2.ipynb -> \"Bob Jones\"\n    charlie.ipynb -> \"Charlie\""
+        },
+        {
+          "name": "weights_must_sum_to_100",
+          "lineno": 43,
+          "end_lineno": 47,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "ReportMode",
+          "lineno": 10,
+          "end_lineno": 12,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ReportStatus",
+          "lineno": 15,
+          "end_lineno": 19,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "Criterion",
+          "lineno": 22,
+          "end_lineno": 32,
+          "docstring": "Single evaluation criterion within a rubric (per D-05).",
+          "methods": []
+        },
+        {
+          "name": "RubricTemplate",
+          "lineno": 35,
+          "end_lineno": 47,
+          "docstring": "Rubric template with minimal top-level schema (per D-07).",
+          "methods": [
+            {
+              "name": "weights_must_sum_to_100",
+              "lineno": 43,
+              "end_lineno": 47,
+              "complexity": 3,
+              "docstring": null
+            }
+          ]
+        },
+        {
+          "name": "ScoreOverride",
+          "lineno": 50,
+          "end_lineno": 56,
+          "docstring": "Faculty override for a single criterion score.",
+          "methods": []
+        },
+        {
+          "name": "CriterionScore",
+          "lineno": 59,
+          "end_lineno": 70,
+          "docstring": "Score assigned by AI for a single criterion.",
+          "methods": []
+        },
+        {
+          "name": "EvaluationResult",
+          "lineno": 73,
+          "end_lineno": 84,
+          "docstring": "Complete evaluation result for a notebook against a rubric.",
+          "methods": []
+        },
+        {
+          "name": "ReportRequest",
+          "lineno": 87,
+          "end_lineno": 95,
+          "docstring": "Parameters for triggering report generation (per D-25).",
+          "methods": []
+        },
+        {
+          "name": "ReportInfo",
+          "lineno": 98,
+          "end_lineno": 107,
+          "docstring": "Tracks report generation state (per D-26).",
+          "methods": []
+        },
+        {
+          "name": "ComparisonRowScore",
+          "lineno": 110,
+          "end_lineno": 115,
+          "docstring": "Score for a single criterion in the comparison table.",
+          "methods": []
+        },
+        {
+          "name": "ComparisonRow",
+          "lineno": 118,
+          "end_lineno": 131,
+          "docstring": "Single row in the batch comparison table (per D-01).\n\nContains aggregate and per-criterion scores + notebook metadata.\nDoes NOT include full EvaluationResult \u2014 access via individual endpoint.",
+          "methods": []
+        },
+        {
+          "name": "ComparisonResponse",
+          "lineno": 134,
+          "end_lineno": 139,
+          "docstring": "Batch comparison data optimized for tabular rendering (D-01).",
+          "methods": []
+        },
+        {
+          "name": "ScoreDistribution",
+          "lineno": 142,
+          "end_lineno": 147,
+          "docstring": "Histogram bucket for cohort summary widget (D-07).",
+          "methods": []
+        },
+        {
+          "name": "GradeBreakdown",
+          "lineno": 150,
+          "end_lineno": 153,
+          "docstring": "Grade count for cohort summary widget (D-07).",
+          "methods": []
+        },
+        {
+          "name": "CohortSummary",
+          "lineno": 156,
+          "end_lineno": 165,
+          "docstring": "Cohort aggregate data for dashboard widget (D-07).\n\nNot a PDF export \u2014 displayed as dashboard widget.",
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "datetime",
+          "names": [
+            "datetime"
+          ],
+          "alias": null
+        },
+        {
+          "module": "enum",
+          "names": [
+            "Enum"
+          ],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Optional"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pydantic",
+          "names": [
+            "BaseModel",
+            "Field",
+            "field_validator"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Pydantic models for rubric configuration, evaluation results, and reports.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/models/notebook.py",
+      "language": "Python",
+      "loc": 39,
+      "code_loc": 27,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "CellType",
+          "lineno": 9,
+          "end_lineno": 14,
+          "docstring": "Types of cells found in a Jupyter notebook.",
+          "methods": []
+        },
+        {
+          "name": "NotebookCell",
+          "lineno": 17,
+          "end_lineno": 24,
+          "docstring": "Represents a single cell within a Jupyter notebook.",
+          "methods": []
+        },
+        {
+          "name": "ParsedNotebook",
+          "lineno": 27,
+          "end_lineno": 38,
+          "docstring": "Structured representation of a parsed .ipynb file.",
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "enum",
+          "names": [
+            "Enum"
+          ],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Optional"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pydantic",
+          "names": [
+            "BaseModel",
+            "Field"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Pydantic models for Jupyter notebook data.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/models/session.py",
+      "language": "Python",
+      "loc": 89,
+      "code_loc": 64,
+      "comment_lines": 4,
+      "comment_ratio": 0.0449,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "SessionStatus",
+          "lineno": 14,
+          "end_lineno": 25,
+          "docstring": "Possible states of an evaluation session.",
+          "methods": []
+        },
+        {
+          "name": "NotebookStatus",
+          "lineno": 28,
+          "end_lineno": 37,
+          "docstring": "Per-notebook evaluation lifecycle states.",
+          "methods": []
+        },
+        {
+          "name": "NotebookEvaluationState",
+          "lineno": 40,
+          "end_lineno": 61,
+          "docstring": "Per-notebook evaluation data owned by each UploadedNotebook.\n\nMigrated from session-level fields (P4-D05). Each notebook tracks\nits own progress independently for concurrent batch evaluation.",
+          "methods": []
+        },
+        {
+          "name": "UploadedNotebook",
+          "lineno": 64,
+          "end_lineno": 71,
+          "docstring": "Tracks a single uploaded notebook within a session.",
+          "methods": []
+        },
+        {
+          "name": "SessionState",
+          "lineno": 74,
+          "end_lineno": 88,
+          "docstring": "State of a faculty evaluation session.\n\nSession-level fields for per-notebook evaluation data (evaluation_result,\nreport_info, etc.) have been migrated to NotebookEvaluationState inside\neach UploadedNotebook. rubric_config stays session-level \u2014 shared across\nbatch (P4-D04).",
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "datetime",
+          "names": [
+            "datetime"
+          ],
+          "alias": null
+        },
+        {
+          "module": "enum",
+          "names": [
+            "Enum"
+          ],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Optional"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pydantic",
+          "names": [
+            "BaseModel",
+            "Field"
+          ],
+          "alias": null
+        },
+        {
+          "module": "analysis",
+          "names": [
+            "AnalysisResult"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation",
+          "names": [
+            "EvaluationResult",
+            "ReportInfo",
+            "ReportRequest",
+            "RubricTemplate"
+          ],
+          "alias": null
+        },
+        {
+          "module": "notebook",
+          "names": [
+            "ParsedNotebook"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Pydantic models for session state management.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/reports/__init__.py",
+      "language": "Python",
+      "loc": 2,
+      "code_loc": 1,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [
+        {
+          "text": "PDF report generation for evaluation results using WeasyPrint + Jinja2.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/reports/charts.py",
+      "language": "Python",
+      "loc": 270,
+      "code_loc": 218,
+      "comment_lines": 9,
+      "comment_ratio": 0.0333,
+      "cyclomatic_complexity": 21,
+      "functions": [
+        {
+          "name": "generate_radar_chart",
+          "lineno": 32,
+          "end_lineno": 158,
+          "complexity": 12,
+          "docstring": "Generate a radar chart as PNG bytes.\n\nArgs:\n    criteria_names: Labels for each spoke (at least 3).\n    scores: 0-5 score for each criterion.\n    width_inches, height_inches: Output image dimensions.\n\nReturns:\n    PNG image bytes."
+        },
+        {
+          "name": "_generate_fallback_chart",
+          "lineno": 161,
+          "end_lineno": 195,
+          "complexity": 4,
+          "docstring": "Fallback horizontal bar chart for <3 criteria (can't make radar)."
+        },
+        {
+          "name": "generate_contribution_chart",
+          "lineno": 198,
+          "end_lineno": 235,
+          "complexity": 4,
+          "docstring": "Generate a horizontal contribution bar chart as PNG bytes.\n\nShows how each criterion contributed to the final score."
+        },
+        {
+          "name": "generate_score_image",
+          "lineno": 238,
+          "end_lineno": 269,
+          "complexity": 1,
+          "docstring": "Generate a circular score gauge as PNG bytes."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "io",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "math",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "matplotlib",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "matplotlib.pyplot",
+          "names": [],
+          "alias": "plt"
+        },
+        {
+          "module": "matplotlib.patches",
+          "names": [],
+          "alias": "mpatches"
+        },
+        {
+          "module": "numpy",
+          "names": [],
+          "alias": "np"
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Chart generation for PDF reports \u2014 radar, contribution, and performance bars.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/reports/pdf_generator.py",
+      "language": "Python",
+      "loc": 1405,
+      "code_loc": 1181,
+      "comment_lines": 60,
+      "comment_ratio": 0.0427,
+      "cyclomatic_complexity": 183,
+      "functions": [
+        {
+          "name": "_sanitize",
+          "lineno": 39,
+          "end_lineno": 40,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_get_unicode_font",
+          "lineno": 46,
+          "end_lineno": 69,
+          "complexity": 4,
+          "docstring": "Find and return (family_name, font_path) for a Unicode-capable TTF font.\n\nChecks common system font locations. Results are cached."
+        },
+        {
+          "name": "_setup_fpdf_font",
+          "lineno": 76,
+          "end_lineno": 104,
+          "complexity": 5,
+          "docstring": "Register a Unicode font on *pdf* and return the family name.\n\nFalls back to ``\"Helvetica\"`` if no suitable font is found.\nCaches the discovered font globally after first successful lookup."
+        },
+        {
+          "name": "_get_grade_letter",
+          "lineno": 107,
+          "end_lineno": 118,
+          "complexity": 6,
+          "docstring": null
+        },
+        {
+          "name": "_get_grade_band",
+          "lineno": 121,
+          "end_lineno": 132,
+          "complexity": 6,
+          "docstring": null
+        },
+        {
+          "name": "_is_pass",
+          "lineno": 135,
+          "end_lineno": 136,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_get_evaluation_status",
+          "lineno": 139,
+          "end_lineno": 147,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "_check_weasyprint",
+          "lineno": 150,
+          "end_lineno": 161,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "__init__",
+          "lineno": 166,
+          "end_lineno": 170,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "generate_report",
+          "lineno": 172,
+          "end_lineno": 198,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "generate_viva_report",
+          "lineno": 200,
+          "end_lineno": 244,
+          "complexity": 5,
+          "docstring": "Generate a standalone viva + weak areas PDF report (per D-11 through D-15).\n\nUses the viva.html Jinja2 template with WeasyPrint (with fpdf2 fallback).\nAccepts the AnalysisResult as a serialized dict from session.\n\nArgs:\n    analysis_dict: Analysis result dict with viva_questions and weak_areas.\n    request: ReportRequest with student_name, assignment_name, course_name.\n\nReturns:\n    Tuple of (pdf_bytes, filename)."
+        },
+        {
+          "name": "_generate_viva_via_fpdf2",
+          "lineno": 246,
+          "end_lineno": 467,
+          "complexity": 12,
+          "docstring": "Fallback viva report generation using fpdf2 when WeasyPrint is unavailable."
+        },
+        {
+          "name": "_apply_overrides",
+          "lineno": 469,
+          "end_lineno": 501,
+          "complexity": 7,
+          "docstring": "Apply faculty score overrides, return modified result."
+        },
+        {
+          "name": "_build_chart_data_uris",
+          "lineno": 503,
+          "end_lineno": 516,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "_generate_via_weasyprint",
+          "lineno": 518,
+          "end_lineno": 573,
+          "complexity": 9,
+          "docstring": null
+        },
+        {
+          "name": "_generate_via_fpdf2",
+          "lineno": 575,
+          "end_lineno": 668,
+          "complexity": 16,
+          "docstring": null
+        },
+        {
+          "name": "_lh",
+          "lineno": 675,
+          "end_lineno": 677,
+          "complexity": 1,
+          "docstring": "Current line height in mm based on font_size * 1.4 ratio."
+        },
+        {
+          "name": "_th",
+          "lineno": 680,
+          "end_lineno": 697,
+          "complexity": 6,
+          "docstring": "Measure wrapped text height accounting for word boundaries.\nMore accurate than character-level division - matches multi_cell wrapping."
+        },
+        {
+          "name": "_cb",
+          "lineno": 700,
+          "end_lineno": 706,
+          "complexity": 2,
+          "docstring": "Check and handle page break. Returns True if a new page was added."
+        },
+        {
+          "name": "_rblob",
+          "lineno": 708,
+          "end_lineno": 716,
+          "complexity": 2,
+          "docstring": "Render a wrapped text block with multi_cell. Returns height consumed."
+        },
+        {
+          "name": "_card",
+          "lineno": 719,
+          "end_lineno": 726,
+          "complexity": 4,
+          "docstring": "Draw a card with optional left accent. Sets draw/fill colors but does NOT change cursor."
+        },
+        {
+          "name": "_fpdf2_scorecard",
+          "lineno": 732,
+          "end_lineno": 930,
+          "complexity": 26,
+          "docstring": "1-page executive scorecard using flow-based layout."
+        },
+        {
+          "name": "_fpdf2_detailed_page_1",
+          "lineno": 937,
+          "end_lineno": 1086,
+          "complexity": 23,
+          "docstring": "Page 1: Executive summary \u2014 flow-based layout."
+        },
+        {
+          "name": "_fpdf2_detailed_page_2",
+          "lineno": 1088,
+          "end_lineno": 1224,
+          "complexity": 13,
+          "docstring": "Page 2: Criterion Analysis \u2014 dynamic-height stacked cards."
+        },
+        {
+          "name": "_fpdf2_detailed_page_3",
+          "lineno": 1226,
+          "end_lineno": 1294,
+          "complexity": 7,
+          "docstring": "Page 3: Evidence Mapping \u2014 notebook cell references & source evidence.\n\nUnlike Criterion Analysis which shows score + evidence + strengths + recs,\nthis page focuses on WHERE in the notebook each piece of evidence was found\n(cell references, sections, code excerpts)."
+        },
+        {
+          "name": "_fpdf2_detailed_page_4",
+          "lineno": 1296,
+          "end_lineno": 1372,
+          "complexity": 4,
+          "docstring": "Page 4: Priority improvements \u2014 dynamic height meta cards."
+        },
+        {
+          "name": "_fpdf2_detailed_page_5",
+          "lineno": 1374,
+          "end_lineno": 1404,
+          "complexity": 1,
+          "docstring": "Page 5: Faculty Review / Override History \u2014 dynamic height."
+        },
+        {
+          "name": "footer",
+          "lineno": 261,
+          "end_lineno": 276,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "__init__",
+          "lineno": 594,
+          "end_lineno": 596,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "footer",
+          "lineno": 598,
+          "end_lineno": 613,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "section_h",
+          "lineno": 1115,
+          "end_lineno": 1122,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "ReportGenerator",
+          "lineno": 164,
+          "end_lineno": 1404,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 166,
+              "end_lineno": 170,
+              "complexity": 2,
+              "docstring": null
+            },
+            {
+              "name": "generate_report",
+              "lineno": 172,
+              "end_lineno": 198,
+              "complexity": 4,
+              "docstring": null
+            },
+            {
+              "name": "generate_viva_report",
+              "lineno": 200,
+              "end_lineno": 244,
+              "complexity": 5,
+              "docstring": "Generate a standalone viva + weak areas PDF report (per D-11 through D-15).\n\nUses the viva.html Jinja2 template with WeasyPrint (with fpdf2 fallback).\nAccepts the AnalysisResult as a serialized dict from session.\n\nArgs:\n    analysis_dict: Analysis result dict with viva_questions and weak_areas.\n    request: ReportRequest with student_name, assignment_name, course_name.\n\nReturns:\n    Tuple of (pdf_bytes, filename)."
+            },
+            {
+              "name": "_generate_viva_via_fpdf2",
+              "lineno": 246,
+              "end_lineno": 467,
+              "complexity": 12,
+              "docstring": "Fallback viva report generation using fpdf2 when WeasyPrint is unavailable."
+            },
+            {
+              "name": "_apply_overrides",
+              "lineno": 469,
+              "end_lineno": 501,
+              "complexity": 7,
+              "docstring": "Apply faculty score overrides, return modified result."
+            },
+            {
+              "name": "_build_chart_data_uris",
+              "lineno": 503,
+              "end_lineno": 516,
+              "complexity": 4,
+              "docstring": null
+            },
+            {
+              "name": "_generate_via_weasyprint",
+              "lineno": 518,
+              "end_lineno": 573,
+              "complexity": 9,
+              "docstring": null
+            },
+            {
+              "name": "_generate_via_fpdf2",
+              "lineno": 575,
+              "end_lineno": 668,
+              "complexity": 16,
+              "docstring": null
+            },
+            {
+              "name": "_lh",
+              "lineno": 675,
+              "end_lineno": 677,
+              "complexity": 1,
+              "docstring": "Current line height in mm based on font_size * 1.4 ratio."
+            },
+            {
+              "name": "_th",
+              "lineno": 680,
+              "end_lineno": 697,
+              "complexity": 6,
+              "docstring": "Measure wrapped text height accounting for word boundaries.\nMore accurate than character-level division - matches multi_cell wrapping."
+            },
+            {
+              "name": "_cb",
+              "lineno": 700,
+              "end_lineno": 706,
+              "complexity": 2,
+              "docstring": "Check and handle page break. Returns True if a new page was added."
+            },
+            {
+              "name": "_rblob",
+              "lineno": 708,
+              "end_lineno": 716,
+              "complexity": 2,
+              "docstring": "Render a wrapped text block with multi_cell. Returns height consumed."
+            },
+            {
+              "name": "_card",
+              "lineno": 719,
+              "end_lineno": 726,
+              "complexity": 4,
+              "docstring": "Draw a card with optional left accent. Sets draw/fill colors but does NOT change cursor."
+            },
+            {
+              "name": "_fpdf2_scorecard",
+              "lineno": 732,
+              "end_lineno": 930,
+              "complexity": 26,
+              "docstring": "1-page executive scorecard using flow-based layout."
+            },
+            {
+              "name": "_fpdf2_detailed_page_1",
+              "lineno": 937,
+              "end_lineno": 1086,
+              "complexity": 23,
+              "docstring": "Page 1: Executive summary \u2014 flow-based layout."
+            },
+            {
+              "name": "_fpdf2_detailed_page_2",
+              "lineno": 1088,
+              "end_lineno": 1224,
+              "complexity": 13,
+              "docstring": "Page 2: Criterion Analysis \u2014 dynamic-height stacked cards."
+            },
+            {
+              "name": "_fpdf2_detailed_page_3",
+              "lineno": 1226,
+              "end_lineno": 1294,
+              "complexity": 7,
+              "docstring": "Page 3: Evidence Mapping \u2014 notebook cell references & source evidence.\n\nUnlike Criterion Analysis which shows score + evidence + strengths + recs,\nthis page focuses on WHERE in the notebook each piece of evidence was found\n(cell references, sections, code excerpts)."
+            },
+            {
+              "name": "_fpdf2_detailed_page_4",
+              "lineno": 1296,
+              "end_lineno": 1372,
+              "complexity": 4,
+              "docstring": "Page 4: Priority improvements \u2014 dynamic height meta cards."
+            },
+            {
+              "name": "_fpdf2_detailed_page_5",
+              "lineno": 1374,
+              "end_lineno": 1404,
+              "complexity": 1,
+              "docstring": "Page 5: Faculty Review / Override History \u2014 dynamic height."
+            }
+          ]
+        },
+        {
+          "name": "VivaFooterPDF",
+          "lineno": 260,
+          "end_lineno": 276,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "footer",
+              "lineno": 261,
+              "end_lineno": 276,
+              "complexity": 1,
+              "docstring": null
+            }
+          ]
+        },
+        {
+          "name": "FooterPDF",
+          "lineno": 593,
+          "end_lineno": 613,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 594,
+              "end_lineno": 596,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "footer",
+              "lineno": 598,
+              "end_lineno": 613,
+              "complexity": 1,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "base64",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "math",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "tempfile",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "jinja2",
+          "names": [
+            "Environment",
+            "FileSystemLoader"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.evaluation",
+          "names": [
+            "CriterionScore",
+            "EvaluationResult",
+            "ReportRequest",
+            "ReportMode",
+            "ReportInfo",
+            "ReportStatus",
+            "ScoreOverride"
+          ],
+          "alias": null
+        },
+        {
+          "module": "reports.charts",
+          "names": [
+            "generate_radar_chart",
+            "generate_contribution_chart",
+            "generate_score_image"
+          ],
+          "alias": null
+        },
+        {
+          "module": "weasyprint",
+          "names": [
+            "HTML"
+          ],
+          "alias": null
+        },
+        {
+          "module": "weasyprint",
+          "names": [
+            "HTML"
+          ],
+          "alias": null
+        },
+        {
+          "module": "weasyprint",
+          "names": [
+            "HTML"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fpdf",
+          "names": [
+            "FPDF"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fpdf",
+          "names": [
+            "FPDF"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "ReportGenerator \u2014 creates PDF reports using WeasyPrint (with fpdf2 fallback on Windows).",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/reports/templates/detailed.html",
+      "language": "HTML",
+      "loc": 473,
+      "code_loc": 437,
+      "comment_lines": 5,
+      "comment_ratio": 0.0106,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/reports/templates/scorecard.html",
+      "language": "HTML",
+      "loc": 206,
+      "code_loc": 190,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/reports/templates/viva.html",
+      "language": "HTML",
+      "loc": 268,
+      "code_loc": 245,
+      "comment_lines": 5,
+      "comment_ratio": 0.0187,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/storage/__init__.py",
+      "language": "Python",
+      "loc": 5,
+      "code_loc": 3,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "session_store",
+          "names": [
+            "SessionStore",
+            "session_store"
+          ],
+          "alias": null
+        },
+        {
+          "module": "upload_handler",
+          "names": [
+            "UploadHandler"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/storage/session_store.py",
+      "language": "Python",
+      "loc": 107,
+      "code_loc": 83,
+      "comment_lines": 2,
+      "comment_ratio": 0.0187,
+      "cyclomatic_complexity": 14,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 21,
+          "end_lineno": 22,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "create_session",
+          "lineno": 24,
+          "end_lineno": 38,
+          "complexity": 2,
+          "docstring": "Create a new session. Uses provided ID or generates a UUID4."
+        },
+        {
+          "name": "get_session",
+          "lineno": 40,
+          "end_lineno": 53,
+          "complexity": 3,
+          "docstring": "Retrieve a session by ID. Returns None if not found or expired."
+        },
+        {
+          "name": "update_session",
+          "lineno": 55,
+          "end_lineno": 58,
+          "complexity": 1,
+          "docstring": "Update a session's state in the store."
+        },
+        {
+          "name": "update_session_for_notebook",
+          "lineno": 60,
+          "end_lineno": 82,
+          "complexity": 3,
+          "docstring": "Atomically update a single notebook within a session.\n\nUsed by batch orchestrator during concurrent evaluation. Gets the\nlatest session state, replaces the specific notebook at notebook_idx,\nand saves back \u2014 avoiding race conditions where two concurrent\nevaluators write different notebooks but one overwrites the other's\nchanges.\n\nArgs:\n    session_id: The session to update.\n    notebook_idx: Index of the notebook in session.notebooks to replace.\n    notebook: The updated UploadedNotebook object."
+        },
+        {
+          "name": "cleanup_expired",
+          "lineno": 84,
+          "end_lineno": 102,
+          "complexity": 4,
+          "docstring": "Remove all expired sessions.\n\nReturns the number of sessions removed."
+        }
+      ],
+      "classes": [
+        {
+          "name": "SessionStore",
+          "lineno": 14,
+          "end_lineno": 102,
+          "docstring": "In-memory session store with TTL cleanup.\n\nStores SessionState objects keyed by session_id (UUID string).\nSessions expire after settings.session_ttl_minutes of inactivity.",
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 21,
+              "end_lineno": 22,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "create_session",
+              "lineno": 24,
+              "end_lineno": 38,
+              "complexity": 2,
+              "docstring": "Create a new session. Uses provided ID or generates a UUID4."
+            },
+            {
+              "name": "get_session",
+              "lineno": 40,
+              "end_lineno": 53,
+              "complexity": 3,
+              "docstring": "Retrieve a session by ID. Returns None if not found or expired."
+            },
+            {
+              "name": "update_session",
+              "lineno": 55,
+              "end_lineno": 58,
+              "complexity": 1,
+              "docstring": "Update a session's state in the store."
+            },
+            {
+              "name": "update_session_for_notebook",
+              "lineno": 60,
+              "end_lineno": 82,
+              "complexity": 3,
+              "docstring": "Atomically update a single notebook within a session.\n\nUsed by batch orchestrator during concurrent evaluation. Gets the\nlatest session state, replaces the specific notebook at notebook_idx,\nand saves back \u2014 avoiding race conditions where two concurrent\nevaluators write different notebooks but one overwrites the other's\nchanges.\n\nArgs:\n    session_id: The session to update.\n    notebook_idx: Index of the notebook in session.notebooks to replace.\n    notebook: The updated UploadedNotebook object."
+            },
+            {
+              "name": "cleanup_expired",
+              "lineno": 84,
+              "end_lineno": 102,
+              "complexity": 4,
+              "docstring": "Remove all expired sessions.\n\nReturns the number of sessions removed."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timedelta",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Optional"
+          ],
+          "alias": null
+        },
+        {
+          "module": "config.settings",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.session",
+          "names": [
+            "SessionState",
+            "SessionStatus"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "In-memory session store with TTL cleanup.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/storage/upload_handler.py",
+      "language": "Python",
+      "loc": 66,
+      "code_loc": 48,
+      "comment_lines": 2,
+      "comment_ratio": 0.0303,
+      "cyclomatic_complexity": 7,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 21,
+          "end_lineno": 23,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "save_upload",
+          "lineno": 25,
+          "end_lineno": 58,
+          "complexity": 2,
+          "docstring": "Save uploaded file to session-scoped temp directory.\n\nArgs:\n    session_id: Unique session identifier.\n    filename: Original filename (should end in .ipynb).\n    content: Raw file bytes.\n\nReturns:\n    The path to the saved file.\n\nRaises:\n    ValueError: If file size exceeds max_file_size_mb."
+        },
+        {
+          "name": "cleanup_session",
+          "lineno": 60,
+          "end_lineno": 65,
+          "complexity": 2,
+          "docstring": "Remove session temp directory and all files (per D-05)."
+        }
+      ],
+      "classes": [
+        {
+          "name": "UploadHandler",
+          "lineno": 13,
+          "end_lineno": 65,
+          "docstring": "Handles file upload to OS temp directory (per D-05).\n\nFiles are saved to {temp_base}/notebook-sessions/{session_id}/{filename}.\nEnforces file size limit (per D-07).\nCleanup on session end removes the session temp directory.",
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 21,
+              "end_lineno": 23,
+              "complexity": 3,
+              "docstring": null
+            },
+            {
+              "name": "save_upload",
+              "lineno": 25,
+              "end_lineno": 58,
+              "complexity": 2,
+              "docstring": "Save uploaded file to session-scoped temp directory.\n\nArgs:\n    session_id: Unique session identifier.\n    filename: Original filename (should end in .ipynb).\n    content: Raw file bytes.\n\nReturns:\n    The path to the saved file.\n\nRaises:\n    ValueError: If file size exceeds max_file_size_mb."
+            },
+            {
+              "name": "cleanup_session",
+              "lineno": 60,
+              "end_lineno": 65,
+              "complexity": 2,
+              "docstring": "Remove session temp directory and all files (per D-05)."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "shutil",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "tempfile",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "config.settings",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Handles file upload to OS temp directory with cleanup.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/index.html",
+      "language": "HTML",
+      "loc": 14,
+      "code_loc": 13,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/App.tsx",
+      "language": "TypeScript",
+      "loc": 457,
+      "code_loc": 408,
+      "comment_lines": 13,
+      "comment_ratio": 0.0284,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "App",
+          "lineno": 27,
+          "end_lineno": 27,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/Layout",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/StepWizard",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/StepWizard",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/UploadZone",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/ProgressIndicator",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/NotebookPreview",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/AISummary",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/ErrorDisplay",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/RubricSelector",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/EvaluationProgress",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/EvaluationResults",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/ScoreOverride",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/ReportPreview",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/VivaPreview",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./stores/sessionStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./hooks/useUpload",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./hooks/useUnderstanding",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./hooks/useEvaluation",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./hooks/useBatch",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./stores/batchStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./pages/BatchDashboard",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/AISummary.tsx",
+      "language": "TypeScript",
+      "loc": 202,
+      "code_loc": 187,
+      "comment_lines": 4,
+      "comment_ratio": 0.0198,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "AISummary",
+          "lineno": 14,
+          "end_lineno": 14,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "AISummaryProps",
+          "lineno": 8,
+          "end_lineno": 8,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/skeleton",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "react-markdown",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "remark-gfm",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/BatchComparisonTable.tsx",
+      "language": "TypeScript",
+      "loc": 301,
+      "code_loc": 277,
+      "comment_lines": 3,
+      "comment_ratio": 0.01,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "BatchComparisonTable",
+          "lineno": 42,
+          "end_lineno": 42,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "SortIcon",
+          "lineno": 127,
+          "end_lineno": 127,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "isSelected",
+          "lineno": 160,
+          "end_lineno": 160,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "BatchComparisonTableProps",
+          "lineno": 18,
+          "end_lineno": 18,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/skeleton",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/BatchFileList.tsx",
+      "language": "TypeScript",
+      "loc": 115,
+      "code_loc": 109,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "BatchFileList",
+          "lineno": 50,
+          "end_lineno": 50,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "BatchFileListProps",
+          "lineno": 6,
+          "end_lineno": 6,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/BatchProgressBar.tsx",
+      "language": "TypeScript",
+      "loc": 119,
+      "code_loc": 110,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "BatchProgressBar",
+          "lineno": 40,
+          "end_lineno": 40,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "BatchProgressBarProps",
+          "lineno": 6,
+          "end_lineno": 6,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/progress",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/BatchSideDrawer.tsx",
+      "language": "TypeScript",
+      "loc": 289,
+      "code_loc": 255,
+      "comment_lines": 9,
+      "comment_ratio": 0.0311,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "SectionHeader",
+          "lineno": 28,
+          "end_lineno": 28,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "BatchSideDrawer",
+          "lineno": 41,
+          "end_lineno": 41,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "BatchSideDrawerProps",
+          "lineno": 19,
+          "end_lineno": 19,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "FullEvaluationData",
+          "lineno": 32,
+          "end_lineno": 32,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/skeleton",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/stores/batchStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/services/api",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/CohortSummaryWidget.tsx",
+      "language": "TypeScript",
+      "loc": 190,
+      "code_loc": 179,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "CohortSummaryWidget",
+          "lineno": 32,
+          "end_lineno": 32,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "CohortSummaryWidgetProps",
+          "lineno": 9,
+          "end_lineno": 9,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/skeleton",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/ErrorDisplay.tsx",
+      "language": "TypeScript",
+      "loc": 144,
+      "code_loc": 132,
+      "comment_lines": 2,
+      "comment_ratio": 0.0139,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "ErrorDisplay",
+          "lineno": 13,
+          "end_lineno": 13,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "ErrorDisplayProps",
+          "lineno": 7,
+          "end_lineno": 7,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/EvaluationProgress.tsx",
+      "language": "TypeScript",
+      "loc": 178,
+      "code_loc": 159,
+      "comment_lines": 3,
+      "comment_ratio": 0.0169,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "EvaluationProgress",
+          "lineno": 26,
+          "end_lineno": 26,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "getStepIcon",
+          "lineno": 34,
+          "end_lineno": 34,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "getStepStyle",
+          "lineno": 47,
+          "end_lineno": 47,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "getLineStyle",
+          "lineno": 54,
+          "end_lineno": 54,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "getCircleBg",
+          "lineno": 61,
+          "end_lineno": 61,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "EvaluationProgressProps",
+          "lineno": 5,
+          "end_lineno": 5,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/EvaluationResults.tsx",
+      "language": "TypeScript",
+      "loc": 261,
+      "code_loc": 242,
+      "comment_lines": 2,
+      "comment_ratio": 0.0077,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "EvaluationResults",
+          "lineno": 28,
+          "end_lineno": 28,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "toggleJustification",
+          "lineno": 38,
+          "end_lineno": 38,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleScoreClick",
+          "lineno": 50,
+          "end_lineno": 50,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleScoreConfirm",
+          "lineno": 56,
+          "end_lineno": 56,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleScoreCancel",
+          "lineno": 62,
+          "end_lineno": 62,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "EvaluationResultsProps",
+          "lineno": 9,
+          "end_lineno": 9,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/skeleton",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/progress",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/FloatingActionBar.tsx",
+      "language": "TypeScript",
+      "loc": 147,
+      "code_loc": 135,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "FloatingActionBar",
+          "lineno": 20,
+          "end_lineno": 20,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "FloatingActionBarProps",
+          "lineno": 14,
+          "end_lineno": 14,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/services/api",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/stores/batchStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/Layout.tsx",
+      "language": "TypeScript",
+      "loc": 32,
+      "code_loc": 29,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "Layout",
+          "lineno": 9,
+          "end_lineno": 9,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "LayoutProps",
+          "lineno": 5,
+          "end_lineno": 5,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/theme-provider",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ThemeToggle",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/NotebookPreview.tsx",
+      "language": "TypeScript",
+      "loc": 388,
+      "code_loc": 335,
+      "comment_lines": 16,
+      "comment_ratio": 0.0412,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "NotebookPreview",
+          "lineno": 15,
+          "end_lineno": 15,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "CellRenderer",
+          "lineno": 172,
+          "end_lineno": 172,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "renderOutputs",
+          "lineno": 35,
+          "end_lineno": 35,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "NotebookPreviewProps",
+          "lineno": 9,
+          "end_lineno": 9,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "CellRendererProps",
+          "lineno": 165,
+          "end_lineno": 165,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/sanitize",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/ProgressIndicator.tsx",
+      "language": "TypeScript",
+      "loc": 86,
+      "code_loc": 73,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "ProgressIndicator",
+          "lineno": 21,
+          "end_lineno": 21,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "getStageIcon",
+          "lineno": 28,
+          "end_lineno": 28,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "getStageStyle",
+          "lineno": 38,
+          "end_lineno": 38,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "getLineStyle",
+          "lineno": 44,
+          "end_lineno": 44,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProgressIndicatorProps",
+          "lineno": 6,
+          "end_lineno": 6,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/ReportPreview.tsx",
+      "language": "TypeScript",
+      "loc": 494,
+      "code_loc": 449,
+      "comment_lines": 9,
+      "comment_ratio": 0.0182,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "ReportPreview",
+          "lineno": 20,
+          "end_lineno": 20,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleToggleMode",
+          "lineno": 72,
+          "end_lineno": 72,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "getScore",
+          "lineno": 113,
+          "end_lineno": 113,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "getStatusBadge",
+          "lineno": 347,
+          "end_lineno": 347,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "ReportPreviewProps",
+          "lineno": 8,
+          "end_lineno": 8,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/hooks/useReport",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/RubricSelector.tsx",
+      "language": "TypeScript",
+      "loc": 452,
+      "code_loc": 404,
+      "comment_lines": 10,
+      "comment_ratio": 0.0221,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "RubricSelector",
+          "lineno": 18,
+          "end_lineno": 18,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleSelectTemplate",
+          "lineno": 57,
+          "end_lineno": 57,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleCustomize",
+          "lineno": 71,
+          "end_lineno": 71,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleUseTemplate",
+          "lineno": 78,
+          "end_lineno": 78,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleAddCriterion",
+          "lineno": 97,
+          "end_lineno": 97,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleUpdateCriterion",
+          "lineno": 106,
+          "end_lineno": 106,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleRemoveCriterion",
+          "lineno": 116,
+          "end_lineno": 116,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleSaveCustom",
+          "lineno": 120,
+          "end_lineno": 120,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "RubricSelectorProps",
+          "lineno": 11,
+          "end_lineno": 11,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/skeleton",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/hooks/useRubric",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/services/api",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/stores/sessionStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/ScoreOverride.tsx",
+      "language": "TypeScript",
+      "loc": 370,
+      "code_loc": 337,
+      "comment_lines": 4,
+      "comment_ratio": 0.0108,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "ScoreOverride",
+          "lineno": 22,
+          "end_lineno": 22,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleScoreClick",
+          "lineno": 80,
+          "end_lineno": 80,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleScoreConfirm",
+          "lineno": 85,
+          "end_lineno": 85,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleScoreCancel",
+          "lineno": 94,
+          "end_lineno": 94,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleReasonConfirm",
+          "lineno": 98,
+          "end_lineno": 98,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleReasonCancel",
+          "lineno": 112,
+          "end_lineno": 112,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "onKey",
+          "lineno": 121,
+          "end_lineno": 121,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleKeyDown",
+          "lineno": 126,
+          "end_lineno": 126,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "ScoreOverrideProps",
+          "lineno": 9,
+          "end_lineno": 9,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/progress",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/Sidebar.tsx",
+      "language": "TypeScript",
+      "loc": 46,
+      "code_loc": 41,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "Sidebar",
+          "lineno": 10,
+          "end_lineno": 10,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "SidebarProps",
+          "lineno": 5,
+          "end_lineno": 5,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/StepWizard.tsx",
+      "language": "TypeScript",
+      "loc": 117,
+      "code_loc": 110,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "StepWizard",
+          "lineno": 26,
+          "end_lineno": 26,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "Step",
+          "lineno": 7,
+          "end_lineno": 7,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "StepWizardProps",
+          "lineno": 14,
+          "end_lineno": 14,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/ThemeToggle.tsx",
+      "language": "TypeScript",
+      "loc": 20,
+      "code_loc": 17,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "ThemeToggle",
+          "lineno": 5,
+          "end_lineno": 5,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/theme-provider",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/UploadZone.tsx",
+      "language": "TypeScript",
+      "loc": 189,
+      "code_loc": 169,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "UploadZone",
+          "lineno": 15,
+          "end_lineno": 15,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleFiles",
+          "lineno": 37,
+          "end_lineno": 37,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleDragOver",
+          "lineno": 56,
+          "end_lineno": 56,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleDragLeave",
+          "lineno": 62,
+          "end_lineno": 62,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleDrop",
+          "lineno": 68,
+          "end_lineno": 68,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleClick",
+          "lineno": 77,
+          "end_lineno": 77,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleInputChange",
+          "lineno": 81,
+          "end_lineno": 81,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "clearFiles",
+          "lineno": 87,
+          "end_lineno": 87,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "UploadZoneProps",
+          "lineno": 5,
+          "end_lineno": 5,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/VivaPreview.tsx",
+      "language": "TypeScript",
+      "loc": 251,
+      "code_loc": 235,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "CategoryBadge",
+          "lineno": 10,
+          "end_lineno": 10,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "VivaPreview",
+          "lineno": 24,
+          "end_lineno": 24,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/hooks/useVivaReport",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/ui/button.tsx",
+      "language": "TypeScript",
+      "loc": 57,
+      "code_loc": 51,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@radix-ui/react-slot",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "class-variance-authority",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/ui/card.tsx",
+      "language": "TypeScript",
+      "loc": 80,
+      "code_loc": 71,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/ui/input.tsx",
+      "language": "TypeScript",
+      "loc": 22,
+      "code_loc": 19,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/ui/label.tsx",
+      "language": "TypeScript",
+      "loc": 22,
+      "code_loc": 18,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "class-variance-authority",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/ui/progress.tsx",
+      "language": "TypeScript",
+      "loc": 27,
+      "code_loc": 23,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@radix-ui/react-progress",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/components/ui/skeleton.tsx",
+      "language": "TypeScript",
+      "loc": 16,
+      "code_loc": 13,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "Skeleton",
+          "lineno": 3,
+          "end_lineno": 3,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/hooks/useBatch.ts",
+      "language": "TypeScript",
+      "loc": 176,
+      "code_loc": 153,
+      "comment_lines": 1,
+      "comment_ratio": 0.0057,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "poll",
+          "lineno": 139,
+          "end_lineno": 139,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "UseBatchReturn",
+          "lineno": 8,
+          "end_lineno": 8,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/stores/batchStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/services/api",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/hooks/useCohort.ts",
+      "language": "TypeScript",
+      "loc": 59,
+      "code_loc": 49,
+      "comment_lines": 1,
+      "comment_ratio": 0.0169,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "UseCohortReturn",
+          "lineno": 6,
+          "end_lineno": 6,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/services/api",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/stores/batchStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/hooks/useComparisonData.ts",
+      "language": "TypeScript",
+      "loc": 143,
+      "code_loc": 122,
+      "comment_lines": 5,
+      "comment_ratio": 0.035,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "UseComparisonDataReturn",
+          "lineno": 6,
+          "end_lineno": 6,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/stores/batchStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/services/api",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/hooks/useEvaluation.ts",
+      "language": "TypeScript",
+      "loc": 118,
+      "code_loc": 104,
+      "comment_lines": 5,
+      "comment_ratio": 0.0424,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "UseEvaluationReturn",
+          "lineno": 6,
+          "end_lineno": 6,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/stores/sessionStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/services/api",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/hooks/useReport.ts",
+      "language": "TypeScript",
+      "loc": 136,
+      "code_loc": 120,
+      "comment_lines": 3,
+      "comment_ratio": 0.0221,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "UseReportReturn",
+          "lineno": 6,
+          "end_lineno": 6,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/stores/sessionStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/services/api",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/hooks/useRubric.ts",
+      "language": "TypeScript",
+      "loc": 152,
+      "code_loc": 132,
+      "comment_lines": 2,
+      "comment_ratio": 0.0132,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "UseRubricReturn",
+          "lineno": 6,
+          "end_lineno": 6,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/stores/sessionStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/services/api",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/hooks/useUnderstanding.ts",
+      "language": "TypeScript",
+      "loc": 147,
+      "code_loc": 129,
+      "comment_lines": 5,
+      "comment_ratio": 0.034,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "UseUnderstandingReturn",
+          "lineno": 6,
+          "end_lineno": 6,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/stores/sessionStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/services/api",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/hooks/useUpload.ts",
+      "language": "TypeScript",
+      "loc": 116,
+      "code_loc": 97,
+      "comment_lines": 3,
+      "comment_ratio": 0.0259,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "UseUploadReturn",
+          "lineno": 8,
+          "end_lineno": 8,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/stores/sessionStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/services/api",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/hooks/useVivaReport.ts",
+      "language": "TypeScript",
+      "loc": 120,
+      "code_loc": 101,
+      "comment_lines": 5,
+      "comment_ratio": 0.0417,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "useVivaReport",
+          "lineno": 6,
+          "end_lineno": 6,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/services/api",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/stores/sessionStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/index.css",
+      "language": "CSS",
+      "loc": 134,
+      "code_loc": 114,
+      "comment_lines": 9,
+      "comment_ratio": 0.0672,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/lib/sanitize.ts",
+      "language": "TypeScript",
+      "loc": 83,
+      "code_loc": 32,
+      "comment_lines": 30,
+      "comment_ratio": 0.3614,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/lib/theme-provider.tsx",
+      "language": "TypeScript",
+      "loc": 48,
+      "code_loc": 38,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "ThemeProvider",
+          "lineno": 21,
+          "end_lineno": 21,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "toggleTheme",
+          "lineno": 34,
+          "end_lineno": 34,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "ThemeContextValue",
+          "lineno": 5,
+          "end_lineno": 5,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/lib/utils.ts",
+      "language": "TypeScript",
+      "loc": 7,
+      "code_loc": 5,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "cn",
+          "lineno": 4,
+          "end_lineno": 4,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "clsx",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "tailwind-merge",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/main.tsx",
+      "language": "TypeScript",
+      "loc": 11,
+      "code_loc": 9,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "react-dom/client",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./App",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/pages/BatchDashboard.tsx",
+      "language": "TypeScript",
+      "loc": 361,
+      "code_loc": 323,
+      "comment_lines": 5,
+      "comment_ratio": 0.0139,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "BatchDashboard",
+          "lineno": 28,
+          "end_lineno": 28,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "BatchDashboardProps",
+          "lineno": 24,
+          "end_lineno": 24,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/StepWizard",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/StepWizard",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/UploadZone",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/BatchFileList",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/BatchProgressBar",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/EvaluationProgress",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/BatchComparisonTable",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/BatchSideDrawer",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/FloatingActionBar",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/CohortSummaryWidget",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/RubricSelector",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ErrorDisplay",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/hooks/useBatch",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/hooks/useComparisonData",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/hooks/useCohort",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/stores/batchStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/stores/sessionStore",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/services/api.ts",
+      "language": "TypeScript",
+      "loc": 496,
+      "code_loc": 420,
+      "comment_lines": 10,
+      "comment_ratio": 0.0202,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "ApiClientError",
+          "lineno": 28,
+          "end_lineno": 28,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/stores/batchStore.ts",
+      "language": "TypeScript",
+      "loc": 134,
+      "code_loc": 105,
+      "comment_lines": 12,
+      "comment_ratio": 0.0896,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "BatchState",
+          "lineno": 9,
+          "end_lineno": 9,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "zustand",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/stores/sessionStore.ts",
+      "language": "TypeScript",
+      "loc": 192,
+      "code_loc": 138,
+      "comment_lines": 24,
+      "comment_ratio": 0.125,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "SessionState",
+          "lineno": 18,
+          "end_lineno": 18,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "zustand",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/types/api",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/types/api.ts",
+      "language": "TypeScript",
+      "loc": 314,
+      "code_loc": 260,
+      "comment_lines": 8,
+      "comment_ratio": 0.0255,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "ParsedCell",
+          "lineno": 1,
+          "end_lineno": 1,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "NotebookOutput",
+          "lineno": 9,
+          "end_lineno": 9,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ParsedNotebook",
+          "lineno": 19,
+          "end_lineno": 19,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "UploadResponse",
+          "lineno": 31,
+          "end_lineno": 31,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "UnderstandingResult",
+          "lineno": 37,
+          "end_lineno": 37,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "UnderstandingResponse",
+          "lineno": 45,
+          "end_lineno": 45,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ApiError",
+          "lineno": 51,
+          "end_lineno": 51,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "SessionResponse",
+          "lineno": 57,
+          "end_lineno": 57,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "Criterion",
+          "lineno": 68,
+          "end_lineno": 68,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "RubricTemplate",
+          "lineno": 75,
+          "end_lineno": 75,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "RubricTemplateSummary",
+          "lineno": 80,
+          "end_lineno": 80,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "RubricListResponse",
+          "lineno": 86,
+          "end_lineno": 86,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "CriterionScore",
+          "lineno": 91,
+          "end_lineno": 91,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "EvaluationResult",
+          "lineno": 102,
+          "end_lineno": 102,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "EvaluationResponse",
+          "lineno": 114,
+          "end_lineno": 114,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ScoreOverride",
+          "lineno": 121,
+          "end_lineno": 121,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ReportRequest",
+          "lineno": 131,
+          "end_lineno": 131,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ReportStatusResponse",
+          "lineno": 139,
+          "end_lineno": 139,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ReportTriggerResponse",
+          "lineno": 145,
+          "end_lineno": 145,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "SSEEvent",
+          "lineno": 151,
+          "end_lineno": 151,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "VivaQuestion",
+          "lineno": 157,
+          "end_lineno": 157,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "WeakArea",
+          "lineno": 163,
+          "end_lineno": 163,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "AnalysisResult",
+          "lineno": 169,
+          "end_lineno": 169,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "AnalysisTriggerResponse",
+          "lineno": 175,
+          "end_lineno": 175,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "VivaReportRequest",
+          "lineno": 181,
+          "end_lineno": 181,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "VivaReportTriggerResponse",
+          "lineno": 187,
+          "end_lineno": 187,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "VivaReportStatusResponse",
+          "lineno": 193,
+          "end_lineno": 193,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "BatchNotebookEntry",
+          "lineno": 204,
+          "end_lineno": 204,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "BatchUploadResponse",
+          "lineno": 211,
+          "end_lineno": 211,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "BatchStatusNotebookEntry",
+          "lineno": 219,
+          "end_lineno": 219,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "BatchStatusResponse",
+          "lineno": 228,
+          "end_lineno": 228,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "BatchEvaluateResponse",
+          "lineno": 237,
+          "end_lineno": 237,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "QueueFileEntry",
+          "lineno": 243,
+          "end_lineno": 243,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "BatchState",
+          "lineno": 251,
+          "end_lineno": 251,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ComparisonRowScore",
+          "lineno": 261,
+          "end_lineno": 261,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ComparisonRow",
+          "lineno": 268,
+          "end_lineno": 268,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ComparisonResponse",
+          "lineno": 279,
+          "end_lineno": 279,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ReEvaluateResponse",
+          "lineno": 286,
+          "end_lineno": 286,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "CohortSummaryScoreDistribution",
+          "lineno": 295,
+          "end_lineno": 295,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "CohortSummaryGradeBreakdown",
+          "lineno": 302,
+          "end_lineno": 302,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "CohortSummaryResponse",
+          "lineno": 307,
+          "end_lineno": 307,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/vite-env.d.ts",
+      "language": "TypeScript",
+      "loc": 2,
+      "code_loc": 0,
+      "comment_lines": 1,
+      "comment_ratio": 0.5,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/vite.config.ts",
+      "language": "TypeScript",
+      "loc": 22,
+      "code_loc": 19,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "vite",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@vitejs/plugin-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@tailwindcss/vite",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "path",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "url",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    }
+  ],
+  "delta": null,
+  "ingestion_metadata": {
+    "version": "1.0",
+    "timestamp": "2026-07-12T12:19:49.600111+00:00",
+    "duration_ms": 0,
+    "pipeline_version": "1"
+  }
+}

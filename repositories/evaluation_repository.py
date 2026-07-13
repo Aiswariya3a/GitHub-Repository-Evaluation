@@ -77,8 +77,23 @@ class EvaluationRepository:
                 result.get("error"),
                 result.get("evaluation_started_at"),
                 result.get("evaluation_started_at"),
-            ))
+            )).fetchone()
             return str(row["id"])
+
+    def hydrate(self, row):
+        if not row.get("evaluation_id"):
+            return None
+        return {
+            "id": row["evaluation_id"],
+            "total_out_of_80": row.get("total_score") or 0,
+            "total_score": row.get("total_score") or 0,
+            "max_score": row.get("max_score") or 0,
+            "normalized_to_20": row.get("normalized_to_20") or 0,
+            "rubric_version_id": row.get("evaluation_rubric_version_id"),
+            "overall_remarks": row.get("overall_remarks") or "",
+            "error": row.get("evaluation_error"),
+            "error_details": row.get("error_details"),
+        }
 
     def get_evaluation_result(self, repository_id: str, session_id: str) -> Optional[dict]:
         with connect() as db:

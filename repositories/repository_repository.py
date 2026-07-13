@@ -1,3 +1,5 @@
+from psycopg.types.json import Jsonb
+
 from database import connect
 
 
@@ -10,16 +12,20 @@ class RepositoryRepository:
 
     def list(self, session_id):
         with connect() as db:
-            return db.execute("""SELECT r.*,e.id evaluation_id,e.total_out_of_80,e.total_score,e.max_score,e.normalized_to_20,
-                e.rubric_version_id evaluation_rubric_version_id,e.overall_remarks,e.error evaluation_error,e.error_details
-                FROM repositories r LEFT JOIN evaluations e ON e.repository_id=r.id
+            return db.execute("""SELECT r.*,er.id evaluation_id,er.total_score,er.max_score,er.normalized_to_20,
+                er.rubric_version_id evaluation_rubric_version_id,
+                COALESCE(er.feedback->>'summary','') overall_remarks,
+                er.error evaluation_error,NULL error_details
+                FROM repositories r LEFT JOIN evaluation_results er ON er.repository_id=r.id
                 WHERE r.session_id=%s ORDER BY r.created_at""", (session_id,)).fetchall()
 
     def get(self, session_id, repository_id):
         with connect() as db:
-            return db.execute("""SELECT r.*,e.id evaluation_id,e.total_out_of_80,e.total_score,e.max_score,e.normalized_to_20,
-                e.rubric_version_id evaluation_rubric_version_id,e.overall_remarks,e.error evaluation_error,e.error_details
-                FROM repositories r LEFT JOIN evaluations e ON e.repository_id=r.id
+            return db.execute("""SELECT r.*,er.id evaluation_id,er.total_score,er.max_score,er.normalized_to_20,
+                er.rubric_version_id evaluation_rubric_version_id,
+                COALESCE(er.feedback->>'summary','') overall_remarks,
+                er.error evaluation_error,NULL error_details
+                FROM repositories r LEFT JOIN evaluation_results er ON er.repository_id=r.id
                 WHERE r.session_id=%s AND r.id=%s""", (session_id, repository_id)).fetchone()
 
     def queue(self, session_id, repository_id):
@@ -53,25 +59,26 @@ class RepositoryRepository:
             metrics = db.execute("""SELECT COUNT(DISTINCT s.id) session_count,COUNT(r.id) repository_count,
                 COUNT(r.id) FILTER(WHERE r.evaluation_status='Completed') evaluated_count,
                 COUNT(r.id) FILTER(WHERE r.evaluation_status='Evaluating') running_count,
-                COALESCE(AVG(e.normalized_to_20),0) average_health
+                COALESCE(AVG(er.normalized_to_20),0) average_health
                 FROM evaluation_sessions s LEFT JOIN repositories r ON r.session_id=s.id
-                LEFT JOIN evaluations e ON e.repository_id=r.id""").fetchone()
+                LEFT JOIN evaluation_results er ON er.repository_id=r.id""").fetchone()
             recent = db.execute("""SELECT r.id,r.session_id,r.roll_number,r.repo_url,r.evaluation_status,
-                r.updated_at,s.name session_name,e.normalized_to_20
+                r.updated_at,s.name session_name,er.normalized_to_20
                 FROM repositories r JOIN evaluation_sessions s ON s.id=r.session_id
-                LEFT JOIN evaluations e ON e.repository_id=r.id ORDER BY r.updated_at DESC LIMIT 8""").fetchall()
+                LEFT JOIN evaluation_results er ON er.repository_id=r.id ORDER BY r.updated_at DESC LIMIT 8""").fetchall()
             running = db.execute("""SELECT r.id,r.session_id,r.roll_number,r.repo_url,r.updated_at,s.name session_name
                 FROM repositories r JOIN evaluation_sessions s ON s.id=r.session_id
                 WHERE r.evaluation_status='Evaluating' ORDER BY r.updated_at""").fetchall()
-            leaderboard = db.execute("""SELECT r.id,r.session_id,r.roll_number,r.repo_url,e.normalized_to_20,
-                e.overall_remarks,s.name session_name FROM repositories r JOIN evaluations e ON e.repository_id=r.id
+            leaderboard = db.execute("""SELECT r.id,r.session_id,r.roll_number,r.repo_url,er.normalized_to_20,
+                COALESCE(er.feedback->>'summary','') overall_remarks,s.name session_name
+                FROM repositories r JOIN evaluation_results er ON er.repository_id=r.id
                 JOIN evaluation_sessions s ON s.id=r.session_id WHERE r.evaluation_status='Completed'
-                ORDER BY e.normalized_to_20 DESC NULLS LAST LIMIT 8""").fetchall()
+                ORDER BY er.normalized_to_20 DESC NULLS LAST LIMIT 8""").fetchall()
             score_distribution = db.execute("""SELECT
                 COUNT(*) FILTER(WHERE normalized_to_20<8) low,
                 COUNT(*) FILTER(WHERE normalized_to_20>=8 AND normalized_to_20<12) review,
                 COUNT(*) FILTER(WHERE normalized_to_20>=12 AND normalized_to_20<16) track,
-                COUNT(*) FILTER(WHERE normalized_to_20>=16) strong FROM evaluations""").fetchone()
+                COUNT(*) FILTER(WHERE normalized_to_20>=16) strong FROM evaluation_results""").fetchone()
             technologies = db.execute("""SELECT name,COUNT(*) count FROM technologies GROUP BY name
                 ORDER BY count DESC,name LIMIT 10""").fetchall()
         return metrics, recent, running, leaderboard, score_distribution, technologies
@@ -87,6 +94,36 @@ class RepositoryRepository:
             return db.execute("""SELECT t.name,COUNT(*) count FROM technologies t
                 JOIN repositories r ON r.id=t.repository_id WHERE r.session_id=%s
                 GROUP BY t.name ORDER BY count DESC,t.name""", (session_id,)).fetchall()
+
+    def update_github_metadata(self, repository_id: str, meta: dict):
+        with connect() as db:
+            db.execute("""UPDATE repositories SET
+                description=%s, language=%s, topics=%s,
+                stars_count=%s, forks_count=%s, size=%s,
+                default_branch=%s, license_info=%s,
+                open_issues_count=%s, watchers_count=%s,
+                github_created_at=%s, github_updated_at=%s,
+                is_public=%s, updated_at=now()
+                WHERE id=%s""", (
+                meta.get("description", ""),
+                meta.get("language", ""),
+                Jsonb(meta.get("topics", [])),
+                meta.get("stars_count", 0),
+                meta.get("forks_count", 0),
+                meta.get("size", 0),
+                meta.get("default_branch", ""),
+                meta.get("license_info", ""),
+                meta.get("open_issues_count", 0),
+                meta.get("watchers_count", 0),
+                meta.get("github_created_at") or None,
+                meta.get("github_updated_at") or None,
+                meta.get("is_public", False),
+                repository_id,
+            ))
+
+    def delete(self, session_id, repository_id):
+        with connect() as db:
+            return bool(db.execute("DELETE FROM repositories WHERE id=%s AND session_id=%s", (repository_id, session_id)).rowcount)
 
     def search(self, query):
         pattern = f"%{query}%"

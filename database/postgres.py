@@ -19,6 +19,14 @@ def connect():
 
 
 def initialize_database():
-    schema = (Path(__file__).with_name("schema.sql")).read_text(encoding="utf-8")
+    db_dir = Path(__file__).parent
+    schema = (db_dir / "schema.sql").read_text(encoding="utf-8")
     with connect() as db:
         db.execute(schema)
+    for migration in sorted(db_dir.glob("migration_*.sql")):
+        try:
+            sql = migration.read_text(encoding="utf-8")
+            with connect() as db:
+                db.execute(sql)
+        except Exception:
+            pass

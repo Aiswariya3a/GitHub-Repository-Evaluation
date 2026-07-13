@@ -11,6 +11,7 @@ Manages the full evaluation pipeline lifecycle:
 
 import json
 import os
+import shutil
 import time
 import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -29,6 +30,7 @@ from services.evaluation.schemas import (
     CRITERION_EVALUATION_SCHEMA,
     FEEDBACK_SCHEMA,
 )
+from dataclasses import asdict, is_dataclass
 from services.evaluation.score_aggregator import aggregate_scores
 from services.evaluation.evidence_router import route_evidence
 from services.ingestion_service import IngestionService
@@ -111,6 +113,38 @@ class EvaluationOrchestrator:
                     logger.warning(f"Recovery: {step} output corrupted at {path}, will re-run")
         return completed
 
+    def _attach_evidence_keys(self, feedback: dict, criterion_results: list[dict]) -> None:
+        """Populate evidence_keys programmatically from criterion results.
+
+        Matches each strength/weakness area text against criterion metadata
+        (criterion_key, name, name_without_prefix, category_code) using
+        case-insensitive substring matching. This eliminates LLM hallucination
+        of evidence_keys (T-02-04).
+        """
+        if not isinstance(feedback, dict):
+            return
+        # Build search texts for each criterion
+        criteria_index: list[tuple[str, str]] = []
+        for cr in criterion_results:
+            ck = str(cr.get("criterion_key", "") or "")
+            name = str(cr.get("criterion_name", "") or "")
+            cat = str(cr.get("category_code", "") or "")
+            criteria_index.append((ck, f"{cat}/{ck} {name} {ck.replace('_', ' ')} {name.lower()}"))
+
+        for section in ("strengths", "weaknesses"):
+            items = feedback.get(section)
+            if not isinstance(items, list):
+                continue
+            for item in items:
+                if not isinstance(item, dict):
+                    continue
+                area = str(item.get("area", "") or "").lower()
+                matched = []
+                for ck, search_text in criteria_index:
+                    if area and area in search_text.lower():
+                        matched.append(ck)
+                item["evidence_keys"] = matched if matched else []
+
     def _run_agent_with_retry(self, agent, agent_name: str, input_data: dict,
                                output_path: str, schema: dict, step_name: str) -> Optional[dict]:
         """Run an agent with retry logic (ORC-03).
@@ -167,6 +201,7 @@ class EvaluationOrchestrator:
         repository_id: str,
         base_repo_url: Optional[str] = None,
         rubric_version_id: Optional[str] = None,
+        force: bool = False,
     ) -> dict:
         """Run the full evaluation pipeline for a single repository.
 
@@ -177,12 +212,17 @@ class EvaluationOrchestrator:
             repository_id: Repository record ID
             base_repo_url: Optional base repository URL for delta
             rubric_version_id: Rubric version to evaluate against
+            force: If True, clear cached step files and re-run all steps
 
         Returns:
             dict: Full pipeline result with all agent outputs, scores, feedback
         """
         start_time = time.monotonic()
         session_dir = self._create_session_dir(session_id, repository_id)
+        if force and os.path.exists(session_dir):
+            shutil.rmtree(session_dir)
+            os.makedirs(session_dir, exist_ok=True)
+            logger.info(f"Force re-evaluation: cleared cache at {session_dir}")
         completed = self._detect_completed_steps(session_dir)
 
         # --- Step 1: Ingestion ---
@@ -262,35 +302,58 @@ class EvaluationOrchestrator:
             criteria_agents = []
 
             for cat, crit in all_criteria:
-                evidence = route_evidence(snapshot, cat["code"])
-                input_data = {
-                    "criterion_key": crit["criterion_key"],
-                    "category_code": cat["code"],
-                    "criterion_name": crit["name"],
-                    "max_score": float(crit["max_score"]),
-                    "evidence": evidence,
-                }
-                output_path = self._step_output_path(
-                    session_dir, f"criterion_{cat['code']}_{crit['criterion_key']}"
-                )
-
-                # Create closure to capture variables
-                def make_agent_fn(agent, inp, out_path, schema, name):
-                    return lambda: self._run_agent_with_retry(
-                        agent, name, inp, out_path, schema, name
+                try:
+                    evidence = route_evidence(snapshot, cat["code"])
+                    input_data = {
+                        "criterion_key": crit["criterion_key"],
+                        "category_code": cat["code"],
+                        "criterion_name": crit["name"],
+                        "max_score": float(crit["max_score"]),
+                        "evidence": evidence,
+                    }
+                    output_path = self._step_output_path(
+                        session_dir, f"criterion_{cat['code']}_{crit['criterion_key']}"
                     )
 
-                agent_name = f"RubricEval_{cat['code']}.{crit['criterion_key']}"
-                criteria_agents.append((
-                    make_agent_fn(self.rubric_agent, input_data, output_path,
-                                  CRITERION_EVALUATION_SCHEMA,
-                                  agent_name),
-                    agent_name,
-                    f"criterion_{cat['code']}_{crit['criterion_key']}",
-                ))
+                    # Create closure to capture variables
+                    def make_agent_fn(agent, inp, out_path, schema, name):
+                        return lambda: self._run_agent_with_retry(
+                            agent, name, inp, out_path, schema, name
+                        )
+
+                    agent_name = f"RubricEval_{cat['code']}.{crit['criterion_key']}"
+                    criteria_agents.append((
+                        make_agent_fn(self.rubric_agent, input_data, output_path,
+                                      CRITERION_EVALUATION_SCHEMA,
+                                      agent_name),
+                        agent_name,
+                        f"criterion_{cat['code']}_{crit['criterion_key']}",
+                    ))
+                except Exception as e:
+                    logger.error(
+                        "Failed to setup criterion %s/%s: %s",
+                        cat["code"], crit["criterion_key"], e,
+                    )
 
             crit_results = self._run_parallel_agents(criteria_agents, session_dir)
             criterion_results = [v for v in crit_results.values() if v is not None]
+
+            # Log returned keys for debugging (key mismatch detection)
+            expected = {(cat["code"], crit["criterion_key"]) for cat, crit in all_criteria}
+            returned = {(cr.get("category_code", ""), cr.get("criterion_key", "")) for cr in criterion_results}
+            logger.info(
+                "Criteria evaluation: %d/%d returned (expected %d keys, got %d matches)",
+                len(criterion_results),
+                len(all_criteria),
+                len(expected),
+                len(expected & returned),
+            )
+            missing = expected - returned
+            if missing:
+                logger.warning("Criteria keys missing from results: %s", sorted(missing))
+            extra = returned - expected
+            if extra:
+                logger.warning("Criteria keys NOT in rubric: %s", sorted(extra))
 
             # Cache combined criteria
             criteria_path = self._step_output_path(session_dir, "criteria")
@@ -307,13 +370,8 @@ class EvaluationOrchestrator:
             aggregated = aggregate_scores(criterion_results, rubric)
             agg_path = self._step_output_path(session_dir, "aggregation")
             with open(agg_path, "w") as f:
-                # AggregatedScore dataclass -> dict
-                if hasattr(aggregated, '__dict__'):
-                    agg_dict = {k: v for k, v in aggregated.__dict__.items()
-                                if not k.startswith('_')}
-                else:
-                    agg_dict = aggregated
-                json.dump(agg_dict, f, indent=2, default=str)
+                agg_dict = asdict(aggregated) if is_dataclass(aggregated) else aggregated
+                json.dump(agg_dict, f, indent=2)
 
         # --- Step 5: Feedback Generation (sequential) ---
         if "feedback" in completed:
@@ -322,7 +380,7 @@ class EvaluationOrchestrator:
         else:
             logger.info("Step 5: Generating feedback")
             feedback_input = {
-                "aggregated_result": aggregated.__dict__ if hasattr(aggregated, '__dict__') else aggregated,
+                "aggregated_result": asdict(aggregated) if is_dataclass(aggregated) else aggregated,
                 "criterion_results": criterion_results,
                 "low_confidence_criteria": (
                     aggregated.low_confidence_criteria
@@ -341,24 +399,33 @@ class EvaluationOrchestrator:
                 "summary": "Feedback generation failed",
             }
 
+        # Post-process feedback: attach evidence_keys programmatically using
+        # criterion results instead of relying on LLM output (T-02-04).
+        self._attach_evidence_keys(feedback, criterion_results)
+
         # --- Step 6: Persist to PostgreSQL (ORC-07) ---
         pipeline_status = "success"
         if self.failed_agents:
             pipeline_status = "partial"
 
-        # Convert AggregatedScore to dict if needed
-        agg_dict = aggregated
-        if hasattr(aggregated, '__dict__'):
-            agg_dict = {k: v for k, v in aggregated.__dict__.items()
-                        if not k.startswith('_')}
-            if "categories" in agg_dict and hasattr(agg_dict["categories"], '__iter__'):
-                agg_dict["categories"] = [
-                    {k: v for k, v in cat.__dict__.items() if not k.startswith('_')}
-                    if hasattr(cat, '__dict__') else cat
-                    for cat in agg_dict["categories"]
-                ]
+        agg_dict = asdict(aggregated) if is_dataclass(aggregated) else (aggregated or {})
 
+        snapshot_meta = snapshot if isinstance(snapshot, dict) else {}
+        if "github_metadata" not in snapshot_meta:
+            try:
+                cached = self._step_output_path(session_dir, "ingestion")
+                if os.path.exists(cached):
+                    with open(cached) as f:
+                        snapshot_meta = json.load(f)
+            except Exception:
+                pass
+        repo_meta = snapshot_meta.get("github_metadata", {})
         eval_result = {
+            "repo_data": {
+                "public": repo_meta.get("is_public", False),
+                "readme_exists": repo_meta.get("readme_exists", False),
+                "commit_count": repo_meta.get("commits_count", 0),
+            },
             "repo_understanding": repo_out,
             "code_understanding": code_out,
             "collaboration": collab_out,

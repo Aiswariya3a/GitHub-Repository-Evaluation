@@ -76,7 +76,7 @@ class IngestionService:
 
             # Stage 2: GitHub Metadata
             meta_start = time.monotonic()
-            github_metadata = {"commits_count": 0, "contributors": [], "pull_requests_count": 0, "pull_requests": [], "issues_count": 0, "issues": []}
+            github_metadata = {"commits_count": 0, "recent_commits": [], "contributors": [], "pull_requests_count": 0, "pull_requests": [], "issues_count": 0, "issues": []}
             try:
                 github_metadata = self.github.get_full_metadata(repo_url)
             except Exception:
@@ -228,6 +228,7 @@ class IngestionService:
 
             return {
                 "status": status,
+                "snapshot": snapshot,
                 "snapshot_path": snapshot_path,
                 "ingestion_record_id": ingestion_record_id,
                 "error": error,

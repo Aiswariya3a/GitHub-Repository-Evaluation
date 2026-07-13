@@ -1,0 +1,3219 @@
+{
+  "repository_metadata": {
+    "url": "https://github.com/Aiswariya3a/GitHub-Repository-Evaluation",
+    "clone_url": "https://github.com/Aiswariya3a/GitHub-Repository-Evaluation",
+    "clone_timestamp": "2026-07-12T14:47:13.423419+00:00",
+    "status": "success",
+    "base_repo_url": null
+  },
+  "github_metadata": {
+    "commits_count": 3,
+    "recent_commits": [],
+    "contributors": [],
+    "pull_requests_count": 0,
+    "pull_requests": [],
+    "issues_count": 0,
+    "issues": [],
+    "is_public": false,
+    "readme_exists": false
+  },
+  "repo_stats": {
+    "total_loc": 2686,
+    "code_loc": 2206,
+    "file_count": 43,
+    "total_complexity": 381,
+    "average_complexity": 8.86,
+    "comment_ratio": 0.0231,
+    "language_breakdown": {
+      "Python": 29,
+      "CSS": 2,
+      "HTML": 12
+    }
+  },
+  "files": [
+    {
+      "path": "app.py",
+      "language": "Python",
+      "loc": 33,
+      "code_loc": 20,
+      "comment_lines": 2,
+      "comment_ratio": 0.0606,
+      "cyclomatic_complexity": 2,
+      "functions": [
+        {
+          "name": "create_app",
+          "lineno": 17,
+          "end_lineno": 26,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "dotenv",
+          "names": [
+            "load_dotenv"
+          ],
+          "alias": null
+        },
+        {
+          "module": "flask",
+          "names": [
+            "Flask"
+          ],
+          "alias": null
+        },
+        {
+          "module": "controllers",
+          "names": [
+            "EvaluationController",
+            "ReportController",
+            "RepositoryController",
+            "RubricController",
+            "SessionController"
+          ],
+          "alias": null
+        },
+        {
+          "module": "services.container",
+          "names": [
+            "ServiceContainer"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "controllers/__init__.py",
+      "language": "Python",
+      "loc": 9,
+      "code_loc": 7,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "evaluation_controller",
+          "names": [
+            "EvaluationController",
+            "evaluation_controller"
+          ],
+          "alias": null
+        },
+        {
+          "module": "report_controller",
+          "names": [
+            "ReportController",
+            "report_controller"
+          ],
+          "alias": null
+        },
+        {
+          "module": "repository_controller",
+          "names": [
+            "RepositoryController",
+            "repository_controller"
+          ],
+          "alias": null
+        },
+        {
+          "module": "session_controller",
+          "names": [
+            "SessionController",
+            "session_controller"
+          ],
+          "alias": null
+        },
+        {
+          "module": "rubric_controller",
+          "names": [
+            "RubricController",
+            "rubric_controller"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "controllers/common.py",
+      "language": "Python",
+      "loc": 39,
+      "code_loc": 31,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 17,
+      "functions": [
+        {
+          "name": "services",
+          "lineno": 6,
+          "end_lineno": 6,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "parse_evaluation",
+          "lineno": 9,
+          "end_lineno": 17,
+          "complexity": 7,
+          "docstring": null
+        },
+        {
+          "name": "session_context",
+          "lineno": 20,
+          "end_lineno": 38,
+          "complexity": 9,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "flask",
+          "names": [
+            "abort",
+            "current_app"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "controllers/evaluation_controller.py",
+      "language": "Python",
+      "loc": 41,
+      "code_loc": 33,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 15,
+      "functions": [
+        {
+          "name": "validate_session",
+          "lineno": 7,
+          "end_lineno": 11,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "evaluate_session",
+          "lineno": 14,
+          "end_lineno": 18,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "evaluate_repository",
+          "lineno": 21,
+          "end_lineno": 29,
+          "complexity": 5,
+          "docstring": null
+        },
+        {
+          "name": "reevaluate_repository",
+          "lineno": 32,
+          "end_lineno": 37,
+          "complexity": 4,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "EvaluationController",
+          "lineno": 39,
+          "end_lineno": 40,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "flask",
+          "names": [
+            "Blueprint",
+            "jsonify"
+          ],
+          "alias": null
+        },
+        {
+          "module": "common",
+          "names": [
+            "services"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "controllers/report_controller.py",
+      "language": "Python",
+      "loc": 28,
+      "code_loc": 21,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 7,
+      "functions": [
+        {
+          "name": "send_generated",
+          "lineno": 7,
+          "end_lineno": 8,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "session_report",
+          "lineno": 11,
+          "end_lineno": 16,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "repository_report",
+          "lineno": 19,
+          "end_lineno": 24,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "ReportController",
+          "lineno": 26,
+          "end_lineno": 27,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "flask",
+          "names": [
+            "Blueprint",
+            "abort",
+            "flash",
+            "redirect",
+            "send_file",
+            "url_for"
+          ],
+          "alias": null
+        },
+        {
+          "module": "common",
+          "names": [
+            "services"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "controllers/repository_controller.py",
+      "language": "Python",
+      "loc": 33,
+      "code_loc": 25,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 10,
+      "functions": [
+        {
+          "name": "search_api",
+          "lineno": 8,
+          "end_lineno": 10,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "detail",
+          "lineno": 13,
+          "end_lineno": 16,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "detail_api",
+          "lineno": 19,
+          "end_lineno": 21,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "add_api",
+          "lineno": 24,
+          "end_lineno": 29,
+          "complexity": 6,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "RepositoryController",
+          "lineno": 31,
+          "end_lineno": 32,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "flask",
+          "names": [
+            "Blueprint",
+            "abort",
+            "jsonify",
+            "render_template",
+            "request"
+          ],
+          "alias": null
+        },
+        {
+          "module": "common",
+          "names": [
+            "services"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "controllers/rubric_controller.py",
+      "language": "Python",
+      "loc": 57,
+      "code_loc": 43,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 21,
+      "functions": [
+        {
+          "name": "index",
+          "lineno": 8,
+          "end_lineno": 8,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "create_page",
+          "lineno": 11,
+          "end_lineno": 11,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "detail",
+          "lineno": 14,
+          "end_lineno": 16,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "list_api",
+          "lineno": 19,
+          "end_lineno": 19,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "version_api",
+          "lineno": 22,
+          "end_lineno": 24,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "create_api",
+          "lineno": 27,
+          "end_lineno": 30,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "duplicate_api",
+          "lineno": 33,
+          "end_lineno": 36,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "update_api",
+          "lineno": 39,
+          "end_lineno": 43,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "archive_api",
+          "lineno": 46,
+          "end_lineno": 48,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "delete_api",
+          "lineno": 51,
+          "end_lineno": 54,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "RubricController",
+          "lineno": 56,
+          "end_lineno": 56,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "flask",
+          "names": [
+            "Blueprint",
+            "abort",
+            "jsonify",
+            "render_template",
+            "request"
+          ],
+          "alias": null
+        },
+        {
+          "module": "common",
+          "names": [
+            "services"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "controllers/session_controller.py",
+      "language": "Python",
+      "loc": 60,
+      "code_loc": 44,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 17,
+      "functions": [
+        {
+          "name": "dashboard",
+          "lineno": 9,
+          "end_lineno": 9,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "sessions_page",
+          "lineno": 12,
+          "end_lineno": 12,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "reports_page",
+          "lineno": 15,
+          "end_lineno": 15,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "analytics_page",
+          "lineno": 18,
+          "end_lineno": 18,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "settings_page",
+          "lineno": 21,
+          "end_lineno": 21,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "detail",
+          "lineno": 24,
+          "end_lineno": 26,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "list_api",
+          "lineno": 29,
+          "end_lineno": 29,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "create_api",
+          "lineno": 32,
+          "end_lineno": 35,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "detail_api",
+          "lineno": 38,
+          "end_lineno": 41,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "dashboard_api",
+          "lineno": 44,
+          "end_lineno": 44,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "update_api",
+          "lineno": 47,
+          "end_lineno": 52,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "delete_api",
+          "lineno": 55,
+          "end_lineno": 56,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "SessionController",
+          "lineno": 58,
+          "end_lineno": 59,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "flask",
+          "names": [
+            "Blueprint",
+            "flash",
+            "jsonify",
+            "redirect",
+            "render_template",
+            "request",
+            "url_for"
+          ],
+          "alias": null
+        },
+        {
+          "module": "services.session_service",
+          "names": [
+            "VALID_STATUSES"
+          ],
+          "alias": null
+        },
+        {
+          "module": "common",
+          "names": [
+            "services",
+            "session_context"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "database/__init__.py",
+      "language": "Python",
+      "loc": 4,
+      "code_loc": 2,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "postgres",
+          "names": [
+            "connect",
+            "initialize_database"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "database/postgres.py",
+      "language": "Python",
+      "loc": 25,
+      "code_loc": 16,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 4,
+      "functions": [
+        {
+          "name": "database_url",
+          "lineno": 10,
+          "end_lineno": 14,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "connect",
+          "lineno": 17,
+          "end_lineno": 18,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "initialize_database",
+          "lineno": 21,
+          "end_lineno": 24,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "psycopg",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "psycopg.rows",
+          "names": [
+            "dict_row"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "main.py",
+      "language": "Python",
+      "loc": 496,
+      "code_loc": 354,
+      "comment_lines": 43,
+      "comment_ratio": 0.0867,
+      "cyclomatic_complexity": 37,
+      "functions": [
+        {
+          "name": "clean_url",
+          "lineno": 60,
+          "end_lineno": 61,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "sanitize_name",
+          "lineno": 68,
+          "end_lineno": 69,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "check_repo",
+          "lineno": 71,
+          "end_lineno": 72,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "clone_repo",
+          "lineno": 79,
+          "end_lineno": 80,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "get_commit_count",
+          "lineno": 87,
+          "end_lineno": 88,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "read_code",
+          "lineno": 95,
+          "end_lineno": 108,
+          "complexity": 5,
+          "docstring": null
+        },
+        {
+          "name": "extract_trans_c",
+          "lineno": 115,
+          "end_lineno": 126,
+          "complexity": 5,
+          "docstring": null
+        },
+        {
+          "name": "get_added_code",
+          "lineno": 133,
+          "end_lineno": 134,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "evaluate_code",
+          "lineno": 141,
+          "end_lineno": 361,
+          "complexity": 10,
+          "docstring": "Evaluate student code against the rubric-based criteria.\n\nRubric Structure (Total 80 marks):\nQ1A: 8 marks - Compilation and Execution\nQ1B: 8 marks - Program Analysis and Debugging\nQ2A: 8 marks - Searching using Arrays and Strings\nQ2B: 8 marks - Sorting Account Records\nQ3A: 8 marks - Functional Decomposition\nQ3B: 8 marks - Pointer-Based Operations\nQ4A: 8 marks - Structure Enhancement\nQ4B: 8 marks - New Banking Feature Implementation\nQ5A: 8 marks - File Generation and Verification\nQ5B: 8 marks - Optimization and Error Handling"
+        },
+        {
+          "name": "evaluate_code_dynamic",
+          "lineno": 364,
+          "end_lineno": 408,
+          "complexity": 11,
+          "docstring": "Evaluate with a stored custom rubric; the built-in evaluator above is never routed here."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "re",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "argparse",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "time",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "google.generativeai",
+          "names": [],
+          "alias": "genai"
+        },
+        {
+          "module": "sklearn.feature_extraction.text",
+          "names": [
+            "TfidfVectorizer"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sklearn.metrics.pairwise",
+          "names": [
+            "cosine_similarity"
+          ],
+          "alias": null
+        },
+        {
+          "module": "dotenv",
+          "names": [
+            "load_dotenv"
+          ],
+          "alias": null
+        },
+        {
+          "module": "services.repository_service",
+          "names": [
+            "RepositoryService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "services.github_service",
+          "names": [
+            "GitHubService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "services.analysis_service",
+          "names": [
+            "AnalysisService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "services.rubric_service",
+          "names": [
+            "RubricService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "repositories.session_repository",
+          "names": [
+            "SessionRepository"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "models/__init__.py",
+      "language": "Python",
+      "loc": 4,
+      "code_loc": 2,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "domain",
+          "names": [
+            "Evaluation",
+            "EvaluationSession",
+            "Repository"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "models/domain.py",
+      "language": "Python",
+      "loc": 39,
+      "code_loc": 32,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "EvaluationSession",
+          "lineno": 8,
+          "end_lineno": 15,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "Repository",
+          "lineno": 19,
+          "end_lineno": 26,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "Evaluation",
+          "lineno": 30,
+          "end_lineno": 38,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "dataclasses",
+          "names": [
+            "dataclass"
+          ],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime"
+          ],
+          "alias": null
+        },
+        {
+          "module": "decimal",
+          "names": [
+            "Decimal"
+          ],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [
+            "UUID"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "pdf_gen.py",
+      "language": "Python",
+      "loc": 441,
+      "code_loc": 358,
+      "comment_lines": 15,
+      "comment_ratio": 0.034,
+      "cyclomatic_complexity": 47,
+      "functions": [
+        {
+          "name": "normalize_roll",
+          "lineno": 16,
+          "end_lineno": 17,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "parse_json",
+          "lineno": 20,
+          "end_lineno": 27,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "get_normalized_score_out_of_20",
+          "lineno": 30,
+          "end_lineno": 47,
+          "complexity": 6,
+          "docstring": "Extract normalized score out of 20 from evaluation."
+        },
+        {
+          "name": "as_yes_no",
+          "lineno": 50,
+          "end_lineno": 56,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "resolve_rubric_snapshot",
+          "lineno": 67,
+          "end_lineno": 92,
+          "complexity": 17,
+          "docstring": null
+        },
+        {
+          "name": "get_plagiarism",
+          "lineno": 133,
+          "end_lineno": 136,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "format_criterion_name",
+          "lineno": 139,
+          "end_lineno": 141,
+          "complexity": 1,
+          "docstring": "Convert criterion name to readable format."
+        },
+        {
+          "name": "build_question_table",
+          "lineno": 144,
+          "end_lineno": 178,
+          "complexity": 4,
+          "docstring": "Build evaluation table for a single question."
+        },
+        {
+          "name": "generate_preamble",
+          "lineno": 320,
+          "end_lineno": 420,
+          "complexity": 6,
+          "docstring": "Generate consolidated report with summary statistics and question-wise breakdown."
+        },
+        {
+          "name": "merge_pdfs",
+          "lineno": 427,
+          "end_lineno": 436,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "reportlab.platypus",
+          "names": [
+            "SimpleDocTemplate",
+            "Paragraph",
+            "Spacer",
+            "Table",
+            "TableStyle",
+            "PageBreak"
+          ],
+          "alias": null
+        },
+        {
+          "module": "reportlab.lib",
+          "names": [
+            "colors"
+          ],
+          "alias": null
+        },
+        {
+          "module": "reportlab.lib.styles",
+          "names": [
+            "getSampleStyleSheet",
+            "ParagraphStyle"
+          ],
+          "alias": null
+        },
+        {
+          "module": "reportlab.lib.pagesizes",
+          "names": [
+            "A4"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pandas",
+          "names": [],
+          "alias": "pd"
+        },
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "PyPDF2",
+          "names": [
+            "PdfMerger"
+          ],
+          "alias": null
+        },
+        {
+          "module": "argparse",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "services.repository_service",
+          "names": [
+            "RepositoryService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "repositories.session_repository",
+          "names": [
+            "SessionRepository"
+          ],
+          "alias": null
+        },
+        {
+          "module": "services.rubric_service",
+          "names": [
+            "RubricService"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "repositories/__init__.py",
+      "language": "Python",
+      "loc": 7,
+      "code_loc": 5,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "evaluation_repository",
+          "names": [
+            "EvaluationRepository"
+          ],
+          "alias": null
+        },
+        {
+          "module": "repository_repository",
+          "names": [
+            "RepositoryRepository"
+          ],
+          "alias": null
+        },
+        {
+          "module": "session_repository",
+          "names": [
+            "SessionRepository"
+          ],
+          "alias": null
+        },
+        {
+          "module": "rubric_repository",
+          "names": [
+            "RubricRepository"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "repositories/evaluation_repository.py",
+      "language": "Python",
+      "loc": 82,
+      "code_loc": 73,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 33,
+      "functions": [
+        {
+          "name": "flatten_metadata",
+          "lineno": 6,
+          "end_lineno": 14,
+          "complexity": 5,
+          "docstring": null
+        },
+        {
+          "name": "hydrate",
+          "lineno": 18,
+          "end_lineno": 46,
+          "complexity": 17,
+          "docstring": null
+        },
+        {
+          "name": "save",
+          "lineno": 48,
+          "end_lineno": 70,
+          "complexity": 8,
+          "docstring": null
+        },
+        {
+          "name": "save_plagiarism",
+          "lineno": 72,
+          "end_lineno": 77,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "plagiarism",
+          "lineno": 79,
+          "end_lineno": 81,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "EvaluationRepository",
+          "lineno": 17,
+          "end_lineno": 81,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "hydrate",
+              "lineno": 18,
+              "end_lineno": 46,
+              "complexity": 17,
+              "docstring": null
+            },
+            {
+              "name": "save",
+              "lineno": 48,
+              "end_lineno": 70,
+              "complexity": 8,
+              "docstring": null
+            },
+            {
+              "name": "save_plagiarism",
+              "lineno": 72,
+              "end_lineno": 77,
+              "complexity": 2,
+              "docstring": null
+            },
+            {
+              "name": "plagiarism",
+              "lineno": 79,
+              "end_lineno": 81,
+              "complexity": 1,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "database",
+          "names": [
+            "connect"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "repositories/repository_repository.py",
+      "language": "Python",
+      "loc": 100,
+      "code_loc": 86,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 13,
+      "functions": [
+        {
+          "name": "add",
+          "lineno": 5,
+          "end_lineno": 9,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "list",
+          "lineno": 11,
+          "end_lineno": 16,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "get",
+          "lineno": 18,
+          "end_lineno": 23,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "queue",
+          "lineno": 25,
+          "end_lineno": 28,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "mark_running",
+          "lineno": 30,
+          "end_lineno": 32,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "mark_failed",
+          "lineno": 34,
+          "end_lineno": 37,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "recover_interrupted",
+          "lineno": 39,
+          "end_lineno": 43,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "save_analysis",
+          "lineno": 45,
+          "end_lineno": 49,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "dashboard_metrics",
+          "lineno": 51,
+          "end_lineno": 77,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "related_data",
+          "lineno": 79,
+          "end_lineno": 83,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "technologies_for_session",
+          "lineno": 85,
+          "end_lineno": 89,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "search",
+          "lineno": 91,
+          "end_lineno": 99,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "RepositoryRepository",
+          "lineno": 4,
+          "end_lineno": 99,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "add",
+              "lineno": 5,
+              "end_lineno": 9,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "list",
+              "lineno": 11,
+              "end_lineno": 16,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "get",
+              "lineno": 18,
+              "end_lineno": 23,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "queue",
+              "lineno": 25,
+              "end_lineno": 28,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "mark_running",
+              "lineno": 30,
+              "end_lineno": 32,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "mark_failed",
+              "lineno": 34,
+              "end_lineno": 37,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "recover_interrupted",
+              "lineno": 39,
+              "end_lineno": 43,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "save_analysis",
+              "lineno": 45,
+              "end_lineno": 49,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "dashboard_metrics",
+              "lineno": 51,
+              "end_lineno": 77,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "related_data",
+              "lineno": 79,
+              "end_lineno": 83,
+              "complexity": 2,
+              "docstring": null
+            },
+            {
+              "name": "technologies_for_session",
+              "lineno": 85,
+              "end_lineno": 89,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "search",
+              "lineno": 91,
+              "end_lineno": 99,
+              "complexity": 1,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "database",
+          "names": [
+            "connect"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "repositories/rubric_repository.py",
+      "language": "Python",
+      "loc": 111,
+      "code_loc": 98,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 24,
+      "functions": [
+        {
+          "name": "ensure_default",
+          "lineno": 23,
+          "end_lineno": 43,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "list",
+          "lineno": 45,
+          "end_lineno": 51,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "get_version",
+          "lineno": 53,
+          "end_lineno": 63,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "create",
+          "lineno": 65,
+          "end_lineno": 71,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "new_version",
+          "lineno": 73,
+          "end_lineno": 82,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "_insert_categories",
+          "lineno": 85,
+          "end_lineno": 93,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "archive",
+          "lineno": 95,
+          "end_lineno": 100,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "delete",
+          "lineno": 102,
+          "end_lineno": 110,
+          "complexity": 4,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "RubricRepository",
+          "lineno": 22,
+          "end_lineno": 110,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "ensure_default",
+              "lineno": 23,
+              "end_lineno": 43,
+              "complexity": 4,
+              "docstring": null
+            },
+            {
+              "name": "list",
+              "lineno": 45,
+              "end_lineno": 51,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "get_version",
+              "lineno": 53,
+              "end_lineno": 63,
+              "complexity": 4,
+              "docstring": null
+            },
+            {
+              "name": "create",
+              "lineno": 65,
+              "end_lineno": 71,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "new_version",
+              "lineno": 73,
+              "end_lineno": 82,
+              "complexity": 3,
+              "docstring": null
+            },
+            {
+              "name": "_insert_categories",
+              "lineno": 85,
+              "end_lineno": 93,
+              "complexity": 4,
+              "docstring": null
+            },
+            {
+              "name": "archive",
+              "lineno": 95,
+              "end_lineno": 100,
+              "complexity": 3,
+              "docstring": null
+            },
+            {
+              "name": "delete",
+              "lineno": 102,
+              "end_lineno": 110,
+              "complexity": 4,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [
+            "UUID"
+          ],
+          "alias": null
+        },
+        {
+          "module": "database",
+          "names": [
+            "connect"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "repositories/session_repository.py",
+      "language": "Python",
+      "loc": 36,
+      "code_loc": 28,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 6,
+      "functions": [
+        {
+          "name": "create",
+          "lineno": 5,
+          "end_lineno": 7,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "list",
+          "lineno": 9,
+          "end_lineno": 17,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "get",
+          "lineno": 19,
+          "end_lineno": 23,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "update_status",
+          "lineno": 25,
+          "end_lineno": 27,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "touch",
+          "lineno": 29,
+          "end_lineno": 31,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "delete",
+          "lineno": 33,
+          "end_lineno": 35,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "SessionRepository",
+          "lineno": 4,
+          "end_lineno": 35,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "create",
+              "lineno": 5,
+              "end_lineno": 7,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "list",
+              "lineno": 9,
+              "end_lineno": 17,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "get",
+              "lineno": 19,
+              "end_lineno": 23,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "update_status",
+              "lineno": 25,
+              "end_lineno": 27,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "touch",
+              "lineno": 29,
+              "end_lineno": 31,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "delete",
+              "lineno": 33,
+              "end_lineno": 35,
+              "complexity": 1,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "database",
+          "names": [
+            "connect"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "scripts/migrate_to_postgres.py",
+      "language": "Python",
+      "loc": 121,
+      "code_loc": 102,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 24,
+      "functions": [
+        {
+          "name": "decode",
+          "lineno": 25,
+          "end_lineno": 28,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "csv_rows",
+          "lineno": 31,
+          "end_lineno": 36,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "as_bool",
+          "lineno": 39,
+          "end_lineno": 40,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "migrate_legacy_reports",
+          "lineno": 43,
+          "end_lineno": 77,
+          "complexity": 11,
+          "docstring": null
+        },
+        {
+          "name": "main",
+          "lineno": 80,
+          "end_lineno": 116,
+          "complexity": 7,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "sqlite3",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "sys",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "csv",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "dotenv",
+          "names": [
+            "load_dotenv"
+          ],
+          "alias": null
+        },
+        {
+          "module": "database",
+          "names": [
+            "connect",
+            "initialize_database"
+          ],
+          "alias": null
+        },
+        {
+          "module": "services.session_service",
+          "names": [
+            "SessionService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "services.repository_service",
+          "names": [
+            "RepositoryService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "services.rubric_service",
+          "names": [
+            "RubricService"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "One-time migration of the previous SQLite session store into PostgreSQL.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "services/__init__.py",
+      "language": "Python",
+      "loc": 12,
+      "code_loc": 9,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "analysis_service",
+          "names": [
+            "AnalysisService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation_service",
+          "names": [
+            "EvaluationService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "github_service",
+          "names": [
+            "GitHubService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "report_service",
+          "names": [
+            "ReportService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "repository_service",
+          "names": [
+            "RepositoryService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "session_service",
+          "names": [
+            "SessionService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "rubric_service",
+          "names": [
+            "RubricService"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Application services for session persistence and evaluation orchestration.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "services/analysis_service.py",
+      "language": "Python",
+      "loc": 13,
+      "code_loc": 9,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 7,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 2,
+          "end_lineno": 2,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "added_code",
+          "lineno": 5,
+          "end_lineno": 7,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "save_result",
+          "lineno": 9,
+          "end_lineno": 10,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "save_plagiarism",
+          "lineno": 12,
+          "end_lineno": 12,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "AnalysisService",
+          "lineno": 1,
+          "end_lineno": 12,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 2,
+              "end_lineno": 2,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "added_code",
+              "lineno": 5,
+              "end_lineno": 7,
+              "complexity": 4,
+              "docstring": null
+            },
+            {
+              "name": "save_result",
+              "lineno": 9,
+              "end_lineno": 10,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "save_plagiarism",
+              "lineno": 12,
+              "end_lineno": 12,
+              "complexity": 1,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "services/container.py",
+      "language": "Python",
+      "loc": 26,
+      "code_loc": 21,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 1,
+      "functions": [
+        {
+          "name": "build",
+          "lineno": 20,
+          "end_lineno": 25,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "ServiceContainer",
+          "lineno": 12,
+          "end_lineno": 25,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "build",
+              "lineno": 20,
+              "end_lineno": 25,
+              "complexity": 1,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "dataclasses",
+          "names": [
+            "dataclass"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "evaluation_service",
+          "names": [
+            "EvaluationService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "report_service",
+          "names": [
+            "ReportService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "repository_service",
+          "names": [
+            "RepositoryService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "session_service",
+          "names": [
+            "SessionService"
+          ],
+          "alias": null
+        },
+        {
+          "module": "rubric_service",
+          "names": [
+            "RubricService"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "services/evaluation_service.py",
+      "language": "Python",
+      "loc": 51,
+      "code_loc": 42,
+      "comment_lines": 2,
+      "comment_ratio": 0.0392,
+      "cyclomatic_complexity": 10,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 16,
+          "end_lineno": 18,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "evaluate_pending",
+          "lineno": 20,
+          "end_lineno": 50,
+          "complexity": 8,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "EvaluationService",
+          "lineno": 13,
+          "end_lineno": 50,
+          "docstring": "Runs the evaluator while PostgreSQL remains its durable input/output.",
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 16,
+              "end_lineno": 18,
+              "complexity": 2,
+              "docstring": null
+            },
+            {
+              "name": "evaluate_pending",
+              "lineno": 20,
+              "end_lineno": 50,
+              "complexity": 8,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "subprocess",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "sys",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "tempfile",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "threading",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "repository_service",
+          "names": [
+            "RepositoryService"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "services/github_service.py",
+      "language": "Python",
+      "loc": 43,
+      "code_loc": 35,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 15,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 9,
+          "end_lineno": 11,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "clean_url",
+          "lineno": 13,
+          "end_lineno": 13,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "sanitize_name",
+          "lineno": 14,
+          "end_lineno": 16,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "check_repository",
+          "lineno": 18,
+          "end_lineno": 27,
+          "complexity": 6,
+          "docstring": null
+        },
+        {
+          "name": "clone",
+          "lineno": 29,
+          "end_lineno": 34,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "commit_count",
+          "lineno": 36,
+          "end_lineno": 42,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "GitHubService",
+          "lineno": 8,
+          "end_lineno": 42,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 9,
+              "end_lineno": 11,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "clean_url",
+              "lineno": 13,
+              "end_lineno": 13,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "sanitize_name",
+              "lineno": 14,
+              "end_lineno": 16,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "check_repository",
+              "lineno": 18,
+              "end_lineno": 27,
+              "complexity": 6,
+              "docstring": null
+            },
+            {
+              "name": "clone",
+              "lineno": 29,
+              "end_lineno": 34,
+              "complexity": 3,
+              "docstring": null
+            },
+            {
+              "name": "commit_count",
+              "lineno": 36,
+              "end_lineno": 42,
+              "complexity": 3,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "re",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "subprocess",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "requests",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "services/report_service.py",
+      "language": "Python",
+      "loc": 40,
+      "code_loc": 33,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 11,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 12,
+          "end_lineno": 13,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "generate",
+          "lineno": 15,
+          "end_lineno": 28,
+          "complexity": 6,
+          "docstring": null
+        },
+        {
+          "name": "generate_repository",
+          "lineno": 30,
+          "end_lineno": 39,
+          "complexity": 4,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "ReportService",
+          "lineno": 11,
+          "end_lineno": 39,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 12,
+              "end_lineno": 13,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "generate",
+              "lineno": 15,
+              "end_lineno": 28,
+              "complexity": 6,
+              "docstring": null
+            },
+            {
+              "name": "generate_repository",
+              "lineno": 30,
+              "end_lineno": 39,
+              "complexity": 4,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "subprocess",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "sys",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "tempfile",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "repository_service",
+          "names": [
+            "RepositoryService"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "services/repository_service.py",
+      "language": "Python",
+      "loc": 69,
+      "code_loc": 57,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 34,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 5,
+          "end_lineno": 8,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "add_repositories",
+          "lineno": 10,
+          "end_lineno": 18,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "_hydrate",
+          "lineno": 20,
+          "end_lineno": 26,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "list_repositories",
+          "lineno": 28,
+          "end_lineno": 28,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "get_repository",
+          "lineno": 29,
+          "end_lineno": 29,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "pending_repositories",
+          "lineno": 30,
+          "end_lineno": 30,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "queue_repository",
+          "lineno": 31,
+          "end_lineno": 31,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "mark_running",
+          "lineno": 32,
+          "end_lineno": 32,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "mark_failed",
+          "lineno": 33,
+          "end_lineno": 33,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "recover_interrupted_evaluations",
+          "lineno": 34,
+          "end_lineno": 34,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "save_repository_evaluation",
+          "lineno": 36,
+          "end_lineno": 38,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "save_plagiarism",
+          "lineno": 40,
+          "end_lineno": 40,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "plagiarism",
+          "lineno": 41,
+          "end_lineno": 41,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "dashboard",
+          "lineno": 43,
+          "end_lineno": 46,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "repository_detail",
+          "lineno": 48,
+          "end_lineno": 52,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "session_insights",
+          "lineno": 54,
+          "end_lineno": 63,
+          "complexity": 6,
+          "docstring": null
+        },
+        {
+          "name": "search",
+          "lineno": 65,
+          "end_lineno": 68,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "RepositoryService",
+          "lineno": 4,
+          "end_lineno": 68,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 5,
+              "end_lineno": 8,
+              "complexity": 4,
+              "docstring": null
+            },
+            {
+              "name": "add_repositories",
+              "lineno": 10,
+              "end_lineno": 18,
+              "complexity": 4,
+              "docstring": null
+            },
+            {
+              "name": "_hydrate",
+              "lineno": 20,
+              "end_lineno": 26,
+              "complexity": 2,
+              "docstring": null
+            },
+            {
+              "name": "list_repositories",
+              "lineno": 28,
+              "end_lineno": 28,
+              "complexity": 2,
+              "docstring": null
+            },
+            {
+              "name": "get_repository",
+              "lineno": 29,
+              "end_lineno": 29,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "pending_repositories",
+              "lineno": 30,
+              "end_lineno": 30,
+              "complexity": 2,
+              "docstring": null
+            },
+            {
+              "name": "queue_repository",
+              "lineno": 31,
+              "end_lineno": 31,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "mark_running",
+              "lineno": 32,
+              "end_lineno": 32,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "mark_failed",
+              "lineno": 33,
+              "end_lineno": 33,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "recover_interrupted_evaluations",
+              "lineno": 34,
+              "end_lineno": 34,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "save_repository_evaluation",
+              "lineno": 36,
+              "end_lineno": 38,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "save_plagiarism",
+              "lineno": 40,
+              "end_lineno": 40,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "plagiarism",
+              "lineno": 41,
+              "end_lineno": 41,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "dashboard",
+              "lineno": 43,
+              "end_lineno": 46,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "repository_detail",
+              "lineno": 48,
+              "end_lineno": 52,
+              "complexity": 2,
+              "docstring": null
+            },
+            {
+              "name": "session_insights",
+              "lineno": 54,
+              "end_lineno": 63,
+              "complexity": 6,
+              "docstring": null
+            },
+            {
+              "name": "search",
+              "lineno": 65,
+              "end_lineno": 68,
+              "complexity": 3,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "repositories",
+          "names": [
+            "EvaluationRepository",
+            "RepositoryRepository",
+            "SessionRepository"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "services/rubric_service.py",
+      "language": "Python",
+      "loc": 21,
+      "code_loc": 18,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 15,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 5,
+          "end_lineno": 6,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "list_rubrics",
+          "lineno": 7,
+          "end_lineno": 7,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "get_version",
+          "lineno": 8,
+          "end_lineno": 8,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "create",
+          "lineno": 9,
+          "end_lineno": 12,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "duplicate",
+          "lineno": 13,
+          "end_lineno": 17,
+          "complexity": 5,
+          "docstring": null
+        },
+        {
+          "name": "update",
+          "lineno": 18,
+          "end_lineno": 18,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "archive",
+          "lineno": 19,
+          "end_lineno": 19,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "delete",
+          "lineno": 20,
+          "end_lineno": 20,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "RubricService",
+          "lineno": 4,
+          "end_lineno": 20,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 5,
+              "end_lineno": 6,
+              "complexity": 2,
+              "docstring": null
+            },
+            {
+              "name": "list_rubrics",
+              "lineno": 7,
+              "end_lineno": 7,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "get_version",
+              "lineno": 8,
+              "end_lineno": 8,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "create",
+              "lineno": 9,
+              "end_lineno": 12,
+              "complexity": 3,
+              "docstring": null
+            },
+            {
+              "name": "duplicate",
+              "lineno": 13,
+              "end_lineno": 17,
+              "complexity": 5,
+              "docstring": null
+            },
+            {
+              "name": "update",
+              "lineno": 18,
+              "end_lineno": 18,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "archive",
+              "lineno": 19,
+              "end_lineno": 19,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "delete",
+              "lineno": 20,
+              "end_lineno": 20,
+              "complexity": 1,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "repositories.rubric_repository",
+          "names": [
+            "RubricRepository"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "services/session_service.py",
+      "language": "Python",
+      "loc": 32,
+      "code_loc": 23,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 11,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 11,
+          "end_lineno": 14,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "create_session",
+          "lineno": 16,
+          "end_lineno": 22,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "list_sessions",
+          "lineno": 24,
+          "end_lineno": 24,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "get_session",
+          "lineno": 25,
+          "end_lineno": 25,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "delete_session",
+          "lineno": 26,
+          "end_lineno": 26,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "set_status",
+          "lineno": 28,
+          "end_lineno": 31,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "SessionService",
+          "lineno": 8,
+          "end_lineno": 31,
+          "docstring": "Session aggregate lifecycle; repository concerns live in RepositoryService.",
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 11,
+              "end_lineno": 14,
+              "complexity": 2,
+              "docstring": null
+            },
+            {
+              "name": "create_session",
+              "lineno": 16,
+              "end_lineno": 22,
+              "complexity": 4,
+              "docstring": null
+            },
+            {
+              "name": "list_sessions",
+              "lineno": 24,
+              "end_lineno": 24,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "get_session",
+              "lineno": 25,
+              "end_lineno": 25,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "delete_session",
+              "lineno": 26,
+              "end_lineno": 26,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "set_status",
+              "lineno": 28,
+              "end_lineno": 31,
+              "complexity": 2,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "database",
+          "names": [
+            "initialize_database"
+          ],
+          "alias": null
+        },
+        {
+          "module": "repositories",
+          "names": [
+            "SessionRepository"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "static/dashboard.css",
+      "language": "CSS",
+      "loc": 17,
+      "code_loc": 16,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "static/styles.css",
+      "language": "CSS",
+      "loc": 270,
+      "code_loc": 261,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "templates/analytics.html",
+      "language": "HTML",
+      "loc": 2,
+      "code_loc": 1,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "templates/base.html",
+      "language": "HTML",
+      "loc": 39,
+      "code_loc": 38,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "templates/dashboard.html",
+      "language": "HTML",
+      "loc": 31,
+      "code_loc": 27,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "templates/index.html",
+      "language": "HTML",
+      "loc": 188,
+      "code_loc": 178,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "templates/overview.html",
+      "language": "HTML",
+      "loc": 18,
+      "code_loc": 17,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "templates/reports.html",
+      "language": "HTML",
+      "loc": 2,
+      "code_loc": 1,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "templates/repository_detail.html",
+      "language": "HTML",
+      "loc": 12,
+      "code_loc": 11,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "templates/rubric_detail.html",
+      "language": "HTML",
+      "loc": 3,
+      "code_loc": 2,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "templates/rubric_new.html",
+      "language": "HTML",
+      "loc": 2,
+      "code_loc": 1,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "templates/rubrics.html",
+      "language": "HTML",
+      "loc": 4,
+      "code_loc": 3,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "templates/session.html",
+      "language": "HTML",
+      "loc": 23,
+      "code_loc": 22,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "templates/settings.html",
+      "language": "HTML",
+      "loc": 2,
+      "code_loc": 1,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    }
+  ],
+  "delta": null,
+  "ingestion_metadata": {
+    "version": "1.0",
+    "timestamp": "2026-07-12T14:47:19.358897+00:00",
+    "duration_ms": 0,
+    "pipeline_version": "1"
+  }
+}

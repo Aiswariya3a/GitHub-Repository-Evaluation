@@ -276,7 +276,7 @@ FEEDBACK_SCHEMA = {
             "type": "array",
             "items": {
                 "type": "object",
-                "required": ["area", "description", "evidence_keys"],
+                "required": ["area", "description"],
                 "properties": {
                     "area": {
                         "type": "string",
@@ -289,7 +289,7 @@ FEEDBACK_SCHEMA = {
                     "evidence_keys": {
                         "type": "array",
                         "items": {"type": "string"},
-                        "description": "Keys referencing evaluation evidence",
+                        "description": "Keys referencing evaluation evidence — populated by orchestrator",
                     },
                 },
             },
@@ -299,7 +299,7 @@ FEEDBACK_SCHEMA = {
             "type": "array",
             "items": {
                 "type": "object",
-                "required": ["area", "description", "evidence_keys"],
+                "required": ["area", "description"],
                 "properties": {
                     "area": {
                         "type": "string",
@@ -312,7 +312,7 @@ FEEDBACK_SCHEMA = {
                     "evidence_keys": {
                         "type": "array",
                         "items": {"type": "string"},
-                        "description": "Keys referencing evaluation evidence",
+                        "description": "Keys referencing evaluation evidence — populated by orchestrator",
                     },
                 },
             },

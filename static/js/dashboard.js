@@ -1,3 +1,10 @@
+if (typeof window.dateShort !== 'function') {
+    window.dateShort = function(v) { return v ? new Intl.DateTimeFormat(undefined, {dateStyle:'medium'}).format(new Date(v)) : '\u2014'; };
+}
+if (typeof window.esc !== 'function') {
+    window.esc = function(v) { return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); };
+}
+
 // --- Dashboard page (session listing) ---
 document.addEventListener('DOMContentLoaded', function() {
     var sessionDialog = document.getElementById('sessionDialog');

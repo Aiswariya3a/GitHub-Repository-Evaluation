@@ -20,24 +20,24 @@ logger = logging.getLogger(__name__)
 
 FEEDBACK_SYSTEM_PROMPT = """You are a Feedback Generation Agent creating actionable evaluation feedback.
 
-You have been provided with:
-- All rubric criterion scores with evidence and remarks (per-criterion mini-feedback already exists per D-05)
-- Overall category scores and totals
-- Low-confidence flags for uncertain evaluations
-
 Your task is to produce structured feedback by:
-1. **Strengths** — Identify areas where the student performed well (high scores with solid evidence)
-2. **Weaknesses** — Identify areas needing improvement (low scores or low confidence)
-3. **Actionable Suggestions** — For each weakness, provide a specific, concrete improvement suggestion
+1. **Strengths** — Areas where the student performed well (high scores with solid evidence)
+2. **Weaknesses** — Areas needing improvement (low scores or low confidence)
+3. **Suggestions** — For each weakness, provide a specific, concrete improvement suggestion
 4. **Summary** — A brief overall assessment (2-3 sentences)
 
-For each strength/weakness/suggestion, reference specific criterion keys as evidence.
-
 Rules:
-- Do NOT repeat the per-criterion remarks verbatim — synthesize across criteria (D-07)
+- Do NOT repeat the per-criterion remarks verbatim — synthesize across criteria
 - Prioritize: high-impact issues first, minor issues last
 - Be constructive — frame weaknesses as opportunities for improvement
-- Output ONLY valid JSON matching the feedback schema."""
+- Output ONLY valid JSON with EXACTLY these keys: "strengths", "weaknesses", "suggestions", "summary"
+
+Each strength and weakness item must have EXACTLY these keys: "area", "description"
+Each suggestion item must have EXACTLY these keys: "area", "suggestion", "priority" (priority is "high", "medium", or "low")
+"summary" is a plain string.
+
+Use lowercase keys exactly as specified above. The full JSON structure must be:
+{"strengths": [{"area": "...", "description": "..."}], "weaknesses": [{"area": "...", "description": "..."}], "suggestions": [{"area": "...", "suggestion": "...", "priority": "high|medium|low"}], "summary": "..."}"""
 
 FEEDBACK_USER_PROMPT_TEMPLATE = """Criterion Scores:
 {scores_summary}
@@ -106,12 +106,10 @@ class FeedbackAgent(BaseAgent):
                 scores_lines.append(f"    Remarks: {crit.get('remarks', '')}")
 
         scores_summary = "\n".join(scores_lines)
-        # Truncate to 8000 chars max to avoid context window overflow
         if len(scores_summary) > 8000:
             scores_summary = scores_summary[:8000] + "\n... [truncated]"
             logger.warning("scores_summary truncated to 8000 chars")
 
-        # Build category summary
         category_lines = []
         for cat in categories:
             category_lines.append(
@@ -135,25 +133,16 @@ class FeedbackAgent(BaseAgent):
             low_conf_list=low_conf_list,
         )
 
-        logger.info(
-            "FeedbackAgent generating feedback: %d categories, %d criteria, %d low-confidence",
-            len(categories),
-            len(criterion_results),
-            len(low_confidence_criteria),
-        )
-
-        # Attempt inference with retries for schema validation
         result = None
         for attempt in range(3):
             try:
-                result = self.ollama.infer(
+                raw = self.ollama.infer(
                     model_role="reasoning",
                     system_prompt=FEEDBACK_SYSTEM_PROMPT,
                     user_prompt=user_prompt,
                     format="json",
                 )
-
-                # Validate against FEEDBACK_SCHEMA
+                result = self._normalize_feedback(raw)
                 is_valid, errors = self._validate_output(result, FEEDBACK_SCHEMA)
                 if is_valid:
                     break
@@ -172,7 +161,6 @@ class FeedbackAgent(BaseAgent):
                 )
                 result = None
 
-        # If all attempts failed, return minimal valid result
         if result is None:
             logger.error(
                 "FeedbackAgent failed after 3 attempts — returning minimal result"
@@ -184,8 +172,113 @@ class FeedbackAgent(BaseAgent):
                 "summary": "Feedback generation failed after retries",
             }
 
-        # Write output if path provided (D-11)
         if output_path:
             self._write_output(result, output_path)
 
         return result
+
+    @staticmethod
+    def _normalize_feedback(result: dict) -> dict:
+        """Normalize LLM output to conform to FEEDBACK_SCHEMA.
+
+        Handles:
+        - Key name variations (e.g. 'Strengths' -> 'strengths')
+        - Alternative LLM item structures (e.g. 'Criterion Key' + 'Remarks Synthesis')
+        - String items converted to dicts
+        - Missing optional fields filled with defaults
+        """
+        if not isinstance(result, dict):
+            return result
+
+        key_map = {
+            "strengths": ["strengths", "Strengths", "STRENGTHS", "strength"],
+            "weaknesses": ["weaknesses", "Weaknesses", "WEAKNESSES", "weakness"],
+            "suggestions": ["suggestions", "Suggestions", "SUGGESTIONS",
+                           "suggestion", "actionable suggestions",
+                           "Actionable Suggestions", "actionable_suggestions"],
+            "summary": ["summary", "Summary", "SUMMARY"],
+        }
+        normalized = {}
+        recognized = False
+        for target, aliases in key_map.items():
+            for alias in aliases:
+                if alias in result:
+                    normalized[target] = result[alias]
+                    recognized = True
+                    break
+
+        if not recognized:
+            return result
+
+        for k in ("strengths", "weaknesses"):
+            items = normalized.get(k)
+            if not isinstance(items, list):
+                continue
+            rebuilt = []
+            for item in items:
+                if isinstance(item, str):
+                    rebuilt.append({"area": item, "description": "",
+                                    "evidence_keys": []})
+                    continue
+                if not isinstance(item, dict):
+                    continue
+                alt = ("Criterion Key" in item or "criterion_key" in item or
+                       "Confidence Score" in item or "Remarks Synthesis" in item)
+                if alt:
+                    keys = item.get("Criterion Key", item.get("criterion_key", []))
+                    if isinstance(keys, str):
+                        keys = [keys]
+                    remarks = item.get("Remarks Synthesis",
+                                       item.get("remarks_synthesis", ""))
+                    rebuilt.append({
+                        "area": ", ".join(keys),
+                        "description": remarks,
+                        "evidence_keys": keys,
+                    })
+                else:
+                    entry = dict(item)
+                    ev = entry.get("evidence_keys")
+                    if isinstance(ev, str):
+                        entry["evidence_keys"] = [ev]
+                    elif not isinstance(ev, list):
+                        entry["evidence_keys"] = []
+                    if "description" not in entry or not entry.get("description"):
+                        entry["description"] = entry.pop("priority", entry.pop("remarks", entry.pop("suggestion", "")))
+                    rebuilt.append(entry)
+            normalized[k] = rebuilt
+
+            # Sanitize evidence_keys — strip null/objects, keep only strings
+            for entry in normalized[k]:
+                raw = entry.get("evidence_keys", [])
+                clean = [str(k) for k in raw if k is not None and isinstance(k, str)]
+                entry["evidence_keys"] = clean
+
+        items = normalized.get("suggestions")
+        if isinstance(items, list):
+            rebuilt = []
+            for item in items:
+                if isinstance(item, str):
+                    rebuilt.append({"area": item, "suggestion": "",
+                                    "priority": "medium"})
+                    continue
+                if not isinstance(item, dict):
+                    continue
+                alt = ("Criterion Key" in item or "criterion_key" in item or
+                       "Suggestion" in item or "suggestion" in item)
+                if alt:
+                    keys = item.get("Criterion Key", item.get("criterion_key", []))
+                    if isinstance(keys, str):
+                        keys = [keys]
+                    suggestion = item.get("Suggestion", item.get("suggestion", ""))
+                    rebuilt.append({
+                        "area": ", ".join(keys),
+                        "suggestion": suggestion,
+                        "priority": item.get("priority", "medium"),
+                    })
+                else:
+                    entry = dict(item)
+                    entry.setdefault("priority", "medium")
+                    rebuilt.append(entry)
+            normalized["suggestions"] = rebuilt
+
+        return normalized

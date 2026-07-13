@@ -1,0 +1,2768 @@
+{
+  "repository_metadata": {
+    "url": "https://github.com/joedanields/CaD-Track",
+    "clone_url": "https://github.com/joedanields/CaD-Track",
+    "clone_timestamp": "2026-07-12T16:12:48.109102+00:00",
+    "status": "success",
+    "base_repo_url": null
+  },
+  "github_metadata": {
+    "commits_count": 3,
+    "recent_commits": [],
+    "contributors": [],
+    "pull_requests_count": 0,
+    "pull_requests": [],
+    "issues_count": 0,
+    "issues": [],
+    "is_public": false,
+    "readme_exists": false
+  },
+  "repo_stats": {
+    "total_loc": 2066,
+    "code_loc": 1601,
+    "file_count": 47,
+    "total_complexity": 336,
+    "average_complexity": 7.15,
+    "comment_ratio": 0.029,
+    "language_breakdown": {
+      "Python": 45,
+      "HTML": 1,
+      "JavaScript": 1
+    }
+  },
+  "files": [
+    {
+      "path": "backend/app/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/api/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/api/routes.py",
+      "language": "Python",
+      "loc": 134,
+      "code_loc": 110,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 24,
+      "functions": [
+        {
+          "name": "upload",
+          "lineno": 21,
+          "end_lineno": 41,
+          "complexity": 6,
+          "docstring": null
+        },
+        {
+          "name": "compare",
+          "lineno": 45,
+          "end_lineno": 59,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "job_status",
+          "lineno": 63,
+          "end_lineno": 64,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_job_status",
+          "lineno": 67,
+          "end_lineno": 78,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "get_summary",
+          "lineno": 82,
+          "end_lineno": 84,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "get_stats",
+          "lineno": 88,
+          "end_lineno": 89,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "visualization",
+          "lineno": 93,
+          "end_lineno": 114,
+          "complexity": 5,
+          "docstring": null
+        },
+        {
+          "name": "delete_job",
+          "lineno": 118,
+          "end_lineno": 124,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "_require_done",
+          "lineno": 127,
+          "end_lineno": 133,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "shutil",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "APIRouter",
+            "HTTPException",
+            "UploadFile"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi.responses",
+          "names": [
+            "Response"
+          ],
+          "alias": null
+        },
+        {
+          "module": "config",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "ingest.loader",
+          "names": [
+            "load_input"
+          ],
+          "alias": null
+        },
+        {
+          "module": "ingest.validate",
+          "names": [
+            "ValidationError",
+            "validate_upload"
+          ],
+          "alias": null
+        },
+        {
+          "module": "jobs.store",
+          "names": [
+            "store"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.schemas",
+          "names": [
+            "JobStatus",
+            "UploadResponse"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pipeline.compare",
+          "names": [
+            "run_comparison"
+          ],
+          "alias": null
+        },
+        {
+          "module": "viz.render",
+          "names": [
+            "render_bbox_overlay",
+            "render_original",
+            "render_side_by_side"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "HTTP API endpoints.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/config.py",
+      "language": "Python",
+      "loc": 59,
+      "code_loc": 30,
+      "comment_lines": 15,
+      "comment_ratio": 0.2542,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "Settings",
+          "lineno": 11,
+          "end_lineno": 54,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pydantic",
+          "names": [
+            "BaseModel"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Central configuration for CaD-Track.\n\nAll tunable thresholds live here so the diff behaviour can be adjusted\nwithout touching algorithm code.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/detect/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/detect/classify.py",
+      "language": "Python",
+      "loc": 29,
+      "code_loc": 18,
+      "comment_lines": 1,
+      "comment_ratio": 0.0345,
+      "cyclomatic_complexity": 3,
+      "functions": [
+        {
+          "name": "classify_page",
+          "lineno": 18,
+          "end_lineno": 28,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Literal"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fitz",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "config",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Classify a page as vector (real CAD export) or raster (scan/flattened).\n\nVector pages expose real drawing primitives via get_drawings() and/or\npositioned text spans via get_text(). Raster pages are typically a single\nfull-page embedded image with neither.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/entity_match/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/entity_match/classify.py",
+      "language": "Python",
+      "loc": 83,
+      "code_loc": 66,
+      "comment_lines": 3,
+      "comment_ratio": 0.0361,
+      "cyclomatic_complexity": 18,
+      "functions": [
+        {
+          "name": "_area",
+          "lineno": 11,
+          "end_lineno": 12,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_label",
+          "lineno": 15,
+          "end_lineno": 20,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "_region",
+          "lineno": 23,
+          "end_lineno": 41,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "classify_matches",
+          "lineno": 44,
+          "end_lineno": 82,
+          "complexity": 13,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "config",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.diff_result",
+          "names": [
+            "ChangeType",
+            "Entity",
+            "EntityKind",
+            "Region"
+          ],
+          "alias": null
+        },
+        {
+          "module": "match",
+          "names": [
+            "MatchPair",
+            "compatibility"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Classify matched entity pairs into added/removed/moved/modified regions.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/entity_match/match.py",
+      "language": "Python",
+      "loc": 120,
+      "code_loc": 94,
+      "comment_lines": 4,
+      "comment_ratio": 0.0333,
+      "cyclomatic_complexity": 28,
+      "functions": [
+        {
+          "name": "_text_similarity",
+          "lineno": 30,
+          "end_lineno": 31,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_signature_similarity",
+          "lineno": 34,
+          "end_lineno": 53,
+          "complexity": 5,
+          "docstring": "Similarity of primitive-kind histograms plus size agreement, 0..1."
+        },
+        {
+          "name": "compatibility",
+          "lineno": 56,
+          "end_lineno": 62,
+          "complexity": 5,
+          "docstring": "0..1 score of whether a and b plausibly represent the same element."
+        },
+        {
+          "name": "match_entities",
+          "lineno": 65,
+          "end_lineno": 119,
+          "complexity": 17,
+          "docstring": "Return matched pairs plus unmatched singletons from both sides."
+        }
+      ],
+      "classes": [
+        {
+          "name": "MatchPair",
+          "lineno": 24,
+          "end_lineno": 27,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "dataclasses",
+          "names": [
+            "dataclass"
+          ],
+          "alias": null
+        },
+        {
+          "module": "difflib",
+          "names": [
+            "SequenceMatcher"
+          ],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Optional"
+          ],
+          "alias": null
+        },
+        {
+          "module": "numpy",
+          "names": [],
+          "alias": "np"
+        },
+        {
+          "module": "scipy.spatial",
+          "names": [
+            "cKDTree"
+          ],
+          "alias": null
+        },
+        {
+          "module": "config",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.diff_result",
+          "names": [
+            "Entity",
+            "EntityKind"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Match entities between v1 and v2 of a drawing.\n\nNearest-neighbor assignment over normalized centroids (KD-tree), gated by a\ncompatibility check (text similarity for TEXT entities, shape-signature\nsimilarity for GEOMETRY entities). Greedy one-to-one by ascending distance.\n\nBecause all coordinates are normalized, a global page shift/scale between\nthe two files does not create spurious mismatches the way pixel diffing did.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/ingest/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/ingest/loader.py",
+      "language": "Python",
+      "loc": 45,
+      "code_loc": 33,
+      "comment_lines": 1,
+      "comment_ratio": 0.0222,
+      "cyclomatic_complexity": 5,
+      "functions": [
+        {
+          "name": "load_input",
+          "lineno": 30,
+          "end_lineno": 44,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "page",
+          "lineno": 22,
+          "end_lineno": 24,
+          "complexity": 1,
+          "docstring": "First page \u2014 MVP compares page 1 of each document."
+        },
+        {
+          "name": "close",
+          "lineno": 26,
+          "end_lineno": 27,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "InputDocument",
+          "lineno": 16,
+          "end_lineno": 27,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "page",
+              "lineno": 22,
+              "end_lineno": 24,
+              "complexity": 1,
+              "docstring": "First page \u2014 MVP compares page 1 of each document."
+            },
+            {
+              "name": "close",
+              "lineno": 26,
+              "end_lineno": 27,
+              "complexity": 1,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "dataclasses",
+          "names": [
+            "dataclass"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fitz",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Load an uploaded file into a uniform InputDocument wrapper.\n\nPDFs are opened with PyMuPDF; plain images are wrapped in a single-page\nPDF-like interface by converting them to a fitz document via Pixmap, so the\nrest of the pipeline only ever deals with fitz pages.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/ingest/validate.py",
+      "language": "Python",
+      "loc": 42,
+      "code_loc": 32,
+      "comment_lines": 1,
+      "comment_ratio": 0.0238,
+      "cyclomatic_complexity": 6,
+      "functions": [
+        {
+          "name": "validate_upload",
+          "lineno": 21,
+          "end_lineno": 41,
+          "complexity": 6,
+          "docstring": "Validate an uploaded file. Returns the normalized extension.\n\nRaises ValidationError with a user-facing message on failure."
+        }
+      ],
+      "classes": [
+        {
+          "name": "ValidationError",
+          "lineno": 17,
+          "end_lineno": 18,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "config",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Upload validation: extension, size, and magic-byte checks (FR-1).",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/jobs/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/jobs/store.py",
+      "language": "Python",
+      "loc": 46,
+      "code_loc": 34,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 4,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 27,
+          "end_lineno": 29,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "create",
+          "lineno": 31,
+          "end_lineno": 35,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "get",
+          "lineno": 37,
+          "end_lineno": 38,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "delete",
+          "lineno": 40,
+          "end_lineno": 42,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "Job",
+          "lineno": 15,
+          "end_lineno": 23,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "JobStore",
+          "lineno": 26,
+          "end_lineno": 42,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 27,
+              "end_lineno": 29,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "create",
+              "lineno": 31,
+              "end_lineno": 35,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "get",
+              "lineno": 37,
+              "end_lineno": 38,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "delete",
+              "lineno": 40,
+              "end_lineno": 42,
+              "complexity": 1,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "threading",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "dataclasses",
+          "names": [
+            "dataclass",
+            "field"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Optional"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.schemas",
+          "names": [
+            "StatsSummary"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.diff_result",
+          "names": [
+            "DiffResult"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "In-memory job store (MVP). Swap for SQLite if persistence is needed.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/main.py",
+      "language": "Python",
+      "loc": 39,
+      "code_loc": 29,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 1,
+      "functions": [
+        {
+          "name": "index",
+          "lineno": 37,
+          "end_lineno": 38,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "FastAPI"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi.middleware.cors",
+          "names": [
+            "CORSMiddleware"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi.responses",
+          "names": [
+            "FileResponse"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi.staticfiles",
+          "names": [
+            "StaticFiles"
+          ],
+          "alias": null
+        },
+        {
+          "module": "api.routes",
+          "names": [
+            "router"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "CaD-Track backend entry point.\n\nRun with:  uvicorn app.main:app --reload  (from the backend/ directory)",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/models/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/models/diff_result.py",
+      "language": "Python",
+      "loc": 77,
+      "code_loc": 56,
+      "comment_lines": 4,
+      "comment_ratio": 0.0519,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "ChangeType",
+          "lineno": 20,
+          "end_lineno": 24,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "EntityKind",
+          "lineno": 27,
+          "end_lineno": 29,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "Entity",
+          "lineno": 32,
+          "end_lineno": 45,
+          "docstring": "A structured drawing element extracted from one document version.",
+          "methods": []
+        },
+        {
+          "name": "Region",
+          "lineno": 48,
+          "end_lineno": 60,
+          "docstring": "One detected change between the two versions.",
+          "methods": []
+        },
+        {
+          "name": "DiffResult",
+          "lineno": 63,
+          "end_lineno": 76,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "enum",
+          "names": [
+            "Enum"
+          ],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Literal",
+            "Optional"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pydantic",
+          "names": [
+            "BaseModel",
+            "Field"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Unified diff schema shared by the vector and OCR extraction paths.\n\nEverything downstream (stats, visualization, summary) consumes these models\nand never needs to know which path produced them. All coordinates are\nnormalized to [0, 1] relative to the page/image size so that two documents\nwith different pixel dimensions are directly comparable \u2014 this is the core\nfix for the old \"whole page shifted a few pixels -> 100% changed\" bug.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/models/schemas.py",
+      "language": "Python",
+      "loc": 45,
+      "code_loc": 33,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "UploadResponse",
+          "lineno": 11,
+          "end_lineno": 14,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "RegionStat",
+          "lineno": 17,
+          "end_lineno": 25,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "StatsSummary",
+          "lineno": 28,
+          "end_lineno": 35,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "JobStatus",
+          "lineno": 38,
+          "end_lineno": 44,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Literal",
+            "Optional"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pydantic",
+          "names": [
+            "BaseModel"
+          ],
+          "alias": null
+        },
+        {
+          "module": "diff_result",
+          "names": [
+            "DiffResult"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Pydantic request/response models for the HTTP API.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/ocr/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/ocr/extract.py",
+      "language": "Python",
+      "loc": 67,
+      "code_loc": 55,
+      "comment_lines": 1,
+      "comment_ratio": 0.0149,
+      "cyclomatic_complexity": 8,
+      "functions": [
+        {
+          "name": "rasterize_page",
+          "lineno": 31,
+          "end_lineno": 34,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "extract_text_entities",
+          "lineno": 37,
+          "end_lineno": 66,
+          "complexity": 6,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "shutil",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fitz",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "pytesseract",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "PIL",
+          "names": [
+            "Image"
+          ],
+          "alias": null
+        },
+        {
+          "module": "config",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.diff_result",
+          "names": [
+            "Entity",
+            "EntityKind"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "OCR extraction path for raster-only pages (scans / flattened images).\n\nProduces TEXT entities only \u2014 there is no vector data to recover, so\ngeometry changes on pure-raster pages are out of scope by design (the diff\nengine works on structured entities, never on pixels).",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/pipeline/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/pipeline/compare.py",
+      "language": "Python",
+      "loc": 122,
+      "code_loc": 100,
+      "comment_lines": 3,
+      "comment_ratio": 0.0246,
+      "cyclomatic_complexity": 14,
+      "functions": [
+        {
+          "name": "_extract_entities",
+          "lineno": 40,
+          "end_lineno": 55,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "run_comparison",
+          "lineno": 58,
+          "end_lineno": 121,
+          "complexity": 10,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "CompareResult",
+          "lineno": 34,
+          "end_lineno": 37,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "dataclasses",
+          "names": [
+            "dataclass"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fitz",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "detect.classify",
+          "names": [
+            "classify_page"
+          ],
+          "alias": null
+        },
+        {
+          "module": "entity_match.classify",
+          "names": [
+            "classify_matches"
+          ],
+          "alias": null
+        },
+        {
+          "module": "entity_match.match",
+          "names": [
+            "match_entities"
+          ],
+          "alias": null
+        },
+        {
+          "module": "ingest.loader",
+          "names": [
+            "load_input"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.diff_result",
+          "names": [
+            "DiffResult",
+            "Entity",
+            "EntityKind"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.schemas",
+          "names": [
+            "StatsSummary"
+          ],
+          "alias": null
+        },
+        {
+          "module": "ocr.extract",
+          "names": [
+            "extract_text_entities"
+          ],
+          "alias": null
+        },
+        {
+          "module": "raster_geom.extract",
+          "names": [
+            "extract_geometry_entities"
+          ],
+          "alias": null
+        },
+        {
+          "module": "stats.aggregate",
+          "names": [
+            "compute_stats"
+          ],
+          "alias": null
+        },
+        {
+          "module": "summary.generator",
+          "names": [
+            "generate_summary"
+          ],
+          "alias": null
+        },
+        {
+          "module": "vector.extract",
+          "names": [
+            "extract_primitives",
+            "extract_text_spans"
+          ],
+          "alias": null
+        },
+        {
+          "module": "vector.group",
+          "names": [
+            "group_into_entities",
+            "text_spans_to_entities"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Pipeline orchestration: classify -> extract -> match -> classify -> stats -> summary.\n\nComparison modes, decided by what both inputs can provide:\n\n- both vector          -> \"geometry+text\": exact vector primitives + text spans.\n- any raster involved  -> \"approx-geometry+text\": text comes from the vector\n  side's exact spans and/or OCR on the raster side, while geometry on BOTH\n  sides is traced into line segments from the rendered page (like-for-like),\n  so drawing-design changes are detected even for scans \u2014 still via entity\n  matching, never a pixel comparison.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/raster_geom/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/raster_geom/extract.py",
+      "language": "Python",
+      "loc": 82,
+      "code_loc": 65,
+      "comment_lines": 3,
+      "comment_ratio": 0.0366,
+      "cyclomatic_complexity": 7,
+      "functions": [
+        {
+          "name": "_page_to_gray",
+          "lineno": 32,
+          "end_lineno": 34,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "extract_geometry_entities",
+          "lineno": 37,
+          "end_lineno": 81,
+          "complexity": 6,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "fitz",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "numpy",
+          "names": [],
+          "alias": "np"
+        },
+        {
+          "module": "skimage.measure",
+          "names": [
+            "label",
+            "regionprops"
+          ],
+          "alias": null
+        },
+        {
+          "module": "config",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.diff_result",
+          "names": [
+            "BBox",
+            "Entity",
+            "EntityKind"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Approximate geometry extraction for comparisons involving raster inputs.\n\nThe drawing's ink is decomposed into connected components (clusters of\ntouching dark pixels); each component becomes an Entity with a normalized\nbbox, centroid, and its share of the page's total ink. The diff itself\nremains structural entity matching \u2014 no pixel mask or image alignment is\never compared.\n\nConnected-component labeling is deterministic: identical drawing regions\nproduce identical entities on both sides and match exactly, while genuinely\nadded or removed structures have no counterpart. Ink *share* (rather than\nabsolute pixel counts) makes the signature robust to systematic line-width\ndifferences between a rendered vector page and a scan.\n\nWhen either input is raster, BOTH sides are traced from their rendered pages\nso the matcher compares like with like. Known text areas are masked out\nfirst (each side using its own text entities) so glyph strokes don't\nmasquerade as drawing geometry \u2014 text is diffed separately.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/stats/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/stats/aggregate.py",
+      "language": "Python",
+      "loc": 59,
+      "code_loc": 50,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 16,
+      "functions": [
+        {
+          "name": "_union_area",
+          "lineno": 9,
+          "end_lineno": 26,
+          "complexity": 11,
+          "docstring": "Union of axis-aligned bbox areas via coordinate-grid sweep.\n\nRect-level (not pixel-mask) computation: build the grid of unique x/y\nedges and sum covered cells, so overlapping regions aren't double-counted."
+        },
+        {
+          "name": "compute_stats",
+          "lineno": 29,
+          "end_lineno": 58,
+          "complexity": 5,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.diff_result",
+          "names": [
+            "ChangeType",
+            "DiffResult"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.schemas",
+          "names": [
+            "RegionStat",
+            "StatsSummary"
+          ],
+          "alias": null
+        },
+        {
+          "module": "summary.location",
+          "names": [
+            "bucket_location"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Aggregate diff regions into the FR-5 statistics summary.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/summary/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/summary/generator.py",
+      "language": "Python",
+      "loc": 92,
+      "code_loc": 74,
+      "comment_lines": 1,
+      "comment_ratio": 0.0109,
+      "cyclomatic_complexity": 16,
+      "functions": [
+        {
+          "name": "_num_word",
+          "lineno": 19,
+          "end_lineno": 20,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_describe",
+          "lineno": 23,
+          "end_lineno": 35,
+          "complexity": 6,
+          "docstring": null
+        },
+        {
+          "name": "generate_summary",
+          "lineno": 38,
+          "end_lineno": 91,
+          "complexity": 9,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "config",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.diff_result",
+          "names": [
+            "DiffResult"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.schemas",
+          "names": [
+            "RegionStat",
+            "StatsSummary"
+          ],
+          "alias": null
+        },
+        {
+          "module": "severity",
+          "names": [
+            "bucket_severity"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Rule-based natural-language change summary (FR-6).\n\nPure string templating over computed stats \u2014 no LLM anywhere. Mirrors the\nexample paragraph style from the requirements document.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/summary/location.py",
+      "language": "Python",
+      "loc": 16,
+      "code_loc": 12,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 5,
+      "functions": [
+        {
+          "name": "bucket_location",
+          "lineno": 5,
+          "end_lineno": 15,
+          "complexity": 5,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Map a normalized centroid to a human location label via a 3x3 grid.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/summary/severity.py",
+      "language": "Python",
+      "loc": 13,
+      "code_loc": 9,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 3,
+      "functions": [
+        {
+          "name": "bucket_severity",
+          "lineno": 7,
+          "end_lineno": 12,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "config",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Bucket total changed-area fraction into a severity word.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/vector/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/vector/extract.py",
+      "language": "Python",
+      "loc": 91,
+      "code_loc": 73,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 19,
+      "functions": [
+        {
+          "name": "_norm_point",
+          "lineno": 37,
+          "end_lineno": 38,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_norm_rect",
+          "lineno": 41,
+          "end_lineno": 42,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "extract_primitives",
+          "lineno": 45,
+          "end_lineno": 70,
+          "complexity": 10,
+          "docstring": null
+        },
+        {
+          "name": "extract_text_spans",
+          "lineno": 73,
+          "end_lineno": 90,
+          "complexity": 5,
+          "docstring": null
+        },
+        {
+          "name": "endpoints",
+          "lineno": 22,
+          "end_lineno": 26,
+          "complexity": 2,
+          "docstring": "Points used for connectivity clustering (first and last)."
+        }
+      ],
+      "classes": [
+        {
+          "name": "Primitive",
+          "lineno": 16,
+          "end_lineno": 26,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "endpoints",
+              "lineno": 22,
+              "end_lineno": 26,
+              "complexity": 2,
+              "docstring": "Points used for connectivity clustering (first and last)."
+            }
+          ]
+        },
+        {
+          "name": "RawTextSpan",
+          "lineno": 30,
+          "end_lineno": 34,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "dataclasses",
+          "names": [
+            "dataclass",
+            "field"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fitz",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Extract vector primitives and text spans from a native-vector PDF page.\n\nCoordinates are normalized to [0,1] against the page rect immediately so\nevery later stage is resolution/page-size independent.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/vector/group.py",
+      "language": "Python",
+      "loc": 100,
+      "code_loc": 83,
+      "comment_lines": 1,
+      "comment_ratio": 0.01,
+      "cyclomatic_complexity": 25,
+      "functions": [
+        {
+          "name": "group_into_entities",
+          "lineno": 35,
+          "end_lineno": 82,
+          "complexity": 18,
+          "docstring": null
+        },
+        {
+          "name": "text_spans_to_entities",
+          "lineno": 85,
+          "end_lineno": 99,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "__init__",
+          "lineno": 20,
+          "end_lineno": 21,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "find",
+          "lineno": 23,
+          "end_lineno": 27,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "union",
+          "lineno": 29,
+          "end_lineno": 32,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "_UnionFind",
+          "lineno": 19,
+          "end_lineno": 32,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 20,
+              "end_lineno": 21,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "find",
+              "lineno": 23,
+              "end_lineno": 27,
+              "complexity": 2,
+              "docstring": null
+            },
+            {
+              "name": "union",
+              "lineno": 29,
+              "end_lineno": 32,
+              "complexity": 2,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "collections",
+          "names": [
+            "Counter",
+            "defaultdict"
+          ],
+          "alias": null
+        },
+        {
+          "module": "config",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.diff_result",
+          "names": [
+            "Entity",
+            "EntityKind"
+          ],
+          "alias": null
+        },
+        {
+          "module": "extract",
+          "names": [
+            "Primitive",
+            "RawTextSpan"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Group vector primitives into entities via connectivity clustering.\n\nTwo primitives belong to the same entity when any endpoint of one lies\nwithin a small tolerance of an endpoint of the other (union-find over a\nspatial grid). This approximates \"one drawn symbol/feature\" without a\ntrained model \u2014 GAT-CADNet-style learned symbol spotting is the documented\nfuture upgrade path.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/vector/titleblock.py",
+      "language": "Python",
+      "loc": 48,
+      "code_loc": 36,
+      "comment_lines": 1,
+      "comment_ratio": 0.0208,
+      "cyclomatic_complexity": 10,
+      "functions": [
+        {
+          "name": "_inside",
+          "lineno": 21,
+          "end_lineno": 23,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "detect_titleblock_region",
+          "lineno": 26,
+          "end_lineno": 35,
+          "complexity": 4,
+          "docstring": "Return the title-block bbox if the candidate corner is text-dense."
+        },
+        {
+          "name": "split_titleblock",
+          "lineno": 38,
+          "end_lineno": 47,
+          "complexity": 4,
+          "docstring": "Split entities into (drawing_body, titleblock_entities, region)."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.diff_result",
+          "names": [
+            "BBox",
+            "Entity",
+            "EntityKind"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Title-block isolation.\n\nEngineering drawings conventionally place a metadata block (title, revision,\ndrawn-by, date, scale) in the bottom band or bottom-right corner. Entities\ninside that region are compared as labeled metadata rather than as drawing\ngeometry, so recurring border/legend content doesn't pollute the diff.\n\nMVP heuristic: the bottom-right region (bottom 15% band intersected with the\nright 30% column) counts as title block when it contains a dense cluster of\nshort text spans.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/viz/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/viz/render.py",
+      "language": "Python",
+      "loc": 87,
+      "code_loc": 66,
+      "comment_lines": 2,
+      "comment_ratio": 0.023,
+      "cyclomatic_complexity": 17,
+      "functions": [
+        {
+          "name": "render_page",
+          "lineno": 25,
+          "end_lineno": 27,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "_draw_regions",
+          "lineno": 30,
+          "end_lineno": 52,
+          "complexity": 8,
+          "docstring": null
+        },
+        {
+          "name": "render_bbox_overlay",
+          "lineno": 55,
+          "end_lineno": 58,
+          "complexity": 1,
+          "docstring": "New version annotated with all change regions."
+        },
+        {
+          "name": "render_side_by_side",
+          "lineno": 61,
+          "end_lineno": 76,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "render_original",
+          "lineno": 79,
+          "end_lineno": 80,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_to_png",
+          "lineno": 83,
+          "end_lineno": 86,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_scale",
+          "lineno": 66,
+          "end_lineno": 70,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ],
+          "alias": null
+        },
+        {
+          "module": "io",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "fitz",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "PIL",
+          "names": [
+            "Image",
+            "ImageDraw",
+            "ImageFont"
+          ],
+          "alias": null
+        },
+        {
+          "module": "config",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "models.diff_result",
+          "names": [
+            "ChangeType",
+            "DiffResult",
+            "Region"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Visualization rendering (FR-4).\n\nPages are rasterized here purely for human display \u2014 the diff itself was\nalready decided on structured entities before any pixel exists. Boxes are\ndrawn with Pillow on the rendered page.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/index.html",
+      "language": "HTML",
+      "loc": 92,
+      "code_loc": 88,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/src/app.js",
+      "language": "JavaScript",
+      "loc": 104,
+      "code_loc": 88,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "bindDropzone",
+          "lineno": 5,
+          "end_lineno": 5,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "setFile",
+          "lineno": 17,
+          "end_lineno": 17,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "renderResults",
+          "lineno": 58,
+          "end_lineno": 58,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "setVizMode",
+          "lineno": 97,
+          "end_lineno": 97,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "tests/conftest.py",
+      "language": "Python",
+      "loc": 8,
+      "code_loc": 4,
+      "comment_lines": 1,
+      "comment_ratio": 0.125,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "sys",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "tests/integration/test_ocr_pipeline.py",
+      "language": "Python",
+      "loc": 89,
+      "code_loc": 66,
+      "comment_lines": 5,
+      "comment_ratio": 0.0562,
+      "cyclomatic_complexity": 28,
+      "functions": [
+        {
+          "name": "_font",
+          "lineno": 9,
+          "end_lineno": 13,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "_make_image",
+          "lineno": 16,
+          "end_lineno": 22,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "test_added_label_detected",
+          "lineno": 32,
+          "end_lineno": 46,
+          "complexity": 9,
+          "docstring": null
+        },
+        {
+          "name": "test_added_shape_detected",
+          "lineno": 49,
+          "end_lineno": 78,
+          "complexity": 10,
+          "docstring": "Geometry change in a raster drawing: a new rectangle must be found."
+        },
+        {
+          "name": "test_identical_images_report_no_changes",
+          "lineno": 81,
+          "end_lineno": 88,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "make",
+          "lineno": 53,
+          "end_lineno": 61,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "pytest",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "PIL",
+          "names": [
+            "Image",
+            "ImageDraw",
+            "ImageFont"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.diff_result",
+          "names": [
+            "ChangeType"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.pipeline.compare",
+          "names": [
+            "run_comparison"
+          ],
+          "alias": null
+        },
+        {
+          "module": "PIL",
+          "names": [
+            "ImageDraw"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Full-pipeline test on a synthetic raster image pair (OCR path).",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "tests/integration/test_real_pair.py",
+      "language": "Python",
+      "loc": 20,
+      "code_loc": 14,
+      "comment_lines": 2,
+      "comment_ratio": 0.1,
+      "cyclomatic_complexity": 7,
+      "functions": [
+        {
+          "name": "test_real_pair_completes",
+          "lineno": 7,
+          "end_lineno": 19,
+          "complexity": 7,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "conftest",
+          "names": [
+            "SAMPLES"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.pipeline.compare",
+          "names": [
+            "run_comparison"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Smoke test on the real sample pair (vector v1 vs low-res raster v2).",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "tests/integration/test_vector_pipeline.py",
+      "language": "Python",
+      "loc": 68,
+      "code_loc": 50,
+      "comment_lines": 6,
+      "comment_ratio": 0.0882,
+      "cyclomatic_complexity": 20,
+      "functions": [
+        {
+          "name": "_make_pdf",
+          "lineno": 9,
+          "end_lineno": 22,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "pdf_pair",
+          "lineno": 26,
+          "end_lineno": 31,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "test_added_line_detected",
+          "lineno": 34,
+          "end_lineno": 45,
+          "complexity": 9,
+          "docstring": null
+        },
+        {
+          "name": "test_text_change_detected",
+          "lineno": 48,
+          "end_lineno": 57,
+          "complexity": 5,
+          "docstring": null
+        },
+        {
+          "name": "test_identical_pdfs_report_no_changes",
+          "lineno": 60,
+          "end_lineno": 67,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "fitz",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "pytest",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "app.models.diff_result",
+          "names": [
+            "ChangeType"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.pipeline.compare",
+          "names": [
+            "run_comparison"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Full-pipeline test on a synthetic vector PDF pair with known changes.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "tests/unit/test_classify.py",
+      "language": "Python",
+      "loc": 16,
+      "code_loc": 12,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 3,
+      "functions": [
+        {
+          "name": "test_real_samples_classification",
+          "lineno": 7,
+          "end_lineno": 15,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "conftest",
+          "names": [
+            "SAMPLES"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.detect.classify",
+          "names": [
+            "classify_page"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.ingest.loader",
+          "names": [
+            "load_input"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "tests/unit/test_entity_match.py",
+      "language": "Python",
+      "loc": 70,
+      "code_loc": 56,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 18,
+      "functions": [
+        {
+          "name": "_text",
+          "lineno": 7,
+          "end_lineno": 14,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_geom",
+          "lineno": 17,
+          "end_lineno": 25,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "test_added_removed_moved_modified",
+          "lineno": 28,
+          "end_lineno": 49,
+          "complexity": 7,
+          "docstring": null
+        },
+        {
+          "name": "test_identical_inputs_yield_no_regions",
+          "lineno": 52,
+          "end_lineno": 55,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "test_global_shift_within_radius_is_not_total_change",
+          "lineno": 58,
+          "end_lineno": 69,
+          "complexity": 6,
+          "docstring": "The original bug: a small uniform offset must not flag everything.\n\nEvery entity is shifted by 1% of the page \u2014 matching still pairs them\nup (they land within the search radius) and classifies them as moved,\nNOT as unrelated added+removed pairs."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "app.entity_match.classify",
+          "names": [
+            "classify_matches"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.entity_match.match",
+          "names": [
+            "match_entities"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.diff_result",
+          "names": [
+            "ChangeType",
+            "Entity",
+            "EntityKind"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Core diff-engine test: one added, one removed, one moved, one modified.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "tests/unit/test_location_bucket.py",
+      "language": "Python",
+      "loc": 23,
+      "code_loc": 15,
+      "comment_lines": 1,
+      "comment_ratio": 0.0435,
+      "cyclomatic_complexity": 14,
+      "functions": [
+        {
+          "name": "test_corners",
+          "lineno": 4,
+          "end_lineno": 8,
+          "complexity": 5,
+          "docstring": null
+        },
+        {
+          "name": "test_center_and_bands",
+          "lineno": 11,
+          "end_lineno": 16,
+          "complexity": 6,
+          "docstring": null
+        },
+        {
+          "name": "test_boundaries",
+          "lineno": 19,
+          "end_lineno": 22,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "app.summary.location",
+          "names": [
+            "bucket_location"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "tests/unit/test_severity_bucket.py",
+      "language": "Python",
+      "loc": 12,
+      "code_loc": 9,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 7,
+      "functions": [
+        {
+          "name": "test_buckets",
+          "lineno": 5,
+          "end_lineno": 11,
+          "complexity": 7,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "app.config",
+          "names": [
+            "settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.summary.severity",
+          "names": [
+            "bucket_severity"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "tests/unit/test_stats.py",
+      "language": "Python",
+      "loc": 54,
+      "code_loc": 41,
+      "comment_lines": 4,
+      "comment_ratio": 0.0741,
+      "cyclomatic_complexity": 10,
+      "functions": [
+        {
+          "name": "_region",
+          "lineno": 5,
+          "end_lineno": 15,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "test_union_area_no_double_count",
+          "lineno": 18,
+          "end_lineno": 29,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "test_compute_stats_counts_and_order",
+          "lineno": 32,
+          "end_lineno": 53,
+          "complexity": 5,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "app.models.diff_result",
+          "names": [
+            "ChangeType",
+            "DiffResult",
+            "EntityKind",
+            "Region"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.stats.aggregate",
+          "names": [
+            "_union_area",
+            "compute_stats"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    }
+  ],
+  "delta": null,
+  "ingestion_metadata": {
+    "version": "1.0",
+    "timestamp": "2026-07-12T16:12:53.633757+00:00",
+    "duration_ms": 0,
+    "pipeline_version": "1"
+  }
+}

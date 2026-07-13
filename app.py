@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from asgiref.wsgi import WsgiToAsgi
 from dotenv import load_dotenv
 from flask import Flask
 
@@ -26,7 +27,8 @@ def create_app(service_container=None):
     return app
 
 
-app = create_app()
+app = WsgiToAsgi(create_app())
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    import uvicorn
+    uvicorn.run("app:app", host="0.0.0.0", port=5001, reload=False)

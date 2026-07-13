@@ -1,0 +1,36 @@
+{
+  "repository_metadata": {
+    "url": "https://github.com/Aiswariya3a/QA-Buster",
+    "clone_url": "https://github.com/Aiswariya3a/QA-Buster",
+    "clone_timestamp": "2026-07-12T11:00:44.523435+00:00",
+    "status": "partial",
+    "base_repo_url": null
+  },
+  "github_metadata": {
+    "commits_count": 3,
+    "contributors": [],
+    "pull_requests_count": 0,
+    "pull_requests": [],
+    "issues_count": 0,
+    "issues": [],
+    "is_public": false,
+    "readme_exists": false
+  },
+  "repo_stats": {
+    "total_loc": 0,
+    "code_loc": 0,
+    "file_count": 0,
+    "total_complexity": 0,
+    "average_complexity": 0.0,
+    "comment_ratio": 0.0,
+    "language_breakdown": {}
+  },
+  "files": [],
+  "delta": null,
+  "ingestion_metadata": {
+    "version": "1.0",
+    "timestamp": "2026-07-12T11:00:48.342153+00:00",
+    "duration_ms": 0,
+    "pipeline_version": "1"
+  }
+}

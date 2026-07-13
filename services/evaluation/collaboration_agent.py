@@ -66,6 +66,7 @@ class CollaborationAgent(BaseAgent):
             user_prompt=user_prompt,
             format="json",
         )
+        result = self._normalize_output(result, github_metadata)
 
         # Validate against schema (T-02-03 mitigation)
         is_valid, errors = self._validate_output(result, COLLABORATION_SCHEMA)
@@ -97,6 +98,69 @@ class CollaborationAgent(BaseAgent):
             self._write_output(result, output_path)
 
         return result
+
+    @staticmethod
+    def _normalize_output(result: dict, github_metadata: dict) -> dict:
+        if not isinstance(result, dict):
+            return result
+        key_map = {
+            "commit_analysis": ["commit_analysis", "CommitAnalysis", "commitAnalysis",
+                                "commit_patterns", "CommitPatterns"],
+            "contributor_analysis": ["contributor_analysis", "ContributorAnalysis", "contributorAnalysis"],
+            "pull_request_analysis": ["pull_request_analysis", "PullRequestAnalysis", "pullRequestAnalysis",
+                                      "pr_and_code_review_practices"],
+            "collaboration_score": ["collaboration_score", "CollaborationScore", "collaborationScore",
+                                    "overall_collaboration_score", "score"],
+            "summary": ["summary", "Summary"],
+        }
+        normalized = {}
+        recognized = False
+        for target, aliases in key_map.items():
+            for alias in aliases:
+                if alias in result:
+                    normalized[target] = result[alias]
+                    recognized = True
+                    break
+        if not recognized:
+            return result
+
+        ca = normalized.get("commit_analysis", {})
+        if isinstance(ca, dict):
+            normalized["commit_analysis"] = {
+                "total_commits": ca.get("total_commits") or ca.get("totalCommits") or github_metadata.get("commits_count") or 0,
+                "commit_frequency": ca.get("commit_frequency") or ca.get("frequency_distribution") or ca.get("commitFrequency") or "unknown",
+                "meaningful_commits": ca.get("meaningful_commits") or ca.get("meaningfulness_analysis") or ca.get("meaningfulCommits") or 0,
+                "patterns": ca.get("patterns") or ca.get("Patterns") or [],
+            }
+
+        contrib = normalized.get("contributor_analysis", {})
+        if isinstance(contrib, dict):
+            normalized["contributor_analysis"] = {
+                "total_contributors": contrib.get("total_contributors") or contrib.get("team_size") or contrib.get("totalContributors") or 0,
+                "contributions_distribution": contrib.get("contributions_distribution") or contrib.get("contribution_distribution") or contrib.get("contributionsDistribution") or "unknown",
+                "key_contributors": contrib.get("key_contributors") or contrib.get("keyContributors") or [],
+            }
+
+        pr = normalized.get("pull_request_analysis", {})
+        if isinstance(pr, dict):
+            prs = github_metadata.get("pull_requests", [])
+            merged = sum(1 for p in prs if p.get("merged_at") or p.get("state") == "merged")
+            normalized["pull_request_analysis"] = {
+                "total_prs": pr.get("total_prs") or pr.get("totalPrs") or len(prs) or 0,
+                "merged_prs": pr.get("merged_prs") or pr.get("mergedPrs") or merged or 0,
+                "review_quality": pr.get("review_quality") or pr.get("reviewQuality") or "No pull requests found",
+            }
+
+        if "collaboration_score" in normalized:
+            score = normalized["collaboration_score"]
+            if not isinstance(score, (int, float)):
+                try:
+                    score = float(score)
+                except (ValueError, TypeError):
+                    score = 0
+            normalized["collaboration_score"] = max(0.0, min(1.0, float(score)))
+
+        return normalized
 
     def _build_collaboration_prompt(
         self,

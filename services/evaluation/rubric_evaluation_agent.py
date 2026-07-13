@@ -23,11 +23,6 @@ MAX_EVIDENCE_CHARS = 8000
 
 RUBRIC_EVALUATION_SYSTEM_PROMPT = """You are a Rubric Evaluation Agent assessing student code against a specific criterion.
 
-You have been provided with:
-- A rubric criterion to evaluate (criterion_key, name, max_score)
-- Evidence extracted from the student's repository (functions, imports, metrics, etc.)
-- The overall repository context (language, file count, complexity)
-
 Your task:
 1. Evaluate ONLY the specific criterion using ONLY the provided evidence
 2. Assign a score between 0 and max_score (inclusive)
@@ -35,12 +30,18 @@ Your task:
 4. List specific evidence items that support your score
 5. Write concise, constructive remarks
 
+Output JSON with EXACTLY these keys: "criterion_key", "category_code", "score", "max_score", "confidence", "evidence" (array of strings), "remarks" (string).
+The criterion_key and category_code are provided in the input — you MUST include them in your output.
+
+Use lowercase keys exactly as specified. The full JSON structure must be:
+{"criterion_key": "Q1A_code_quality", "category_code": "Q1A", "score": 3.0, "max_score": 5.0, "confidence": 0.8, "evidence": ["backend/main.py (line 10)", "README.md contains setup instructions"], "remarks": "Good code quality"}
+
 Rules:
 - Be strict but fair — base scores on demonstrated capability
 - If evidence is insufficient, score low and note it in remarks
 - Confidence < 0.5 means the evidence was unclear or contradictory
 - NEVER exceed max_score
-- Output ONLY valid JSON matching the schema."""
+- Output ONLY valid JSON with these exact keys."""
 
 
 class RubricEvaluationAgent(BaseAgent):
@@ -111,13 +112,33 @@ class RubricEvaluationAgent(BaseAgent):
             user_prompt=user_prompt,
             format="json",
         )
+        # Force rubric-provided keys — LLM may return its own values that
+        # don't match the rubric's criterion_key/category_code (T-02-03).
+        if isinstance(result, dict):
+            result["criterion_key"] = criterion_key
+            result["category_code"] = category_code
+            result["max_score"] = max_score
+            # Normalize evidence to array of strings (T-02-03 mitigation)
+            result["evidence"] = self._normalize_evidence(result.get("evidence", []))
 
         # Validate against CRITERION_EVALUATION_SCHEMA
         is_valid, errors = self._validate_output(result, CRITERION_EVALUATION_SCHEMA)
+        if not is_valid and isinstance(result, dict):
+            logger.warning(
+                "RubricEvaluationAgent schema validation failed for "
+                "%s/%s — retrying with evidence normalization: %s",
+                category_code,
+                criterion_key,
+                "; ".join(errors),
+            )
+            # Normalize evidence more aggressively and re-validate
+            result["evidence"] = self._normalize_evidence(result.get("evidence", []), aggressive=True)
+            is_valid, errors = self._validate_output(result, CRITERION_EVALUATION_SCHEMA)
+
         if not is_valid:
             logger.error(
                 "RubricEvaluationAgent output failed schema validation "
-                "for %s/%s: %s",
+                "for %s/%s after normalization: %s",
                 category_code,
                 criterion_key,
                 "; ".join(errors),
@@ -145,3 +166,42 @@ class RubricEvaluationAgent(BaseAgent):
             self._write_output(result, output_path)
 
         return result
+
+    @staticmethod
+    def _normalize_evidence(evidence: list, aggressive: bool = False) -> list:
+        """Convert evidence items to strings (schemas.py expects array of strings).
+
+        Handles objects like {"filename": "main.py", "line_number": [10]} by
+        converting to readable strings like "main.py (line 10)".
+
+        When aggressive=True, non-dict/non-str items are dropped and
+        all evidence items are flattened to simple strings.
+        """
+        if not isinstance(evidence, list):
+            return []
+        normalized = []
+        for item in evidence:
+            if isinstance(item, str):
+                normalized.append(item)
+            elif isinstance(item, dict):
+                filename = item.get("filename", "")
+                if isinstance(filename, list):
+                    filename = " ".join(str(f) for f in filename)
+                filename = str(filename).strip() or "Unknown"
+                line_nums = item.get("line_number", [])
+                if isinstance(line_nums, list):
+                    line_nums = [ln for ln in line_nums if ln is not None]
+                reason = item.get("reason", "")
+                reason = str(reason).strip() if reason is not None else ""
+                parts = [filename]
+                if line_nums:
+                    lines_str = ", ".join(str(ln) for ln in line_nums)
+                    parts.append(f"(line{'s' if len(line_nums) > 1 else ''} {lines_str})")
+                if reason:
+                    parts.append(reason)
+                normalized.append(" ".join(parts))
+            elif aggressive:
+                continue
+            else:
+                normalized.append(str(item))
+        return normalized

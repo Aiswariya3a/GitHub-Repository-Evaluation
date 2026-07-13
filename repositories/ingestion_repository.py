@@ -39,15 +39,18 @@ class IngestionRepository:
             return str(row["id"]) if row else None
 
     def get_ingestion(self, repository_id: str) -> dict | None:
-        with connect() as db:
-            result = db.execute(
-                """SELECT * FROM ingestion_records
-                   WHERE repository_id = %s
-                   ORDER BY created_at DESC
-                   LIMIT 1""",
-                [repository_id],
-            )
-            return result.fetchone()
+        try:
+            with connect() as db:
+                result = db.execute(
+                    """SELECT * FROM ingestion_records
+                       WHERE repository_id = %s
+                       ORDER BY created_at DESC
+                       LIMIT 1""",
+                    [repository_id],
+                )
+                return result.fetchone()
+        except Exception:
+            return None
 
     def get_ingestion_by_id(self, record_id: str) -> dict | None:
         with connect() as db:

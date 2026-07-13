@@ -36,10 +36,9 @@ class RubricRepository:
                         VALUES (%s,%s,%s,%s,%s) ON CONFLICT(category_id,criterion_key) DO NOTHING""",
                         (category["id"],key,key.replace("_"," ").title(),score,criterion_order))
             db.execute("UPDATE evaluation_sessions SET rubric_version_id=%s WHERE rubric_version_id IS NULL", (DEFAULT_VERSION_ID,))
-            db.execute("""UPDATE evaluations e SET rubric_version_id=s.rubric_version_id FROM repositories r
+            db.execute("""UPDATE evaluation_results e SET rubric_version_id=s.rubric_version_id FROM repositories r
                 JOIN evaluation_sessions s ON s.id=r.session_id WHERE e.repository_id=r.id AND e.rubric_version_id IS NULL""")
             db.execute("ALTER TABLE evaluation_sessions ALTER COLUMN rubric_version_id SET NOT NULL")
-            db.execute("ALTER TABLE evaluations ALTER COLUMN rubric_version_id SET NOT NULL")
         return DEFAULT_VERSION_ID
 
     def list(self, include_archived=False):

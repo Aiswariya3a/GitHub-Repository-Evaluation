@@ -27,8 +27,12 @@ class PipelineService:
         repository_id: str,
         base_repo_url: Optional[str] = None,
         rubric_version_id: Optional[str] = None,
+        force: bool = False,
     ) -> dict:
         """Evaluate a single repository through the full pipeline.
+
+        Args:
+            force: If True, clear cached step files and re-run all steps.
 
         Returns dict with status, scores, feedback, and any errors.
         """
@@ -39,6 +43,7 @@ class PipelineService:
             repository_id=repository_id,
             base_repo_url=base_repo_url,
             rubric_version_id=rubric_version_id,
+            force=force,
         )
 
     def evaluate_session_repositories(
@@ -46,6 +51,7 @@ class PipelineService:
         session_id: str,
         repository_ids: Optional[list[str]] = None,
         rubric_version_id: Optional[str] = None,
+        force: bool = False,
     ) -> list[dict]:
         """Evaluate all pending repositories in a session.
 
@@ -55,6 +61,7 @@ class PipelineService:
             session_id: Session to evaluate
             repository_ids: Optional subset of repository IDs to evaluate
             rubric_version_id: Rubric version to use
+            force: If True, clear cached step files and re-run all steps.
 
         Returns:
             list of evaluation result dicts
@@ -85,8 +92,14 @@ class PipelineService:
                     session_id=session_id,
                     repository_id=str(repo["id"]),
                     rubric_version_id=rubric_version_id,
+                    force=force,
                 )
                 results.append(result)
+                repo_data = result.get("repo_data", {})
+                repo_service.repository.save_analysis(
+                    repo["id"],
+                    repo_data,
+                )
             except Exception as e:
                 errors.append({"repository_id": str(repo["id"]), "error": str(e)})
                 repo_service.mark_failed([repo["id"]], str(e))

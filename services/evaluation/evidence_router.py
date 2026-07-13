@@ -80,7 +80,7 @@ def _find_best_routing_key(category_lower: str) -> str:
             return key
 
     # Fallback default
-    logger.warning(
+    logger.debug(
         "No matching routing key for '%s', using default 'implementation'",
         category_lower,
     )

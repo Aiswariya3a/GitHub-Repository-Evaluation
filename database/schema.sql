@@ -42,10 +42,34 @@ CREATE TABLE IF NOT EXISTS repositories (
     readme_exists BOOLEAN,
     commit_count INTEGER,
     evaluated_at TIMESTAMPTZ,
+    description TEXT NOT NULL DEFAULT '',
+    language TEXT NOT NULL DEFAULT '',
+    topics JSONB NOT NULL DEFAULT '[]'::jsonb,
+    stars_count INTEGER NOT NULL DEFAULT 0,
+    forks_count INTEGER NOT NULL DEFAULT 0,
+    size INTEGER NOT NULL DEFAULT 0,
+    default_branch TEXT NOT NULL DEFAULT '',
+    license_info TEXT NOT NULL DEFAULT '',
+    open_issues_count INTEGER NOT NULL DEFAULT 0,
+    watchers_count INTEGER NOT NULL DEFAULT 0,
+    github_created_at TIMESTAMPTZ,
+    github_updated_at TIMESTAMPTZ,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     UNIQUE(session_id, repo_url)
 );
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS description TEXT NOT NULL DEFAULT '';
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS language TEXT NOT NULL DEFAULT '';
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS topics JSONB NOT NULL DEFAULT '[]'::jsonb;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS stars_count INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS forks_count INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS size INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS default_branch TEXT NOT NULL DEFAULT '';
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS license_info TEXT NOT NULL DEFAULT '';
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS open_issues_count INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS watchers_count INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS github_created_at TIMESTAMPTZ;
+ALTER TABLE repositories ADD COLUMN IF NOT EXISTS github_updated_at TIMESTAMPTZ;
 
 CREATE TABLE IF NOT EXISTS evaluations (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -95,6 +119,31 @@ CREATE TABLE IF NOT EXISTS issues (id UUID PRIMARY KEY DEFAULT gen_random_uuid()
 CREATE TABLE IF NOT EXISTS files (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), repository_id UUID NOT NULL REFERENCES repositories(id) ON DELETE CASCADE, path TEXT NOT NULL, language TEXT, size_bytes BIGINT, line_count INTEGER, content_hash TEXT, created_at TIMESTAMPTZ NOT NULL DEFAULT now(), updated_at TIMESTAMPTZ NOT NULL DEFAULT now(), UNIQUE(repository_id, path));
 CREATE TABLE IF NOT EXISTS evaluation_metadata (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), evaluation_id UUID NOT NULL REFERENCES evaluations(id) ON DELETE CASCADE, metadata_key TEXT NOT NULL, metadata_value TEXT, value_type TEXT NOT NULL DEFAULT 'string', created_at TIMESTAMPTZ NOT NULL DEFAULT now(), updated_at TIMESTAMPTZ NOT NULL DEFAULT now(), UNIQUE(evaluation_id, metadata_key));
 CREATE TABLE IF NOT EXISTS plagiarism_results (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), session_id UUID NOT NULL REFERENCES evaluation_sessions(id) ON DELETE CASCADE, repository1_id UUID REFERENCES repositories(id) ON DELETE CASCADE, repository2_id UUID REFERENCES repositories(id) ON DELETE CASCADE, roll1 TEXT NOT NULL, roll2 TEXT NOT NULL, similarity DOUBLE PRECISION NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT now(), updated_at TIMESTAMPTZ NOT NULL DEFAULT now(), UNIQUE(session_id, roll1, roll2));
+
+CREATE TABLE IF NOT EXISTS evaluation_results (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    repository_id UUID NOT NULL REFERENCES repositories(id) ON DELETE CASCADE,
+    session_id UUID NOT NULL REFERENCES evaluation_sessions(id) ON DELETE CASCADE,
+    rubric_version_id UUID REFERENCES rubric_versions(id),
+    repo_understanding JSONB,
+    code_understanding JSONB,
+    collaboration JSONB,
+    total_score NUMERIC(8,2),
+    max_score NUMERIC(8,2),
+    normalized_to_20 NUMERIC(7,2),
+    percentage NUMERIC(7,2),
+    criterion_results JSONB,
+    low_confidence_criteria JSONB,
+    feedback JSONB,
+    pipeline_status TEXT,
+    failed_agents JSONB,
+    error TEXT,
+    evaluation_started_at TIMESTAMPTZ,
+    evaluation_completed_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    UNIQUE(repository_id, session_id)
+);
 
 CREATE INDEX IF NOT EXISTS idx_sessions_status ON evaluation_sessions(status);
 CREATE INDEX IF NOT EXISTS idx_sessions_rubric ON evaluation_sessions(rubric_version_id);

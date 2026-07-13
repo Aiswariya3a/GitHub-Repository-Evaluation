@@ -24,9 +24,13 @@ def detail_api(session_id, repository_id):
 def add_api(session_id):
     items = (request.get_json(silent=True) or {}).get("repositories", [])
     entries = [{"repo": str(item.get("repo_url", "")).strip(), "roll": str(item.get("roll_number") or f"student-{index+1}").strip()} for index,item in enumerate(items) if str(item.get("repo_url", "")).strip()]
-    try: return jsonify(added=services().repositories.add_repositories(session_id, entries)), 201
+    try: return jsonify(repositories=services().repositories.add_repositories(session_id, entries)), 201
     except LookupError as exc: return jsonify(error=str(exc)), 404
     except ValueError as exc: return jsonify(error=str(exc)), 409
+
+@repository_controller.delete("/api/sessions/<session_id>/repositories/<repository_id>")
+def delete_api(session_id, repository_id):
+    return ("", 204) if services().repositories.delete_repository(session_id, repository_id) else (jsonify(error="Repository not found."), 404)
 
 class RepositoryController:
     blueprint = repository_controller

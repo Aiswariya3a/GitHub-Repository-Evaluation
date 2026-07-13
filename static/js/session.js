@@ -1,3 +1,10 @@
+if (typeof window.date !== 'function') {
+    window.date = function(v) { return v ? new Intl.DateTimeFormat(undefined, {dateStyle:'medium', timeStyle:'short'}).format(new Date(v)) : 'Never'; };
+}
+if (typeof window.esc !== 'function') {
+    window.esc = function(v) { return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); };
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     var page = document.getElementById('sessionPage');
     if (!page) return;

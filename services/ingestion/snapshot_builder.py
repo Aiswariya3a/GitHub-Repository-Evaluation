@@ -32,11 +32,14 @@ class SnapshotBuilder:
 
         gh_metadata = {
             "commits_count": github_metadata.get("commits_count", 0),
+            "recent_commits": github_metadata.get("recent_commits", []),
             "contributors": github_metadata.get("contributors", []),
             "pull_requests_count": github_metadata.get("pull_requests_count", 0),
             "pull_requests": github_metadata.get("pull_requests", []),
             "issues_count": github_metadata.get("issues_count", 0),
             "issues": github_metadata.get("issues", []),
+            "is_public": github_metadata.get("is_public", False),
+            "readme_exists": github_metadata.get("readme_exists", False),
         }
 
         duration_ms = int((time.monotonic() - start_time) * 1000)

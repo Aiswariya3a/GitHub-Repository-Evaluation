@@ -63,6 +63,7 @@ class FileRecord:
 @dataclass
 class GitHubMetadata:
     commits_count: int = 0
+    recent_commits: list[dict] = field(default_factory=list)
     contributors: list[dict] = field(default_factory=list)
     pull_requests_count: int = 0
     pull_requests: list[dict] = field(default_factory=list)

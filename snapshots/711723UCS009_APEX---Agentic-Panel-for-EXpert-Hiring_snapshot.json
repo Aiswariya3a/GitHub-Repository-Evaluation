@@ -1,0 +1,1088 @@
+{
+  "repository_metadata": {
+    "url": "https://github.com/Mirdula18/APEX---Agentic-Panel-for-EXpert-Hiring",
+    "clone_url": "https://github.com/Mirdula18/APEX---Agentic-Panel-for-EXpert-Hiring",
+    "clone_timestamp": "2026-07-12T16:56:13.326852+00:00",
+    "status": "success",
+    "base_repo_url": null
+  },
+  "github_metadata": {
+    "commits_count": 0,
+    "recent_commits": [],
+    "contributors": [],
+    "pull_requests_count": 0,
+    "pull_requests": [],
+    "issues_count": 0,
+    "issues": [],
+    "is_public": false,
+    "readme_exists": false
+  },
+  "repo_stats": {
+    "total_loc": 2273,
+    "code_loc": 1631,
+    "file_count": 9,
+    "total_complexity": 260,
+    "average_complexity": 28.89,
+    "comment_ratio": 0.1139,
+    "language_breakdown": {
+      "Python": 9
+    }
+  },
+  "files": [
+    {
+      "path": "precompute.py",
+      "language": "Python",
+      "loc": 438,
+      "code_loc": 296,
+      "comment_lines": 67,
+      "comment_ratio": 0.153,
+      "cyclomatic_complexity": 42,
+      "functions": [
+        {
+          "name": "build_candidate_text",
+          "lineno": 57,
+          "end_lineno": 115,
+          "complexity": 10,
+          "docstring": "Construct the string that gets embedded.\n\nIncludes: current_title, headline, summary, career_history descriptions\n(most-recent first), and skill names.  Truncated to stay under ~512 tokens\n(~2 000 chars) prioritising recency for career descriptions."
+        },
+        {
+          "name": "load_candidates",
+          "lineno": 122,
+          "end_lineno": 163,
+          "complexity": 6,
+          "docstring": "Stream-load candidates from a JSONL file, one line at a time.\n\nValidates each parsed dict has the required top-level keys\nper candidate_schema.json. Logs and skips (does NOT crash on) any\nmalformed line. The caller can inspect `load_candidates.skipped` after\nexhaustion to get the count of skipped rows."
+        },
+        {
+          "name": "_load_sample_candidates",
+          "lineno": 170,
+          "end_lineno": 197,
+          "complexity": 5,
+          "docstring": "Load the sample file which is a JSON *array* (not JSONL).\nStill yields one candidate at a time to exercise the same downstream code."
+        },
+        {
+          "name": "_mem_usage_mb",
+          "lineno": 204,
+          "end_lineno": 207,
+          "complexity": 1,
+          "docstring": "Current process RSS in MB via psutil."
+        },
+        {
+          "name": "build_index",
+          "lineno": 210,
+          "end_lineno": 396,
+          "complexity": 16,
+          "docstring": "Stream candidates, encode in batches, build FAISS index, persist artifacts.\n\n1. Stream candidates via load_candidates() (or _load_sample_candidates for .json).\n2. Encode build_candidate_text() in batches of `batch_size`, writing into\n   a pre-allocated np.empty array \u2014 never list-append/concatenate.\n3. L2-normalize so IndexFlatIP \u2261 cosine similarity.\n4. Persist artifacts/faiss.index, artifacts/candidates.pkl, artifacts/candidate_ids.pkl."
+        },
+        {
+          "name": "_flush_batch",
+          "lineno": 291,
+          "end_lineno": 306,
+          "complexity": 4,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "argparse",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "pickle",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "sys",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "time",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Iterator"
+          ],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "psutil",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "multiprocessing",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "faiss",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "numpy",
+          "names": [],
+          "alias": "np"
+        },
+        {
+          "module": "torch",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "sentence_transformers",
+          "names": [
+            "SentenceTransformer"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "precompute.py \u2014 Phase 1: Build embeddings + FAISS index from candidate JSONL.\n\nReads data/candidates.jsonl (100K profiles, ~450MB) via streaming generator,\nencodes candidate text with sentence-transformers (BAAI/bge-small-en-v1.5),\nL2-normalizes, and persists a FAISS IndexFlatIP + aligned pickle artifacts.\n\nUsage:\n    python precompute.py                  # Full run on data/candidates.jsonl\n    python precompute.py --sample         # Test run on data/sample_candidates.json",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "rank.py",
+      "language": "Python",
+      "loc": 418,
+      "code_loc": 266,
+      "comment_lines": 68,
+      "comment_ratio": 0.1627,
+      "cyclomatic_complexity": 28,
+      "functions": [
+        {
+          "name": "_mem_usage_mb",
+          "lineno": 73,
+          "end_lineno": 75,
+          "complexity": 1,
+          "docstring": "Current process RSS in MB."
+        },
+        {
+          "name": "load_jd",
+          "lineno": 82,
+          "end_lineno": 93,
+          "complexity": 2,
+          "docstring": "Read job_description.txt and return the full text for embedding.\n\nThe JD is small enough (~10 KB) to embed in its entirety.\nWe strip leading/trailing whitespace but preserve internal structure."
+        },
+        {
+          "name": "embed_jd",
+          "lineno": 100,
+          "end_lineno": 124,
+          "complexity": 3,
+          "docstring": "Embed the JD text using the same model as precompute.py.\n\nReturns a 1-D float32 vector of shape (EMBED_DIM,), L2-normalized\nso FAISS inner product equals cosine similarity."
+        },
+        {
+          "name": "retrieve_candidates",
+          "lineno": 131,
+          "end_lineno": 149,
+          "complexity": 1,
+          "docstring": "FAISS search: return top-k row indices and their cosine similarity scores.\n\njd_vector must be L2-normalized. IndexFlatIP returns inner products,\nwhich equal cosine similarity for normalized vectors."
+        },
+        {
+          "name": "rank_candidates",
+          "lineno": 156,
+          "end_lineno": 181,
+          "complexity": 2,
+          "docstring": "For each retrieved candidate:\n  1. features = compute_features(candidate)\n  2. s = final_score(features, semantic_sim)\nSort descending by s. Return [(candidate, score, features), ...].\n\nHoneypots are included here (with score 0.0) \u2014 they will be filtered\nout before writing the CSV as defense in depth."
+        },
+        {
+          "name": "write_submission",
+          "lineno": 188,
+          "end_lineno": 247,
+          "complexity": 13,
+          "docstring": "Take top 100 non-honeypot candidates from `ranked`.\nFor each, call generate_reasoning() and write CSV.\n\nCSV columns (exact names, exact order):\n    rank, candidate_id, score, reasoning"
+        },
+        {
+          "name": "main",
+          "lineno": 254,
+          "end_lineno": 409,
+          "complexity": 6,
+          "docstring": "Wire all stages together. Logs elapsed time after each stage."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "sys",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "csv",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "time",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "pickle",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "argparse",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "psutil",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "multiprocessing",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "faiss",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "numpy",
+          "names": [],
+          "alias": "np"
+        },
+        {
+          "module": "torch",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "sentence_transformers",
+          "names": [
+            "SentenceTransformer"
+          ],
+          "alias": null
+        },
+        {
+          "module": "score",
+          "names": [
+            "compute_features",
+            "final_score"
+          ],
+          "alias": null
+        },
+        {
+          "module": "reasoning_gen",
+          "names": [
+            "generate_reasoning"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "rank.py \u2014 Phase 2: Rank candidates against the JD using FAISS + structured scoring.\n\nLoads pre-built artifacts from precompute.py, embeds the job description with\nthe same model (BAAI/bge-small-en-v1.5, dim=384), retrieves top-k candidates\nvia FAISS inner product search, re-ranks using score.compute_features() +\nscore.final_score(), and writes the top 100 to submission.csv.\n\nUsage:\n    python rank.py                           # Default: submission.csv\n    python rank.py --output results.csv      # Custom output path\n    python rank.py --top-k 10000             # Retrieve more candidates\n\nHARD CONSTRAINTS:\n    - Total wall-clock \u2264 5 minutes on CPU only.\n    - Zero network calls (model loaded from local cache).\n    - Peak RAM \u2264 16 GB.\n    - Output CSV: exactly 100 rows, ranks 1-100, scores non-increasing,\n      no honeypots, no duplicate candidate_ids.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "reasoning_gen.py",
+      "language": "Python",
+      "loc": 220,
+      "code_loc": 165,
+      "comment_lines": 8,
+      "comment_ratio": 0.0364,
+      "cyclomatic_complexity": 55,
+      "functions": [
+        {
+          "name": "_days_since",
+          "lineno": 28,
+          "end_lineno": 33,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "_top_skills",
+          "lineno": 36,
+          "end_lineno": 44,
+          "complexity": 2,
+          "docstring": "Return top-N skill names, ranked by proficiency level then endorsements."
+        },
+        {
+          "name": "_has_retrieval_experience",
+          "lineno": 47,
+          "end_lineno": 52,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "_has_production_experience",
+          "lineno": 55,
+          "end_lineno": 60,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "_is_product_company",
+          "lineno": 63,
+          "end_lineno": 69,
+          "complexity": 5,
+          "docstring": null
+        },
+        {
+          "name": "_matching_required_skills",
+          "lineno": 72,
+          "end_lineno": 79,
+          "complexity": 4,
+          "docstring": "Return required skill keywords that appear in this candidate's profile."
+        },
+        {
+          "name": "_concerns",
+          "lineno": 82,
+          "end_lineno": 114,
+          "complexity": 8,
+          "docstring": "Collect factual concerns from signals and features."
+        },
+        {
+          "name": "_positives",
+          "lineno": 117,
+          "end_lineno": 144,
+          "complexity": 9,
+          "docstring": "Collect factual positive signals."
+        },
+        {
+          "name": "generate_reasoning",
+          "lineno": 151,
+          "end_lineno": 219,
+          "complexity": 19,
+          "docstring": "Generate a 1-2 sentence reasoning string for the submission CSV.\nAll facts are sourced from `candidate`; nothing is invented."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "date"
+          ],
+          "alias": null
+        },
+        {
+          "module": "score",
+          "names": [
+            "REQUIRED_SKILL_KEYWORDS",
+            "RETRIEVAL_KEYWORDS",
+            "PREFERRED_LOCATIONS",
+            "SERVICES_COMPANIES",
+            "PRODUCTION_KEYWORDS"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "reasoning_gen.py \u2014 Template-based reasoning generation.\n\nEvery sentence references only facts that exist in the candidate's profile.\nThis satisfies Stage 4's \"no hallucination\" check while also ensuring\neach reasoning string is unique (facts differ per candidate).\n\nDesign principles:\n  - Never invent skill names, employer names, or experience figures.\n  - Acknowledge concerns honestly for mid-to-low ranked candidates.\n  - Vary the sentence structure so the 10 sampled rows aren't templated.\n  - Tone should match rank (glowing for rank 1-5, measured for 50+, candid for 90+).",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "score.py",
+      "language": "Python",
+      "loc": 361,
+      "code_loc": 252,
+      "comment_lines": 40,
+      "comment_ratio": 0.1108,
+      "cyclomatic_complexity": 58,
+      "functions": [
+        {
+          "name": "score_skill_match",
+          "lineno": 82,
+          "end_lineno": 99,
+          "complexity": 4,
+          "docstring": "Score based on the skills array.\nWeights required skills heavily; good-to-have skills give a smaller boost."
+        },
+        {
+          "name": "score_career_relevance",
+          "lineno": 102,
+          "end_lineno": 142,
+          "complexity": 10,
+          "docstring": "Score based on career history content.\nThree sub-signals: retrieval/ranking experience, production evidence,\nand whether they've worked at product companies."
+        },
+        {
+          "name": "score_experience_fit",
+          "lineno": 145,
+          "end_lineno": 157,
+          "complexity": 6,
+          "docstring": "JD says 5-9 years. Penalise outside that band progressively."
+        },
+        {
+          "name": "score_location",
+          "lineno": 160,
+          "end_lineno": 178,
+          "complexity": 5,
+          "docstring": "Preferred: Pune/Noida. Acceptable: other Indian metros + willing to relocate.\nPenalty for non-India without relocation."
+        },
+        {
+          "name": "score_title_relevance",
+          "lineno": 181,
+          "end_lineno": 194,
+          "complexity": 5,
+          "docstring": "Returns 0.0 for clearly wrong titles (marketing, HR, etc.),\n1.0 for clearly right titles, 0.4 for neutral/ambiguous."
+        },
+        {
+          "name": "behavioral_multiplier",
+          "lineno": 197,
+          "end_lineno": 262,
+          "complexity": 13,
+          "docstring": "Compute a 0-1 multiplier from engagement/availability signals.\nA perfect-on-paper candidate with terrible engagement should be down-ranked.\n\nSignals used (per redrob_signals_doc):\n  - last_active_date       (recency)\n  - open_to_work_flag      (declared availability)\n  - recruiter_response_rate\n  - interview_completion_rate\n  - notice_period_days\n  - github_activity_score  (small bonus)"
+        },
+        {
+          "name": "detect_honeypot",
+          "lineno": 265,
+          "end_lineno": 295,
+          "complexity": 9,
+          "docstring": "Return True if the profile looks like a honeypot.\n\nSignals:\n  1. Expert/advanced skill with duration_months == 0\n  2. Unreasonably large number of expert-level skills\n  3. Career history months far exceed stated years_of_experience"
+        },
+        {
+          "name": "compute_features",
+          "lineno": 298,
+          "end_lineno": 311,
+          "complexity": 1,
+          "docstring": "Compute all structured features for a single candidate.\nReturns a dict of named scores (all floats or bools)."
+        },
+        {
+          "name": "final_score",
+          "lineno": 314,
+          "end_lineno": 348,
+          "complexity": 3,
+          "docstring": "Combine semantic similarity with structured features into one score.\n\nFormula:\n    content = 0.35 * semantic + 0.30 * career + 0.25 * skill + 0.10 * exp_fit\n    final   = content * behavioral_multiplier\n\nTitle relevance is used as a hard gate (not a weight) because a\n\"Marketing Manager\" with perfect AI keywords is still a mismatch.\nHoneypots are zeroed unconditionally."
+        },
+        {
+          "name": "_career_text",
+          "lineno": 355,
+          "end_lineno": 360,
+          "complexity": 2,
+          "docstring": "Concatenate all career history descriptions into lowercase text."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "date"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "score.py \u2014 Structured scoring functions for candidate-JD matching.\n\nAll logic is derived from a close reading of the job description and\nredrob_signals_doc. No external calls. Pure Python + stdlib.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "tests/__init__.py",
+      "language": "Python",
+      "loc": 4,
+      "code_loc": 3,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [
+        {
+          "text": "tests/__init__.py \u2014 Make tests/ a proper package so pytest can import fixtures.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "tests/fixtures.py",
+      "language": "Python",
+      "loc": 378,
+      "code_loc": 324,
+      "comment_lines": 27,
+      "comment_ratio": 0.0714,
+      "cyclomatic_complexity": 3,
+      "functions": [
+        {
+          "name": "_today_str",
+          "lineno": 11,
+          "end_lineno": 12,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_days_ago",
+          "lineno": 15,
+          "end_lineno": 16,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_base_signals",
+          "lineno": 23,
+          "end_lineno": 50,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "datetime",
+          "names": [
+            "date",
+            "timedelta"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "tests/fixtures.py \u2014 Synthetic candidate fixtures for unit tests.\n\nFive candidate dicts matching candidate_schema.json, each designed\nto exercise a specific scoring edge case per SPEC.md section 8.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "tests/test_reasoning_gen.py",
+      "language": "Python",
+      "loc": 140,
+      "code_loc": 107,
+      "comment_lines": 8,
+      "comment_ratio": 0.0571,
+      "cyclomatic_complexity": 18,
+      "functions": [
+        {
+          "name": "_build_allowed_terms",
+          "lineno": 28,
+          "end_lineno": 65,
+          "complexity": 10,
+          "docstring": "Build a set of terms that legitimately appear in the candidate's data.\nIncludes: skill names, company names, location, title, country.\nAll lowercased for case-insensitive comparison."
+        },
+        {
+          "name": "test_non_empty",
+          "lineno": 94,
+          "end_lineno": 102,
+          "complexity": 3,
+          "docstring": "Reasoning output must be a non-empty string."
+        },
+        {
+          "name": "test_under_500_chars",
+          "lineno": 105,
+          "end_lineno": 114,
+          "complexity": 2,
+          "docstring": "Reasoning must be under 500 characters."
+        },
+        {
+          "name": "test_no_cross_fixture_terms",
+          "lineno": 121,
+          "end_lineno": 139,
+          "complexity": 3,
+          "docstring": "Reasoning for fixture X must not contain company/skill names\nthat only exist in fixture Y."
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestReasoningGenBasics",
+          "lineno": 90,
+          "end_lineno": 114,
+          "docstring": "Basic output quality checks for all fixtures.",
+          "methods": [
+            {
+              "name": "test_non_empty",
+              "lineno": 94,
+              "end_lineno": 102,
+              "complexity": 3,
+              "docstring": "Reasoning output must be a non-empty string."
+            },
+            {
+              "name": "test_under_500_chars",
+              "lineno": 105,
+              "end_lineno": 114,
+              "complexity": 2,
+              "docstring": "Reasoning must be under 500 characters."
+            }
+          ]
+        },
+        {
+          "name": "TestReasoningNoHallucination",
+          "lineno": 117,
+          "end_lineno": 139,
+          "docstring": "Reasoning must not invent company or skill names from other fixtures.",
+          "methods": [
+            {
+              "name": "test_no_cross_fixture_terms",
+              "lineno": 121,
+              "end_lineno": 139,
+              "complexity": 3,
+              "docstring": "Reasoning for fixture X must not contain company/skill names\nthat only exist in fixture Y."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "pytest",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "sys",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "score",
+          "names": [
+            "compute_features"
+          ],
+          "alias": null
+        },
+        {
+          "module": "reasoning_gen",
+          "names": [
+            "generate_reasoning"
+          ],
+          "alias": null
+        },
+        {
+          "module": "tests.fixtures",
+          "names": [
+            "HONEYPOT_A",
+            "HONEYPOT_B",
+            "KEYWORD_STUFFER",
+            "BEHAVIORAL_TWIN_BAD",
+            "IDEAL",
+            "ALL_FIXTURES"
+          ],
+          "alias": null
+        },
+        {
+          "module": "score",
+          "names": [
+            "final_score"
+          ],
+          "alias": null
+        },
+        {
+          "module": "score",
+          "names": [
+            "final_score"
+          ],
+          "alias": null
+        },
+        {
+          "module": "score",
+          "names": [
+            "final_score"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "tests/test_reasoning_gen.py \u2014 Unit tests for reasoning_gen.py.\n\nVerifies that generated reasoning strings:\n  1. Are non-empty\n  2. Are under 500 characters\n  3. Only reference terms actually present in the candidate's data",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "tests/test_score.py",
+      "language": "Python",
+      "loc": 147,
+      "code_loc": 109,
+      "comment_lines": 10,
+      "comment_ratio": 0.068,
+      "cyclomatic_complexity": 32,
+      "functions": [
+        {
+          "name": "test_honeypot_a_detected",
+          "lineno": 32,
+          "end_lineno": 34,
+          "complexity": 2,
+          "docstring": "HONEYPOT_A: expert skill with duration_months == 0."
+        },
+        {
+          "name": "test_honeypot_b_detected",
+          "lineno": 36,
+          "end_lineno": 38,
+          "complexity": 2,
+          "docstring": "HONEYPOT_B: career history months wildly exceed stated YoE."
+        },
+        {
+          "name": "test_keyword_stuffer_not_honeypot",
+          "lineno": 40,
+          "end_lineno": 42,
+          "complexity": 2,
+          "docstring": "KEYWORD_STUFFER: wrong-title candidate, but not a honeypot."
+        },
+        {
+          "name": "test_behavioral_twin_not_honeypot",
+          "lineno": 44,
+          "end_lineno": 46,
+          "complexity": 2,
+          "docstring": "BEHAVIORAL_TWIN_BAD: bad engagement signals, but not a honeypot."
+        },
+        {
+          "name": "test_ideal_not_honeypot",
+          "lineno": 48,
+          "end_lineno": 50,
+          "complexity": 2,
+          "docstring": "IDEAL: perfect candidate, definitely not a honeypot."
+        },
+        {
+          "name": "test_honeypot_a_score_zero",
+          "lineno": 60,
+          "end_lineno": 63,
+          "complexity": 2,
+          "docstring": "Honeypot A must score exactly 0.0 regardless of semantic similarity."
+        },
+        {
+          "name": "test_honeypot_b_score_zero",
+          "lineno": 65,
+          "end_lineno": 68,
+          "complexity": 2,
+          "docstring": "Honeypot B must score exactly 0.0 regardless of semantic similarity."
+        },
+        {
+          "name": "test_honeypot_a_zero_at_any_similarity",
+          "lineno": 70,
+          "end_lineno": 74,
+          "complexity": 3,
+          "docstring": "Honeypot A stays 0.0 even with perfect semantic similarity."
+        },
+        {
+          "name": "test_keyword_stuffer_near_zero",
+          "lineno": 76,
+          "end_lineno": 80,
+          "complexity": 2,
+          "docstring": "Marketing Manager with AI skills must score < 0.10."
+        },
+        {
+          "name": "test_ideal_beats_twin",
+          "lineno": 82,
+          "end_lineno": 90,
+          "complexity": 2,
+          "docstring": "IDEAL must outscore BEHAVIORAL_TWIN_BAD at equal semantic similarity."
+        },
+        {
+          "name": "test_ideal_above_threshold",
+          "lineno": 92,
+          "end_lineno": 96,
+          "complexity": 2,
+          "docstring": "IDEAL candidate must score above 0.50 with strong semantic match."
+        },
+        {
+          "name": "test_ideal_score_positive",
+          "lineno": 98,
+          "end_lineno": 102,
+          "complexity": 2,
+          "docstring": "IDEAL candidate with zero semantic similarity still scores positive."
+        },
+        {
+          "name": "test_feature_keys_present",
+          "lineno": 119,
+          "end_lineno": 128,
+          "complexity": 2,
+          "docstring": "Every fixture must produce all required feature keys."
+        },
+        {
+          "name": "test_feature_values_in_range",
+          "lineno": 137,
+          "end_lineno": 146,
+          "complexity": 5,
+          "docstring": "Float features must be in [0, 1]."
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestDetectHoneypot",
+          "lineno": 29,
+          "end_lineno": 50,
+          "docstring": "Honeypot detection must correctly flag the two honeypot fixtures.",
+          "methods": [
+            {
+              "name": "test_honeypot_a_detected",
+              "lineno": 32,
+              "end_lineno": 34,
+              "complexity": 2,
+              "docstring": "HONEYPOT_A: expert skill with duration_months == 0."
+            },
+            {
+              "name": "test_honeypot_b_detected",
+              "lineno": 36,
+              "end_lineno": 38,
+              "complexity": 2,
+              "docstring": "HONEYPOT_B: career history months wildly exceed stated YoE."
+            },
+            {
+              "name": "test_keyword_stuffer_not_honeypot",
+              "lineno": 40,
+              "end_lineno": 42,
+              "complexity": 2,
+              "docstring": "KEYWORD_STUFFER: wrong-title candidate, but not a honeypot."
+            },
+            {
+              "name": "test_behavioral_twin_not_honeypot",
+              "lineno": 44,
+              "end_lineno": 46,
+              "complexity": 2,
+              "docstring": "BEHAVIORAL_TWIN_BAD: bad engagement signals, but not a honeypot."
+            },
+            {
+              "name": "test_ideal_not_honeypot",
+              "lineno": 48,
+              "end_lineno": 50,
+              "complexity": 2,
+              "docstring": "IDEAL: perfect candidate, definitely not a honeypot."
+            }
+          ]
+        },
+        {
+          "name": "TestFinalScore",
+          "lineno": 57,
+          "end_lineno": 102,
+          "docstring": "final_score must zero honeypots, crush stuffers, and rank ideal > twin.",
+          "methods": [
+            {
+              "name": "test_honeypot_a_score_zero",
+              "lineno": 60,
+              "end_lineno": 63,
+              "complexity": 2,
+              "docstring": "Honeypot A must score exactly 0.0 regardless of semantic similarity."
+            },
+            {
+              "name": "test_honeypot_b_score_zero",
+              "lineno": 65,
+              "end_lineno": 68,
+              "complexity": 2,
+              "docstring": "Honeypot B must score exactly 0.0 regardless of semantic similarity."
+            },
+            {
+              "name": "test_honeypot_a_zero_at_any_similarity",
+              "lineno": 70,
+              "end_lineno": 74,
+              "complexity": 3,
+              "docstring": "Honeypot A stays 0.0 even with perfect semantic similarity."
+            },
+            {
+              "name": "test_keyword_stuffer_near_zero",
+              "lineno": 76,
+              "end_lineno": 80,
+              "complexity": 2,
+              "docstring": "Marketing Manager with AI skills must score < 0.10."
+            },
+            {
+              "name": "test_ideal_beats_twin",
+              "lineno": 82,
+              "end_lineno": 90,
+              "complexity": 2,
+              "docstring": "IDEAL must outscore BEHAVIORAL_TWIN_BAD at equal semantic similarity."
+            },
+            {
+              "name": "test_ideal_above_threshold",
+              "lineno": 92,
+              "end_lineno": 96,
+              "complexity": 2,
+              "docstring": "IDEAL candidate must score above 0.50 with strong semantic match."
+            },
+            {
+              "name": "test_ideal_score_positive",
+              "lineno": 98,
+              "end_lineno": 102,
+              "complexity": 2,
+              "docstring": "IDEAL candidate with zero semantic similarity still scores positive."
+            }
+          ]
+        },
+        {
+          "name": "TestComputeFeatures",
+          "lineno": 109,
+          "end_lineno": 146,
+          "docstring": "Verify compute_features returns all expected keys.",
+          "methods": [
+            {
+              "name": "test_feature_keys_present",
+              "lineno": 119,
+              "end_lineno": 128,
+              "complexity": 2,
+              "docstring": "Every fixture must produce all required feature keys."
+            },
+            {
+              "name": "test_feature_values_in_range",
+              "lineno": 137,
+              "end_lineno": 146,
+              "complexity": 5,
+              "docstring": "Float features must be in [0, 1]."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "pytest",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "sys",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "score",
+          "names": [
+            "detect_honeypot",
+            "compute_features",
+            "final_score"
+          ],
+          "alias": null
+        },
+        {
+          "module": "tests.fixtures",
+          "names": [
+            "HONEYPOT_A",
+            "HONEYPOT_B",
+            "KEYWORD_STUFFER",
+            "BEHAVIORAL_TWIN_BAD",
+            "IDEAL"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "tests/test_score.py \u2014 Unit tests for score.py using synthetic fixtures.\n\nVerifies honeypot detection, final_score ordering, and edge cases\nper SPEC.md section 8.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "validate.py",
+      "language": "Python",
+      "loc": 167,
+      "code_loc": 109,
+      "comment_lines": 31,
+      "comment_ratio": 0.1856,
+      "cyclomatic_complexity": 24,
+      "functions": [
+        {
+          "name": "validate_submission",
+          "lineno": 17,
+          "end_lineno": 145,
+          "complexity": 24,
+          "docstring": "Validate a submission CSV against Stage 1 requirements.\nReturns a list of error strings; empty list = valid."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "csv",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "re",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "sys",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "validate.py \u2014 Stage 1 self-check replicator.\n\nReplicates the hackathon's Stage 1 eval checks so submission failures\nare caught locally before the real pipeline runs.\n\nUsage:\n    python validate.py submission.csv",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    }
+  ],
+  "delta": null,
+  "ingestion_metadata": {
+    "version": "1.0",
+    "timestamp": "2026-07-12T16:56:18.874115+00:00",
+    "duration_ms": 0,
+    "pipeline_version": "1"
+  }
+}

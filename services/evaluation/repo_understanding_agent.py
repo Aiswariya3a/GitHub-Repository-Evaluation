@@ -84,6 +84,7 @@ class RepoUnderstandingAgent(BaseAgent):
             user_prompt=user_prompt,
             format="json",
         )
+        result = self._normalize_output(result, repo_stats, files)
 
         # Validate against schema (T-02-01 mitigation)
         is_valid, errors = self._validate_output(result, REPO_UNDERSTANDING_SCHEMA)
@@ -113,6 +114,48 @@ class RepoUnderstandingAgent(BaseAgent):
             self._write_output(result, output_path)
 
         return result
+
+    @staticmethod
+    def _normalize_output(result: dict, repo_stats: dict, files: list[dict]) -> dict:
+        if not isinstance(result, dict):
+            return result
+        key_map = {
+            "languages": ["languages", "Languages", "languageDistribution", "language_distribution"],
+            "key_files": ["key_files", "KeyFiles", "keyFiles", "mostImportantFiles", "most_important_files"],
+            "total_files": ["total_files", "TotalFiles", "totalFiles", "total_file_count"],
+            "total_loc": ["total_loc", "TotalLoc", "totalLoc", "total_lines"],
+            "structural_summary": ["structural_summary", "StructuralSummary", "structuralSummary",
+                                   "codeStructure", "code_structure", "structuralOrganization",
+                                   "structural_organization", "overallStructure"],
+            "risk_flags": ["risk_flags", "RiskFlags", "riskFlags", "risksAndConcerns",
+                          "risks_and_concerns", "potentialRisksOrConcerns", "potential_risks"],
+        }
+        normalized = {}
+        recognized = False
+        for target, aliases in key_map.items():
+            for alias in aliases:
+                if alias in result:
+                    normalized[target] = result[alias]
+                    recognized = True
+                    break
+        if not recognized:
+            return result
+
+        if isinstance(normalized.get("languages"), list):
+            normalized["languages"] = {item.get("name", str(item)): item.get("count", 1)
+                                       for item in normalized["languages"]} if normalized["languages"] else {}
+        key_files = normalized.get("key_files")
+        if isinstance(key_files, list):
+            rebuilt = []
+            for f in key_files:
+                if isinstance(f, dict):
+                    rebuilt.append({
+                        "path": f.get("path", f.get("Path", "")),
+                        "role": f.get("role", f.get("Role", f.get("description", ""))),
+                        "importance": f.get("importance", f.get("Importance", "medium")),
+                    })
+            normalized["key_files"] = rebuilt
+        return normalized
 
     def _build_file_summary(self, files: list[dict], max_files: int = 30) -> str:
         """Build a concise file summary string.

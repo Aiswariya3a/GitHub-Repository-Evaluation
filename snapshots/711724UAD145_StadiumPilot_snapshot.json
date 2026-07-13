@@ -1,0 +1,647 @@
+{
+  "repository_metadata": {
+    "url": "https://github.com/joedanields/StadiumPilot",
+    "clone_url": "https://github.com/joedanields/StadiumPilot",
+    "clone_timestamp": "2026-07-12T15:56:28.215773+00:00",
+    "status": "success",
+    "base_repo_url": null
+  },
+  "github_metadata": {
+    "commits_count": 3,
+    "recent_commits": [],
+    "contributors": [],
+    "pull_requests_count": 0,
+    "pull_requests": [],
+    "issues_count": 0,
+    "issues": [],
+    "is_public": false,
+    "readme_exists": false
+  },
+  "repo_stats": {
+    "total_loc": 1986,
+    "code_loc": 1713,
+    "file_count": 18,
+    "total_complexity": 0,
+    "average_complexity": 0.0,
+    "comment_ratio": 0.0156,
+    "language_breakdown": {
+      "HTML": 1,
+      "JavaScript": 16,
+      "CSS": 1
+    }
+  },
+  "files": [
+    {
+      "path": "client/index.html",
+      "language": "HTML",
+      "loc": 14,
+      "code_loc": 13,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "client/src/App.jsx",
+      "language": "JavaScript",
+      "loc": 169,
+      "code_loc": 158,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "App",
+          "lineno": 15,
+          "end_lineno": 15,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "fetchStadiumData",
+          "lineno": 33,
+          "end_lineno": 33,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "fetchLiveState",
+          "lineno": 44,
+          "end_lineno": 44,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "sendMessage",
+          "lineno": 52,
+          "end_lineno": 52,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "toggleDietary",
+          "lineno": 90,
+          "end_lineno": 90,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/StadiumMap",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/ChatPanel",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./components/ReasoningPanel",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "client/src/components/ChatPanel.jsx",
+      "language": "JavaScript",
+      "loc": 90,
+      "code_loc": 80,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "ChatPanel",
+          "lineno": 3,
+          "end_lineno": 3,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleSubmit",
+          "lineno": 11,
+          "end_lineno": 11,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "client/src/components/ReasoningPanel.jsx",
+      "language": "JavaScript",
+      "loc": 58,
+      "code_loc": 51,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "ReasoningPanel",
+          "lineno": 1,
+          "end_lineno": 1,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "client/src/components/StadiumMap.jsx",
+      "language": "JavaScript",
+      "loc": 353,
+      "code_loc": 318,
+      "comment_lines": 5,
+      "comment_ratio": 0.0142,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "MapLabel",
+          "lineno": 26,
+          "end_lineno": 26,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "AmenityIcon",
+          "lineno": 58,
+          "end_lineno": 58,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "StadiumMap",
+          "lineno": 116,
+          "end_lineno": 116,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "buildLookup",
+          "lineno": 318,
+          "end_lineno": 318,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "resolvePoint",
+          "lineno": 338,
+          "end_lineno": 338,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "resolveRoutePoints",
+          "lineno": 343,
+          "end_lineno": 343,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "isOnRoute",
+          "lineno": 137,
+          "end_lineno": 137,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "client/src/main.jsx",
+      "language": "JavaScript",
+      "loc": 11,
+      "code_loc": 9,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "react-dom/client",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./App",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "client/src/styles/app.css",
+      "language": "CSS",
+      "loc": 719,
+      "code_loc": 603,
+      "comment_lines": 17,
+      "comment_ratio": 0.0236,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "client/vite.config.js",
+      "language": "JavaScript",
+      "loc": 16,
+      "code_loc": 14,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "vite",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@vitejs/plugin-react",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "dev.js",
+      "language": "JavaScript",
+      "loc": 21,
+      "code_loc": 16,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "run",
+          "lineno": 4,
+          "end_lineno": 4,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "cleanup",
+          "lineno": 13,
+          "end_lineno": 13,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "child_process",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "path",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "server/data/liveState.js",
+      "language": "JavaScript",
+      "loc": 56,
+      "code_loc": 48,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "generateLiveCrowdDensity",
+          "lineno": 5,
+          "end_lineno": 5,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "generateGateStatus",
+          "lineno": 19,
+          "end_lineno": 19,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "getLiveState",
+          "lineno": 37,
+          "end_lineno": 37,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "forceRefresh",
+          "lineno": 50,
+          "end_lineno": 50,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "./stadium",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "server/data/stadium.js",
+      "language": "JavaScript",
+      "loc": 71,
+      "code_loc": 64,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "seed",
+          "lineno": 51,
+          "end_lineno": 51,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "../models/Stadium",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "server/models/LiveState.js",
+      "language": "JavaScript",
+      "loc": 12,
+      "code_loc": 8,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "mongoose",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "server/models/Stadium.js",
+      "language": "JavaScript",
+      "loc": 36,
+      "code_loc": 33,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "mongoose",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "server/prompts/templates.js",
+      "language": "JavaScript",
+      "loc": 58,
+      "code_loc": 46,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "buildUserPrompt",
+          "lineno": 27,
+          "end_lineno": 27,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "server/routes/chat.js",
+      "language": "JavaScript",
+      "loc": 121,
+      "code_loc": 98,
+      "comment_lines": 7,
+      "comment_ratio": 0.0579,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "express",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "../prompts/templates",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "../data/stadium",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "../data/liveState",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "server/routes/stadium.js",
+      "language": "JavaScript",
+      "loc": 20,
+      "code_loc": 14,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "express",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "../data/stadium",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "../data/liveState",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "server/server.js",
+      "language": "JavaScript",
+      "loc": 48,
+      "code_loc": 37,
+      "comment_lines": 2,
+      "comment_ratio": 0.0417,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "start",
+          "lineno": 30,
+          "end_lineno": 30,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "dotenv",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "path",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "express",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "cors",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "mongoose",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./routes/chat",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./routes/stadium",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "tests/edge-case-tests.js",
+      "language": "JavaScript",
+      "loc": 113,
+      "code_loc": 103,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "runTests",
+          "lineno": 54,
+          "end_lineno": 54,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    }
+  ],
+  "delta": null,
+  "ingestion_metadata": {
+    "version": "1.0",
+    "timestamp": "2026-07-12T15:56:33.462523+00:00",
+    "duration_ms": 0,
+    "pipeline_version": "1"
+  }
+}

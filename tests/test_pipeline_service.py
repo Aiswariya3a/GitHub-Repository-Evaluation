@@ -48,6 +48,7 @@ class TestPipelineService:
             repository_id="repo-1",
             base_repo_url=None,
             rubric_version_id=None,
+            force=False,
         )
         assert result["pipeline_status"] == "success"
 

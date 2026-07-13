@@ -1,0 +1,6120 @@
+{
+  "repository_metadata": {
+    "url": "https://github.com/Aiswariya3a/RepoEval",
+    "clone_url": "https://github.com/Aiswariya3a/RepoEval",
+    "clone_timestamp": "2026-07-12T11:15:16.871540+00:00",
+    "status": "success",
+    "base_repo_url": null
+  },
+  "github_metadata": {
+    "commits_count": 3,
+    "contributors": [],
+    "pull_requests_count": 0,
+    "pull_requests": [],
+    "issues_count": 0,
+    "issues": [],
+    "is_public": false,
+    "readme_exists": false
+  },
+  "repo_stats": {
+    "total_loc": 8987,
+    "code_loc": 7624,
+    "file_count": 88,
+    "total_complexity": 393,
+    "average_complexity": 4.47,
+    "comment_ratio": 0.0248,
+    "language_breakdown": {
+      "Python": 45,
+      "TypeScript": 40,
+      "CSS": 1,
+      "JavaScript": 2
+    }
+  },
+  "files": [
+    {
+      "path": "backend/alembic/env.py",
+      "language": "Python",
+      "loc": 57,
+      "code_loc": 43,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 4,
+      "functions": [
+        {
+          "name": "run_migrations_offline",
+          "lineno": 18,
+          "end_lineno": 27,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "do_run_migrations",
+          "lineno": 30,
+          "end_lineno": 33,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "run_async_migrations",
+          "lineno": 36,
+          "end_lineno": 46,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "run_migrations_online",
+          "lineno": 49,
+          "end_lineno": 50,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "asyncio",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "logging.config",
+          "names": [
+            "fileConfig"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "pool"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.ext.asyncio",
+          "names": [
+            "async_engine_from_config"
+          ],
+          "alias": null
+        },
+        {
+          "module": "alembic",
+          "names": [
+            "context"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.database",
+          "names": [
+            "Base"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models",
+          "names": [
+            "User",
+            "Session",
+            "Project",
+            "Repo",
+            "RepositorySnapshot"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.analysis",
+          "names": [
+            "models"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/alembic/versions/0001_initial_schema.py",
+      "language": "Python",
+      "loc": 58,
+      "code_loc": 47,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 2,
+      "functions": [
+        {
+          "name": "upgrade",
+          "lineno": 19,
+          "end_lineno": 51,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "downgrade",
+          "lineno": 54,
+          "end_lineno": 57,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "typing",
+          "names": [
+            "Sequence",
+            "Union"
+          ],
+          "alias": null
+        },
+        {
+          "module": "alembic",
+          "names": [
+            "op"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [],
+          "alias": "sa"
+        },
+        {
+          "module": "sqlalchemy.dialects.postgresql",
+          "names": [
+            "UUID"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "initial_schema\n\nRevision ID: 0001\nRevises:\nCreate Date: 2026-06-28 20:09:00.000000",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/alembic/versions/0002_add_tags_to_projects.py",
+      "language": "Python",
+      "loc": 28,
+      "code_loc": 20,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 2,
+      "functions": [
+        {
+          "name": "upgrade",
+          "lineno": 19,
+          "end_lineno": 23,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "downgrade",
+          "lineno": 26,
+          "end_lineno": 27,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "typing",
+          "names": [
+            "Sequence",
+            "Union"
+          ],
+          "alias": null
+        },
+        {
+          "module": "alembic",
+          "names": [
+            "op"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [],
+          "alias": "sa"
+        },
+        {
+          "module": "sqlalchemy.dialects.postgresql",
+          "names": [
+            "ARRAY"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "add_tags_to_projects\n\nRevision ID: 0002\nRevises: 0001\nCreate Date: 2026-06-28 21:04:00.000000",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/alembic/versions/0003_create_repos_and_snapshots.py",
+      "language": "Python",
+      "loc": 64,
+      "code_loc": 53,
+      "comment_lines": 2,
+      "comment_ratio": 0.0312,
+      "cyclomatic_complexity": 2,
+      "functions": [
+        {
+          "name": "upgrade",
+          "lineno": 19,
+          "end_lineno": 58,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "downgrade",
+          "lineno": 61,
+          "end_lineno": 63,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "typing",
+          "names": [
+            "Sequence",
+            "Union"
+          ],
+          "alias": null
+        },
+        {
+          "module": "alembic",
+          "names": [
+            "op"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [],
+          "alias": "sa"
+        },
+        {
+          "module": "sqlalchemy.dialects.postgresql",
+          "names": [
+            "UUID",
+            "ARRAY",
+            "JSONB"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "create_repos_and_snapshots\n\nRevision ID: 0003\nRevises: 0002\nCreate Date: 2026-07-05 08:30:00.000000",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/alembic/versions/0005_create_analysis_tables.py",
+      "language": "Python",
+      "loc": 81,
+      "code_loc": 66,
+      "comment_lines": 4,
+      "comment_ratio": 0.0494,
+      "cyclomatic_complexity": 2,
+      "functions": [
+        {
+          "name": "upgrade",
+          "lineno": 19,
+          "end_lineno": 74,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "downgrade",
+          "lineno": 77,
+          "end_lineno": 80,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "typing",
+          "names": [
+            "Sequence",
+            "Union"
+          ],
+          "alias": null
+        },
+        {
+          "module": "alembic",
+          "names": [
+            "op"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [],
+          "alias": "sa"
+        },
+        {
+          "module": "sqlalchemy.dialects.postgresql",
+          "names": [
+            "UUID",
+            "JSONB"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "create_analysis_tables\n\nRevision ID: 0005\nRevises: 0003\nCreate Date: 2026-07-05 15:00:00.000000",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/analysis/__init__.py",
+      "language": "Python",
+      "loc": 2,
+      "code_loc": 0,
+      "comment_lines": 1,
+      "comment_ratio": 0.5,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/analysis/analyzers.py",
+      "language": "Python",
+      "loc": 359,
+      "code_loc": 280,
+      "comment_lines": 16,
+      "comment_ratio": 0.0446,
+      "cyclomatic_complexity": 61,
+      "functions": [
+        {
+          "name": "_run_tool",
+          "lineno": 13,
+          "end_lineno": 28,
+          "complexity": 2,
+          "docstring": "Run a CLI tool via subprocess, return (stdout, stderr, returncode)."
+        },
+        {
+          "name": "_is_analysis_ignored",
+          "lineno": 31,
+          "end_lineno": 50,
+          "complexity": 11,
+          "docstring": "Extended ignore check per D-19. Includes generated, vendor, test, and binary files."
+        },
+        {
+          "name": "_extract_source_files",
+          "lineno": 53,
+          "end_lineno": 72,
+          "complexity": 5,
+          "docstring": "Recursively extract source files from the snapshot file_tree (JSONB).\n\nReturns list of {path: str, size: int, ext: str} dicts."
+        },
+        {
+          "name": "_filter_by_language",
+          "lineno": 75,
+          "end_lineno": 77,
+          "complexity": 2,
+          "docstring": "Filter files by extension set. For Python-first: {'.py'}."
+        },
+        {
+          "name": "analyze",
+          "lineno": 89,
+          "end_lineno": 150,
+          "complexity": 9,
+          "docstring": "Run ruff check on the given Python files. Returns structured metrics.\n\nArgs:\n    files: List of absolute or relative file paths.\n    repo_root: Root directory for relative path resolution. If None, files must be absolute.\n\nReturns: {\n    \"total_errors\": int, \"total_warnings\": int,\n    \"issues\": [{ \"file\": str, \"line\": int, \"code\": str, \"message\": str, \"severity\": str }]\n}"
+        },
+        {
+          "name": "analyze",
+          "lineno": 165,
+          "end_lineno": 274,
+          "complexity": 22,
+          "docstring": "Run radon on the given Python files. Returns structured metrics.\n\nReturns: {\n    \"avg_cyclomatic_complexity\": float,\n    \"max_cyclomatic_complexity\": int,\n    \"maintainability_index\": float,\n    \"sloc\": int,\n    \"files\": [{ \"path\": str, \"complexity\": float, \"mi\": float, \"sloc\": int }]\n}"
+        },
+        {
+          "name": "analyze",
+          "lineno": 289,
+          "end_lineno": 348,
+          "complexity": 10,
+          "docstring": "Run bandit on the given Python files. Returns structured findings.\n\nReturns: {\n    \"total_issues\": int,\n    \"high_severity\": int, \"medium_severity\": int, \"low_severity\": int,\n    \"issues\": [{ \"file\": str, \"line\": int, \"test_id\": str, \"issue_text\": str, \"severity\": str, \"confidence\": str }]\n}"
+        }
+      ],
+      "classes": [
+        {
+          "name": "RuffAnalyzer",
+          "lineno": 83,
+          "end_lineno": 150,
+          "docstring": "Lightweight linter using ruff check (D-02). Runs on ALL source files per D-18.",
+          "methods": [
+            {
+              "name": "analyze",
+              "lineno": 89,
+              "end_lineno": 150,
+              "complexity": 9,
+              "docstring": "Run ruff check on the given Python files. Returns structured metrics.\n\nArgs:\n    files: List of absolute or relative file paths.\n    repo_root: Root directory for relative path resolution. If None, files must be absolute.\n\nReturns: {\n    \"total_errors\": int, \"total_warnings\": int,\n    \"issues\": [{ \"file\": str, \"line\": int, \"code\": str, \"message\": str, \"severity\": str }]\n}"
+            }
+          ]
+        },
+        {
+          "name": "RadonAnalyzer",
+          "lineno": 156,
+          "end_lineno": 274,
+          "docstring": "Complexity and maintainability metrics using radon (D-03).\n\nRuns on top-ranked files per D-18 (deep analysis mode).",
+          "methods": [
+            {
+              "name": "analyze",
+              "lineno": 165,
+              "end_lineno": 274,
+              "complexity": 22,
+              "docstring": "Run radon on the given Python files. Returns structured metrics.\n\nReturns: {\n    \"avg_cyclomatic_complexity\": float,\n    \"max_cyclomatic_complexity\": int,\n    \"maintainability_index\": float,\n    \"sloc\": int,\n    \"files\": [{ \"path\": str, \"complexity\": float, \"mi\": float, \"sloc\": int }]\n}"
+            }
+          ]
+        },
+        {
+          "name": "BanditAnalyzer",
+          "lineno": 280,
+          "end_lineno": 348,
+          "docstring": "Security vulnerability scanner using bandit (D-04).\n\nRuns on top-ranked files per D-18 (deep analysis mode).",
+          "methods": [
+            {
+              "name": "analyze",
+              "lineno": 289,
+              "end_lineno": 348,
+              "complexity": 10,
+              "docstring": "Run bandit on the given Python files. Returns structured findings.\n\nReturns: {\n    \"total_issues\": int,\n    \"high_severity\": int, \"medium_severity\": int, \"low_severity\": int,\n    \"issues\": [{ \"file\": str, \"line\": int, \"test_id\": str, \"issue_text\": str, \"severity\": str, \"confidence\": str }]\n}"
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "asyncio",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Any"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/analysis/checkpoint.py",
+      "language": "Python",
+      "loc": 61,
+      "code_loc": 49,
+      "comment_lines": 1,
+      "comment_ratio": 0.0164,
+      "cyclomatic_complexity": 9,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 28,
+          "end_lineno": 30,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "get_last_stage",
+          "lineno": 32,
+          "end_lineno": 38,
+          "complexity": 2,
+          "docstring": "Return the last successfully completed stage name."
+        },
+        {
+          "name": "save_stage",
+          "lineno": 40,
+          "end_lineno": 49,
+          "complexity": 2,
+          "docstring": "Persist the current stage as the last completed checkpoint."
+        },
+        {
+          "name": "should_resume",
+          "lineno": 51,
+          "end_lineno": 60,
+          "complexity": 4,
+          "docstring": "Check if a stage has already been completed (skip on resume)."
+        }
+      ],
+      "classes": [
+        {
+          "name": "AnalysisCheckpointManager",
+          "lineno": 22,
+          "end_lineno": 60,
+          "docstring": "Manages per-run checkpoint state for resume capability (D-07, D-09).\n\nStores progress on StaticAnalysisRun.current_stage.",
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 28,
+              "end_lineno": 30,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "get_last_stage",
+              "lineno": 32,
+              "end_lineno": 38,
+              "complexity": 2,
+              "docstring": "Return the last successfully completed stage name."
+            },
+            {
+              "name": "save_stage",
+              "lineno": 40,
+              "end_lineno": 49,
+              "complexity": 2,
+              "docstring": "Persist the current stage as the last completed checkpoint."
+            },
+            {
+              "name": "should_resume",
+              "lineno": 51,
+              "end_lineno": 60,
+              "complexity": 4,
+              "docstring": "Check if a stage has already been completed (skip on resume)."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "select"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.ext.asyncio",
+          "names": [
+            "AsyncSession"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.analysis.models",
+          "names": [
+            "StaticAnalysisRun"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/analysis/duplication.py",
+      "language": "Python",
+      "loc": 141,
+      "code_loc": 106,
+      "comment_lines": 10,
+      "comment_ratio": 0.0709,
+      "cyclomatic_complexity": 24,
+      "functions": [
+        {
+          "name": "detect",
+          "lineno": 27,
+          "end_lineno": 108,
+          "complexity": 16,
+          "docstring": "Run duplication detection across all files.\n\nArgs:\n    files: List of {path, ...} dicts from _extract_source_files()\n    repo_root: Optional root directory for resolving file paths\n\nReturns: {\n    \"duplication_percentage\": float,  # 0-100\n    \"duplicate_groups\": [  # Groups of similar files\n        { \"files\": [\"path1\", \"path2\"], \"similarity\": 0.85 }\n    ],\n    \"analyzed_files\": int,\n    \"duplicate_files\": int,\n}"
+        },
+        {
+          "name": "_tokenize",
+          "lineno": 111,
+          "end_lineno": 122,
+          "complexity": 3,
+          "docstring": "Extract significant tokens from source code."
+        },
+        {
+          "name": "_compute_ngrams",
+          "lineno": 125,
+          "end_lineno": 131,
+          "complexity": 2,
+          "docstring": "Compute n-gram hashes from a token list."
+        },
+        {
+          "name": "_jaccard_similarity",
+          "lineno": 134,
+          "end_lineno": 140,
+          "complexity": 3,
+          "docstring": "Compute Jaccard similarity between two sets of n-gram hashes."
+        }
+      ],
+      "classes": [
+        {
+          "name": "DuplicateDetector",
+          "lineno": 8,
+          "end_lineno": 140,
+          "docstring": "Detect code duplication using token n-gram fingerprinting.\n\nApproach: For each Python source file, extract significant tokens\n(identifiers, keywords, operators) and compute n-gram hashes.\nFiles sharing a high proportion of n-gram hashes are considered duplicate.\n\nReturns a duplication percentage for the overall codebase.\nNo external dependencies \u2014 pure Python, std-lib only.",
+          "methods": [
+            {
+              "name": "detect",
+              "lineno": 27,
+              "end_lineno": 108,
+              "complexity": 16,
+              "docstring": "Run duplication detection across all files.\n\nArgs:\n    files: List of {path, ...} dicts from _extract_source_files()\n    repo_root: Optional root directory for resolving file paths\n\nReturns: {\n    \"duplication_percentage\": float,  # 0-100\n    \"duplicate_groups\": [  # Groups of similar files\n        { \"files\": [\"path1\", \"path2\"], \"similarity\": 0.85 }\n    ],\n    \"analyzed_files\": int,\n    \"duplicate_files\": int,\n}"
+            },
+            {
+              "name": "_tokenize",
+              "lineno": 111,
+              "end_lineno": 122,
+              "complexity": 3,
+              "docstring": "Extract significant tokens from source code."
+            },
+            {
+              "name": "_compute_ngrams",
+              "lineno": 125,
+              "end_lineno": 131,
+              "complexity": 2,
+              "docstring": "Compute n-gram hashes from a token list."
+            },
+            {
+              "name": "_jaccard_similarity",
+              "lineno": 134,
+              "end_lineno": 140,
+              "complexity": 3,
+              "docstring": "Compute Jaccard similarity between two sets of n-gram hashes."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "hashlib",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "re",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "collections",
+          "names": [
+            "defaultdict"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Any"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/analysis/models.py",
+      "language": "Python",
+      "loc": 113,
+      "code_loc": 83,
+      "comment_lines": 11,
+      "comment_ratio": 0.0973,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "StaticAnalysisRun",
+          "lineno": 9,
+          "end_lineno": 38,
+          "docstring": "Tracks each analysis execution lifecycle (D-10 Layer 1).",
+          "methods": []
+        },
+        {
+          "name": "StaticAnalysisToolResult",
+          "lineno": 41,
+          "end_lineno": 66,
+          "docstring": "Normalized per-tool output (D-10 Layer 2).",
+          "methods": []
+        },
+        {
+          "name": "CodeQualityReport",
+          "lineno": 69,
+          "end_lineno": 112,
+          "docstring": "Denormalized aggregated report (D-10 Layer 3). Fast reads for dashboard.",
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "String",
+            "Text",
+            "DateTime",
+            "ForeignKey",
+            "BigInteger",
+            "Float"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.orm",
+          "names": [
+            "Mapped",
+            "mapped_column",
+            "relationship"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.dialects.postgresql",
+          "names": [
+            "UUID",
+            "JSONB"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.database",
+          "names": [
+            "Base"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/analysis/pipeline.py",
+      "language": "Python",
+      "loc": 361,
+      "code_loc": 290,
+      "comment_lines": 27,
+      "comment_ratio": 0.0748,
+      "cyclomatic_complexity": 29,
+      "functions": [
+        {
+          "name": "run_analysis",
+          "lineno": 33,
+          "end_lineno": 360,
+          "complexity": 29,
+          "docstring": "Main analysis pipeline. Runs stages in order with checkpoint recovery (D-07).\n\nStages:\n1. analyzing_files \u2014 Enumerate files from snapshot file_tree\n2. running_ruff \u2014 Ruff lint on ALL files (lightweight)\n3. running_radon \u2014 Radon complexity on top-ranked files (deep)\n4. running_bandit \u2014 Bandit security on top-ranked files (deep)\n5. computing_importance \u2014 Compute file importance scores\n6. computing_duplication \u2014 Detect code duplication\n7. aggregating \u2014 Compute composite score, create CodeQualityReport\n8. complete \u2014 Mark run as complete"
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "asyncio",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "time",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "select"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.ext.asyncio",
+          "names": [
+            "AsyncSession"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.config",
+          "names": [
+            "Settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.database",
+          "names": [
+            "async_session"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.repo",
+          "names": [
+            "Repo"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.snapshot",
+          "names": [
+            "RepositorySnapshot"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.analysis.models",
+          "names": [
+            "StaticAnalysisRun",
+            "StaticAnalysisToolResult",
+            "CodeQualityReport"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.analysis.analyzers",
+          "names": [
+            "RuffAnalyzer",
+            "RadonAnalyzer",
+            "BanditAnalyzer",
+            "_extract_source_files",
+            "_filter_by_language",
+            "ANALYZER_REGISTRY"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.analysis.scoring",
+          "names": [
+            "FileImportanceScorer",
+            "CompositeScoreCalculator"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.analysis.duplication",
+          "names": [
+            "DuplicateDetector"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.analysis.checkpoint",
+          "names": [
+            "AnalysisCheckpointManager"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/analysis/router.py",
+      "language": "Python",
+      "loc": 273,
+      "code_loc": 227,
+      "comment_lines": 8,
+      "comment_ratio": 0.0293,
+      "cyclomatic_complexity": 28,
+      "functions": [
+        {
+          "name": "_get_project",
+          "lineno": 29,
+          "end_lineno": 36,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "_get_repo",
+          "lineno": 39,
+          "end_lineno": 46,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "_build_analysis_steps",
+          "lineno": 61,
+          "end_lineno": 76,
+          "complexity": 7,
+          "docstring": "Build step list from current analysis status."
+        },
+        {
+          "name": "trigger_analysis",
+          "lineno": 80,
+          "end_lineno": 141,
+          "complexity": 5,
+          "docstring": "Trigger static analysis on the latest snapshot of a repository (D-06: manual trigger).\n\nRequires the repo to have at least one completed ingestion with a snapshot.\nEnqueues a Celery task and returns immediately."
+        },
+        {
+          "name": "get_analysis_status",
+          "lineno": 145,
+          "end_lineno": 196,
+          "complexity": 5,
+          "docstring": "Get the status of the latest analysis run. Polling endpoint."
+        },
+        {
+          "name": "get_analysis_results",
+          "lineno": 200,
+          "end_lineno": 232,
+          "complexity": 3,
+          "docstring": "Get the latest CodeQualityReport for this repository's analysis."
+        },
+        {
+          "name": "get_tool_results",
+          "lineno": 236,
+          "end_lineno": 272,
+          "complexity": 4,
+          "docstring": "Get individual tool results for drill-down views."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "APIRouter",
+            "Depends",
+            "HTTPException",
+            "status"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "select"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.ext.asyncio",
+          "names": [
+            "AsyncSession"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.orm",
+          "names": [
+            "selectinload"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.database",
+          "names": [
+            "get_db"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.auth.dependencies",
+          "names": [
+            "get_current_user"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.user",
+          "names": [
+            "User"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.project",
+          "names": [
+            "Project"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.repo",
+          "names": [
+            "Repo"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.snapshot",
+          "names": [
+            "RepositorySnapshot"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.analysis.models",
+          "names": [
+            "StaticAnalysisRun",
+            "StaticAnalysisToolResult",
+            "CodeQualityReport"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.analysis.schemas",
+          "names": [
+            "AnalysisRunResponse",
+            "AnalysisStatusResponse",
+            "AnalysisStep",
+            "AnalysisTriggerResponse",
+            "CodeQualityReportResponse",
+            "ToolResultResponse"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.analysis.tasks",
+          "names": [
+            "analyze_repo_task"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/analysis/schemas.py",
+      "language": "Python",
+      "loc": 81,
+      "code_loc": 59,
+      "comment_lines": 3,
+      "comment_ratio": 0.037,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "AnalysisStep",
+          "lineno": 13,
+          "end_lineno": 17,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "AnalysisRunResponse",
+          "lineno": 20,
+          "end_lineno": 32,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "AnalysisStatusResponse",
+          "lineno": 35,
+          "end_lineno": 38,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "CodeQualityReportResponse",
+          "lineno": 41,
+          "end_lineno": 60,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ToolResultResponse",
+          "lineno": 63,
+          "end_lineno": 74,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "AnalysisTriggerResponse",
+          "lineno": 77,
+          "end_lineno": 80,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pydantic",
+          "names": [
+            "BaseModel"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/analysis/scoring.py",
+      "language": "Python",
+      "loc": 253,
+      "code_loc": 190,
+      "comment_lines": 17,
+      "comment_ratio": 0.0672,
+      "cyclomatic_complexity": 27,
+      "functions": [
+        {
+          "name": "compute",
+          "lineno": 33,
+          "end_lineno": 78,
+          "complexity": 6,
+          "docstring": "Compute importance scores for all source files.\n\nArgs:\n    files: List of {path, size, ext} dicts from _extract_source_files()\n    radon_results: Optional Radon analyzer output with per-file complexity\n    file_tree: Optional full file_tree for import analysis\n\nReturns: {\n    \"src/main.py\": { \"importance\": 85, \"rank\": 1, \"loc\": 200, \"complexity\": 12, \"is_entry_point\": true },\n    ...\n}"
+        },
+        {
+          "name": "_compute_single",
+          "lineno": 81,
+          "end_lineno": 120,
+          "complexity": 6,
+          "docstring": "Compute the 0-100 importance score for a single file using weighted heuristics."
+        },
+        {
+          "name": "_is_entry_point",
+          "lineno": 123,
+          "end_lineno": 125,
+          "complexity": 1,
+          "docstring": "Check if a file is likely an entry point."
+        },
+        {
+          "name": "select_deep_analysis_files",
+          "lineno": 128,
+          "end_lineno": 145,
+          "complexity": 3,
+          "docstring": "Select files for deep analysis per D-18 \u2014 only top-ranked files.\n\nArgs:\n    importance_index: Output from compute()\n    threshold: Number of top files to select (default from settings)\n\nReturns: List of file paths for deep analysis."
+        },
+        {
+          "name": "select_all_files",
+          "lineno": 148,
+          "end_lineno": 150,
+          "complexity": 1,
+          "docstring": "Select ALL files for lightweight analysis (lint)."
+        },
+        {
+          "name": "compute",
+          "lineno": 163,
+          "end_lineno": 203,
+          "complexity": 1,
+          "docstring": "Compute composite score from individual analysis dimensions.\n\nArgs:\n    lint_results: Ruff analyzer output (total_errors, total_warnings)\n    complexity_results: Radon analyzer output (avg_cyclomatic_complexity, maintainability_index)\n    security_results: Bandit analyzer output (total_issues, high_severity, medium_severity)\n    duplication_pct: Percentage of duplicated code (0-100)\n\nReturns: {\n    \"overall_score\": float,  # 0-100 weighted average\n    \"lint_score\": float,     # 0-100 normalized\n    \"complexity_score\": float,\n    \"security_score\": float,\n    \"duplication_score\": float,\n}"
+        },
+        {
+          "name": "_lint_score",
+          "lineno": 206,
+          "end_lineno": 215,
+          "complexity": 3,
+          "docstring": "Score based on lint issues per 1000 LOC. Lower is better."
+        },
+        {
+          "name": "_complexity_score",
+          "lineno": 218,
+          "end_lineno": 230,
+          "complexity": 2,
+          "docstring": "Score based on cyclomatic complexity and maintainability index."
+        },
+        {
+          "name": "_security_score",
+          "lineno": 233,
+          "end_lineno": 243,
+          "complexity": 2,
+          "docstring": "Score based on security issues. High-severity issues weighted more."
+        },
+        {
+          "name": "_duplication_score",
+          "lineno": 246,
+          "end_lineno": 252,
+          "complexity": 2,
+          "docstring": "Score based on duplication percentage. Lower duplication = higher score."
+        }
+      ],
+      "classes": [
+        {
+          "name": "FileImportanceScorer",
+          "lineno": 11,
+          "end_lineno": 150,
+          "docstring": "Compute a canonical file importance score (0-100) using deterministic heuristics (D-16).\n\nThe importance index becomes the canonical ranking for ALL downstream phases (D-17).\nHeuristics weighted via config settings:\n- Entry-point detection (25%): Files named main.py, app.py, index.py, __init__.py, cli.py\n- Import graph centrality (20%): Number of other files that import this file (requires import parsing)\n- LOC contribution (15%): Larger files tend to be more important\n- Cyclomatic complexity (20%): Complex files are higher impact\n- Directory prominence (10%): Files in src/, app/, lib/ weigh more than tests/, scripts/\n- Git commit recency (10%): Recently modified files are more actively maintained",
+          "methods": [
+            {
+              "name": "compute",
+              "lineno": 33,
+              "end_lineno": 78,
+              "complexity": 6,
+              "docstring": "Compute importance scores for all source files.\n\nArgs:\n    files: List of {path, size, ext} dicts from _extract_source_files()\n    radon_results: Optional Radon analyzer output with per-file complexity\n    file_tree: Optional full file_tree for import analysis\n\nReturns: {\n    \"src/main.py\": { \"importance\": 85, \"rank\": 1, \"loc\": 200, \"complexity\": 12, \"is_entry_point\": true },\n    ...\n}"
+            },
+            {
+              "name": "_compute_single",
+              "lineno": 81,
+              "end_lineno": 120,
+              "complexity": 6,
+              "docstring": "Compute the 0-100 importance score for a single file using weighted heuristics."
+            },
+            {
+              "name": "_is_entry_point",
+              "lineno": 123,
+              "end_lineno": 125,
+              "complexity": 1,
+              "docstring": "Check if a file is likely an entry point."
+            },
+            {
+              "name": "select_deep_analysis_files",
+              "lineno": 128,
+              "end_lineno": 145,
+              "complexity": 3,
+              "docstring": "Select files for deep analysis per D-18 \u2014 only top-ranked files.\n\nArgs:\n    importance_index: Output from compute()\n    threshold: Number of top files to select (default from settings)\n\nReturns: List of file paths for deep analysis."
+            },
+            {
+              "name": "select_all_files",
+              "lineno": 148,
+              "end_lineno": 150,
+              "complexity": 1,
+              "docstring": "Select ALL files for lightweight analysis (lint)."
+            }
+          ]
+        },
+        {
+          "name": "CompositeScoreCalculator",
+          "lineno": 153,
+          "end_lineno": 252,
+          "docstring": "Compute the overall code quality score (D-13, D-14).\n\nThe composite score is a REFERENCE METRIC, NOT the final grade.\nIt feeds into Phase 6+ AI evaluation as supporting evidence.\n\nScores are 0-100 where higher = better.",
+          "methods": [
+            {
+              "name": "compute",
+              "lineno": 163,
+              "end_lineno": 203,
+              "complexity": 1,
+              "docstring": "Compute composite score from individual analysis dimensions.\n\nArgs:\n    lint_results: Ruff analyzer output (total_errors, total_warnings)\n    complexity_results: Radon analyzer output (avg_cyclomatic_complexity, maintainability_index)\n    security_results: Bandit analyzer output (total_issues, high_severity, medium_severity)\n    duplication_pct: Percentage of duplicated code (0-100)\n\nReturns: {\n    \"overall_score\": float,  # 0-100 weighted average\n    \"lint_score\": float,     # 0-100 normalized\n    \"complexity_score\": float,\n    \"security_score\": float,\n    \"duplication_score\": float,\n}"
+            },
+            {
+              "name": "_lint_score",
+              "lineno": 206,
+              "end_lineno": 215,
+              "complexity": 3,
+              "docstring": "Score based on lint issues per 1000 LOC. Lower is better."
+            },
+            {
+              "name": "_complexity_score",
+              "lineno": 218,
+              "end_lineno": 230,
+              "complexity": 2,
+              "docstring": "Score based on cyclomatic complexity and maintainability index."
+            },
+            {
+              "name": "_security_score",
+              "lineno": 233,
+              "end_lineno": 243,
+              "complexity": 2,
+              "docstring": "Score based on security issues. High-severity issues weighted more."
+            },
+            {
+              "name": "_duplication_score",
+              "lineno": 246,
+              "end_lineno": 252,
+              "complexity": 2,
+              "docstring": "Score based on duplication percentage. Lower duplication = higher score."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "math",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Any"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.config",
+          "names": [
+            "Settings"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/analysis/tasks.py",
+      "language": "Python",
+      "loc": 18,
+      "code_loc": 14,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 2,
+      "functions": [
+        {
+          "name": "analyze_repo_task",
+          "lineno": 7,
+          "end_lineno": 17,
+          "complexity": 2,
+          "docstring": "Celery task: run static analysis on a repository snapshot.\n\nRetries with exponential backoff on failure.\nCheckpoint recovery (D-09) handles resume from last successful stage."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "app.celery_app",
+          "names": [
+            "celery_app"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.analysis.pipeline",
+          "names": [
+            "run_analysis"
+          ],
+          "alias": null
+        },
+        {
+          "module": "asyncio",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/auth/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/auth/dependencies.py",
+      "language": "Python",
+      "loc": 71,
+      "code_loc": 55,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 8,
+      "functions": [
+        {
+          "name": "get_current_user",
+          "lineno": 15,
+          "end_lineno": 57,
+          "complexity": 6,
+          "docstring": null
+        },
+        {
+          "name": "get_optional_user",
+          "lineno": 63,
+          "end_lineno": 70,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "Request",
+            "HTTPException",
+            "status",
+            "Depends"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "select"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.ext.asyncio",
+          "names": [
+            "AsyncSession"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.database",
+          "names": [
+            "get_db"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.user",
+          "names": [
+            "User"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.auth.jwt_service",
+          "names": [
+            "verify_access_token"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/auth/jwt_service.py",
+      "language": "Python",
+      "loc": 86,
+      "code_loc": 71,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 14,
+      "functions": [
+        {
+          "name": "_load_private_key",
+          "lineno": 13,
+          "end_lineno": 20,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "_load_public_key",
+          "lineno": 23,
+          "end_lineno": 30,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "create_access_token",
+          "lineno": 33,
+          "end_lineno": 42,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "create_refresh_token",
+          "lineno": 45,
+          "end_lineno": 55,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "verify_access_token",
+          "lineno": 58,
+          "end_lineno": 70,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "verify_refresh_token",
+          "lineno": 73,
+          "end_lineno": 85,
+          "complexity": 4,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone",
+            "timedelta"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "cryptography.hazmat.primitives",
+          "names": [
+            "serialization"
+          ],
+          "alias": null
+        },
+        {
+          "module": "cryptography.hazmat.primitives.asymmetric",
+          "names": [
+            "rsa"
+          ],
+          "alias": null
+        },
+        {
+          "module": "jwt",
+          "names": [],
+          "alias": "pyjwt"
+        },
+        {
+          "module": "app.config",
+          "names": [
+            "Settings"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/auth/router.py",
+      "language": "Python",
+      "loc": 346,
+      "code_loc": 301,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 31,
+      "functions": [
+        {
+          "name": "_set_auth_cookies",
+          "lineno": 33,
+          "end_lineno": 55,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_clear_auth_cookies",
+          "lineno": 58,
+          "end_lineno": 61,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "_build_authorize_url",
+          "lineno": 64,
+          "end_lineno": 78,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "login",
+          "lineno": 82,
+          "end_lineno": 98,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "callback",
+          "lineno": 102,
+          "end_lineno": 234,
+          "complexity": 13,
+          "docstring": null
+        },
+        {
+          "name": "logout",
+          "lineno": 238,
+          "end_lineno": 260,
+          "complexity": 6,
+          "docstring": null
+        },
+        {
+          "name": "get_me",
+          "lineno": 264,
+          "end_lineno": 265,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "refresh_token",
+          "lineno": 269,
+          "end_lineno": 345,
+          "complexity": 7,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "logging",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "secrets",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone",
+            "timedelta"
+          ],
+          "alias": null
+        },
+        {
+          "module": "urllib.parse",
+          "names": [
+            "quote"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "APIRouter",
+            "Request",
+            "Response",
+            "Depends",
+            "HTTPException",
+            "status"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "select"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.ext.asyncio",
+          "names": [
+            "AsyncSession"
+          ],
+          "alias": null
+        },
+        {
+          "module": "httpx",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "app.config",
+          "names": [
+            "Settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.database",
+          "names": [
+            "get_db",
+            "async_session"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.user",
+          "names": [
+            "User"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.session",
+          "names": [
+            "Session"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.auth.jwt_service",
+          "names": [
+            "create_access_token",
+            "create_refresh_token",
+            "verify_refresh_token"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.auth.dependencies",
+          "names": [
+            "get_current_user"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.auth.schemas",
+          "names": [
+            "UserResponse"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/auth/schemas.py",
+      "language": "Python",
+      "loc": 24,
+      "code_loc": 16,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "UserResponse",
+          "lineno": 6,
+          "end_lineno": 13,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "TokenResponse",
+          "lineno": 16,
+          "end_lineno": 19,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ErrorResponse",
+          "lineno": 22,
+          "end_lineno": 23,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "pydantic",
+          "names": [
+            "BaseModel"
+          ],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime"
+          ],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/celery_app.py",
+      "language": "Python",
+      "loc": 27,
+      "code_loc": 21,
+      "comment_lines": 1,
+      "comment_ratio": 0.037,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "celery",
+          "names": [
+            "Celery"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.config",
+          "names": [
+            "Settings"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/config.py",
+      "language": "Python",
+      "loc": 63,
+      "code_loc": 43,
+      "comment_lines": 3,
+      "comment_ratio": 0.0476,
+      "cyclomatic_complexity": 1,
+      "functions": [
+        {
+          "name": "cors_origins",
+          "lineno": 55,
+          "end_lineno": 56,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "Settings",
+          "lineno": 10,
+          "end_lineno": 62,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "cors_origins",
+              "lineno": 55,
+              "end_lineno": 56,
+              "complexity": 1,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "typing",
+          "names": [
+            "List"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pydantic_settings",
+          "names": [
+            "BaseSettings"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/database.py",
+      "language": "Python",
+      "loc": 29,
+      "code_loc": 21,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 1,
+      "functions": [
+        {
+          "name": "get_db",
+          "lineno": 23,
+          "end_lineno": 28,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "Base",
+          "lineno": 19,
+          "end_lineno": 20,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "sqlalchemy.ext.asyncio",
+          "names": [
+            "create_async_engine",
+            "AsyncSession",
+            "async_sessionmaker"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.orm",
+          "names": [
+            "DeclarativeBase"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.config",
+          "names": [
+            "Settings"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/ingestion/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/ingestion/checkpoint.py",
+      "language": "Python",
+      "loc": 63,
+      "code_loc": 51,
+      "comment_lines": 1,
+      "comment_ratio": 0.0159,
+      "cyclomatic_complexity": 11,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 21,
+          "end_lineno": 23,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "get_last_stage",
+          "lineno": 25,
+          "end_lineno": 31,
+          "complexity": 2,
+          "docstring": "Return the last successfully completed stage name."
+        },
+        {
+          "name": "save_stage",
+          "lineno": 33,
+          "end_lineno": 40,
+          "complexity": 2,
+          "docstring": "Persist the current stage as the last completed checkpoint."
+        },
+        {
+          "name": "should_resume",
+          "lineno": 42,
+          "end_lineno": 51,
+          "complexity": 3,
+          "docstring": "Check if a stage has already been completed (skip on resume)."
+        },
+        {
+          "name": "next_stage",
+          "lineno": 54,
+          "end_lineno": 62,
+          "complexity": 3,
+          "docstring": "Return the next stage after current, or None if last."
+        }
+      ],
+      "classes": [
+        {
+          "name": "CheckpointManager",
+          "lineno": 18,
+          "end_lineno": 62,
+          "docstring": "Manages per-repo checkpoint state for resume capability (D-50).",
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 21,
+              "end_lineno": 23,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "get_last_stage",
+              "lineno": 25,
+              "end_lineno": 31,
+              "complexity": 2,
+              "docstring": "Return the last successfully completed stage name."
+            },
+            {
+              "name": "save_stage",
+              "lineno": 33,
+              "end_lineno": 40,
+              "complexity": 2,
+              "docstring": "Persist the current stage as the last completed checkpoint."
+            },
+            {
+              "name": "should_resume",
+              "lineno": 42,
+              "end_lineno": 51,
+              "complexity": 3,
+              "docstring": "Check if a stage has already been completed (skip on resume)."
+            },
+            {
+              "name": "next_stage",
+              "lineno": 54,
+              "end_lineno": 62,
+              "complexity": 3,
+              "docstring": "Return the next stage after current, or None if last."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "select"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.ext.asyncio",
+          "names": [
+            "AsyncSession"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.repo",
+          "names": [
+            "Repo"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/ingestion/github_client.py",
+      "language": "Python",
+      "loc": 143,
+      "code_loc": 131,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 19,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 15,
+          "end_lineno": 18,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "get_repo_metadata",
+          "lineno": 20,
+          "end_lineno": 31,
+          "complexity": 3,
+          "docstring": "Fetch repository metadata including description, default_branch, visibility, etc."
+        },
+        {
+          "name": "get_languages",
+          "lineno": 33,
+          "end_lineno": 37,
+          "complexity": 1,
+          "docstring": "Fetch language byte counts. Returns dict like {'Python': 45000, 'JavaScript': 12000}."
+        },
+        {
+          "name": "get_commits",
+          "lineno": 39,
+          "end_lineno": 64,
+          "complexity": 3,
+          "docstring": "Fetch commit history with pagination."
+        },
+        {
+          "name": "get_pull_requests",
+          "lineno": 66,
+          "end_lineno": 98,
+          "complexity": 3,
+          "docstring": "Fetch pull requests with pagination."
+        },
+        {
+          "name": "get_issues",
+          "lineno": 100,
+          "end_lineno": 128,
+          "complexity": 5,
+          "docstring": "Fetch issues with pagination."
+        },
+        {
+          "name": "_check_rate_limit",
+          "lineno": 130,
+          "end_lineno": 142,
+          "complexity": 3,
+          "docstring": "Check GitHub API rate limit headers and pause if needed (D-37)."
+        }
+      ],
+      "classes": [
+        {
+          "name": "GithubClient",
+          "lineno": 12,
+          "end_lineno": 142,
+          "docstring": "Authenticated GitHub API client using user OAuth token.",
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 15,
+              "end_lineno": 18,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "get_repo_metadata",
+              "lineno": 20,
+              "end_lineno": 31,
+              "complexity": 3,
+              "docstring": "Fetch repository metadata including description, default_branch, visibility, etc."
+            },
+            {
+              "name": "get_languages",
+              "lineno": 33,
+              "end_lineno": 37,
+              "complexity": 1,
+              "docstring": "Fetch language byte counts. Returns dict like {'Python': 45000, 'JavaScript': 12000}."
+            },
+            {
+              "name": "get_commits",
+              "lineno": 39,
+              "end_lineno": 64,
+              "complexity": 3,
+              "docstring": "Fetch commit history with pagination."
+            },
+            {
+              "name": "get_pull_requests",
+              "lineno": 66,
+              "end_lineno": 98,
+              "complexity": 3,
+              "docstring": "Fetch pull requests with pagination."
+            },
+            {
+              "name": "get_issues",
+              "lineno": 100,
+              "end_lineno": 128,
+              "complexity": 5,
+              "docstring": "Fetch issues with pagination."
+            },
+            {
+              "name": "_check_rate_limit",
+              "lineno": 130,
+              "end_lineno": 142,
+              "complexity": 3,
+              "docstring": "Check GitHub API rate limit headers and pause if needed (D-37)."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "time",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "urllib.parse",
+          "names": [
+            "urlparse"
+          ],
+          "alias": null
+        },
+        {
+          "module": "githubkit",
+          "names": [
+            "GitHub",
+            "UnauthAuthStrategy"
+          ],
+          "alias": null
+        },
+        {
+          "module": "githubkit.retry",
+          "names": [
+            "RetryRateLimit"
+          ],
+          "alias": null
+        },
+        {
+          "module": "githubkit.exception",
+          "names": [
+            "RateLimitExceeded"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.ingestion.rate_limiter",
+          "names": [
+            "RateLimiter"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/ingestion/pipeline.py",
+      "language": "Python",
+      "loc": 220,
+      "code_loc": 169,
+      "comment_lines": 16,
+      "comment_ratio": 0.0727,
+      "cyclomatic_complexity": 31,
+      "functions": [
+        {
+          "name": "ingest_repo",
+          "lineno": 25,
+          "end_lineno": 157,
+          "complexity": 14,
+          "docstring": "Main ingestion pipeline. Runs stages in order with checkpoint recovery (D-50)."
+        },
+        {
+          "name": "_build_file_tree",
+          "lineno": 160,
+          "end_lineno": 180,
+          "complexity": 7,
+          "docstring": "Build a recursive file tree structure from the cloned repo."
+        },
+        {
+          "name": "_is_ignored",
+          "lineno": 183,
+          "end_lineno": 186,
+          "complexity": 2,
+          "docstring": "Check if a path should be excluded from the file tree."
+        },
+        {
+          "name": "_count_files",
+          "lineno": 189,
+          "end_lineno": 198,
+          "complexity": 4,
+          "docstring": "Count leaf nodes (files) in the file tree."
+        },
+        {
+          "name": "_get_user_github_token",
+          "lineno": 201,
+          "end_lineno": 212,
+          "complexity": 3,
+          "docstring": "Retrieve the user's GitHub access token from the project owner's auth."
+        },
+        {
+          "name": "_set_failed",
+          "lineno": 215,
+          "end_lineno": 219,
+          "complexity": 1,
+          "docstring": "Set repo status to failed with error detail."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "asyncio",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "shutil",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "tempfile",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "select"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.ext.asyncio",
+          "names": [
+            "AsyncSession"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.config",
+          "names": [
+            "Settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.database",
+          "names": [
+            "async_session"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.repo",
+          "names": [
+            "Repo"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.snapshot",
+          "names": [
+            "RepositorySnapshot"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.ingestion.checkpoint",
+          "names": [
+            "CheckpointManager"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.ingestion.github_client",
+          "names": [
+            "GithubClient"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.project",
+          "names": [
+            "Project"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.user",
+          "names": [
+            "User"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/ingestion/rate_limiter.py",
+      "language": "Python",
+      "loc": 33,
+      "code_loc": 24,
+      "comment_lines": 1,
+      "comment_ratio": 0.0303,
+      "cyclomatic_complexity": 7,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 8,
+          "end_lineno": 11,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "update",
+          "lineno": 13,
+          "end_lineno": 15,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "is_exhausted",
+          "lineno": 17,
+          "end_lineno": 19,
+          "complexity": 1,
+          "docstring": "Return True if rate limit is critically low."
+        },
+        {
+          "name": "seconds_until_reset",
+          "lineno": 21,
+          "end_lineno": 23,
+          "complexity": 1,
+          "docstring": "Seconds until rate limit resets. Returns 0 if reset already happened."
+        },
+        {
+          "name": "wait_time",
+          "lineno": 25,
+          "end_lineno": 32,
+          "complexity": 3,
+          "docstring": "Calculate recommended wait time before next request."
+        }
+      ],
+      "classes": [
+        {
+          "name": "RateLimiter",
+          "lineno": 5,
+          "end_lineno": 32,
+          "docstring": "Tracks GitHub API rate limits and coordinates backoff (D-37).",
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 8,
+              "end_lineno": 11,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "update",
+              "lineno": 13,
+              "end_lineno": 15,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "is_exhausted",
+              "lineno": 17,
+              "end_lineno": 19,
+              "complexity": 1,
+              "docstring": "Return True if rate limit is critically low."
+            },
+            {
+              "name": "seconds_until_reset",
+              "lineno": 21,
+              "end_lineno": 23,
+              "complexity": 1,
+              "docstring": "Seconds until rate limit resets. Returns 0 if reset already happened."
+            },
+            {
+              "name": "wait_time",
+              "lineno": 25,
+              "end_lineno": 32,
+              "complexity": 3,
+              "docstring": "Calculate recommended wait time before next request."
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "time",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "math",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/ingestion/tasks.py",
+      "language": "Python",
+      "loc": 22,
+      "code_loc": 15,
+      "comment_lines": 2,
+      "comment_ratio": 0.0909,
+      "cyclomatic_complexity": 3,
+      "functions": [
+        {
+          "name": "ingest_repo_task",
+          "lineno": 7,
+          "end_lineno": 14,
+          "complexity": 2,
+          "docstring": "Celery task: ingest a GitHub repository. Retries with backoff on failure."
+        },
+        {
+          "name": "retry_ingestion_task",
+          "lineno": 18,
+          "end_lineno": 21,
+          "complexity": 1,
+          "docstring": "Retry ingestion from last checkpoint (D-50). Same as ingest but status is already 'failed'."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "app.celery_app",
+          "names": [
+            "celery_app"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.ingestion.pipeline",
+          "names": [
+            "ingest_repo"
+          ],
+          "alias": null
+        },
+        {
+          "module": "asyncio",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/main.py",
+      "language": "Python",
+      "loc": 34,
+      "code_loc": 27,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 1,
+      "functions": [
+        {
+          "name": "health_check",
+          "lineno": 32,
+          "end_lineno": 33,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "fastapi",
+          "names": [
+            "FastAPI"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi.middleware.cors",
+          "names": [
+            "CORSMiddleware"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.config",
+          "names": [
+            "Settings"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.auth.router",
+          "names": [
+            "router"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.projects.router",
+          "names": [
+            "router"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.repos.router",
+          "names": [
+            "router"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.analysis.router",
+          "names": [
+            "router"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/models/__init__.py",
+      "language": "Python",
+      "loc": 12,
+      "code_loc": 10,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "app.models.user",
+          "names": [
+            "User"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.session",
+          "names": [
+            "Session"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.project",
+          "names": [
+            "Project"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.repo",
+          "names": [
+            "Repo"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.snapshot",
+          "names": [
+            "RepositorySnapshot"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.analysis.models",
+          "names": [
+            "StaticAnalysisRun",
+            "StaticAnalysisToolResult",
+            "CodeQualityReport"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/models/project.py",
+      "language": "Python",
+      "loc": 34,
+      "code_loc": 29,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "Project",
+          "lineno": 9,
+          "end_lineno": 33,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "String",
+            "Text",
+            "DateTime",
+            "ForeignKey"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.orm",
+          "names": [
+            "Mapped",
+            "mapped_column",
+            "relationship"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.dialects.postgresql",
+          "names": [
+            "ARRAY",
+            "UUID"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.database",
+          "names": [
+            "Base"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/models/repo.py",
+      "language": "Python",
+      "loc": 45,
+      "code_loc": 40,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "Repo",
+          "lineno": 9,
+          "end_lineno": 44,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "String",
+            "Text",
+            "DateTime",
+            "ForeignKey",
+            "BigInteger"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.orm",
+          "names": [
+            "Mapped",
+            "mapped_column",
+            "relationship"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.dialects.postgresql",
+          "names": [
+            "UUID",
+            "ARRAY",
+            "JSONB"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.database",
+          "names": [
+            "Base"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/models/session.py",
+      "language": "Python",
+      "loc": 30,
+      "code_loc": 25,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "Session",
+          "lineno": 9,
+          "end_lineno": 29,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "String",
+            "DateTime",
+            "ForeignKey",
+            "Boolean"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.orm",
+          "names": [
+            "Mapped",
+            "mapped_column",
+            "relationship"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.dialects.postgresql",
+          "names": [
+            "UUID"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.database",
+          "names": [
+            "Base"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/models/snapshot.py",
+      "language": "Python",
+      "loc": 36,
+      "code_loc": 31,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "RepositorySnapshot",
+          "lineno": 9,
+          "end_lineno": 35,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "String",
+            "DateTime",
+            "ForeignKey",
+            "BigInteger"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.orm",
+          "names": [
+            "Mapped",
+            "mapped_column",
+            "relationship"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.dialects.postgresql",
+          "names": [
+            "UUID",
+            "JSONB"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.database",
+          "names": [
+            "Base"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/models/user.py",
+      "language": "Python",
+      "loc": 36,
+      "code_loc": 31,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "User",
+          "lineno": 9,
+          "end_lineno": 35,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "String",
+            "DateTime",
+            "BigInteger"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.orm",
+          "names": [
+            "Mapped",
+            "mapped_column",
+            "relationship"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.dialects.postgresql",
+          "names": [
+            "UUID"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.database",
+          "names": [
+            "Base"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/projects/__init__.py",
+      "language": "Python",
+      "loc": 2,
+      "code_loc": 0,
+      "comment_lines": 1,
+      "comment_ratio": 0.5,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/projects/router.py",
+      "language": "Python",
+      "loc": 215,
+      "code_loc": 179,
+      "comment_lines": 4,
+      "comment_ratio": 0.0186,
+      "cyclomatic_complexity": 24,
+      "functions": [
+        {
+          "name": "_aggregate_ingestion_status",
+          "lineno": 25,
+          "end_lineno": 43,
+          "complexity": 10,
+          "docstring": "Aggregate multiple repos' statuses per D-41 priority: failed > paused > in_progress > complete > pending."
+        },
+        {
+          "name": "_set_repo_aggregates",
+          "lineno": 46,
+          "end_lineno": 49,
+          "complexity": 1,
+          "docstring": "Set computed repo_count and ingestion_status on a ProjectResponse."
+        },
+        {
+          "name": "list_projects",
+          "lineno": 53,
+          "end_lineno": 90,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "create_project",
+          "lineno": 94,
+          "end_lineno": 136,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "get_project",
+          "lineno": 140,
+          "end_lineno": 158,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "update_project",
+          "lineno": 162,
+          "end_lineno": 194,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "delete_project",
+          "lineno": 198,
+          "end_lineno": 214,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "math",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "APIRouter",
+            "Depends",
+            "HTTPException",
+            "Query",
+            "status"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "select",
+            "func"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.ext.asyncio",
+          "names": [
+            "AsyncSession"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.orm",
+          "names": [
+            "selectinload"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.database",
+          "names": [
+            "get_db"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.auth.dependencies",
+          "names": [
+            "get_current_user"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.project",
+          "names": [
+            "Project"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.repo",
+          "names": [
+            "Repo"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.user",
+          "names": [
+            "User"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.projects.schemas",
+          "names": [
+            "ProjectCreate",
+            "ProjectUpdate",
+            "ProjectResponse",
+            "ProjectListResponse"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.repos.router",
+          "names": [
+            "parse_github_url"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/projects/schemas.py",
+      "language": "Python",
+      "loc": 38,
+      "code_loc": 28,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "ProjectCreate",
+          "lineno": 6,
+          "end_lineno": 10,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ProjectUpdate",
+          "lineno": 13,
+          "end_lineno": 16,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ProjectResponse",
+          "lineno": 19,
+          "end_lineno": 29,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ProjectListResponse",
+          "lineno": 32,
+          "end_lineno": 37,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "pydantic",
+          "names": [
+            "BaseModel"
+          ],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime"
+          ],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/repos/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/repos/router.py",
+      "language": "Python",
+      "loc": 224,
+      "code_loc": 184,
+      "comment_lines": 2,
+      "comment_ratio": 0.0089,
+      "cyclomatic_complexity": 26,
+      "functions": [
+        {
+          "name": "parse_github_url",
+          "lineno": 20,
+          "end_lineno": 34,
+          "complexity": 5,
+          "docstring": "Parse a GitHub URL into (owner, name). Raises 422 on invalid format."
+        },
+        {
+          "name": "_get_project",
+          "lineno": 37,
+          "end_lineno": 44,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "_get_repo",
+          "lineno": 47,
+          "end_lineno": 54,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "list_repos",
+          "lineno": 58,
+          "end_lineno": 69,
+          "complexity": 2,
+          "docstring": "List all repositories in a project."
+        },
+        {
+          "name": "add_repo",
+          "lineno": 73,
+          "end_lineno": 105,
+          "complexity": 2,
+          "docstring": "Add a GitHub repository URL to a project. Returns pending repo (not yet ingested)."
+        },
+        {
+          "name": "remove_repo",
+          "lineno": 109,
+          "end_lineno": 119,
+          "complexity": 1,
+          "docstring": "Remove a repository from a project."
+        },
+        {
+          "name": "trigger_ingestion",
+          "lineno": 123,
+          "end_lineno": 147,
+          "complexity": 2,
+          "docstring": "Trigger ingestion for a repository. Enqueues Celery task."
+        },
+        {
+          "name": "retry_ingestion",
+          "lineno": 151,
+          "end_lineno": 174,
+          "complexity": 2,
+          "docstring": "Retry a failed/paused ingestion from last checkpoint (D-50)."
+        },
+        {
+          "name": "get_repo_status",
+          "lineno": 178,
+          "end_lineno": 193,
+          "complexity": 1,
+          "docstring": "Get ingestion status and step data for a repository. Polling endpoint (D-43)."
+        },
+        {
+          "name": "_build_status_steps",
+          "lineno": 196,
+          "end_lineno": 223,
+          "complexity": 7,
+          "docstring": "Build the step list from the current ingestion status (D-44)."
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone"
+          ],
+          "alias": null
+        },
+        {
+          "module": "urllib.parse",
+          "names": [
+            "urlparse"
+          ],
+          "alias": null
+        },
+        {
+          "module": "fastapi",
+          "names": [
+            "APIRouter",
+            "Depends",
+            "HTTPException",
+            "status"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy",
+          "names": [
+            "select"
+          ],
+          "alias": null
+        },
+        {
+          "module": "sqlalchemy.ext.asyncio",
+          "names": [
+            "AsyncSession"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.database",
+          "names": [
+            "get_db"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.auth.dependencies",
+          "names": [
+            "get_current_user"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.user",
+          "names": [
+            "User"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.project",
+          "names": [
+            "Project"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.models.repo",
+          "names": [
+            "Repo"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.repos.schemas",
+          "names": [
+            "RepoCreate",
+            "RepoResponse",
+            "RepoStatusResponse",
+            "IngestionStep"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.ingestion.tasks",
+          "names": [
+            "ingest_repo_task"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/app/repos/schemas.py",
+      "language": "Python",
+      "loc": 51,
+      "code_loc": 33,
+      "comment_lines": 4,
+      "comment_ratio": 0.0784,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "IngestionStep",
+          "lineno": 13,
+          "end_lineno": 17,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "RepoCreate",
+          "lineno": 22,
+          "end_lineno": 23,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "RepoResponse",
+          "lineno": 26,
+          "end_lineno": 44,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "RepoStatusResponse",
+          "lineno": 47,
+          "end_lineno": 50,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime"
+          ],
+          "alias": null
+        },
+        {
+          "module": "pydantic",
+          "names": [
+            "BaseModel",
+            "HttpUrl"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/tests/__init__.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "backend/tests/test_jwt_service.py",
+      "language": "Python",
+      "loc": 75,
+      "code_loc": 62,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 24,
+      "functions": [
+        {
+          "name": "test_create_and_verify_access_token",
+          "lineno": 12,
+          "end_lineno": 23,
+          "complexity": 8,
+          "docstring": null
+        },
+        {
+          "name": "test_verify_invalid_token_returns_none",
+          "lineno": 25,
+          "end_lineno": 26,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "test_verify_tampered_token_returns_none",
+          "lineno": 28,
+          "end_lineno": 33,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "test_refresh_token_rejected_by_access_verifier",
+          "lineno": 35,
+          "end_lineno": 39,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "test_create_and_verify_refresh_token",
+          "lineno": 43,
+          "end_lineno": 53,
+          "complexity": 6,
+          "docstring": null
+        },
+        {
+          "name": "test_access_token_rejected_by_refresh_verifier",
+          "lineno": 55,
+          "end_lineno": 58,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "test_expired_token_returns_none",
+          "lineno": 60,
+          "end_lineno": 74,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "TestJWTAccessToken",
+          "lineno": 11,
+          "end_lineno": 39,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "test_create_and_verify_access_token",
+              "lineno": 12,
+              "end_lineno": 23,
+              "complexity": 8,
+              "docstring": null
+            },
+            {
+              "name": "test_verify_invalid_token_returns_none",
+              "lineno": 25,
+              "end_lineno": 26,
+              "complexity": 2,
+              "docstring": null
+            },
+            {
+              "name": "test_verify_tampered_token_returns_none",
+              "lineno": 28,
+              "end_lineno": 33,
+              "complexity": 2,
+              "docstring": null
+            },
+            {
+              "name": "test_refresh_token_rejected_by_access_verifier",
+              "lineno": 35,
+              "end_lineno": 39,
+              "complexity": 2,
+              "docstring": null
+            }
+          ]
+        },
+        {
+          "name": "TestJWTRefreshToken",
+          "lineno": 42,
+          "end_lineno": 74,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "test_create_and_verify_refresh_token",
+              "lineno": 43,
+              "end_lineno": 53,
+              "complexity": 6,
+              "docstring": null
+            },
+            {
+              "name": "test_access_token_rejected_by_refresh_verifier",
+              "lineno": 55,
+              "end_lineno": 58,
+              "complexity": 2,
+              "docstring": null
+            },
+            {
+              "name": "test_expired_token_returns_none",
+              "lineno": 60,
+              "end_lineno": 74,
+              "complexity": 2,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "pytest",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "app.auth.jwt_service",
+          "names": [
+            "create_access_token",
+            "create_refresh_token",
+            "verify_access_token",
+            "verify_refresh_token"
+          ],
+          "alias": null
+        },
+        {
+          "module": "uuid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "jwt",
+          "names": [],
+          "alias": "pyjwt"
+        },
+        {
+          "module": "cryptography.hazmat.primitives",
+          "names": [
+            "serialization"
+          ],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [
+            "datetime",
+            "timezone",
+            "timedelta"
+          ],
+          "alias": null
+        },
+        {
+          "module": "app.auth.jwt_service",
+          "names": [
+            "_load_private_key"
+          ],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/app/auth-provider.tsx",
+      "language": "TypeScript",
+      "loc": 80,
+      "code_loc": 68,
+      "comment_lines": 1,
+      "comment_ratio": 0.0125,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "AuthProvider",
+          "lineno": 23,
+          "end_lineno": 23,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "AuthState",
+          "lineno": 13,
+          "end_lineno": 13,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/auth",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/app/dashboard/layout.tsx",
+      "language": "TypeScript",
+      "loc": 43,
+      "code_loc": 36,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "DashboardLayout",
+          "lineno": 8,
+          "end_lineno": 8,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "next/navigation",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/dashboard/sidebar",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/app/auth-provider",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/app/dashboard/page.tsx",
+      "language": "TypeScript",
+      "loc": 7,
+      "code_loc": 5,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "DashboardPage",
+          "lineno": 4,
+          "end_lineno": 4,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "@/components/dashboard/project-grid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/dashboard/welcome-empty-state",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/app/globals.css",
+      "language": "CSS",
+      "loc": 100,
+      "code_loc": 95,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/app/layout.tsx",
+      "language": "TypeScript",
+      "loc": 31,
+      "code_loc": 27,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "RootLayout",
+          "lineno": 16,
+          "end_lineno": 16,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "next",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "next/font/google",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/app/auth-provider",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/app/page.tsx",
+      "language": "TypeScript",
+      "loc": 27,
+      "code_loc": 22,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "HomePage",
+          "lineno": 7,
+          "end_lineno": 7,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "next/navigation",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/app/auth-provider",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/app/projects/[id]/edit/page.tsx",
+      "language": "TypeScript",
+      "loc": 314,
+      "code_loc": 275,
+      "comment_lines": 11,
+      "comment_ratio": 0.035,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "EditProjectPage",
+          "lineno": 34,
+          "end_lineno": 34,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleNameBlur",
+          "lineno": 96,
+          "end_lineno": 96,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleSubmit",
+          "lineno": 100,
+          "end_lineno": 100,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "next/navigation",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "next/link",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/dashboard/tag-selector",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/repos/repos-field",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/repos/repos-field",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-projects",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-projects",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-repos",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/app/projects/[id]/page.tsx",
+      "language": "TypeScript",
+      "loc": 951,
+      "code_loc": 857,
+      "comment_lines": 25,
+      "comment_ratio": 0.0263,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "ProjectDetailPage",
+          "lineno": 106,
+          "end_lineno": 106,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleClickOutside",
+          "lineno": 247,
+          "end_lineno": 247,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "toggleEditTag",
+          "lineno": 263,
+          "end_lineno": 263,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "addEditCustomTag",
+          "lineno": 269,
+          "end_lineno": 269,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleEditCustomTagKeyDown",
+          "lineno": 277,
+          "end_lineno": 277,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "removeEditTag",
+          "lineno": 284,
+          "end_lineno": 284,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleSave",
+          "lineno": 288,
+          "end_lineno": 288,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleDelete",
+          "lineno": 322,
+          "end_lineno": 322,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleDuplicate",
+          "lineno": 328,
+          "end_lineno": 328,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleAnalyze",
+          "lineno": 345,
+          "end_lineno": 345,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "next/navigation",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "next/link",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-projects",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-projects",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/dashboard/delete-project-dialog",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/repos/repos-field",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/repos/repos-field",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/repos/ingestion-badge",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/repos/ingest-button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/repos/ingestion-progress-panel",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/use-ingestion-polling",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-repos",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-repos",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-analysis",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-analysis",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-analysis",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/analysis/analyze-button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/analysis/analysis-progress-panel",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/analysis/analysis-results-display",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/analysis/analysis-badge",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/use-analysis-polling",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/app/projects/layout.tsx",
+      "language": "TypeScript",
+      "loc": 2,
+      "code_loc": 1,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/app/projects/new/page.tsx",
+      "language": "TypeScript",
+      "loc": 165,
+      "code_loc": 147,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "NewProjectPage",
+          "lineno": 26,
+          "end_lineno": 26,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleNameBlur",
+          "lineno": 36,
+          "end_lineno": 36,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleSubmit",
+          "lineno": 40,
+          "end_lineno": 40,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "next/navigation",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "next/link",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/dashboard/tag-selector",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/repos/repos-field",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/repos/repos-field",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-projects",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-projects",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/app/projects/page.tsx",
+      "language": "TypeScript",
+      "loc": 7,
+      "code_loc": 5,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "ProjectsPage",
+          "lineno": 4,
+          "end_lineno": 4,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "@/components/dashboard/project-grid",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/dashboard/welcome-empty-state",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/app/sign-in/page.tsx",
+      "language": "TypeScript",
+      "loc": 88,
+      "code_loc": 79,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "SignInContent",
+          "lineno": 20,
+          "end_lineno": 20,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "SignInPage",
+          "lineno": 81,
+          "end_lineno": 81,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "next/navigation",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "next/image",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/app/auth-provider",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/analysis/analysis-badge.tsx",
+      "language": "TypeScript",
+      "loc": 67,
+      "code_loc": 64,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "AnalysisBadge",
+          "lineno": 53,
+          "end_lineno": 53,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "@/lib/api-analysis",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/analysis/analysis-progress-panel.tsx",
+      "language": "TypeScript",
+      "loc": 145,
+      "code_loc": 129,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "AnalysisProgressPanel",
+          "lineno": 21,
+          "end_lineno": 21,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "AnalysisProgressSkeleton",
+          "lineno": 130,
+          "end_lineno": 130,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/progress",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-analysis",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/analysis/analysis-results-display.tsx",
+      "language": "TypeScript",
+      "loc": 409,
+      "code_loc": 383,
+      "comment_lines": 4,
+      "comment_ratio": 0.0098,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "ScoreCard",
+          "lineno": 26,
+          "end_lineno": 26,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "ToolIssuesPanel",
+          "lineno": 53,
+          "end_lineno": 53,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "FileImportanceTable",
+          "lineno": 127,
+          "end_lineno": 127,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-analysis",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-analysis",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/analysis/analyze-button.tsx",
+      "language": "TypeScript",
+      "loc": 228,
+      "code_loc": 207,
+      "comment_lines": 4,
+      "comment_ratio": 0.0175,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "handleClick",
+          "lineno": 37,
+          "end_lineno": 37,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleConfirm",
+          "lineno": 61,
+          "end_lineno": 61,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/tooltip",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-analysis",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-analysis",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/dashboard/delete-project-dialog.tsx",
+      "language": "TypeScript",
+      "loc": 67,
+      "code_loc": 60,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "DeleteProjectDialog",
+          "lineno": 13,
+          "end_lineno": 13,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleConfirm",
+          "lineno": 21,
+          "end_lineno": 21,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "DeleteProjectDialogProps",
+          "lineno": 6,
+          "end_lineno": 6,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/dashboard/project-card.tsx",
+      "language": "TypeScript",
+      "loc": 91,
+      "code_loc": 84,
+      "comment_lines": 1,
+      "comment_ratio": 0.011,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "ProjectCard",
+          "lineno": 19,
+          "end_lineno": 19,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "next/link",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/repos/ingestion-badge",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-repos",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-projects",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/dashboard/project-grid.tsx",
+      "language": "TypeScript",
+      "loc": 120,
+      "code_loc": 101,
+      "comment_lines": 4,
+      "comment_ratio": 0.0333,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "ProjectGrid",
+          "lineno": 16,
+          "end_lineno": 16,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "fetchProjects",
+          "lineno": 28,
+          "end_lineno": 28,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/dashboard/project-card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/dashboard/skeleton-card",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-projects",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-projects",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-projects",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/dashboard/sidebar.tsx",
+      "language": "TypeScript",
+      "loc": 72,
+      "code_loc": 61,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "Sidebar",
+          "lineno": 8,
+          "end_lineno": 8,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleSignOut",
+          "lineno": 22,
+          "end_lineno": 22,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "navLinkClass",
+          "lineno": 34,
+          "end_lineno": 34,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "next/link",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "next/navigation",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/avatar",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/app/auth-provider",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/dashboard/skeleton-card.tsx",
+      "language": "TypeScript",
+      "loc": 19,
+      "code_loc": 17,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "SkeletonCard",
+          "lineno": 3,
+          "end_lineno": 3,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "@/components/ui/card",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/dashboard/tag-selector.tsx",
+      "language": "TypeScript",
+      "loc": 143,
+      "code_loc": 130,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "TagSelector",
+          "lineno": 34,
+          "end_lineno": 34,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "toggleTag",
+          "lineno": 41,
+          "end_lineno": 41,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "addCustomTag",
+          "lineno": 49,
+          "end_lineno": 49,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleCustomTagKeyDown",
+          "lineno": 57,
+          "end_lineno": 57,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "removeTag",
+          "lineno": 64,
+          "end_lineno": 64,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "TagSelectorProps",
+          "lineno": 28,
+          "end_lineno": 28,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/dashboard/welcome-empty-state.tsx",
+      "language": "TypeScript",
+      "loc": 19,
+      "code_loc": 17,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "WelcomeEmptyState",
+          "lineno": 4,
+          "end_lineno": 4,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "next/link",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/repos/ingest-button.tsx",
+      "language": "TypeScript",
+      "loc": 251,
+      "code_loc": 228,
+      "comment_lines": 5,
+      "comment_ratio": 0.0199,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "handleClick",
+          "lineno": 39,
+          "end_lineno": 39,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleConfirm",
+          "lineno": 63,
+          "end_lineno": 63,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "maybeTooltip",
+          "lineno": 74,
+          "end_lineno": 74,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/tooltip",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-repos",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/repos/ingestion-badge.tsx",
+      "language": "TypeScript",
+      "loc": 76,
+      "code_loc": 71,
+      "comment_lines": 1,
+      "comment_ratio": 0.0132,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "IngestionBadge",
+          "lineno": 41,
+          "end_lineno": 41,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "@/lib/api-repos",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/repos/ingestion-progress-panel.tsx",
+      "language": "TypeScript",
+      "loc": 149,
+      "code_loc": 130,
+      "comment_lines": 2,
+      "comment_ratio": 0.0134,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "IngestionProgressPanel",
+          "lineno": 23,
+          "end_lineno": 23,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "IngestionProgressSkeleton",
+          "lineno": 134,
+          "end_lineno": 134,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/progress",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-repos",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/repos/repos-field.tsx",
+      "language": "TypeScript",
+      "loc": 147,
+      "code_loc": 129,
+      "comment_lines": 2,
+      "comment_ratio": 0.0136,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "handleAdd",
+          "lineno": 33,
+          "end_lineno": 33,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleRemove",
+          "lineno": 72,
+          "end_lineno": 72,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "handleKeyDown",
+          "lineno": 76,
+          "end_lineno": 76,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "RepoEntry",
+          "lineno": 12,
+          "end_lineno": 12,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "lucide-react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/components/ui/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-repos",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/ui/avatar.tsx",
+      "language": "TypeScript",
+      "loc": 110,
+      "code_loc": 100,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "Avatar",
+          "lineno": 8,
+          "end_lineno": 8,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "AvatarImage",
+          "lineno": 28,
+          "end_lineno": 28,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "AvatarFallback",
+          "lineno": 41,
+          "end_lineno": 41,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "AvatarBadge",
+          "lineno": 57,
+          "end_lineno": 57,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "AvatarGroup",
+          "lineno": 73,
+          "end_lineno": 73,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "AvatarGroupCount",
+          "lineno": 86,
+          "end_lineno": 86,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@base-ui/react/avatar",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/ui/badge.tsx",
+      "language": "TypeScript",
+      "loc": 53,
+      "code_loc": 48,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "Badge",
+          "lineno": 30,
+          "end_lineno": 30,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "@base-ui/react/merge-props",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@base-ui/react/use-render",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "class-variance-authority",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/ui/button.tsx",
+      "language": "TypeScript",
+      "loc": 59,
+      "code_loc": 54,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "Button",
+          "lineno": 43,
+          "end_lineno": 43,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "@base-ui/react/button",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "class-variance-authority",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/ui/card.tsx",
+      "language": "TypeScript",
+      "loc": 104,
+      "code_loc": 94,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "Card",
+          "lineno": 5,
+          "end_lineno": 5,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "CardHeader",
+          "lineno": 23,
+          "end_lineno": 23,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "CardTitle",
+          "lineno": 36,
+          "end_lineno": 36,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "CardDescription",
+          "lineno": 49,
+          "end_lineno": 49,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "CardAction",
+          "lineno": 59,
+          "end_lineno": 59,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "CardContent",
+          "lineno": 72,
+          "end_lineno": 72,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "CardFooter",
+          "lineno": 82,
+          "end_lineno": 82,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/ui/progress.tsx",
+      "language": "TypeScript",
+      "loc": 84,
+      "code_loc": 75,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "Progress",
+          "lineno": 7,
+          "end_lineno": 7,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "ProgressTrack",
+          "lineno": 28,
+          "end_lineno": 28,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "ProgressIndicator",
+          "lineno": 41,
+          "end_lineno": 41,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "ProgressLabel",
+          "lineno": 54,
+          "end_lineno": 54,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "ProgressValue",
+          "lineno": 64,
+          "end_lineno": 64,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "@base-ui/react/progress",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/components/ui/tooltip.tsx",
+      "language": "TypeScript",
+      "loc": 67,
+      "code_loc": 59,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "TooltipProvider",
+          "lineno": 7,
+          "end_lineno": 7,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "Tooltip",
+          "lineno": 20,
+          "end_lineno": 20,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "TooltipTrigger",
+          "lineno": 24,
+          "end_lineno": 24,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "TooltipContent",
+          "lineno": 28,
+          "end_lineno": 28,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "@base-ui/react/tooltip",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/utils",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/eslint.config.mjs",
+      "language": "JavaScript",
+      "loc": 19,
+      "code_loc": 14,
+      "comment_lines": 2,
+      "comment_ratio": 0.1053,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "eslint/config",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "eslint-config-next/core-web-vitals",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "eslint-config-next/typescript",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/lib/api-analysis.ts",
+      "language": "TypeScript",
+      "loc": 178,
+      "code_loc": 148,
+      "comment_lines": 10,
+      "comment_ratio": 0.0562,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "AnalysisStep",
+          "lineno": 18,
+          "end_lineno": 18,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "AnalysisRun",
+          "lineno": 25,
+          "end_lineno": 25,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "AnalysisStatusResponse",
+          "lineno": 38,
+          "end_lineno": 38,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "CodeQualityReport",
+          "lineno": 44,
+          "end_lineno": 44,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "LanguageMetrics",
+          "lineno": 64,
+          "end_lineno": 64,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "FileImportance",
+          "lineno": 72,
+          "end_lineno": 72,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ToolResult",
+          "lineno": 81,
+          "end_lineno": 81,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "AnalysisTriggerResponse",
+          "lineno": 93,
+          "end_lineno": 93,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "@/lib/auth",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/lib/api-projects.ts",
+      "language": "TypeScript",
+      "loc": 77,
+      "code_loc": 63,
+      "comment_lines": 2,
+      "comment_ratio": 0.026,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "Project",
+          "lineno": 6,
+          "end_lineno": 6,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ProjectCreate",
+          "lineno": 17,
+          "end_lineno": 17,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ProjectUpdate",
+          "lineno": 24,
+          "end_lineno": 24,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "@/lib/auth",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-repos",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/lib/api-repos.ts",
+      "language": "TypeScript",
+      "loc": 170,
+      "code_loc": 140,
+      "comment_lines": 6,
+      "comment_ratio": 0.0353,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "IngestionStep",
+          "lineno": 15,
+          "end_lineno": 15,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "Repo",
+          "lineno": 22,
+          "end_lineno": 22,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "RepoStatusResponse",
+          "lineno": 41,
+          "end_lineno": 41,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "RepoCreate",
+          "lineno": 47,
+          "end_lineno": 47,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "@/lib/auth",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/lib/auth.ts",
+      "language": "TypeScript",
+      "loc": 62,
+      "code_loc": 52,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "User",
+          "lineno": 1,
+          "end_lineno": 1,
+          "docstring": null,
+          "methods": []
+        },
+        {
+          "name": "ApiError",
+          "lineno": 9,
+          "end_lineno": 9,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/lib/use-analysis-polling.ts",
+      "language": "TypeScript",
+      "loc": 119,
+      "code_loc": 99,
+      "comment_lines": 4,
+      "comment_ratio": 0.0336,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "AnalysisPollingState",
+          "lineno": 11,
+          "end_lineno": 11,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-analysis",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-analysis",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-analysis",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/lib/use-ingestion-polling.ts",
+      "language": "TypeScript",
+      "loc": 123,
+      "code_loc": 103,
+      "comment_lines": 4,
+      "comment_ratio": 0.0325,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [
+        {
+          "name": "PollingState",
+          "lineno": 15,
+          "end_lineno": 15,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [
+        {
+          "module": "react",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-repos",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "@/lib/api-repos",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/lib/utils.ts",
+      "language": "TypeScript",
+      "loc": 7,
+      "code_loc": 5,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "cn",
+          "lineno": 4,
+          "end_lineno": 4,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "clsx",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "tailwind-merge",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/next.config.ts",
+      "language": "TypeScript",
+      "loc": 15,
+      "code_loc": 12,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "next",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": []
+    },
+    {
+      "path": "frontend/postcss.config.mjs",
+      "language": "JavaScript",
+      "loc": 8,
+      "code_loc": 6,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": []
+    }
+  ],
+  "delta": null,
+  "ingestion_metadata": {
+    "version": "1.0",
+    "timestamp": "2026-07-12T11:15:23.452760+00:00",
+    "duration_ms": 0,
+    "pipeline_version": "1"
+  }
+}

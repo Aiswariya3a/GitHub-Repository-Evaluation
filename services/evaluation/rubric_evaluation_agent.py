@@ -17,7 +17,10 @@ from services.evaluation.schemas import CRITERION_EVALUATION_SCHEMA
 
 logger = logging.getLogger(__name__)
 
-# Maximum evidence text length to avoid context window overflow
+# Maximum evidence text length to avoid context window overflow.
+# Set to 8K to fit within smaller context windows.
+# Smart truncation preserves both the beginning (file paths/metadata) and
+# end (delta/changes) of the evidence.
 MAX_EVIDENCE_CHARS = 8000
 
 
@@ -83,11 +86,17 @@ class RubricEvaluationAgent(BaseAgent):
 
         # Build user prompt
         evidence_str = json.dumps(evidence, indent=2)
-        # Truncate evidence to avoid context window overflow (Pitfall 2)
+        # Smart truncation: keep start (file paths/metadata) and end (delta),
+        # remove middle content if evidence exceeds context window limits
         if len(evidence_str) > MAX_EVIDENCE_CHARS:
-            evidence_str = evidence_str[:MAX_EVIDENCE_CHARS] + "\n... [truncated]"
+            half = MAX_EVIDENCE_CHARS // 2
+            evidence_str = (
+                evidence_str[:half]
+                + "\n... [evidence truncated to fit context window] ...\n"
+                + evidence_str[-half:]
+            )
             logger.warning(
-                "Evidence for %s/%s truncated to %d chars",
+                "Evidence for %s/%s truncated to %d chars (smart truncation)",
                 category_code,
                 criterion_key,
                 MAX_EVIDENCE_CHARS,

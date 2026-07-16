@@ -1,14 +1,24 @@
 #!/usr/bin/env python3
 import re
+<<<<<<< Updated upstream:archive/main.py
 import argparse
+=======
+import warnings
+>>>>>>> Stashed changes:main.py
 
 import os
 import time
 import json
-import google.generativeai as genai
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from dotenv import load_dotenv
+
+warnings.simplefilter("ignore", FutureWarning)
+
+try:
+    import google.generativeai as genai
+except ModuleNotFoundError:
+    genai = None
 
 load_dotenv()
 
@@ -26,8 +36,11 @@ CLONE_DIR = "repos"
 BASE_REPO = "https://github.com/24UCS271-MiniProject/miniProjectSourceCode"
 
 # Gemini setup
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-2.5-flash")
+if GEMINI_API_KEY and genai is not None:
+    genai.configure(api_key=GEMINI_API_KEY)
+    model = genai.GenerativeModel("gemini-2.5-flash")
+else:
+    model = None
 
 # -----------------------------
 # LOAD SESSION REPOSITORIES FROM POSTGRESQL
@@ -78,7 +91,30 @@ def check_repo(repo_url):
 # -----------------------------
 
 def clone_repo(url, roll):
+<<<<<<< Updated upstream:archive/main.py
     return github_service.clone(url, roll)
+=======
+
+    url = clean_url(url)
+
+    name = sanitize_name(roll, url)
+    path = os.path.join(CLONE_DIR, name)
+
+    if not os.path.exists(path):
+
+        print("Cloning:", url, "->", name)
+
+        result = subprocess.run(
+            ["git", "clone", "--depth", "1", url, path],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+
+        if result.returncode != 0:
+            return None
+
+    return path
+>>>>>>> Stashed changes:main.py
 
 
 # -----------------------------
@@ -158,6 +194,12 @@ def evaluate_code(code, roll):
     
     if not code.strip():
         return {"error": "No meaningful student code found"}
+
+    if model is None:
+        return {
+            "error": "Gemini evaluation unavailable",
+            "details": "Install google-generativeai and set GEMINI_API_KEY to enable AI scoring."
+        }
 
     # Rubric definition with max marks for each component
     rubric_max_scores = {

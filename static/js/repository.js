@@ -1149,8 +1149,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const criteria = ev.criterion_results || [];
 
         sessionBack.href = `/sessions/${sid}`;
-        repositoryTitle.textContent = r.roll_number + ' \u00B7 ' + r.repo_url.split('/').pop();
+        var repoName = r.repo_url.split('/').pop();
+        repositoryTitle.textContent = r.roll_number + ' \u00B7 ' + repoName;
         repositoryUrl.textContent = r.repo_url;
+        (function() {
+            var avatar = document.getElementById('repoAvatar');
+            if (!avatar) return;
+            function getInitials(n) {
+                n = (n || '').replace(/\.git$/i, '');
+                var parts = n.split(/[-_\s]+/).filter(Boolean);
+                if (parts.length >= 2 && parts[0].length > 0 && parts[1].length > 0) return (parts[0][0] + parts[1][0]).toUpperCase();
+                return n.slice(0, 2).toUpperCase() || '?';
+            }
+            function getColor(n) {
+                var colors = ['#6366f1','#8b5cf6','#a855f7','#ec4899','#f43f5e','#ef4444','#f97316','#eab308','#84cc16','#22c55e','#14b8a6','#06b6d4','#3b82f6'];
+                var hash = 0;
+                for (var i = 0; i < (n || '').length; i++) hash = n.charCodeAt(i) + ((hash << 5) - hash);
+                return colors[Math.abs(hash) % colors.length];
+            }
+            var c = getColor(repoName);
+            avatar.textContent = getInitials(repoName);
+            avatar.style.background = c + '26';
+            avatar.style.color = c;
+        })();
         repositoryStatus.textContent = r.status;
         repositoryStatus.className = 'status-badge status-' + r.status.toLowerCase();
         repositoryActions.innerHTML =

@@ -13,6 +13,22 @@ document.addEventListener('DOMContentLoaded', function() {
     var PAGE_SIZE = 6;
     var selected = new Set();
 
+    // --- Helpers for repo avatars ---
+    function getRepoInitials(name) {
+        name = (name || '').replace(/\.git$/i, '');
+        var parts = name.split(/[-_\s]+/).filter(Boolean);
+        if (parts.length >= 2 && parts[0].length > 0 && parts[1].length > 0) {
+            return (parts[0][0] + parts[1][0]).toUpperCase();
+        }
+        return name.slice(0, 2).toUpperCase() || '?';
+    }
+    function getAvatarColor(name) {
+        var colors = ['#6366f1','#8b5cf6','#a855f7','#ec4899','#f43f5e','#ef4444','#f97316','#eab308','#84cc16','#22c55e','#14b8a6','#06b6d4','#3b82f6'];
+        var hash = 0;
+        for (var i = 0; i < (name || '').length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+        return colors[Math.abs(hash) % colors.length];
+    }
+
     // --- Repository card renderer ---
     function card(r) {
         var done = r.status === 'Completed', running = r.status === 'Evaluating';
@@ -25,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var license = r.license_info || '';
         var watchers = Number(r.watchers_count) || 0;
         var issues = Number(r.open_issues_count) || 0;
+        var name = r.repo_url.split('/').pop();
         var confidenceWarning = r.has_low_confidence
             ? '<div class="warning-strip">! Low confidence criteria</div>'
             : '';
@@ -37,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             (done ? '<a href="/sessions/' + sid + '/repositories/' + r.id + '/report">Download report</a><button onclick="evaluateOne(\'' + r.id + '\',true)">Re-evaluate</button>' : '<button onclick="evaluateOne(\'' + r.id + '\',false)">Evaluate now</button>') +
             '<button onclick="deleteRepository(\'' + r.id + '\')" class="danger-text">Delete</button></div></div></div>' +
             '<a class="repository-card-title" href="/sessions/' + sid + '/repositories/' + r.id + '">' +
-            '<span class="repo-icon">\u2318</span><div><strong>' + window.esc(r.repo_url.split('/').pop()) + '</strong>' +
+            '<span class="repo-icon" style="background:' + getAvatarColor(name) + '26;color:' + getAvatarColor(name) + '">' + getRepoInitials(name) + '</span><div><strong>' + window.esc(name) + '</strong>' +
             '<small>' + window.esc(r.roll_number) + '</small>' +
             '<span class="repo-desc" title="' + window.esc(r.description || '') + '">' + window.esc(desc.length > 60 ? desc.slice(0, 60) + '\u2026' : desc) + '</span></div></a>' +
             '<div class="repo-lang-strip"><span class="lang-dot"></span>' + window.esc(lang) +

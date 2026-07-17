@@ -21,13 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const empty = (title, text) => `<div class="polished-empty"><span>\u25C7</span><strong>${title}</strong><p>${text}</p></div>`;
 
-    const criterionCard = x => {
-        const s = x.score != null
-            ? `<div class="progress-bar"><span style="width:${Math.min(100, Number(x.score) / Number(x.max_score || 8) * 100)}%"></span></div><span class="metric-score">${Number(x.score).toFixed(1)}/${Number(x.max_score || 8).toFixed(0)}</span>`
-            : '';
-        return `<article class="metric-card"><div class="metric-card-header"><span class="metric-orb"></span><strong>${esc(x.criterion_key || x.criterion || 'Criterion')}</strong></div><p>${esc(x.remarks || x.description || '')}</p>${s}</article>`;
-    };
-
     // ---- New tab renderers ----
 
     function renderIngestionTab(ingestion) {
@@ -1058,42 +1051,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ? '<div class="recommendation"><span>01</span><p>' + esc(overallRemarks) + '</p></div>'
             : empty('No recommendations yet', 'Recommendations are generated from saved evaluation results.');
 
-        const catCriteria = { C2: [], C3: [], C5: [] };
-        criteria.forEach(x => { const cat = x.category_code || ''; if (catCriteria[cat]) catCriteria[cat].push(x); });
-
-        const evalNote = r.status === 'Evaluated' ? 'Run evaluation to generate metrics.' : 'Evaluation failed. Check errors and retry.';
         renderCodeQualityTab(ev, er, criteria);
-        documentationContent.innerHTML = catCriteria.C2.length
-            ? catCriteria.C2.map(criterionCard).join('')
-            : (evalNote ? empty('Documentation', evalNote) : empty('Documentation', 'No documentation metrics available.'));
-
-        // Collaboration tab is rendered by renderCollaborationTab() below
-
-        const commitsAct = gm.recent_commits || [];
-        const prsAct = gm.pull_requests || [];
-        const allIssuesAct = gm.issues || [];
-        const fileList = ing.files || [];
-        if (fileList.length) {
-            const fileRows = fileList.slice(0, 40).map(f =>
-                '<div class="file-row"><span class="file-lang">' + esc(f.language || '?') + '</span>' +
-                '<span class="file-path" title="' + esc(f.path) + '">' + esc(f.path) + '</span>' +
-                '<span class="file-size">' + (f.size ? Math.round(f.size / 1024) + ' KB' : '\u2014') + '</span></div>'
-            ).join('');
-            activityContent.innerHTML =
-                '<article class="panel"><h2>Files <span class="count-pill">' + fileList.length + '</span></h2><div class="file-list">' + fileRows + '</div></article>';
-        } else {
-            activityContent.innerHTML = '';
-        }
-
-        if (gm.commits_count || commitsAct.length) {
-            activityContent.innerHTML +=
-                '<article class="panel"><h2>GitHub activity</h2><p>' +
-                (gm.commits_count || commitsAct.length) + ' commits, ' +
-                (prsAct.length || gm.pull_requests_count || 0) + ' pull requests, ' +
-                (allIssuesAct.length || gm.issues_count || 0) + ' issues</p></article>';
-        } else if (!fileList.length) {
-            activityContent.innerHTML = empty('Activity', 'No activity data available.');
-        }
 
         historyContent.innerHTML = [
             ['Repository added', r.created_at],

@@ -714,15 +714,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Falls back to the code itself when a category is not in this map
     // (staff can define arbitrary category codes).
     const KNOWN_CATEGORIES = {
-        C1: { label: 'Project Organization', icon: '\uD83D\uDCC1', desc: 'Structure, file layout, and project conventions' },
-        C2: { label: 'Documentation Quality', icon: '\uD83D\uDCDD', desc: 'README, inline comments, and explanatory content' },
-        C3: { label: 'Code Clarity', icon: '\uD83D\uDCBB', desc: 'Readability, naming, and how easy the code is to follow' },
-        C4: { label: 'Testing Practices', icon: '\uD83E\uDDEA', desc: 'Test coverage, test structure, and quality assurance' },
-        C5: { label: 'Maintainability', icon: '\uD83D\uDD27', desc: 'Modularity, extensibility, and long-term upkeep' },
+        C1: { label: 'Project Organization', desc: 'Structure, file layout, and project conventions' },
+        C2: { label: 'Documentation Quality', desc: 'README, inline comments, and explanatory content' },
+        C3: { label: 'Code Clarity', desc: 'Readability, naming, and how easy the code is to follow' },
+        C4: { label: 'Testing Practices', desc: 'Test coverage, test structure, and quality assurance' },
+        C5: { label: 'Maintainability', desc: 'Modularity, extensibility, and long-term upkeep' },
     };
 
     function getCategoryInfo(code) {
-        return KNOWN_CATEGORIES[code] || { label: code.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()), icon: '\uD83D\uDCCC', desc: '' };
+        return KNOWN_CATEGORIES[code] || { label: code.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()), desc: '' };
     }
 
     // Plain-language labels for internal rubric criterion keys
@@ -819,7 +819,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ? ' The evaluation identified ' + strengthCount + ' ' + (strengthCount === 1 ? 'strength' : 'strengths') + ' and ' + concernCount + ' ' + (concernCount === 1 ? 'area' : 'areas') + ' for improvement.'
             : '';
 
-        html += '<article class="ai-section"><div class="ai-section-header"><span class="ai-section-icon">\uD83D\uDCCA</span><h2>Executive Summary</h2></div>';
+        html += '<article class="ai-section"><div class="ai-section-header"><h2>Executive Summary</h2></div>';
         html += '<p class="ai-summary-text">' + verdict + summaryDetail + '</p>';
 
         // Quick verdict badges
@@ -838,28 +838,28 @@ document.addEventListener('DOMContentLoaded', () => {
         // ================================================================
         // 4. Strengths (what's working well)
         // ================================================================
-        html += '<article class="ai-section"><div class="ai-section-header"><span class="ai-section-icon">\u2705</span><h2>What\u2019s Working Well</h2></div>';
+        html += '<article class="ai-section"><div class="ai-section-header"><h2>What\u2019s Working Well</h2></div>';
         if (strengths.length) {
             html += '<div class="ai-card-grid">';
             strengths.forEach(cr => {
                 const dim = getCategoryInfo(cr.category_code) || { label: cr.category_code, icon: '', desc: '' };
                 const pct = cr.max_score > 0 ? (Number(cr.score) / Number(cr.max_score) * 100) : 0;
                 html += '<div class="ai-strength-card">';
-                html += '<div class="ai-strength-head"><span class="ai-strength-icon">' + dim.icon + '</span><div><span class="ai-strength-dim">' + esc(dim.label) + '</span><span class="ai-strength-criterion">' + esc(getCriterionLabel(cr.criterion_key)) + '</span></div></div>';
+                html += '<div class="ai-strength-head"><div><span class="ai-strength-dim">' + esc(dim.label) + '</span><span class="ai-strength-criterion">' + esc(getCriterionLabel(cr.criterion_key)) + '</span></div></div>';
                 html += '<div class="ai-strength-score"><span style="color:#86efac">' + Number(cr.score).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span><span class="ai-strength-pct">' + pct.toFixed(0) + '%</span></div>';
                 if (cr.remarks) html += '<p class="ai-strength-remark">' + esc(cr.remarks) + '</p>';
                 html += '</div>';
             });
             html += '</div>';
         } else {
-            html += '<div class="ai-empty-section"><span>\uD83D\uDCC8</span><p>No criteria scored above 70%. Review the concerns and recommendations below for improvement areas.</p></div>';
+            html += '<div class="ai-empty-section"><p>No criteria scored above 70%. Review the concerns and recommendations below for improvement areas.</p></div>';
         }
         html += '</article>';
 
         // ================================================================
         // 5. Concerns (areas for improvement)
         // ================================================================
-        html += '<article class="ai-section"><div class="ai-section-header"><span class="ai-section-icon">\u26A0\uFE0F</span><h2>Areas for Improvement</h2></div>';
+        html += '<article class="ai-section"><div class="ai-section-header"><h2>Areas for Improvement</h2></div>';
         if (concerns.length) {
             html += '<div class="ai-card-grid">';
             concerns.forEach(cr => {
@@ -867,7 +867,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const pct = cr.max_score > 0 ? (Number(cr.score) / Number(cr.max_score) * 100) : 0;
                 const needReview = Number(cr.confidence || 0) < 0.5;
                 html += '<div class="ai-concern-card' + (needReview ? ' needs-review' : '') + '">';
-                html += '<div class="ai-concern-head"><span class="ai-concern-icon">' + dim.icon + '</span><div><span class="ai-concern-dim">' + esc(dim.label) + '</span><span class="ai-concern-criterion">' + esc(getCriterionLabel(cr.criterion_key)) + '</span></div></div>';
+                html += '<div class="ai-concern-head"><div><span class="ai-concern-dim">' + esc(dim.label) + '</span><span class="ai-concern-criterion">' + esc(getCriterionLabel(cr.criterion_key)) + '</span></div></div>';
                 html += '<div class="ai-concern-score"><span style="color:#fda4af">' + Number(cr.score).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span><span class="ai-concern-pct">' + pct.toFixed(0) + '%</span></div>';
                 if (cr.remarks) html += '<p class="ai-concern-remark">' + esc(cr.remarks) + '</p>';
                 if (needReview) html += '<span class="ai-needs-review-badge">Needs manual review</span>';
@@ -875,7 +875,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             html += '</div>';
         } else {
-            html += '<div class="ai-empty-section success"><span>\uD83C\uDF89</span><p>All criteria scored at or above 50%. No critical concerns detected.</p></div>';
+            html += '<div class="ai-empty-section success"><p>All criteria scored at or above 50%. No critical concerns detected.</p></div>';
         }
         html += '</article>';
 
@@ -884,7 +884,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // ================================================================
         const overallRemarks = er.overall_remarks || '';
         if (overallRemarks || concerns.length) {
-            html += '<article class="ai-section"><div class="ai-section-header"><span class="ai-section-icon">\uD83D\uDCA1</span><h2>Recommendations</h2></div>';
+            html += '<article class="ai-section"><div class="ai-section-header"><h2>Recommendations</h2></div>';
 
             // Primary recommendation from overall remarks
             if (overallRemarks) {
@@ -900,7 +900,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const suggestion = cr.remarks
                         ? cr.remarks
                         : 'Review and improve the ' + label.toLowerCase() + ' aspect of the project.';
-                    html += '<div class="ai-recommendation-card"><div class="ai-rec-num">0' + (i + 2) + '</div><div><span class="ai-rec-dim">' + dim.icon + ' ' + esc(dim.label) + '</span><p class="ai-rec-text">' + esc(suggestion) + '</p></div></div>';
+                    html += '<div class="ai-recommendation-card"><div class="ai-rec-num">0' + (i + 2) + '</div><div><span class="ai-rec-dim">' + esc(dim.label) + '</span><p class="ai-rec-text">' + esc(suggestion) + '</p></div></div>';
                 });
             }
             html += '</article>';
@@ -909,12 +909,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // ================================================================
         // 7. Quality Dimensions — progressive disclosure
         // ================================================================
-        html += '<article class="ai-section"><div class="ai-section-header"><span class="ai-section-icon">\uD83D\uDCCA</span><h2>Quality Dimensions</h2><span class="ai-section-badge">Click to expand</span></div>';
+        html += '<article class="ai-section"><div class="ai-section-header"><h2>Quality Dimensions</h2><span class="ai-section-badge">Click to expand</span></div>';
         html += '<p class="ai-dimensions-intro">Each dimension below groups related evaluation criteria. Click to view the detailed breakdown including scores and evidence.</p>';
 
         let dimIdx = 0;
         for (const [catCode, items] of Object.entries(groups)) {
-            const dim = getCategoryInfo(catCode) || { label: catCode, icon: '\uD83D\uDCCC', desc: '' };
+            const dim = getCategoryInfo(catCode) || { label: catCode, desc: '' };
             const catTotal = items.reduce((sum, cr) => sum + Number(cr.score || 0), 0);
             const catMax = items.reduce((sum, cr) => sum + Number(cr.max_score || 8), 0);
             const catPct = catMax > 0 ? (catTotal / catMax * 100) : 0;
@@ -928,7 +928,7 @@ document.addEventListener('DOMContentLoaded', () => {
             html += '<div class="ai-dimension-card" id="' + dimId + '">';
             html += '<div class="ai-dimension-header" onclick="document.getElementById(\'' + dimId + '\').classList.toggle(\'open\')">';
             html += '<span class="ai-dimension-toggle">\u25B8</span>';
-            html += '<span class="ai-dimension-icon">' + dim.icon + '</span>';
+            
             html += '<div class="ai-dimension-info"><span class="ai-dimension-label">' + esc(dim.label) + '</span><span class="ai-dimension-desc">' + esc(dim.desc) + '</span></div>';
             html += '<div class="ai-dimension-bar-track"><div class="ai-dimension-bar-fill" style="width:' + catPct + '%;background:' + tone.color + '"></div></div>';
             html += '<span class="ai-dimension-score" style="color:' + tone.color + '">' + catTotal.toFixed(1) + '<span class="ai-dimension-max">/' + catMax.toFixed(0) + '</span></span>';
@@ -986,7 +986,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 8. Footer note
         // ================================================================
         html += '<div class="ai-report-footer">';
-        html += '<span>\u26A0\uFE0F This assessment was generated by an AI evaluation engine. Scores are based on automated analysis of the repository content and should be reviewed by a human evaluator for final grading.</span>';
+        html += '<span>This assessment was generated by an AI evaluation engine. Scores are based on automated analysis of the repository content and should be reviewed by a human evaluator for final grading.</span>';
         html += '</div>';
 
         container.innerHTML = html;

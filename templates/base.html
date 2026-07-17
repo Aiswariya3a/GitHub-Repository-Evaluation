@@ -10,7 +10,7 @@
   <script src="{{ url_for('static', filename='js/common.js') }}"></script>
 </head>
 <body>
-  <nav class="topbar"><a class="brand" href="{{ url_for('session.dashboard') }}"><span>RE</span> Repository Evaluation</a><button class="command-trigger" type="button" onclick="openCommandPalette()"><span>Search sessions and repositories</span><kbd>Ctrl K</kbd></button><div class="topbar-actions"><span class="nav-location">{{ title }}</span><span class="avatar">AD</span></div></nav>
+  <nav class="topbar"><a class="brand" href="{{ url_for('session.dashboard') }}"><span>RE</span> Repository Evaluation</a><button class="command-trigger" type="button" onclick="openCommandPalette()"><span>Search sessions and repositories</span><kbd>Ctrl K</kbd></button><div class="topbar-actions"><span class="nav-location">{{ title }}</span><button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode"><span id="themeIcon">&#9790;</span></button><span class="avatar">AD</span></div></nav>
   <div class="application-layout"><aside class="sidebar"><nav>
     <a class="{{ 'active' if request.endpoint == 'session.dashboard' }}" href="{{ url_for('session.dashboard') }}">Dashboard</a>
     <a class="{{ 'active' if request.endpoint in ['session.sessions_page','session.detail','repository.detail'] }}" href="{{ url_for('session.sessions_page') }}">Sessions</a>

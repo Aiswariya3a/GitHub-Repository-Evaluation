@@ -46,3 +46,23 @@ window.statusTone = function(s) {
 window.empty = function(title, text) {
     return '<div class="polished-empty"><span>◇</span><strong>' + title + '</strong><p>' + text + '</p></div>';
 };
+
+// --- Theme Toggle ---
+(function() {
+    var theme = localStorage.getItem('theme');
+    if (theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+})();
+
+window.toggleTheme = function() {
+    var html = document.documentElement;
+    var isLight = html.getAttribute('data-theme') === 'light';
+    if (isLight) {
+        html.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        html.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+    }
+};

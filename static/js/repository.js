@@ -807,31 +807,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let html = '';
 
         // ================================================================
-        // 1. Overall Quality Assessment — hero card
-        // ================================================================
-        html += '<article class="ai-hero-card">';
-        html += '<div class="ai-hero-top">';
-        html += '<div class="ai-hero-grade" style="color:' + gradeColor + '">' + esc(grade) + '</div>';
-        html += '<div class="ai-hero-stats">';
-        html += '<div class="ai-hero-stat"><span class="ai-hero-stat-value" style="color:' + scoreColor + '">' + totalScore.toFixed(1) + '<span class="ai-hero-stat-max">/' + totalMax.toFixed(0) + '</span></span><span class="ai-hero-stat-label">Total Score</span></div>';
-        html += '<div class="ai-hero-stat"><span class="ai-hero-stat-value">' + (totalPct).toFixed(0) + '<span class="ai-hero-stat-max">%</span></span><span class="ai-hero-stat-label">Percentage</span></div>';
-        html += '<div class="ai-hero-stat"><span class="ai-hero-stat-value">' + criteria.length + '</span><span class="ai-hero-stat-label">Criteria evaluated</span></div>';
-        html += '<div class="ai-hero-stat"><span class="ai-hero-stat-value">' + assessConfidence(avgConf) + '</span><span class="ai-hero-stat-label">Assessment confidence</span></div>';
-        html += '</div></div>';
-
-        // Progress bar
-        html += '<div class="ai-hero-bar-track"><div class="ai-hero-bar-fill" style="width:' + totalPct + '%;background:' + scoreColor + '"></div></div>';
-
-        html += '<div class="ai-hero-footer">';
-        html += '<span>Evaluated: ' + (repository.evaluated_at ? new Date(repository.evaluated_at).toLocaleDateString() : 'Never') + '</span>';
-        const fileCount = (repository.ingestion && repository.ingestion.repo_stats && repository.ingestion.repo_stats.file_count) || repository.commit_count || 0;
-        html += '<span>Files reviewed: ' + fileCount + '</span>';
-        html += '<span>Categories: ' + Object.keys(groups).length + '</span>';
-        if (lowConfCount) html += '<span class="ai-hero-warning">' + lowConfCount + ' criteria need manual review</span>';
-        html += '</div></article>';
-
-        // ================================================================
-        // 3. Executive Summary
+        // 2. Executive Summary
         // ================================================================
         const verdict = totalPct >= 70 ? 'This project demonstrates a satisfactory level of quality across the evaluated dimensions.'
             : totalPct >= 45 ? 'This project shows potential but has several areas that would benefit from focused improvement.'

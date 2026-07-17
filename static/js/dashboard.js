@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (dashboardKpis) {
                 dashboardKpis.innerHTML =
                     kpi('Evaluation sessions', m.session_count, 'Across all statuses', 'violet', 'S') +
-                    kpi('Repositories evaluated', m.evaluated_count, 'Saved in PostgreSQL', 'green', 'R') +
+                    kpi('Repositories evaluated', m.evaluated_count, 'Available in history', 'green', 'R') +
                     kpi('Average health', Number(m.average_health || 0).toFixed(1) + '/20', 'Portfolio score', 'amber', 'H') +
                     kpi('Total analyzed', m.repository_count, m.running_count + ' currently running', 'blue', 'A');
             }

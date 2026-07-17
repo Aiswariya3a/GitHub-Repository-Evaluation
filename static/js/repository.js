@@ -706,6 +706,315 @@ document.addEventListener('DOMContentLoaded', () => {
         return consistency;
     }
 
+    // ------------------------------------------------------------------
+    //   Code Quality Tab — AI Assessment Report
+    // ------------------------------------------------------------------
+
+    // Map rubric category codes to plain-language quality dimensions
+    const QUALITY_DIMS = {
+        C1: { label: 'Project Organization', icon: '\uD83D\uDCC1', desc: 'Structure, file layout, and project conventions' },
+        C2: { label: 'Documentation Quality', icon: '\uD83D\uDCDD', desc: 'README, inline comments, and explanatory content' },
+        C3: { label: 'Code Clarity', icon: '\uD83D\uDCBB', desc: 'Readability, naming, and how easy the code is to follow' },
+        C4: { label: 'Testing Practices', icon: '\uD83E\uDDEA', desc: 'Test coverage, test structure, and quality assurance' },
+        C5: { label: 'Maintainability', icon: '\uD83D\uDD27', desc: 'Modularity, extensibility, and long-term upkeep' },
+    };
+
+    // Plain-language labels for internal rubric criterion keys
+    const CRITERION_LABELS = {
+        repository_structure: 'Project layout & conventions',
+        coding_standards: 'Code style & consistency',
+        modularity: 'Modular design',
+        readability: 'Code readability',
+        documentation_quality: 'Documentation completeness',
+        readme_quality: 'README quality',
+        project_scope: 'Project scope & ambition',
+        testing_quality: 'Test coverage & quality',
+        code_organization: 'Code organization',
+        error_handling: 'Error handling',
+        naming_conventions: 'Naming conventions',
+        code_commenting: 'Code commenting',
+    };
+
+    function getCriterionLabel(key) {
+        return CRITERION_LABELS[key] || key.replace(/_/g, ' ');
+    }
+
+    function classifyScore(score, maxScore) {
+        const pct = maxScore > 0 ? score / maxScore : 0;
+        if (pct >= 0.8) return { tone: 'strong', label: 'Strong', color: '#86efac' };
+        if (pct >= 0.6) return { tone: 'satisfactory', label: 'Satisfactory', color: '#7dd3fc' };
+        if (pct >= 0.4) return { tone: 'needs-work', label: 'Needs work', color: '#fcd34d' };
+        return { tone: 'concerning', label: 'Concerning', color: '#fda4af' };
+    }
+
+    function assessConfidence(conf) {
+        return conf >= 0.7 ? 'High' : conf >= 0.5 ? 'Medium' : 'Low';
+    }
+
+    function renderCodeQualityTab(ev, er, criteria) {
+        const container = document.getElementById('qualityContent');
+        if (!container) return;
+
+        if (!criteria || !criteria.length) {
+            const note = repository && repository.status === 'Evaluated'
+                ? 'Run evaluation to generate metrics.'
+                : 'Evaluation failed. Check errors and retry.';
+            container.innerHTML = empty('No assessment data', note);
+            return;
+        }
+
+        // ---- Calculate overall stats ----
+        const allScores = criteria.map(cr => Number(cr.score || 0));
+        const allMaxes = criteria.map(cr => Number(cr.max_score || 8));
+        const totalScore = allScores.reduce((s, v) => s + v, 0);
+        const totalMax = allMaxes.reduce((s, v) => s + v, 0);
+        const totalPct = totalMax > 0 ? (totalScore / totalMax * 100) : 0;
+        const overallTone = classifyScore(totalScore, totalMax);
+        const grade = totalPct >= 90 ? 'A' : totalPct >= 80 ? 'B' : totalPct >= 70 ? 'C' : totalPct >= 60 ? 'D' : 'F';
+        const avgConf = criteria.reduce((s, cr) => s + Number(cr.confidence || 0), 0) / criteria.length;
+        const lowConfCount = criteria.filter(cr => Number(cr.confidence || 0) < 0.5).length;
+
+        // Group criteria by category
+        const groups = {};
+        criteria.forEach(cr => {
+            const cat = cr.category_code || 'other';
+            if (!groups[cat]) groups[cat] = [];
+            groups[cat].push(cr);
+        });
+
+        // Identify strengths (top-scoring criteria) and concerns (bottom-scoring)
+        const sorted = criteria.slice().sort((a, b) => {
+            const ap = a.max_score > 0 ? Number(a.score) / Number(a.max_score) : 0;
+            const bp = b.max_score > 0 ? Number(b.score) / Number(b.max_score) : 0;
+            return bp - ap;
+        });
+        const strengths = sorted.filter(c => c.max_score > 0 && Number(c.score) / Number(c.max_score) >= 0.7);
+        const concerns = sorted.filter(c => c.max_score > 0 && Number(c.score) / Number(c.max_score) < 0.5);
+
+        // Score color
+        const scoreColor = overallTone.tone === 'strong' ? '#86efac'
+            : overallTone.tone === 'satisfactory' ? '#7dd3fc'
+            : overallTone.tone === 'needs-work' ? '#fcd34d' : '#fda4af';
+
+        const gradeColor = totalPct >= 70 ? '#86efac' : totalPct >= 45 ? '#fcd34d' : '#fda4af';
+
+        let html = '';
+
+        // ================================================================
+        // 1. AI badge header
+        // ================================================================
+        html += '<div class="ai-report-badge"><span class="ai-report-icon">\u26A1</span> AI-Generated Assessment Report</div>';
+
+        // ================================================================
+        // 2. Overall Quality Assessment — hero card
+        // ================================================================
+        html += '<article class="ai-hero-card">';
+        html += '<div class="ai-hero-top">';
+        html += '<div class="ai-hero-grade" style="color:' + gradeColor + '">' + esc(grade) + '</div>';
+        html += '<div class="ai-hero-stats">';
+        html += '<div class="ai-hero-stat"><span class="ai-hero-stat-value" style="color:' + scoreColor + '">' + totalScore.toFixed(1) + '<span class="ai-hero-stat-max">/' + totalMax.toFixed(0) + '</span></span><span class="ai-hero-stat-label">Total Score</span></div>';
+        html += '<div class="ai-hero-stat"><span class="ai-hero-stat-value">' + (totalPct).toFixed(0) + '<span class="ai-hero-stat-max">%</span></span><span class="ai-hero-stat-label">Percentage</span></div>';
+        html += '<div class="ai-hero-stat"><span class="ai-hero-stat-value">' + criteria.length + '</span><span class="ai-hero-stat-label">Criteria evaluated</span></div>';
+        html += '<div class="ai-hero-stat"><span class="ai-hero-stat-value">' + assessConfidence(avgConf) + '</span><span class="ai-hero-stat-label">Assessment confidence</span></div>';
+        html += '</div></div>';
+
+        // Progress bar
+        html += '<div class="ai-hero-bar-track"><div class="ai-hero-bar-fill" style="width:' + totalPct + '%;background:' + scoreColor + '"></div></div>';
+
+        html += '<div class="ai-hero-footer">';
+        html += '<span>Evaluated: ' + (repository.evaluated_at ? new Date(repository.evaluated_at).toLocaleDateString() : 'Never') + '</span>';
+        const fileCount = (repository.ingestion && repository.ingestion.repo_stats && repository.ingestion.repo_stats.file_count) || repository.commit_count || 0;
+        html += '<span>Files reviewed: ' + fileCount + '</span>';
+        html += '<span>Categories: ' + Object.keys(groups).length + '</span>';
+        if (lowConfCount) html += '<span class="ai-hero-warning">' + lowConfCount + ' criteria need manual review</span>';
+        html += '</div></article>';
+
+        // ================================================================
+        // 3. Executive Summary
+        // ================================================================
+        const verdict = totalPct >= 70 ? 'This project demonstrates a satisfactory level of quality across the evaluated dimensions.'
+            : totalPct >= 45 ? 'This project shows potential but has several areas that would benefit from focused improvement.'
+            : 'This project needs significant attention across multiple quality dimensions.';
+
+        const strengthCount = strengths.length;
+        const concernCount = concerns.length;
+        const summaryDetail = strengthCount > 0
+            ? ' The evaluation identified ' + strengthCount + ' ' + (strengthCount === 1 ? 'strength' : 'strengths') + ' and ' + concernCount + ' ' + (concernCount === 1 ? 'area' : 'areas') + ' for improvement.'
+            : '';
+
+        html += '<article class="ai-section"><div class="ai-section-header"><span class="ai-section-icon">\uD83D\uDCCA</span><h2>Executive Summary</h2></div>';
+        html += '<p class="ai-summary-text">' + verdict + summaryDetail + '</p>';
+
+        // Quick verdict badges
+        html += '<div class="ai-verdict-row">';
+        const verdicts = [
+            { label: 'Overall', value: overallTone.label, color: scoreColor },
+            { label: 'Grade', value: grade, color: gradeColor },
+            { label: 'Confidence', value: assessConfidence(avgConf), color: avgConf >= 0.7 ? '#86efac' : avgConf >= 0.5 ? '#fcd34d' : '#fda4af' },
+        ];
+        if (lowConfCount) verdicts.push({ label: 'Manual review', value: lowConfCount + ' items', color: '#fda4af' });
+        verdicts.forEach(v => {
+            html += '<span class="ai-verdict-chip"><span class="ai-verdict-dot" style="background:' + v.color + '"></span>' + esc(v.label) + ': <strong>' + esc(v.value) + '</strong></span>';
+        });
+        html += '</div></article>';
+
+        // ================================================================
+        // 4. Strengths (what's working well)
+        // ================================================================
+        html += '<article class="ai-section"><div class="ai-section-header"><span class="ai-section-icon">\u2705</span><h2>What\u2019s Working Well</h2></div>';
+        if (strengths.length) {
+            html += '<div class="ai-card-grid">';
+            strengths.forEach(cr => {
+                const dim = QUALITY_DIMS[cr.category_code] || { label: cr.category_code, icon: '', desc: '' };
+                const pct = cr.max_score > 0 ? (Number(cr.score) / Number(cr.max_score) * 100) : 0;
+                html += '<div class="ai-strength-card">';
+                html += '<div class="ai-strength-head"><span class="ai-strength-icon">' + dim.icon + '</span><div><span class="ai-strength-dim">' + esc(dim.label) + '</span><span class="ai-strength-criterion">' + esc(getCriterionLabel(cr.criterion_key)) + '</span></div></div>';
+                html += '<div class="ai-strength-score"><span style="color:#86efac">' + Number(cr.score).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span><span class="ai-strength-pct">' + pct.toFixed(0) + '%</span></div>';
+                if (cr.remarks) html += '<p class="ai-strength-remark">' + esc(cr.remarks) + '</p>';
+                html += '</div>';
+            });
+            html += '</div>';
+        } else {
+            html += '<div class="ai-empty-section"><span>\uD83D\uDCC8</span><p>No criteria scored above 70%. Review the concerns and recommendations below for improvement areas.</p></div>';
+        }
+        html += '</article>';
+
+        // ================================================================
+        // 5. Concerns (areas for improvement)
+        // ================================================================
+        html += '<article class="ai-section"><div class="ai-section-header"><span class="ai-section-icon">\u26A0\uFE0F</span><h2>Areas for Improvement</h2></div>';
+        if (concerns.length) {
+            html += '<div class="ai-card-grid">';
+            concerns.forEach(cr => {
+                const dim = QUALITY_DIMS[cr.category_code] || { label: cr.category_code, icon: '', desc: '' };
+                const pct = cr.max_score > 0 ? (Number(cr.score) / Number(cr.max_score) * 100) : 0;
+                const needReview = Number(cr.confidence || 0) < 0.5;
+                html += '<div class="ai-concern-card' + (needReview ? ' needs-review' : '') + '">';
+                html += '<div class="ai-concern-head"><span class="ai-concern-icon">' + dim.icon + '</span><div><span class="ai-concern-dim">' + esc(dim.label) + '</span><span class="ai-concern-criterion">' + esc(getCriterionLabel(cr.criterion_key)) + '</span></div></div>';
+                html += '<div class="ai-concern-score"><span style="color:#fda4af">' + Number(cr.score).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span><span class="ai-concern-pct">' + pct.toFixed(0) + '%</span></div>';
+                if (cr.remarks) html += '<p class="ai-concern-remark">' + esc(cr.remarks) + '</p>';
+                if (needReview) html += '<span class="ai-needs-review-badge">Needs manual review</span>';
+                html += '</div>';
+            });
+            html += '</div>';
+        } else {
+            html += '<div class="ai-empty-section success"><span>\uD83C\uDF89</span><p>All criteria scored at or above 50%. No critical concerns detected.</p></div>';
+        }
+        html += '</article>';
+
+        // ================================================================
+        // 6. Recommendations
+        // ================================================================
+        const overallRemarks = er.overall_remarks || '';
+        if (overallRemarks || concerns.length) {
+            html += '<article class="ai-section"><div class="ai-section-header"><span class="ai-section-icon">\uD83D\uDCA1</span><h2>Recommendations</h2></div>';
+
+            // Primary recommendation from overall remarks
+            if (overallRemarks) {
+                html += '<div class="ai-recommendation-card"><div class="ai-rec-num">01</div><div><p class="ai-rec-text">' + esc(overallRemarks) + '</p></div></div>';
+            }
+
+            // Auto-generated recommendations from concerns
+            if (concerns.length) {
+                html += '<div class="ai-rec-context"><p>Based on the evaluation, the following areas would benefit from attention:</p></div>';
+                concerns.slice(0, 3).forEach((cr, i) => {
+                    const dim = QUALITY_DIMS[cr.category_code] || { label: cr.category_code, icon: '' };
+                    const label = getCriterionLabel(cr.criterion_key);
+                    const suggestion = cr.remarks
+                        ? cr.remarks
+                        : 'Review and improve the ' + label.toLowerCase() + ' aspect of the project.';
+                    html += '<div class="ai-recommendation-card"><div class="ai-rec-num">0' + (i + 2) + '</div><div><span class="ai-rec-dim">' + dim.icon + ' ' + esc(dim.label) + '</span><p class="ai-rec-text">' + esc(suggestion) + '</p></div></div>';
+                });
+            }
+            html += '</article>';
+        }
+
+        // ================================================================
+        // 7. Quality Dimensions — progressive disclosure
+        // ================================================================
+        html += '<article class="ai-section"><div class="ai-section-header"><span class="ai-section-icon">\uD83D\uDCCA</span><h2>Quality Dimensions</h2><span class="ai-section-badge">Click to expand</span></div>';
+        html += '<p class="ai-dimensions-intro">Each dimension below groups related evaluation criteria. Click to view the detailed breakdown including scores and evidence.</p>';
+
+        let dimIdx = 0;
+        for (const [catCode, items] of Object.entries(groups)) {
+            const dim = QUALITY_DIMS[catCode] || { label: catCode, icon: '\uD83D\uDCCC', desc: '' };
+            const catTotal = items.reduce((sum, cr) => sum + Number(cr.score || 0), 0);
+            const catMax = items.reduce((sum, cr) => sum + Number(cr.max_score || 8), 0);
+            const catPct = catMax > 0 ? (catTotal / catMax * 100) : 0;
+            const tone = classifyScore(catTotal, catMax);
+            const dimId = 'ai-dim-' + dimIdx;
+            const reviewCount = items.filter(cr => {
+                const c = Number(cr.confidence || 0);
+                return c < 0.7 || cr.confidence_warning;
+            }).length;
+
+            html += '<div class="ai-dimension-card" id="' + dimId + '">';
+            html += '<div class="ai-dimension-header" onclick="document.getElementById(\'' + dimId + '\').classList.toggle(\'open\')">';
+            html += '<span class="ai-dimension-toggle">\u25B8</span>';
+            html += '<span class="ai-dimension-icon">' + dim.icon + '</span>';
+            html += '<div class="ai-dimension-info"><span class="ai-dimension-label">' + esc(dim.label) + '</span><span class="ai-dimension-desc">' + esc(dim.desc) + '</span></div>';
+            html += '<div class="ai-dimension-bar-track"><div class="ai-dimension-bar-fill" style="width:' + catPct + '%;background:' + tone.color + '"></div></div>';
+            html += '<span class="ai-dimension-score" style="color:' + tone.color + '">' + catTotal.toFixed(1) + '<span class="ai-dimension-max">/' + catMax.toFixed(0) + '</span></span>';
+            if (reviewCount) html += '<span class="ai-dimension-review-badge" title="Items needing manual review">' + reviewCount + '</span>';
+            html += '</div>'; // end header
+
+            // Expandable body: per-criterion breakdown
+            html += '<div class="ai-dimension-body">';
+            items.forEach((cr, i) => {
+                const pct = cr.max_score > 0 ? (Number(cr.score) / Number(cr.max_score) * 100) : 0;
+                const conf = Number(cr.confidence || 0);
+                const crTone = classifyScore(Number(cr.score), Number(cr.max_score || 8));
+                const evId = 'ai-ev-' + dimIdx + '-' + i;
+                const evItems = cr.evidence || [];
+
+                html += '<div class="ai-criterion-row">';
+                html += '<div class="ai-criterion-top">';
+                html += '<span class="ai-criterion-dot" style="background:' + crTone.color + '"></span>';
+                html += '<span class="ai-criterion-name">' + esc(getCriterionLabel(cr.criterion_key)) + '</span>';
+                html += '<span class="ai-criterion-bar-track"><span class="ai-criterion-bar-fill" style="width:' + pct + '%;background:' + crTone.color + '"></span></span>';
+                html += '<span class="ai-criterion-score" style="color:' + crTone.color + '">' + Number(cr.score || 0).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span>';
+                html += '<span class="ai-criterion-conf" style="color:' + (conf >= 0.7 ? '#86efac' : conf >= 0.5 ? '#fcd34d' : '#fda4af') + '">' + (conf * 100).toFixed(0) + '%</span>';
+                if (evItems.length) {
+                    html += '<span class="ai-evidence-toggle" onclick="document.getElementById(\'' + evId + '\').classList.toggle(\'open\');this.classList.toggle(\'open\')">' + evItems.length + ' evidence</span>';
+                }
+                html += '</div>'; // end criterion-top
+
+                if (cr.remarks) {
+                    html += '<div class="ai-criterion-remark">' + esc(cr.remarks) + '</div>';
+                }
+
+                // Evidence (expandable)
+                if (evItems.length) {
+                    html += '<div id="' + evId + '" class="ai-evidence-body">';
+                    evItems.forEach(e => {
+                        const lines = e.split('\n');
+                        const first = esc(lines[0]);
+                        const rest = lines.slice(1).filter(Boolean).map(l => esc(l));
+                        html += '<div class="ai-evidence-item">' + (rest.length ? '<strong>' + first + '</strong>' + rest.map(r => '<br>' + r).join('') : first) + '</div>';
+                    });
+                    html += '</div>';
+                }
+
+                html += '</div>'; // end ai-criterion-row
+            });
+            html += '</div>'; // end dimension body
+            html += '</div>'; // end dimension card
+
+            dimIdx++;
+        }
+
+        html += '</article>';
+
+        // ================================================================
+        // 8. Footer note
+        // ================================================================
+        html += '<div class="ai-report-footer">';
+        html += '<span>\u26A0\uFE0F This assessment was generated by an AI evaluation engine. Scores are based on automated analysis of the repository content and should be reviewed by a human evaluator for final grading.</span>';
+        html += '</div>';
+
+        container.innerHTML = html;
+    }
+
     // ---- Existing render() function (preserved, with new tab calls added) ----
 
     function render(d) {
@@ -776,9 +1085,7 @@ document.addEventListener('DOMContentLoaded', () => {
         criteria.forEach(x => { const cat = x.category_code || ''; if (catCriteria[cat]) catCriteria[cat].push(x); });
 
         const evalNote = r.status === 'Evaluated' ? 'Run evaluation to generate metrics.' : 'Evaluation failed. Check errors and retry.';
-        qualityContent.innerHTML = catCriteria.C3.length
-            ? catCriteria.C3.map(criterionCard).join('')
-            : (evalNote ? empty('Code quality', evalNote) : empty('Code quality', 'No code quality metrics available.'));
+        renderCodeQualityTab(ev, er, criteria);
         documentationContent.innerHTML = catCriteria.C2.length
             ? catCriteria.C2.map(criterionCard).join('')
             : (evalNote ? empty('Documentation', evalNote) : empty('Documentation', 'No documentation metrics available.'));

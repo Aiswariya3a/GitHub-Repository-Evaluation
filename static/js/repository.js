@@ -710,14 +710,20 @@ document.addEventListener('DOMContentLoaded', () => {
     //   Code Quality Tab — AI Assessment Report
     // ------------------------------------------------------------------
 
-    // Map rubric category codes to plain-language quality dimensions
-    const QUALITY_DIMS = {
+    // Plain-language labels for known rubric category codes.
+    // Falls back to the code itself when a category is not in this map
+    // (staff can define arbitrary category codes).
+    const KNOWN_CATEGORIES = {
         C1: { label: 'Project Organization', icon: '\uD83D\uDCC1', desc: 'Structure, file layout, and project conventions' },
         C2: { label: 'Documentation Quality', icon: '\uD83D\uDCDD', desc: 'README, inline comments, and explanatory content' },
         C3: { label: 'Code Clarity', icon: '\uD83D\uDCBB', desc: 'Readability, naming, and how easy the code is to follow' },
         C4: { label: 'Testing Practices', icon: '\uD83E\uDDEA', desc: 'Test coverage, test structure, and quality assurance' },
         C5: { label: 'Maintainability', icon: '\uD83D\uDD27', desc: 'Modularity, extensibility, and long-term upkeep' },
     };
+
+    function getCategoryInfo(code) {
+        return KNOWN_CATEGORIES[code] || { label: code.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()), icon: '\uD83D\uDCCC', desc: '' };
+    }
 
     // Plain-language labels for internal rubric criterion keys
     const CRITERION_LABELS = {
@@ -801,12 +807,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let html = '';
 
         // ================================================================
-        // 1. AI badge header
-        // ================================================================
-        html += '<div class="ai-report-badge"><span class="ai-report-icon">\u26A1</span> AI-Generated Assessment Report</div>';
-
-        // ================================================================
-        // 2. Overall Quality Assessment — hero card
+        // 1. Overall Quality Assessment — hero card
         // ================================================================
         html += '<article class="ai-hero-card">';
         html += '<div class="ai-hero-top">';
@@ -865,7 +866,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (strengths.length) {
             html += '<div class="ai-card-grid">';
             strengths.forEach(cr => {
-                const dim = QUALITY_DIMS[cr.category_code] || { label: cr.category_code, icon: '', desc: '' };
+                const dim = getCategoryInfo(cr.category_code) || { label: cr.category_code, icon: '', desc: '' };
                 const pct = cr.max_score > 0 ? (Number(cr.score) / Number(cr.max_score) * 100) : 0;
                 html += '<div class="ai-strength-card">';
                 html += '<div class="ai-strength-head"><span class="ai-strength-icon">' + dim.icon + '</span><div><span class="ai-strength-dim">' + esc(dim.label) + '</span><span class="ai-strength-criterion">' + esc(getCriterionLabel(cr.criterion_key)) + '</span></div></div>';
@@ -886,7 +887,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (concerns.length) {
             html += '<div class="ai-card-grid">';
             concerns.forEach(cr => {
-                const dim = QUALITY_DIMS[cr.category_code] || { label: cr.category_code, icon: '', desc: '' };
+                const dim = getCategoryInfo(cr.category_code) || { label: cr.category_code, icon: '', desc: '' };
                 const pct = cr.max_score > 0 ? (Number(cr.score) / Number(cr.max_score) * 100) : 0;
                 const needReview = Number(cr.confidence || 0) < 0.5;
                 html += '<div class="ai-concern-card' + (needReview ? ' needs-review' : '') + '">';
@@ -918,7 +919,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (concerns.length) {
                 html += '<div class="ai-rec-context"><p>Based on the evaluation, the following areas would benefit from attention:</p></div>';
                 concerns.slice(0, 3).forEach((cr, i) => {
-                    const dim = QUALITY_DIMS[cr.category_code] || { label: cr.category_code, icon: '' };
+                    const dim = getCategoryInfo(cr.category_code) || { label: cr.category_code, icon: '' };
                     const label = getCriterionLabel(cr.criterion_key);
                     const suggestion = cr.remarks
                         ? cr.remarks
@@ -937,7 +938,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let dimIdx = 0;
         for (const [catCode, items] of Object.entries(groups)) {
-            const dim = QUALITY_DIMS[catCode] || { label: catCode, icon: '\uD83D\uDCCC', desc: '' };
+            const dim = getCategoryInfo(catCode) || { label: catCode, icon: '\uD83D\uDCCC', desc: '' };
             const catTotal = items.reduce((sum, cr) => sum + Number(cr.score || 0), 0);
             const catMax = items.reduce((sum, cr) => sum + Number(cr.max_score || 8), 0);
             const catPct = catMax > 0 ? (catTotal / catMax * 100) : 0;

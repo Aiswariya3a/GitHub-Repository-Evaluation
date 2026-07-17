@@ -250,10 +250,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         window.toast('Evaluation started', 'success');
         var resp = await fetch('/api/sessions/' + sid + '/repositories/' + id + '/' + (re ? 'reevaluate' : 'evaluate'), { method: 'POST' });
-        var d = await resp.json();
-        if (!resp.ok) { window.toast(d.error || 'Evaluation failed', 'error'); } else { window.toast('Evaluation completed'); }
-        await load();
+        if (!resp.ok) { var d = await resp.json(); window.toast(d.error || 'Evaluation failed to start', 'error'); return; }
+        pollOneUntilDone(id);
     };
+
+    function pollOneUntilDone(id) {
+        var poll = setInterval(async function() {
+            try {
+                var resp = await fetch('/api/sessions/' + sid + '/repositories/' + id);
+                var d = await resp.json();
+                var status = d.repository && d.repository.status;
+                if (status === 'Completed') {
+                    clearInterval(poll);
+                    window.toast('Evaluation completed');
+                    load();
+                } else if (status === 'Failed' || status === 'Error') {
+                    clearInterval(poll);
+                    window.toast('Evaluation failed', 'error');
+                    load();
+                }
+            } catch (e) {
+                clearInterval(poll);
+                window.toast('Error checking evaluation status', 'error');
+                load();
+            }
+        }, 2000);
+    }
 
     window.bulkEvaluate = async function() {
         if (!await window.confirmAction('Evaluate ' + selected.size + ' selected repositories?', 'Bulk evaluation')) return;

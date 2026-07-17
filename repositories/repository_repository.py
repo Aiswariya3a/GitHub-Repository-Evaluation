@@ -35,7 +35,11 @@ class RepositoryRepository:
 
     def mark_running(self, repository_ids):
         with connect() as db:
-            db.execute("UPDATE repositories SET evaluation_status='Evaluating',error='',updated_at=now() WHERE id=ANY(%s)", (repository_ids,))
+            db.execute("UPDATE repositories SET evaluation_status='Evaluating',error='',progress_pct=5,current_step='Queued',updated_at=now() WHERE id=ANY(%s)", (repository_ids,))
+
+    def update_progress(self, repository_id, pct, step):
+        with connect() as db:
+            db.execute("UPDATE repositories SET progress_pct=%s,current_step=%s,updated_at=now() WHERE id=%s AND evaluation_status='Evaluating'", (pct, step, repository_id))
 
     def mark_failed(self, repository_ids, error):
         with connect() as db:

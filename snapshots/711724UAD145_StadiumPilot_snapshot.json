@@ -2,31 +2,237 @@
   "repository_metadata": {
     "url": "https://github.com/joedanields/StadiumPilot",
     "clone_url": "https://github.com/joedanields/StadiumPilot",
-    "clone_timestamp": "2026-07-12T15:56:28.215773+00:00",
+    "clone_timestamp": "2026-07-17T05:01:35.736787+00:00",
     "status": "success",
     "base_repo_url": null
   },
   "github_metadata": {
-    "commits_count": 3,
-    "recent_commits": [],
-    "contributors": [],
+    "commits_count": 33,
+    "recent_commits": [
+      {
+        "sha": "a81e994604f6",
+        "author": "joedanields",
+        "date": "2026-07-14T04:29:07Z",
+        "message": "Declare fetchLiveState before the effect that schedules it"
+      },
+      {
+        "sha": "78d7d6f90a55",
+        "author": "joedanields",
+        "date": "2026-07-14T04:22:06Z",
+        "message": "Final polish: judge-facing README, provider module, endpoint tests"
+      },
+      {
+        "sha": "843777b68f26",
+        "author": "joedanields",
+        "date": "2026-07-13T08:59:13Z",
+        "message": "Quality/security/a11y pass from rubric re-audit"
+      },
+      {
+        "sha": "81629a1a6bbd",
+        "author": "joedanields",
+        "date": "2026-07-13T06:14:01Z",
+        "message": "Strengthen testing: 11 edge cases, unit tests, TESTING.md log"
+      },
+      {
+        "sha": "cd657c002a46",
+        "author": "joedanields",
+        "date": "2026-07-11T19:39:33Z",
+        "message": "Update Phase 4 status after map polish"
+      },
+      {
+        "sha": "cee4701774fd",
+        "author": "joedanields",
+        "date": "2026-07-11T19:39:09Z",
+        "message": "Map polish: fix edge clipping, You-marker placement, duplicate labels"
+      },
+      {
+        "sha": "8a6bd952f538",
+        "author": "joedanields",
+        "date": "2026-07-11T19:22:22Z",
+        "message": "Include devDependencies in client build on Render"
+      },
+      {
+        "sha": "ba16eb0dc2eb",
+        "author": "joedanields",
+        "date": "2026-07-11T19:16:04Z",
+        "message": "Regenerate server package-lock after removing openai dependency"
+      },
+      {
+        "sha": "59b1ecbf6b2a",
+        "author": "joedanields",
+        "date": "2026-07-11T19:06:38Z",
+        "message": "Add Render deployment config; serve built client from Express"
+      },
+      {
+        "sha": "3fb6e3366fed",
+        "author": "joedanields",
+        "date": "2026-07-11T18:31:13Z",
+        "message": "finishing phase"
+      },
+      {
+        "sha": "b269a6330374",
+        "author": "joedanields",
+        "date": "2026-07-11T18:30:49Z",
+        "message": "added v2"
+      },
+      {
+        "sha": "8ab2d8f8736e",
+        "author": "joedanields",
+        "date": "2026-07-11T17:56:26Z",
+        "message": "changes done"
+      },
+      {
+        "sha": "addfc6a88889",
+        "author": "joedanields",
+        "date": "2026-07-11T17:35:11Z",
+        "message": "rmoved"
+      },
+      {
+        "sha": "374970c9ccd3",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:59Z",
+        "message": "20. Add agents.md documentation and server package-lock"
+      },
+      {
+        "sha": "ebbea4e70816",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:35Z",
+        "message": "20. Add dark-theme stylesheet and integration test suite"
+      },
+      {
+        "sha": "c33018a69ea4",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:34Z",
+        "message": "19. Add chat concierge panel and XAI reasoning panel"
+      },
+      {
+        "sha": "a6f3cb587467",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:33Z",
+        "message": "18. Add SVG-based interactive stadium map with route rendering"
+      },
+      {
+        "sha": "01856175688f",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:33Z",
+        "message": "17. Add main App component with state management and profile controls"
+      },
+      {
+        "sha": "3e3e4db24efa",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:32Z",
+        "message": "16. Add React entry point with StrictMode"
+      },
+      {
+        "sha": "b56c5dbc43db",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:32Z",
+        "message": "15. Add client package.json with Vite config and dev proxy"
+      },
+      {
+        "sha": "c51ad2e5e519",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:31Z",
+        "message": "14. Add client HTML entry point and favicon"
+      },
+      {
+        "sha": "aecbecfd718a",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:31Z",
+        "message": "13. Add AI chat endpoint with Claude integration and mock fallback"
+      },
+      {
+        "sha": "bee4d0e33dcb",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:31Z",
+        "message": "12. Add stadium data API routes with live state and refresh"
+      },
+      {
+        "sha": "5743a39f8a85",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:30Z",
+        "message": "11. Add Claude system prompt and user prompt builder templates"
+      },
+      {
+        "sha": "2cc5fc346329",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:25Z",
+        "message": "10. Add live state simulation for crowd density and gate status"
+      },
+      {
+        "sha": "83c1361cdce5",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:24Z",
+        "message": "9. Add static stadium data model with gates, sections, and amenities"
+      },
+      {
+        "sha": "ae2f579cd57e",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:24Z",
+        "message": "8. Add Mongoose schemas for Stadium and LiveState models"
+      },
+      {
+        "sha": "828f3c803fb1",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:23Z",
+        "message": "7. Add Express server entry point with CORS and health check"
+      },
+      {
+        "sha": "82a676561e77",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:22Z",
+        "message": "5. Add root package.json with monorepo orchestration scripts"
+      },
+      {
+        "sha": "eae6c80db579",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:21Z",
+        "message": "4. Add prompt-design.md with AI agent architecture docs"
+      },
+      {
+        "sha": "f33e30b91d26",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:21Z",
+        "message": "3. Add task.md with project milestones and rubric"
+      },
+      {
+        "sha": "996c3a4a9e63",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:20Z",
+        "message": "2. Add .env.example with required environment variables"
+      },
+      {
+        "sha": "17f7fd30faf5",
+        "author": "joedanields",
+        "date": "2026-07-11T17:34:20Z",
+        "message": "1. Add .gitignore for node_modules, dist, and env files"
+      }
+    ],
+    "contributors": [
+      {
+        "login": "joedanields",
+        "contributions": 33,
+        "html_url": "https://github.com/joedanields",
+        "avatar_url": "https://avatars.githubusercontent.com/u/179472809?v=4"
+      }
+    ],
     "pull_requests_count": 0,
     "pull_requests": [],
     "issues_count": 0,
     "issues": [],
-    "is_public": false,
-    "readme_exists": false
+    "is_public": true,
+    "readme_exists": true
   },
   "repo_stats": {
-    "total_loc": 1986,
-    "code_loc": 1713,
-    "file_count": 18,
+    "total_loc": 2294,
+    "code_loc": 1932,
+    "file_count": 21,
     "total_complexity": 0,
     "average_complexity": 0.0,
-    "comment_ratio": 0.0156,
+    "comment_ratio": 0.0371,
     "language_breakdown": {
       "HTML": 1,
-      "JavaScript": 16,
+      "JavaScript": 19,
       "CSS": 1
     }
   },
@@ -43,13 +249,14 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>StadiumPilot \u2014 AI Stadium Concierge</title>\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/favicon.svg\" />\n  </head>\n  <body>\n    <div id=\"root\"></div>\n    <script type=\"module\" src=\"/src/main.jsx\"></script>\n  </body>\n</html>\n"
     },
     {
       "path": "client/src/App.jsx",
       "language": "JavaScript",
-      "loc": 169,
-      "code_loc": 158,
+      "loc": 185,
+      "code_loc": 173,
       "comment_lines": 0,
       "comment_ratio": 0.0,
       "cyclomatic_complexity": 0,
@@ -62,30 +269,30 @@
           "docstring": null
         },
         {
-          "name": "fetchStadiumData",
-          "lineno": 33,
-          "end_lineno": 33,
+          "name": "fetchLiveState",
+          "lineno": 28,
+          "end_lineno": 28,
           "complexity": 0,
           "docstring": null
         },
         {
-          "name": "fetchLiveState",
-          "lineno": 44,
-          "end_lineno": 44,
+          "name": "fetchStadiumData",
+          "lineno": 40,
+          "end_lineno": 40,
           "complexity": 0,
           "docstring": null
         },
         {
           "name": "sendMessage",
-          "lineno": 52,
-          "end_lineno": 52,
+          "lineno": 61,
+          "end_lineno": 61,
           "complexity": 0,
           "docstring": null
         },
         {
           "name": "toggleDietary",
-          "lineno": 90,
-          "end_lineno": 90,
+          "lineno": 104,
+          "end_lineno": 104,
           "complexity": 0,
           "docstring": null
         }
@@ -114,13 +321,14 @@
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "import { useState, useEffect } from 'react';\nimport StadiumMap from './components/StadiumMap';\nimport ChatPanel from './components/ChatPanel';\nimport ReasoningPanel from './components/ReasoningPanel';\n\nconst DIETARY_OPTIONS = [\n  { value: 'vegan', label: 'Vegan' },\n  { value: 'vegetarian', label: 'Vegetarian' },\n  { value: 'nut-free', label: 'Nut-Free' },\n  { value: 'gluten-free', label: 'Gluten-Free' },\n  { value: 'halal', label: 'Halal' },\n  { value: 'kosher', label: 'Kosher' },\n];\n\nexport default function App() {\n  const [stadiumData, setStadiumData] = useState(null);\n  const [liveState, setLiveState] = useState(null);\n  const [chatHistory, setChatHistory] = useState([]);\n  const [currentRoute, setCurrentRoute] = useState([]);\n  const [alertLevel, setAlertLevel] = useState('normal');\n  const [isThinking, setIsThinking] = useState(false);\n  const [profile, setProfile] = useState({\n    accessibility: 'none',\n    dietary: [],\n    location: 'Section 101',\n  });\n\n  const fetchLiveState = async () => {\n    try {\n      const res = await fetch('/api/stadium/live');\n      const data = await res.json();\n      setLiveState(data);\n    } catch {}\n  };\n\n  useEffect(() => {\n    let cancelled = false;\n    let retryTimer;\n\n    const fetchStadiumData = async () => {\n      try {\n        const res = await fetch('/api/stadium');\n        const data = await res.json();\n        if (cancelled) return;\n        setStadiumData(data.stadium);\n        setLiveState(data.liveState);\n      } catch {\n        if (!cancelled) retryTimer = setTimeout(fetchStadiumData, 3000);\n      }\n    };\n\n    fetchStadiumData();\n    const interval = setInterval(fetchLiveState, 5000);\n    return () => {\n      cancelled = true;\n      clearTimeout(retryTimer);\n      clearInterval(interval);\n    };\n  }, []);\n\n  const sendMessage = async (message) => {\n    if (isThinking) return;\n    const userMsg = { role: 'user', content: message, timestamp: Date.now() };\n    setChatHistory(prev => [...prev, userMsg]);\n    setIsThinking(true);\n\n    try {\n      const res = await fetch('/api/chat', {\n        method: 'POST',\n        headers: { 'Content-Type': 'application/json' },\n        body: JSON.stringify({ message, profile }),\n      });\n      const data = await res.json();\n      if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);\n\n      const aiMsg = {\n        role: 'assistant',\n        content: data.answer,\n        reasoning: data.reasoning,\n        route: data.route || [],\n        alert_level: data.alert_level || 'normal',\n        clarifying_question: data.clarifying_question,\n        language_detected: data.language_detected,\n        timestamp: Date.now(),\n      };\n      setChatHistory(prev => [...prev, aiMsg]);\n      setCurrentRoute(data.route || []);\n      setAlertLevel(data.alert_level || 'normal');\n      if (data.liveState) setLiveState(data.liveState);\n    } catch (err) {\n      setChatHistory(prev => [...prev, {\n        role: 'assistant',\n        content: 'Sorry, I could not process your request. Please try again in a moment.',\n        reasoning: err.message || 'API connection failed.',\n        route: [],\n        alert_level: 'normal',\n        timestamp: Date.now(),\n      }]);\n    } finally {\n      setIsThinking(false);\n    }\n  };\n\n  const toggleDietary = (value) => {\n    setProfile(p => ({\n      ...p,\n      dietary: p.dietary.includes(value)\n        ? p.dietary.filter(d => d !== value)\n        : [...p.dietary, value],\n    }));\n  };\n\n  return (\n    <div className={`app ${alertLevel === 'emergency' ? 'emergency-active' : ''}`}>\n      <header className=\"header\">\n        <div className=\"header-brand\">\n          <h1 className=\"header-title\">StadiumPilot</h1>\n          <span className=\"header-tagline\">AI Stadium Concierge</span>\n        </div>\n        <div className=\"profile-bar\">\n          <div className=\"control-group\">\n            <label className=\"control-label\">Location</label>\n            <input\n              className=\"control-input\"\n              value={profile.location}\n              onChange={e => setProfile(p => ({ ...p, location: e.target.value }))}\n              placeholder=\"Section 101\"\n            />\n          </div>\n          <div className=\"control-group\">\n            <label className=\"control-label\">Accessibility</label>\n            <select\n              className=\"control-select\"\n              value={profile.accessibility}\n              onChange={e => setProfile(p => ({ ...p, accessibility: e.target.value }))}\n            >\n              <option value=\"none\">None</option>\n              <option value=\"wheelchair\">Wheelchair</option>\n              <option value=\"visual_impairment\">Visual Impairment</option>\n              <option value=\"hearing_impairment\">Hearing Impairment</option>\n            </select>\n          </div>\n          <div className=\"control-group\">\n            <label className=\"control-label\">Dietary</label>\n            <div className=\"dietary-pills\">\n              {DIETARY_OPTIONS.map(opt => (\n                <button\n                  key={opt.value}\n                  className={`dietary-pill ${profile.dietary.includes(opt.value) ? 'active' : ''}`}\n                  onClick={() => toggleDietary(opt.value)}\n                  type=\"button\"\n                  aria-pressed={profile.dietary.includes(opt.value)}\n                >\n                  {opt.label}\n                </button>\n              ))}\n            </div>\n          </div>\n        </div>\n      </header>\n      <main className=\"main\">\n        <div className=\"map-section\">\n          <StadiumMap\n            stadiumData={stadiumData}\n            liveState={liveState}\n            currentRoute={currentRoute}\n            currentLocation={profile.location}\n          />\n        </div>\n        <div className=\"side-panel\">\n          <ChatPanel\n            chatHistory={chatHistory}\n            onSend={sendMessage}\n            alertLevel={alertLevel}\n            isThinking={isThinking}\n          />\n          <ReasoningPanel\n            lastMessage={chatHistory[chatHistory.length - 1]}\n          />\n        </div>\n      </main>\n    </div>\n  );\n}\n"
     },
     {
       "path": "client/src/components/ChatPanel.jsx",
       "language": "JavaScript",
-      "loc": 90,
-      "code_loc": 80,
+      "loc": 98,
+      "code_loc": 88,
       "comment_lines": 0,
       "comment_ratio": 0.0,
       "cyclomatic_complexity": 0,
@@ -149,7 +357,8 @@
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "import { useState, useRef, useEffect } from 'react';\n\nexport default function ChatPanel({ chatHistory, onSend, alertLevel, isThinking }) {\n  const [input, setInput] = useState('');\n  const messagesEndRef = useRef(null);\n\n  useEffect(() => {\n    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });\n  }, [chatHistory, isThinking]);\n\n  const handleSubmit = (e) => {\n    e.preventDefault();\n    if (!input.trim() || isThinking) return;\n    onSend(input.trim());\n    setInput('');\n  };\n\n  const quickPrompts = [\n    \"Where's the nearest bathroom?\",\n    \"I'm hungry, what food is available?\",\n    \"How do I get to Section 214?\",\n    \"I feel dizzy and need help\",\n    \"I use a wheelchair, find me an accessible route\",\n  ];\n\n  return (\n    <div className={`chat-panel ${alertLevel === 'emergency' ? 'emergency' : ''}`}>\n      <h2>Concierge Chat</h2>\n\n      {alertLevel === 'emergency' && (\n        <div className=\"emergency-banner\" role=\"alert\">\n          EMERGENCY \u2014 Medical/security alert active\n        </div>\n      )}\n\n      <div className=\"chat-messages\" role=\"log\" aria-live=\"polite\" aria-label=\"Conversation with StadiumPilot\">\n        {chatHistory.length === 0 && (\n          <div className=\"chat-empty\">\n            <p>Welcome to StadiumPilot! Ask me anything about navigating the stadium.</p>\n            <div className=\"quick-prompts\">\n              {quickPrompts.map((prompt, i) => (\n                <button\n                  key={i}\n                  className=\"quick-prompt\"\n                  onClick={() => onSend(prompt)}\n                >\n                  {prompt}\n                </button>\n              ))}\n            </div>\n          </div>\n        )}\n\n        {chatHistory.map((msg, i) => (\n          <div key={i} className={`chat-msg ${msg.role}`}>\n            <div className=\"msg-role\">{msg.role === 'user' ? 'You' : 'StadiumPilot'}</div>\n            <div className=\"msg-content\">{msg.content}</div>\n            {msg.clarifying_question && (\n              <div className=\"clarifying-question\">\n                {msg.clarifying_question}\n              </div>\n            )}\n            {msg.route && msg.route.length > 0 && (\n              <div className=\"msg-route\">\n                <strong>Route:</strong> {msg.route.join(' \u2192 ')}\n              </div>\n            )}\n            {msg.alert_level && msg.alert_level !== 'normal' && (\n              <div className={`msg-alert ${msg.alert_level}`}>\n                {msg.alert_level.toUpperCase()}\n              </div>\n            )}\n          </div>\n        ))}\n        {isThinking && (\n          <div className=\"chat-msg assistant chat-msg--thinking\">\n            <div className=\"msg-role\">StadiumPilot</div>\n            <div className=\"msg-content\">Thinking\u2026</div>\n          </div>\n        )}\n        <div ref={messagesEndRef} />\n      </div>\n\n      <form className=\"chat-input\" onSubmit={handleSubmit}>\n        <input\n          value={input}\n          onChange={e => setInput(e.target.value)}\n          placeholder=\"Ask about navigation, food, restrooms, accessibility...\"\n          aria-label=\"Message StadiumPilot\"\n          maxLength={1000}\n          disabled={isThinking}\n        />\n        <button type=\"submit\" disabled={isThinking}>{isThinking ? '\u2026' : 'Send'}</button>\n      </form>\n    </div>\n  );\n}\n"
     },
     {
       "path": "client/src/components/ReasoningPanel.jsx",
@@ -171,13 +380,14 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "export default function ReasoningPanel({ lastMessage }) {\n  if (!lastMessage || lastMessage.role !== 'assistant') {\n    return (\n      <div className=\"reasoning-panel\">\n        <h2 className=\"reasoning-title\">Why This Route?</h2>\n        <p className=\"reasoning-empty\">\n          Ask a question to see AI reasoning and explainability (XAI).\n        </p>\n      </div>\n    );\n  }\n\n  const msg = lastMessage;\n\n  return (\n    <div className={`reasoning-panel ${msg.alert_level === 'emergency' ? 'reasoning--emergency' : ''}`}>\n      <div className=\"reasoning-header\">\n        <h2 className=\"reasoning-title\">Why This Route?</h2>\n        {msg.language_detected && (\n          <span className=\"language-badge\">{msg.language_detected}</span>\n        )}\n      </div>\n\n      <div className=\"reasoning-body\">\n        <div className=\"reasoning-section\">\n          <h3 className=\"reasoning-section-label\">AI Reasoning</h3>\n          <div className=\"reasoning-text\">{msg.reasoning || 'No reasoning provided.'}</div>\n        </div>\n\n        {msg.route && msg.route.length > 0 && (\n          <div className=\"reasoning-section\">\n            <h3 className=\"reasoning-section-label\">Recommended Route</h3>\n            <ol className=\"route-list\">\n              {msg.route.map((step, i) => (\n                <li key={i} className=\"route-list-item\">\n                  <span className=\"route-step\">{i + 1}</span>\n                  <span className=\"route-step-label\">{step}</span>\n                </li>\n              ))}\n            </ol>\n          </div>\n        )}\n\n        <div className=\"reasoning-section\">\n          <h3 className=\"reasoning-section-label\">Alert Level</h3>\n          <span className={`alert-badge ${msg.alert_level}`}>\n            {msg.alert_level?.toUpperCase()}\n          </span>\n        </div>\n      </div>\n\n      <div className=\"reasoning-footer\">\n        <small>AI-generated reasoning based on live stadium conditions.</small>\n      </div>\n    </div>\n  );\n}\n"
     },
     {
       "path": "client/src/components/StadiumMap.jsx",
       "language": "JavaScript",
       "loc": 353,
-      "code_loc": 318,
+      "code_loc": 319,
       "comment_lines": 5,
       "comment_ratio": 0.0142,
       "cyclomatic_complexity": 0,
@@ -205,29 +415,22 @@
         },
         {
           "name": "buildLookup",
-          "lineno": 318,
-          "end_lineno": 318,
-          "complexity": 0,
-          "docstring": null
-        },
-        {
-          "name": "resolvePoint",
-          "lineno": 338,
-          "end_lineno": 338,
+          "lineno": 325,
+          "end_lineno": 325,
           "complexity": 0,
           "docstring": null
         },
         {
           "name": "resolveRoutePoints",
-          "lineno": 343,
-          "end_lineno": 343,
+          "lineno": 345,
+          "end_lineno": 345,
           "complexity": 0,
           "docstring": null
         },
         {
           "name": "isOnRoute",
-          "lineno": 137,
-          "end_lineno": 137,
+          "lineno": 139,
+          "end_lineno": 139,
           "complexity": 0,
           "docstring": null
         }
@@ -241,7 +444,8 @@
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "import { useMemo } from 'react';\n\nconst MAP_WIDTH = 500;\nconst MAP_HEIGHT = 500;\nconst SCALE = 5;\n// Gates sit on the map boundary (x/y = 0 or 100), so pad the viewBox to keep\n// their icons and labels from being clipped at the edges.\nconst PAD = 32;\n\nconst DENSITY_COLORS = {\n  low: '#4ade80',\n  medium: '#facc15',\n  high: '#f97316',\n  very_high: '#ef4444',\n};\n\nconst AMENITY_STYLES = {\n  food:      { color: '#f97316', shape: 'diamond' },\n  restroom:  { color: '#38bdf8', shape: 'circle' },\n  medical:   { color: '#ef4444', shape: 'cross' },\n  security:  { color: '#818cf8', shape: 'shield' },\n  beverage:  { color: '#c084fc', shape: 'diamond' },\n  merchandise: { color: '#f472b6', shape: 'diamond' },\n};\n\nfunction MapLabel({ x, y, children, offset = 12, className = '' }) {\n  const w = children.length * 5.5 + 8;\n  // Clamp the label box inside the padded viewBox so edge labels stay readable\n  const bx = Math.max(-PAD + 2, Math.min(x - w / 2, MAP_WIDTH + PAD - w - 2));\n  const by = Math.max(-PAD + 2, Math.min(y + offset - 9, MAP_HEIGHT + PAD - 14));\n  return (\n    <g className={`map-label-group ${className}`}>\n      <rect\n        x={bx}\n        y={by}\n        width={w}\n        height={12}\n        rx={3}\n        fill=\"rgba(15,23,42,0.85)\"\n        stroke=\"rgba(71,85,105,0.4)\"\n        strokeWidth={0.5}\n      />\n      <text\n        x={bx + w / 2}\n        y={by + 9}\n        textAnchor=\"middle\"\n        fill=\"#cbd5e1\"\n        fontSize={7}\n        fontWeight=\"500\"\n        style={{ pointerEvents: 'none' }}\n      >\n        {children}\n      </text>\n    </g>\n  );\n}\n\nfunction AmenityIcon({ amenity, isOnRoute }) {\n  const style = AMENITY_STYLES[amenity.type] || { color: '#94a3b8', shape: 'circle' };\n  const cx = amenity.location.x * SCALE;\n  const cy = amenity.location.y * SCALE;\n  const r = isOnRoute ? 8 : 6;\n  const opacity = isOnRoute ? 1 : 0.45;\n\n  if (style.shape === 'diamond') {\n    const d = r * 0.9;\n    return (\n      <g opacity={opacity}>\n        <polygon\n          points={`${cx},${cy - d} ${cx + d},${cy} ${cx},${cy + d} ${cx - d},${cy}`}\n          fill={style.color}\n          stroke=\"#0f172a\"\n          strokeWidth={1.5}\n        />\n        <text x={cx} y={cy + 3} textAnchor=\"middle\" fontSize={isOnRoute ? 9 : 7} style={{ pointerEvents: 'none' }}>\n          {amenity.type === 'food' ? '\ud83c\udf54' : amenity.type === 'beverage' ? '\ud83c\udf7a' : '\ud83d\udc55'}\n        </text>\n      </g>\n    );\n  }\n\n  if (style.shape === 'cross') {\n    const s = r * 0.7;\n    return (\n      <g opacity={opacity}>\n        <rect x={cx - s / 3} y={cy - s} width={s * 0.67} height={s * 2} rx={1.5} fill={style.color} stroke=\"#0f172a\" strokeWidth={1.5} />\n        <rect x={cx - s} y={cy - s / 3} width={s * 2} height={s * 0.67} rx={1.5} fill={style.color} stroke=\"#0f172a\" strokeWidth={1.5} />\n        <text x={cx} y={cy + 3} textAnchor=\"middle\" fontSize={isOnRoute ? 9 : 7} style={{ pointerEvents: 'none' }}>\ud83c\udfe5</text>\n      </g>\n    );\n  }\n\n  if (style.shape === 'shield') {\n    const s = r * 1.1;\n    return (\n      <g opacity={opacity}>\n        <path\n          d={`M${cx} ${cy - s} L${cx + s * 0.8} ${cy - s * 0.3} L${cx + s * 0.8} ${cy + s * 0.3} Q${cx + s * 0.8} ${cy + s} ${cx} ${cy + s + s * 0.3} Q${cx - s * 0.8} ${cy + s} ${cx - s * 0.8} ${cy + s * 0.3} L${cx - s * 0.8} ${cy - s * 0.3} Z`}\n          fill={style.color}\n          stroke=\"#0f172a\"\n          strokeWidth={1.5}\n        />\n        <text x={cx} y={cy + 2} textAnchor=\"middle\" fontSize={isOnRoute ? 8 : 6} style={{ pointerEvents: 'none' }}>\ud83d\udee1\ufe0f</text>\n      </g>\n    );\n  }\n\n  return (\n    <g opacity={opacity}>\n      <circle cx={cx} cy={cy} r={r} fill={style.color} stroke=\"#0f172a\" strokeWidth={1.5} />\n      <text x={cx} y={cy + 3} textAnchor=\"middle\" fontSize={isOnRoute ? 9 : 7} style={{ pointerEvents: 'none' }}>\ud83d\udebb</text>\n    </g>\n  );\n}\n\nexport default function StadiumMap({ stadiumData, liveState, currentRoute, currentLocation }) {\n  const lookup = useMemo(() => (stadiumData ? buildLookup(stadiumData) : null), [stadiumData]);\n\n  const youPoint = useMemo(() => {\n    if (!lookup) return null;\n    return (currentLocation && lookup[currentLocation.toLowerCase()]) || { x: 50, y: 50, label: 'You' };\n  }, [currentLocation, lookup]);\n\n  const routePoints = useMemo(() => {\n    if (!lookup || !currentRoute.length) return [];\n    const pts = resolveRoutePoints(currentRoute, lookup, youPoint);\n    // The model sometimes returns only the destination \u2014 always draw the path\n    // starting from the fan's actual location so \"You\" never lands on the target.\n    if (pts.length && (pts[0].x !== youPoint.x || pts[0].y !== youPoint.y)) {\n      return [{ ...youPoint, label: 'You' }, ...pts];\n    }\n    return pts;\n  }, [currentRoute, lookup, youPoint]);\n\n  const routeNames = useMemo(() => {\n    return new Set(routePoints.map(p => p.label));\n  }, [routePoints]);\n\n  const isOnRoute = (name) => routeNames.has(name);\n\n  if (!stadiumData) return <div className=\"map-loading\">Loading stadium map...</div>;\n\n  const routePath = routePoints.length > 1\n    ? routePoints.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x * SCALE} ${p.y * SCALE}`).join(' ')\n    : '';\n\n  return (\n    <div className=\"stadium-map-container\">\n      <h2 className=\"section-title\">Stadium Map</h2>\n      <svg\n        viewBox={`${-PAD} ${-PAD} ${MAP_WIDTH + PAD * 2} ${MAP_HEIGHT + PAD * 2}`}\n        className=\"stadium-map\"\n        role=\"img\"\n        aria-label=\"Stadium map showing gates, sections, amenities, live crowd density, your current location, and the recommended route\"\n      >\n        <defs>\n          <radialGradient id=\"fieldGrad\">\n            <stop offset=\"0%\" stopColor=\"#22c55e\" />\n            <stop offset=\"100%\" stopColor=\"#16a34a\" />\n          </radialGradient>\n          <filter id=\"glow\">\n            <feGaussianBlur stdDeviation=\"3\" result=\"blur\" />\n            <feMerge>\n              <feMergeNode in=\"blur\" />\n              <feMergeNode in=\"SourceGraphic\" />\n            </feMerge>\n          </filter>\n          <filter id=\"softGlow\">\n            <feGaussianBlur stdDeviation=\"1.5\" result=\"blur\" />\n            <feMerge>\n              <feMergeNode in=\"blur\" />\n              <feMergeNode in=\"SourceGraphic\" />\n            </feMerge>\n          </filter>\n        </defs>\n\n        {/* Zones */}\n        {stadiumData.zones.map(zone => {\n          const zoneSections = stadiumData.sections.filter(s => s.zone === zone.id);\n          if (zoneSections.length === 0) return null;\n          const avgX = zoneSections.reduce((s, sec) => s + sec.location.x, 0) / zoneSections.length;\n          const avgY = zoneSections.reduce((s, sec) => s + sec.location.y, 0) / zoneSections.length;\n          const density = liveState?.crowdDensity?.[zone.id] || zone.crowdDensity;\n          return (\n            <circle\n              key={zone.id}\n              cx={avgX * SCALE}\n              cy={avgY * SCALE}\n              r={60}\n              fill={DENSITY_COLORS[density] + '22'}\n              stroke={DENSITY_COLORS[density] + '44'}\n              strokeWidth={1.5}\n            />\n          );\n        })}\n\n        {/* Field */}\n        <ellipse cx={MAP_WIDTH / 2} cy={MAP_HEIGHT / 2} rx={120} ry={80} fill=\"url(#fieldGrad)\" stroke=\"#166534\" strokeWidth={3} />\n        <text x={MAP_WIDTH / 2} y={MAP_HEIGHT / 2 + 4} textAnchor=\"middle\" fill=\"rgba(255,255,255,0.35)\" fontSize={16} fontWeight=\"800\" letterSpacing=\"3\" style={{ pointerEvents: 'none' }}>\n          FIELD\n        </text>\n\n        {/* Sections - quiet */}\n        {stadiumData.sections.map(section => {\n          const onRoute = isOnRoute(section.name);\n          const x = section.location.x * SCALE;\n          const y = section.location.y * SCALE;\n          return (\n            <g key={section.id} opacity={onRoute ? 1 : 0.3}>\n              <rect\n                x={x - 10} y={y - 8}\n                width={20} height={16} rx={3}\n                fill={section.hasStairsOnly ? '#f59e0b' : '#3b82f6'}\n                stroke={onRoute ? '#e2e8f0' : '#1e293b'}\n                strokeWidth={onRoute ? 2 : 1}\n              />\n              <text x={x} y={y + 3} textAnchor=\"middle\" fill=\"white\" fontSize={6} fontWeight=\"bold\" style={{ pointerEvents: 'none' }}>\n                {section.id.replace('S', '')}\n              </text>\n              {section.hasStairsOnly && (\n                <text x={x} y={y - 12} textAnchor=\"middle\" fill=\"#f59e0b\" fontSize={6} fontWeight=\"600\" style={{ pointerEvents: 'none' }}>\n                  STAIRS\n                </text>\n              )}\n            </g>\n          );\n        })}\n\n        {/* Gates - quiet unless on route */}\n        {stadiumData.gates.map(gate => {\n          const isClosed = liveState?.gateStatus?.[gate.id] === 'closed';\n          const onRoute = isOnRoute(gate.name);\n          const x = gate.location.x * SCALE;\n          const y = gate.location.y * SCALE;\n          return (\n            <g key={gate.id} opacity={onRoute ? 1 : 0.4}>\n              <rect\n                x={x - 12} y={y - 12}\n                width={24} height={24} rx={4}\n                fill={isClosed ? '#dc2626' : gate.accessible ? '#22c55e' : '#facc15'}\n                stroke={onRoute ? '#e2e8f0' : '#1e293b'}\n                strokeWidth={onRoute ? 2.5 : 1.5}\n              />\n              <text x={x} y={y + 4} textAnchor=\"middle\" fill=\"white\" fontSize={8} fontWeight=\"bold\" style={{ pointerEvents: 'none' }}>\n                {gate.id}\n              </text>\n              <MapLabel x={x} y={y} offset={-20}>{gate.name}</MapLabel>\n            </g>\n          );\n        })}\n\n        {/* Amenities - different shapes, quiet unless on route */}\n        {/* Route waypoints already carry their own labels, so none here */}\n        {stadiumData.amenities.map(amenity => (\n          <g key={amenity.id}>\n            <AmenityIcon amenity={amenity} isOnRoute={isOnRoute(amenity.name)} />\n          </g>\n        ))}\n\n        {/* Route path */}\n        {routePath && (\n          <g filter=\"url(#glow)\">\n            <path d={routePath} fill=\"none\" stroke=\"#06b6d4\" strokeWidth={5} strokeLinecap=\"round\" opacity={0.3} />\n            <path d={routePath} fill=\"none\" stroke=\"#06b6d4\" strokeWidth={3} strokeDasharray=\"10,5\" strokeLinecap=\"round\" opacity={0.9} />\n            <path d={routePath} fill=\"none\" stroke=\"#22d3ee\" strokeWidth={1.5} strokeDasharray=\"10,5\" strokeLinecap=\"round\" />\n          </g>\n        )}\n\n        {/* Current location \u2014 always visible, dominant when no route is active */}\n        {youPoint && routePoints.length === 0 && (\n          <g filter=\"url(#glow)\">\n            <circle cx={youPoint.x * SCALE} cy={youPoint.y * SCALE} r={10} fill=\"#22d3ee\" stroke=\"#ffffff\" strokeWidth={3} />\n            <text x={youPoint.x * SCALE} y={youPoint.y * SCALE + 1} textAnchor=\"middle\" fill=\"#0f172a\" fontSize={9} fontWeight=\"800\" style={{ pointerEvents: 'none' }}>You</text>\n          </g>\n        )}\n\n        {/* Route waypoints */}\n        {routePoints.map((point, i) => {\n          const isFirst = i === 0;\n          const x = point.x * SCALE;\n          const y = point.y * SCALE;\n          return (\n            <g key={i} filter={isFirst ? 'url(#glow)' : undefined}>\n              <circle cx={x} cy={y} r={isFirst ? 10 : 6} fill={isFirst ? '#22d3ee' : '#06b6d4'} stroke={isFirst ? '#ffffff' : '#0e7490'} strokeWidth={isFirst ? 3 : 2} />\n              {isFirst && (\n                <text x={x} y={y + 1} textAnchor=\"middle\" fill=\"#0f172a\" fontSize={9} fontWeight=\"800\" style={{ pointerEvents: 'none' }}>You</text>\n              )}\n              {!isFirst && (\n                <text x={x} y={y - 1} textAnchor=\"middle\" fill=\"white\" fontSize={5} fontWeight=\"bold\" style={{ pointerEvents: 'none' }}>{i}</text>\n              )}\n              {!isFirst && (\n                <MapLabel x={x} y={y} offset={-16}>{point.label}</MapLabel>\n              )}\n            </g>\n          );\n        })}\n      </svg>\n\n      <div className=\"map-legend\">\n        <div className=\"legend-group\">\n          <span className=\"legend-group-title\">Crowd</span>\n          <span className=\"legend-item\"><span className=\"legend-dot\" style={{ background: '#4ade80' }} /> Low</span>\n          <span className=\"legend-item\"><span className=\"legend-dot\" style={{ background: '#facc15' }} /> Medium</span>\n          <span className=\"legend-item\"><span className=\"legend-dot\" style={{ background: '#f97316' }} /> High</span>\n          <span className=\"legend-item\"><span className=\"legend-dot\" style={{ background: '#ef4444' }} /> Very High</span>\n        </div>\n        <div className=\"legend-group\">\n          <span className=\"legend-group-title\">Gates</span>\n          <span className=\"legend-item\"><span className=\"legend-square\" style={{ background: '#22c55e' }} /> Open</span>\n          <span className=\"legend-item\"><span className=\"legend-square\" style={{ background: '#dc2626' }} /> Closed</span>\n          <span className=\"legend-item\"><span className=\"legend-square\" style={{ background: '#facc15' }} /> No Ramp</span>\n        </div>\n        <div className=\"legend-group\">\n          <span className=\"legend-group-title\">Amenities</span>\n          <span className=\"legend-item\"><span className=\"legend-diamond\" style={{ background: '#f97316' }} /> Food</span>\n          <span className=\"legend-item\"><span className=\"legend-circle-sm\" style={{ background: '#38bdf8' }} /> Restroom</span>\n          <span className=\"legend-item\"><span className=\"legend-cross\" style={{ background: '#ef4444' }} /> Medical</span>\n          <span className=\"legend-item\"><span className=\"legend-shield\" style={{ background: '#818cf8' }} /> Security</span>\n        </div>\n      </div>\n    </div>\n  );\n}\n\nfunction buildLookup(stadiumData) {\n  const lookup = {};\n  stadiumData.gates.forEach(g => {\n    lookup[g.name.toLowerCase()] = { x: g.location.x, y: g.location.y, label: g.name };\n    lookup[g.id.toLowerCase()] = { x: g.location.x, y: g.location.y, label: g.name };\n  });\n  stadiumData.sections.forEach(s => {\n    lookup[s.name.toLowerCase()] = { x: s.location.x, y: s.location.y, label: s.name };\n    lookup[s.id.toLowerCase()] = { x: s.location.x, y: s.location.y, label: s.name };\n  });\n  stadiumData.amenities.forEach(a => {\n    lookup[a.name.toLowerCase()] = { x: a.location.x, y: a.location.y, label: a.name };\n    lookup[a.id.toLowerCase()] = { x: a.location.x, y: a.location.y, label: a.name };\n  });\n  lookup['main concourse'] = { x: 50, y: 50, label: 'Concourse' };\n  lookup['west corridor'] = { x: 30, y: 40, label: 'West Corr.' };\n  lookup['west corridor (accessible)'] = { x: 30, y: 40, label: 'Accessible' };\n  return lookup;\n}\n\nfunction resolveRoutePoints(route, lookup, youPoint) {\n  const youAliases = { 'current location': true, 'your section': true };\n  return route.map(point => {\n    const key = point.toLowerCase();\n    if (youAliases[key]) return { ...youPoint, label: 'You' };\n    return lookup[key] || { ...youPoint, label: point.substring(0, 12) };\n  });\n}\n"
     },
     {
       "path": "client/src/main.jsx",
@@ -271,7 +475,8 @@
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport App from './App';\nimport './styles/app.css';\n\nReactDOM.createRoot(document.getElementById('root')).render(\n  <React.StrictMode>\n    <App />\n  </React.StrictMode>\n);\n"
     },
     {
       "path": "client/src/styles/app.css",
@@ -285,7 +490,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\n:root {\n  /* Backgrounds */\n  --bg-primary: #0f172a;\n  --bg-secondary: #1e293b;\n  --bg-tertiary: #334155;\n  --bg-elevated: #1a2332;\n\n  /* Text */\n  --text-primary: #f1f5f9;\n  --text-secondary: #94a3b8;\n  --text-muted: #64748b;\n\n  /* Accents */\n  --accent: #06b6d4;\n  --accent-hover: #22d3ee;\n  --accent-dim: rgba(6, 182, 212, 0.15);\n\n  /* Semantic */\n  --danger: #ef4444;\n  --warning: #f59e0b;\n  --success: #22c55e;\n\n  /* Borders */\n  --border: #334155;\n  --border-subtle: #1e293b;\n\n  /* Type scale */\n  --font-title: 800 1.5rem/1.2 'Inter', sans-serif;\n  --font-heading: 600 0.9rem/1.3 'Inter', sans-serif;\n  --font-subheading: 600 0.75rem/1.3 'Inter', sans-serif;\n  --font-body: 400 0.82rem/1.5 'Inter', sans-serif;\n  --font-small: 400 0.72rem/1.4 'Inter', sans-serif;\n  --font-tiny: 400 0.65rem/1.3 'Inter', sans-serif;\n}\n\nbody {\n  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;\n  background: var(--bg-primary);\n  color: var(--text-primary);\n  min-height: 100vh;\n  -webkit-font-smoothing: antialiased;\n}\n\n/* ===== APP ===== */\n.app {\n  display: flex;\n  flex-direction: column;\n  min-height: 100vh;\n}\n\n.app.emergency-active {\n  border: 3px solid var(--danger);\n  animation: emergencyPulse 1.5s ease-in-out infinite;\n}\n\n@keyframes emergencyPulse {\n  0%, 100% { border-color: var(--danger); }\n  50% { border-color: transparent; }\n}\n\n/* ===== HEADER ===== */\n.header {\n  background: var(--bg-secondary);\n  padding: 14px 28px;\n  border-bottom: 1px solid var(--border);\n  display: flex;\n  align-items: center;\n  gap: 32px;\n  flex-wrap: wrap;\n}\n\n.header-brand {\n  display: flex;\n  align-items: baseline;\n  gap: 10px;\n  flex-shrink: 0;\n}\n\n.header-title {\n  font: var(--font-title);\n  color: var(--accent);\n  letter-spacing: -0.5px;\n}\n\n.header-tagline {\n  font: var(--font-small);\n  color: var(--text-muted);\n  letter-spacing: 0.3px;\n}\n\n.profile-bar {\n  display: flex;\n  align-items: flex-end;\n  gap: 20px;\n  flex-wrap: wrap;\n}\n\n.control-group {\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n}\n\n.control-label {\n  font: var(--font-tiny);\n  color: var(--text-muted);\n  text-transform: uppercase;\n  letter-spacing: 0.8px;\n  font-weight: 600;\n}\n\n.control-input,\n.control-select {\n  background: var(--bg-tertiary);\n  border: 1px solid var(--border);\n  color: var(--text-primary);\n  padding: 6px 10px;\n  border-radius: 6px;\n  font: var(--font-body);\n  min-width: 130px;\n  transition: border-color 0.2s;\n}\n\n.control-input:focus,\n.control-select:focus {\n  outline: none;\n  border-color: var(--accent);\n  box-shadow: 0 0 0 2px var(--accent-dim);\n}\n\n/* Dietary pills */\n.dietary-pills {\n  display: flex;\n  gap: 5px;\n  flex-wrap: wrap;\n}\n\n.dietary-pill {\n  background: var(--bg-tertiary);\n  border: 1px solid var(--border);\n  color: var(--text-secondary);\n  padding: 5px 10px;\n  border-radius: 20px;\n  font: var(--font-small);\n  cursor: pointer;\n  transition: all 0.2s;\n  white-space: nowrap;\n  line-height: 1;\n}\n\n.dietary-pill:hover {\n  border-color: var(--accent);\n  color: var(--text-primary);\n}\n\n.dietary-pill.active {\n  background: var(--accent);\n  border-color: var(--accent);\n  color: var(--bg-primary);\n  font-weight: 600;\n}\n\n/* ===== MAIN LAYOUT ===== */\n.main {\n  display: flex;\n  flex: 1;\n  overflow: hidden;\n}\n\n.map-section {\n  flex: 1;\n  padding: 20px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  overflow: auto;\n}\n\n.stadium-map-container {\n  width: 100%;\n  max-width: 620px;\n}\n\n.section-title {\n  font: var(--font-heading);\n  color: var(--accent);\n  margin-bottom: 10px;\n  letter-spacing: 0.2px;\n}\n\n.stadium-map {\n  width: 100%;\n  background: var(--bg-secondary);\n  border-radius: 10px;\n  border: 1px solid var(--border);\n}\n\n/* Map labels */\n.map-label-group {\n  pointer-events: none;\n}\n\n.map-label--text {\n  font-size: 7px;\n}\n\n/* ===== MAP LEGEND ===== */\n.map-legend {\n  display: flex;\n  gap: 20px;\n  margin-top: 12px;\n  padding: 10px 14px;\n  background: var(--bg-secondary);\n  border-radius: 8px;\n  border: 1px solid var(--border-subtle);\n  flex-wrap: wrap;\n}\n\n.legend-group {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  flex-wrap: wrap;\n}\n\n.legend-group-title {\n  font: var(--font-tiny);\n  color: var(--text-muted);\n  text-transform: uppercase;\n  letter-spacing: 0.5px;\n  font-weight: 700;\n  margin-right: 2px;\n}\n\n.legend-item {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font: var(--font-tiny);\n  color: var(--text-secondary);\n}\n\n.legend-dot {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  display: inline-block;\n  flex-shrink: 0;\n}\n\n.legend-square {\n  width: 8px;\n  height: 8px;\n  border-radius: 2px;\n  display: inline-block;\n  flex-shrink: 0;\n}\n\n.legend-diamond {\n  width: 8px;\n  height: 8px;\n  border-radius: 1px;\n  display: inline-block;\n  transform: rotate(45deg);\n  flex-shrink: 0;\n}\n\n.legend-circle-sm {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  display: inline-block;\n  flex-shrink: 0;\n}\n\n.legend-cross {\n  width: 8px;\n  height: 8px;\n  display: inline-block;\n  position: relative;\n  flex-shrink: 0;\n}\n\n.legend-cross::before,\n.legend-cross::after {\n  content: '';\n  position: absolute;\n  background: inherit;\n  border-radius: 1px;\n}\n\n.legend-cross::before {\n  top: 1px;\n  left: 2.5px;\n  width: 3px;\n  height: 6px;\n}\n\n.legend-cross::after {\n  top: 2.5px;\n  left: 1px;\n  width: 6px;\n  height: 3px;\n}\n\n.legend-shield {\n  width: 9px;\n  height: 10px;\n  display: inline-block;\n  position: relative;\n  flex-shrink: 0;\n  clip-path: polygon(50% 0%, 100% 25%, 100% 65%, 50% 100%, 0% 65%, 0% 25%);\n}\n\n.map-loading {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 400px;\n  color: var(--text-muted);\n  font: var(--font-body);\n}\n\n/* ===== SIDE PANEL ===== */\n.side-panel {\n  width: 420px;\n  display: flex;\n  flex-direction: column;\n  border-left: 1px solid var(--border);\n  background: var(--bg-secondary);\n  overflow: hidden;\n}\n\n/* ===== CHAT PANEL ===== */\n.chat-panel {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  min-height: 0;\n  overflow: hidden;\n}\n\n.chat-panel.emergency {\n  border-bottom: 2px solid var(--danger);\n}\n\n.chat-panel h2,\n.panel-title {\n  font: var(--font-heading);\n  padding: 14px 18px;\n  color: var(--accent);\n  border-bottom: 1px solid var(--border);\n  letter-spacing: 0.2px;\n}\n\n.emergency-banner {\n  background: var(--danger);\n  color: white;\n  padding: 10px 18px;\n  font-weight: 700;\n  text-align: center;\n  font: var(--font-body);\n  letter-spacing: 0.3px;\n  animation: emergencyPulse 1.5s ease-in-out infinite;\n}\n\n.chat-messages {\n  flex: 1;\n  overflow-y: auto;\n  padding: 16px 18px;\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n}\n\n.chat-empty {\n  text-align: center;\n  color: var(--text-secondary);\n  padding: 20px 0;\n}\n\n.chat-empty p {\n  margin-bottom: 18px;\n  font: var(--font-body);\n}\n\n.quick-prompts {\n  display: flex;\n  flex-direction: column;\n  gap: 6px;\n}\n\n.quick-prompt {\n  background: var(--bg-tertiary);\n  border: 1px solid var(--border);\n  color: var(--text-primary);\n  padding: 9px 14px;\n  border-radius: 8px;\n  cursor: pointer;\n  text-align: left;\n  font: var(--font-body);\n  transition: all 0.2s;\n}\n\n.quick-prompt:hover {\n  background: var(--accent);\n  color: var(--bg-primary);\n  border-color: var(--accent);\n}\n\n.chat-msg {\n  padding: 10px 14px;\n  border-radius: 10px;\n  font: var(--font-body);\n  line-height: 1.55;\n}\n\n.chat-msg.user {\n  background: var(--accent);\n  color: var(--bg-primary);\n  align-self: flex-end;\n  max-width: 82%;\n  border-radius: 10px 10px 2px 10px;\n}\n\n.chat-msg.assistant {\n  background: var(--bg-tertiary);\n  border: 1px solid var(--border);\n  max-width: 88%;\n  border-radius: 10px 10px 10px 2px;\n}\n\n.msg-role {\n  font: var(--font-tiny);\n  font-weight: 700;\n  text-transform: uppercase;\n  letter-spacing: 0.6px;\n  margin-bottom: 4px;\n  opacity: 0.6;\n}\n\n.msg-content {\n  line-height: 1.55;\n}\n\n.clarifying-question {\n  margin-top: 8px;\n  padding: 8px 10px;\n  background: var(--warning);\n  color: var(--bg-primary);\n  border-radius: 6px;\n  font-weight: 600;\n  font: var(--font-small);\n}\n\n.msg-route {\n  margin-top: 6px;\n  padding: 6px 8px;\n  background: var(--accent-dim);\n  border-radius: 6px;\n  font: var(--font-small);\n  color: var(--accent);\n}\n\n.msg-alert {\n  margin-top: 6px;\n  padding: 4px 10px;\n  border-radius: 6px;\n  font-weight: 700;\n  font: var(--font-tiny);\n  display: inline-block;\n}\n\n.msg-alert.emergency {\n  background: var(--danger);\n  color: white;\n}\n\n.msg-alert.caution {\n  background: var(--warning);\n  color: var(--bg-primary);\n}\n\n/* Chat input */\n.chat-input {\n  display: flex;\n  padding: 12px 18px;\n  gap: 8px;\n  border-top: 1px solid var(--border);\n  background: var(--bg-primary);\n}\n\n.chat-input input {\n  flex: 1;\n  background: var(--bg-secondary);\n  border: 1px solid var(--border);\n  color: var(--text-primary);\n  padding: 10px 14px;\n  border-radius: 8px;\n  font: var(--font-body);\n  transition: border-color 0.2s;\n}\n\n.chat-input input:focus {\n  outline: none;\n  border-color: var(--accent);\n  box-shadow: 0 0 0 2px var(--accent-dim);\n}\n\n.chat-input button {\n  background: var(--accent);\n  color: var(--bg-primary);\n  border: none;\n  padding: 10px 22px;\n  border-radius: 8px;\n  font: var(--font-body);\n  font-weight: 700;\n  cursor: pointer;\n  transition: background 0.2s;\n}\n\n.chat-input button:hover {\n  background: var(--accent-hover);\n}\n\n/* ===== REASONING PANEL ===== */\n.reasoning-panel {\n  border-top: 2px solid var(--accent);\n  background: var(--bg-elevated);\n  display: flex;\n  flex-direction: column;\n  max-height: 300px;\n  overflow-y: auto;\n}\n\n.reasoning-panel.reasoning--emergency {\n  border-top-color: var(--danger);\n}\n\n.reasoning-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: 12px 18px;\n  border-bottom: 1px solid var(--border);\n}\n\n.reasoning-title {\n  font: var(--font-heading);\n  color: var(--accent);\n  letter-spacing: 0.2px;\n}\n\n.reasoning--emergency .reasoning-title {\n  color: var(--danger);\n}\n\n.reasoning-body {\n  padding: 12px 18px;\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n}\n\n.reasoning-empty {\n  color: var(--text-muted);\n  font: var(--font-small);\n  font-style: italic;\n  padding: 8px 18px 14px;\n}\n\n.reasoning-section {\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n}\n\n.reasoning-section-label {\n  font: var(--font-tiny);\n  text-transform: uppercase;\n  letter-spacing: 0.7px;\n  color: var(--text-muted);\n  font-weight: 700;\n}\n\n.reasoning-text {\n  font: var(--font-body);\n  line-height: 1.65;\n  color: var(--text-primary);\n  background: var(--bg-tertiary);\n  padding: 10px 14px;\n  border-radius: 8px;\n  border-left: 3px solid var(--accent);\n}\n\n.reasoning--emergency .reasoning-text {\n  border-left-color: var(--danger);\n}\n\n.language-badge {\n  display: inline-flex;\n  align-items: center;\n  background: var(--accent);\n  color: var(--bg-primary);\n  padding: 2px 10px;\n  border-radius: 12px;\n  font: var(--font-tiny);\n  font-weight: 700;\n  letter-spacing: 0.3px;\n}\n\n.route-list {\n  list-style: none;\n  padding: 0;\n  display: flex;\n  flex-direction: column;\n  gap: 4px;\n}\n\n.route-list-item {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  font: var(--font-small);\n}\n\n.route-step {\n  background: var(--accent);\n  color: var(--bg-primary);\n  width: 20px;\n  height: 20px;\n  border-radius: 50%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font: var(--font-tiny);\n  font-weight: 800;\n  flex-shrink: 0;\n}\n\n.route-step-label {\n  color: var(--text-primary);\n}\n\n.alert-badge {\n  display: inline-flex;\n  padding: 3px 12px;\n  border-radius: 12px;\n  font: var(--font-tiny);\n  font-weight: 700;\n  letter-spacing: 0.3px;\n  width: fit-content;\n}\n\n.alert-badge.normal {\n  background: var(--success);\n  color: var(--bg-primary);\n}\n\n.alert-badge.caution {\n  background: var(--warning);\n  color: var(--bg-primary);\n}\n\n.alert-badge.emergency {\n  background: var(--danger);\n  color: white;\n  animation: emergencyPulse 1.5s ease-in-out infinite;\n}\n\n.reasoning-footer {\n  padding: 8px 18px;\n  border-top: 1px solid var(--border);\n}\n\n.reasoning-footer small {\n  color: var(--text-muted);\n  font: var(--font-tiny);\n}\n\n/* ===== RESPONSIVE ===== */\n@media (max-width: 900px) {\n  .header {\n    flex-direction: column;\n    align-items: flex-start;\n    gap: 12px;\n    padding: 12px 16px;\n  }\n\n  .profile-bar {\n    gap: 12px;\n  }\n\n  .main {\n    flex-direction: column;\n  }\n\n  .side-panel {\n    width: 100%;\n    border-left: none;\n    border-top: 1px solid var(--border);\n    max-height: 50vh;\n  }\n\n  .map-section {\n    max-height: 50vh;\n  }\n\n  .map-legend {\n    gap: 12px;\n  }\n}\n"
     },
     {
       "path": "client/vite.config.js",
@@ -310,7 +516,8 @@
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "import { defineConfig } from 'vite'\nimport react from '@vitejs/plugin-react'\n\nexport default defineConfig({\n  plugins: [react()],\n  server: {\n    port: 3000,\n    proxy: {\n      '/api': {\n        target: 'http://localhost:5000',\n        changeOrigin: true,\n      },\n    },\n  },\n})\n"
     },
     {
       "path": "dev.js",
@@ -350,7 +557,57 @@
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "const { spawn } = require('child_process');\nconst path = require('path');\n\nfunction run(name, cmd, args, cwd) {\n  const proc = spawn(cmd, args, { cwd, shell: true, stdio: 'inherit' });\n  proc.on('error', (err) => console.error(`[${name}] Error:`, err.message));\n  return proc;\n}\n\nconst server = run('server', 'npm', ['run', 'dev'], path.join(__dirname, 'server'));\nconst client = run('client', 'npm', ['run', 'dev'], path.join(__dirname, 'client'));\n\nfunction cleanup() {\n  server.kill();\n  client.kill();\n  process.exit();\n}\n\nprocess.on('SIGINT', cleanup);\nprocess.on('SIGTERM', cleanup);\n"
+    },
+    {
+      "path": "server/app.js",
+      "language": "JavaScript",
+      "loc": 36,
+      "code_loc": 22,
+      "comment_lines": 6,
+      "comment_ratio": 0.1667,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "createApp",
+          "lineno": 11,
+          "end_lineno": 11,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "path",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "express",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "cors",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./routes/chat",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "./routes/stadium",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "const path = require('path');\nconst express = require('express');\nconst cors = require('cors');\nconst chatRoutes = require('./routes/chat');\nconst stadiumRoutes = require('./routes/stadium');\n\n/**\n * Build the Express app without binding a port \u2014 server.js starts it,\n * tests exercise it on an ephemeral port.\n */\nfunction createApp() {\n  const app = express();\n\n  app.use(cors());\n  app.use(express.json());\n\n  app.use('/api/chat', chatRoutes);\n  app.use('/api/stadium', stadiumRoutes);\n\n  app.get('/api/health', (req, res) => {\n    res.json({ status: 'ok', timestamp: new Date().toISOString() });\n  });\n\n  // In production (e.g. Render) the built client is served from this same server,\n  // so the browser hits /api on the same origin \u2014 no CORS or proxy needed.\n  const clientDist = path.join(__dirname, '../client/dist');\n  app.use(express.static(clientDist));\n  app.get(/^\\/(?!api\\/).*/, (req, res) => {\n    res.sendFile(path.join(clientDist, 'index.html'));\n  });\n\n  return app;\n}\n\nmodule.exports = { createApp };\n"
     },
     {
       "path": "server/data/liveState.js",
@@ -399,21 +656,22 @@
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "const { STADIUM_DATA } = require('./stadium');\n\nconst DENSITY_LEVELS = ['low', 'medium', 'high', 'very_high'];\n\nfunction generateLiveCrowdDensity() {\n  const density = {};\n  for (const zone of STADIUM_DATA.zones) {\n    const variance = Math.random();\n    let currentDensity;\n    if (variance < 0.15) currentDensity = 'low';\n    else if (variance < 0.50) currentDensity = 'medium';\n    else if (variance < 0.85) currentDensity = 'high';\n    else currentDensity = 'very_high';\n    density[zone.id] = currentDensity;\n  }\n  return density;\n}\n\nfunction generateGateStatus() {\n  const status = {};\n  for (const gate of STADIUM_DATA.gates) {\n    if (gate.status === 'closed') {\n      status[gate.id] = Math.random() < 0.3 ? 'open' : 'closed';\n    } else {\n      const roll = Math.random();\n      if (roll < 0.05) status[gate.id] = 'closed';\n      else if (roll < 0.25) status[gate.id] = 'crowded';\n      else status[gate.id] = 'open';\n    }\n  }\n  return status;\n}\n\nlet cachedState = null;\nlet lastRefresh = 0;\n\nfunction getLiveState() {\n  const now = Date.now();\n  if (!cachedState || now - lastRefresh > 5000) {\n    cachedState = {\n      crowdDensity: generateLiveCrowdDensity(),\n      gateStatus: generateGateStatus(),\n      timestamp: new Date().toISOString(),\n    };\n    lastRefresh = now;\n  }\n  return cachedState;\n}\n\nfunction forceRefresh() {\n  cachedState = null;\n  return getLiveState();\n}\n\nmodule.exports = { getLiveState, forceRefresh };\n"
     },
     {
       "path": "server/data/stadium.js",
       "language": "JavaScript",
-      "loc": 71,
-      "code_loc": 64,
+      "loc": 72,
+      "code_loc": 65,
       "comment_lines": 0,
       "comment_ratio": 0.0,
       "cyclomatic_complexity": 0,
       "functions": [
         {
           "name": "seed",
-          "lineno": 51,
-          "end_lineno": 51,
+          "lineno": 52,
+          "end_lineno": 52,
           "complexity": 0,
           "docstring": null
         }
@@ -421,33 +679,50 @@
       "classes": [],
       "imports": [
         {
+          "module": "mongoose",
+          "names": [],
+          "alias": null
+        },
+        {
           "module": "../models/Stadium",
           "names": [],
           "alias": null
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "const mongoose = require('mongoose');\nconst Stadium = require('../models/Stadium');\n\nconst STADIUM_DATA = {\n  name: 'StadiumPilot Arena',\n  gates: [\n    { id: 'G1', name: 'North Gate', location: { x: 50, y: 0 }, status: 'open', accessible: true },\n    { id: 'G2', name: 'South Gate', location: { x: 50, y: 100 }, status: 'open', accessible: true },\n    { id: 'G3', name: 'East Gate', location: { x: 100, y: 50 }, status: 'open', accessible: false },\n    { id: 'G4', name: 'West Gate', location: { x: 0, y: 50 }, status: 'open', accessible: true },\n    { id: 'G5', name: 'VIP Entrance', location: { x: 75, y: 25 }, status: 'open', accessible: true },\n  ],\n  sections: [\n    { id: 'S101', name: 'Section 101', zone: 'north', location: { x: 30, y: 15 }, hasStairsOnly: false },\n    { id: 'S102', name: 'Section 102', zone: 'north', location: { x: 50, y: 15 }, hasStairsOnly: false },\n    { id: 'S103', name: 'Section 103', zone: 'north', location: { x: 70, y: 15 }, hasStairsOnly: false },\n    { id: 'S114', name: 'Section 114', zone: 'east', location: { x: 80, y: 40 }, hasStairsOnly: true },\n    { id: 'S201', name: 'Section 201', zone: 'south', location: { x: 30, y: 85 }, hasStairsOnly: false },\n    { id: 'S202', name: 'Section 202', zone: 'south', location: { x: 50, y: 85 }, hasStairsOnly: false },\n    { id: 'S203', name: 'Section 203', zone: 'south', location: { x: 70, y: 85 }, hasStairsOnly: false },\n    { id: 'S214', name: 'Section 214', zone: 'east', location: { x: 85, y: 60 }, hasStairsOnly: true },\n    { id: 'S301', name: 'Section 301', zone: 'west', location: { x: 15, y: 40 }, hasStairsOnly: false },\n    { id: 'S302', name: 'Section 302', zone: 'west', location: { x: 15, y: 60 }, hasStairsOnly: false },\n    { id: 'S401', name: 'Section 401 - VIP', zone: 'north', location: { x: 75, y: 30 }, hasStairsOnly: false },\n  ],\n  amenities: [\n    { id: 'A1', type: 'food', name: 'Burger Palace', location: { x: 25, y: 30 }, tags: ['burgers', 'american'], accessible: true },\n    { id: 'A2', type: 'food', name: 'Taco Fiesta', location: { x: 75, y: 70 }, tags: ['mexican', 'spicy'], accessible: true },\n    { id: 'A3', type: 'food', name: 'Green Bowl', location: { x: 40, y: 50 }, tags: ['vegan', 'vegetarian', 'gluten-free', 'healthy'], accessible: true },\n    { id: 'A4', type: 'food', name: 'Nut-Free Kitchen', location: { x: 60, y: 45 }, tags: ['nut-free', 'allergy-friendly', 'safe'], accessible: true },\n    { id: 'A5', type: 'food', name: 'Pizza Corner', location: { x: 20, y: 70 }, tags: ['pizza', 'italian'], accessible: true },\n    { id: 'A6', type: 'food', name: 'Halal Grill', location: { x: 55, y: 20 }, tags: ['halal', 'middle-eastern'], accessible: true },\n    { id: 'A7', type: 'beverage', name: 'Smoothie Bar', location: { x: 35, y: 65 }, tags: ['drinks', 'smoothies', 'non-alcoholic'], accessible: true },\n    { id: 'A8', type: 'beverage', name: 'Beer Garden', location: { x: 65, y: 35 }, tags: ['beer', 'alcohol'], accessible: true },\n    { id: 'R1', type: 'restroom', name: 'Restroom Block A', location: { x: 20, y: 25 }, tags: ['accessible', 'family'], accessible: true },\n    { id: 'R2', type: 'restroom', name: 'Restroom Block B', location: { x: 80, y: 75 }, tags: ['accessible'], accessible: true },\n    { id: 'R3', type: 'restroom', name: 'Restroom Block C', location: { x: 40, y: 80 }, tags: [], accessible: false },\n    { id: 'M1', type: 'medical', name: 'First Aid Station North', location: { x: 45, y: 10 }, tags: ['emergency', 'first-aid'], accessible: true },\n    { id: 'M2', type: 'medical', name: 'First Aid Station South', location: { x: 45, y: 90 }, tags: ['emergency', 'first-aid'], accessible: true },\n    { id: 'SEC1', type: 'security', name: 'Security Post East', location: { x: 90, y: 50 }, tags: ['security', 'lost-and-found'], accessible: true },\n    { id: 'SEC2', type: 'security', name: 'Security Post West', location: { x: 10, y: 50 }, tags: ['security'], accessible: true },\n    { id: 'MER1', type: 'merchandise', name: 'Team Store', location: { x: 50, y: 40 }, tags: ['merchandise', 'jerseys', 'souvenirs'], accessible: true },\n  ],\n  zones: [\n    { id: 'north', name: 'North Zone', crowdDensity: 'medium' },\n    { id: 'south', name: 'South Zone', crowdDensity: 'low' },\n    { id: 'east', name: 'East Zone', crowdDensity: 'high' },\n    { id: 'west', name: 'West Zone', crowdDensity: 'medium' },\n  ],\n};\n\nasync function seed() {\n  try {\n    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/stadiumpilot');\n    console.log('Connected to MongoDB for seeding');\n\n    await Stadium.findOneAndUpdate({}, STADIUM_DATA, { upsert: true });\n    console.log('Stadium data seeded successfully');\n\n    await mongoose.disconnect();\n  } catch (err) {\n    console.log('MongoDB not available \u2014 seed data will be used from memory');\n    console.log('In-memory stadium data is ready for use');\n  }\n}\n\nif (require.main === module) {\n  seed();\n}\n\nmodule.exports = { STADIUM_DATA, seed };\n"
     },
     {
-      "path": "server/models/LiveState.js",
+      "path": "server/lib/gemini.js",
       "language": "JavaScript",
-      "loc": 12,
-      "code_loc": 8,
-      "comment_lines": 0,
-      "comment_ratio": 0.0,
+      "loc": 119,
+      "code_loc": 78,
+      "comment_lines": 29,
+      "comment_ratio": 0.2437,
       "cyclomatic_complexity": 0,
-      "functions": [],
-      "classes": [],
-      "imports": [
+      "functions": [
         {
-          "module": "mongoose",
-          "names": [],
-          "alias": null
+          "name": "askConcierge",
+          "lineno": 50,
+          "end_lineno": 50,
+          "complexity": 0,
+          "docstring": null
         }
       ],
+      "classes": [
+        {
+          "name": "GeminiError",
+          "lineno": 29,
+          "end_lineno": 29,
+          "docstring": null,
+          "methods": []
+        }
+      ],
+      "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "/**\n * Gemini API client \u2014 the only module that talks to the model provider.\n *\n * Swapping providers (e.g. to Claude) means changing this file only: the system\n * prompt, user prompt, and the JSON contract in RESPONSE_SCHEMA are provider-agnostic\n * (see PROMPT_DESIGN.md \u00a70). The API key stays server-side, read from the environment.\n */\n\n// gemini-2.5-flash (the original target) is rejected for new API keys (\"no longer\n// available to new users\"), so default to a current model; override via GEMINI_MODEL.\nconst GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash';\nconst GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;\n\n// Mirrors the JSON contract in PROMPT_DESIGN.md section 2 \u2014 if one changes, change both.\nconst RESPONSE_SCHEMA = {\n  type: 'object',\n  properties: {\n    language_detected: { type: 'string' },\n    answer: { type: 'string' },\n    reasoning: { type: 'string' },\n    route: { type: 'array', items: { type: 'string' } },\n    alert_level: { type: 'string', enum: ['normal', 'caution', 'emergency'] },\n    clarifying_question: { type: 'string', nullable: true },\n  },\n  required: ['language_detected', 'answer', 'reasoning', 'route', 'alert_level'],\n};\n\n/** Error carrying enough context for the route handler to map to an HTTP status. */\nclass GeminiError extends Error {\n  /**\n   * @param {string} message\n   * @param {number} [status] upstream HTTP status, if the API responded\n   */\n  constructor(message, status) {\n    super(message);\n    this.name = 'GeminiError';\n    this.status = status;\n  }\n}\n\n/**\n * Ask the concierge agent one question and return the parsed, schema-shaped reply.\n *\n * @param {string} systemPrompt agent instructions (PROMPT_DESIGN.md \u00a72)\n * @param {string} userPrompt   per-query prompt with fan profile + live stadium state\n * @returns {Promise<{language_detected: string, answer: string, reasoning: string,\n *                    route: string[], alert_level: string, clarifying_question: string|null}>}\n * @throws {GeminiError} when the API fails, returns nothing, or returns malformed JSON\n */\nasync function askConcierge(systemPrompt, userPrompt) {\n  if (!process.env.GEMINI_API_KEY) {\n    throw new GeminiError('GEMINI_API_KEY is not configured', 503);\n  }\n\n  const generationConfig = {\n    responseMimeType: 'application/json',\n    responseSchema: RESPONSE_SCHEMA,\n    // Thinking tokens count against maxOutputTokens and can truncate longer\n    // (e.g. French) JSON responses \u2014 keep the cap high, thinking off.\n    maxOutputTokens: 8192,\n  };\n  // Only thinking-capable models (2.5+/3.x) accept thinkingConfig; 2.0 rejects it.\n  if (!GEMINI_MODEL.includes('gemini-2.0')) {\n    generationConfig.thinkingConfig = { thinkingBudget: 0 };\n  }\n\n  // Free-tier Gemini intermittently returns 429/503 under load \u2014 retry briefly.\n  let res;\n  for (let attempt = 0; attempt < 3; attempt++) {\n    res = await fetch(GEMINI_URL, {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n        'x-goog-api-key': process.env.GEMINI_API_KEY,\n      },\n      body: JSON.stringify({\n        systemInstruction: { parts: [{ text: systemPrompt }] },\n        contents: [{ role: 'user', parts: [{ text: userPrompt }] }],\n        generationConfig,\n      }),\n    });\n    if (res.status !== 429 && res.status !== 503) break;\n    await new Promise(r => setTimeout(r, 1500 * (attempt + 1)));\n  }\n\n  if (!res.ok) {\n    const body = await res.text();\n    console.error(`Gemini API error ${res.status}:`, body);\n    throw new GeminiError('AI service request failed', res.status);\n  }\n\n  const data = await res.json();\n  const text = data.candidates?.[0]?.content?.parts?.[0]?.text;\n  if (!text) {\n    console.error('Gemini returned no text:', JSON.stringify(data).slice(0, 500));\n    throw new GeminiError('AI service returned an empty response');\n  }\n\n  let parsed;\n  try {\n    parsed = JSON.parse(text);\n  } catch {\n    console.error('Failed to parse Gemini JSON:', text.slice(0, 500));\n    throw new GeminiError('AI service returned malformed JSON');\n  }\n\n  // Normalize so the frontend can rely on every contract field being present\n  return {\n    language_detected: parsed.language_detected || 'unknown',\n    answer: parsed.answer,\n    reasoning: parsed.reasoning,\n    route: Array.isArray(parsed.route) ? parsed.route : [],\n    alert_level: parsed.alert_level || 'normal',\n    clarifying_question: parsed.clarifying_question ?? null,\n  };\n}\n\nmodule.exports = { askConcierge, GeminiError, RESPONSE_SCHEMA };\n"
     },
     {
       "path": "server/models/Stadium.js",
@@ -467,7 +742,8 @@
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "const mongoose = require('mongoose');\n\nconst stadiumSchema = new mongoose.Schema({\n  name: { type: String, default: 'StadiumPilot Arena' },\n  gates: [{\n    id: String,\n    name: String,\n    location: { x: Number, y: Number },\n    status: { type: String, enum: ['open', 'closed', 'crowded'], default: 'open' },\n    accessible: { type: Boolean, default: true },\n  }],\n  sections: [{\n    id: String,\n    name: String,\n    zone: String,\n    location: { x: Number, y: Number },\n    hasStairsOnly: { type: Boolean, default: false },\n  }],\n  amenities: [{\n    id: String,\n    type: { type: String, enum: ['food', 'restroom', 'medical', 'security', 'beverage', 'merchandise'] },\n    name: String,\n    location: { x: Number, y: Number },\n    tags: [String],\n    accessible: { type: Boolean, default: true },\n  }],\n  zones: [{\n    id: String,\n    name: String,\n    crowdDensity: { type: String, enum: ['low', 'medium', 'high', 'very_high'], default: 'medium' },\n  }],\n  updatedAt: { type: Date, default: Date.now },\n});\n\nmodule.exports = mongoose.model('Stadium', stadiumSchema);\n"
     },
     {
       "path": "server/prompts/templates.js",
@@ -489,15 +765,16 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "const SYSTEM_PROMPT = `You are StadiumPilot, an AI concierge helping a fan navigate a stadium during a live event.\n\nYou will receive:\n- The fan's message (in any language)\n- The fan's profile: seat location, accessibility needs, dietary restrictions (if any)\n- Live stadium state: gate status, crowd density per zone, amenity locations, medical/security points\n\nYour job:\n1. Detect the language the fan is writing in and respond in that same language.\n2. Reason step by step over the live stadium state to produce the best route or answer.\n3. If accessibility needs are set, they are a hard constraint, not a preference \u2014 never route through stairs-only paths for a wheelchair user. If the requested destination itself is not accessible, say so explicitly, and then either offer a route to the best accessible alternative or ask ONE clarifying question about what they need there \u2014 never leave them without a next step.\n4. If the message contains any indication of a medical emergency or safety concern (e.g. dizziness, chest pain, can't find child, feeling unsafe), do NOT give a normal navigation answer. Set alert_level to \"emergency\" and route to the nearest medical/security point immediately.\n5. If you don't have enough information to answer safely, ask ONE clarifying question instead of guessing.\n6. Never invent an amenity, gate, or vendor that isn't in the provided stadium state.\n\nAlways respond ONLY in the following JSON format, with no extra text:\n\n{\n  \"language_detected\": \"string (ISO code or language name)\",\n  \"answer\": \"string, in the fan's language\",\n  \"reasoning\": \"string, plain-language explanation of why this answer/route was chosen, in the fan's language\",\n  \"route\": [\"array of waypoint labels, or empty array if not a navigation query\"],\n  \"alert_level\": \"normal | caution | emergency\",\n  \"clarifying_question\": \"string or null\"\n}`;\n\nfunction buildUserPrompt({ message, profile, liveState, stadiumData }) {\n  const amenities = stadiumData.amenities.map(a => ({\n    type: a.type,\n    name: a.name,\n    location: `${a.location.x},${a.location.y}`,\n    tags: a.tags,\n    accessible: a.accessible,\n  }));\n\n  const medicalPoints = stadiumData.amenities\n    .filter(a => a.type === 'medical' || a.type === 'security')\n    .map(a => ({ name: a.name, type: a.type, location: `${a.location.x},${a.location.y}` }));\n\n  return `Fan message: \"${message}\"\n\nFan profile:\n- Accessibility needs: ${profile.accessibility || 'none'}\n- Dietary restrictions: ${profile.dietary.length > 0 ? profile.dietary.join(', ') : 'none'}\n- Current location: ${profile.location || 'unknown'}\n\nLive stadium state:\n- Gate status: ${JSON.stringify(liveState.gateStatus)}\n- Crowd density by zone: ${JSON.stringify(liveState.crowdDensity)}\n- Nearby amenities: ${JSON.stringify(amenities)}\n- Nearest medical/security point: ${JSON.stringify(medicalPoints)}\n\nAvailable sections: ${stadiumData.sections.map(s => `${s.name} (${s.id}, zone: ${s.zone}${s.hasStairsOnly ? ', STAIRS ONLY' : ''})`).join('; ')}\nAvailable gates: ${stadiumData.gates.map(g => `${g.name} (${g.id}, status: ${liveState.gateStatus[g.id] || g.status}${g.accessible ? ', accessible' : ''})`).join('; ')}`;\n}\n\nmodule.exports = { SYSTEM_PROMPT, buildUserPrompt };\n"
     },
     {
       "path": "server/routes/chat.js",
       "language": "JavaScript",
-      "loc": 121,
-      "code_loc": 98,
-      "comment_lines": 7,
-      "comment_ratio": 0.0579,
+      "loc": 60,
+      "code_loc": 42,
+      "comment_lines": 8,
+      "comment_ratio": 0.1333,
       "cyclomatic_complexity": 0,
       "functions": [],
       "classes": [],
@@ -521,10 +798,16 @@
           "module": "../data/liveState",
           "names": [],
           "alias": null
+        },
+        {
+          "module": "../lib/gemini",
+          "names": [],
+          "alias": null
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "const express = require('express');\nconst { SYSTEM_PROMPT, buildUserPrompt } = require('../prompts/templates');\nconst { STADIUM_DATA } = require('../data/stadium');\nconst { getLiveState } = require('../data/liveState');\nconst { askConcierge, GeminiError } = require('../lib/gemini');\n\nconst router = express.Router();\n\nconst MAX_MESSAGE_LENGTH = 1000;\n\n/**\n * POST /api/chat \u2014 one concierge query.\n * Body: { message: string, profile?: { accessibility, dietary, location } }\n * Responds with the PROMPT_DESIGN.md contract plus the live state used for the answer.\n */\nrouter.post('/', async (req, res) => {\n  try {\n    const { message, profile = {} } = req.body;\n\n    if (!message || typeof message !== 'string' || message.trim().length === 0) {\n      return res.status(400).json({ error: 'Message is required' });\n    }\n    if (message.length > MAX_MESSAGE_LENGTH) {\n      return res.status(400).json({ error: `Message too long (max ${MAX_MESSAGE_LENGTH} characters)` });\n    }\n\n    const userProfile = {\n      accessibility: profile.accessibility || 'none',\n      dietary: profile.dietary || [],\n      location: profile.location || 'unknown',\n    };\n\n    // Test injection only: lets the edge-case suite pin live state (e.g. a closed\n    // gate) so tests are deterministic. Never active in production.\n    const liveState = (process.env.NODE_ENV !== 'production' && req.body.liveStateOverride)\n      ? req.body.liveStateOverride\n      : getLiveState();\n\n    const userPrompt = buildUserPrompt({\n      message: message.trim(),\n      profile: userProfile,\n      liveState,\n      stadiumData: STADIUM_DATA,\n    });\n\n    const reply = await askConcierge(SYSTEM_PROMPT, userPrompt);\n    res.json({ ...reply, liveState });\n  } catch (err) {\n    if (err instanceof GeminiError) {\n      // 503 = key missing locally; anything upstream surfaces as a 502 to the client\n      const status = err.status === 503 && !process.env.GEMINI_API_KEY ? 503 : 502;\n      return res.status(status).json({ error: err.message, status: err.status });\n    }\n    console.error('Chat error:', err);\n    res.status(500).json({ error: 'Failed to process message', detail: err.message });\n  }\n});\n\nmodule.exports = router;\n"
     },
     {
       "path": "server/routes/stadium.js",
@@ -554,21 +837,22 @@
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "const express = require('express');\nconst { STADIUM_DATA } = require('../data/stadium');\nconst { getLiveState, forceRefresh } = require('../data/liveState');\n\nconst router = express.Router();\n\nrouter.get('/', (req, res) => {\n  res.json({ stadium: STADIUM_DATA, liveState: getLiveState() });\n});\n\nrouter.get('/live', (req, res) => {\n  res.json(getLiveState());\n});\n\nrouter.post('/refresh', (req, res) => {\n  res.json(forceRefresh());\n});\n\nmodule.exports = router;\n"
     },
     {
       "path": "server/server.js",
       "language": "JavaScript",
-      "loc": 48,
-      "code_loc": 37,
-      "comment_lines": 2,
-      "comment_ratio": 0.0417,
+      "loc": 25,
+      "code_loc": 20,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
       "cyclomatic_complexity": 0,
       "functions": [
         {
           "name": "start",
-          "lineno": 30,
-          "end_lineno": 30,
+          "lineno": 7,
+          "end_lineno": 7,
           "complexity": 0,
           "docstring": null
         }
@@ -581,52 +865,86 @@
           "alias": null
         },
         {
-          "module": "path",
-          "names": [],
-          "alias": null
-        },
-        {
-          "module": "express",
-          "names": [],
-          "alias": null
-        },
-        {
-          "module": "cors",
-          "names": [],
-          "alias": null
-        },
-        {
           "module": "mongoose",
           "names": [],
           "alias": null
         },
         {
-          "module": "./routes/chat",
-          "names": [],
-          "alias": null
-        },
-        {
-          "module": "./routes/stadium",
+          "module": "./app",
           "names": [],
           "alias": null
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "require('dotenv').config();\nconst mongoose = require('mongoose');\nconst { createApp } = require('./app');\n\nconst PORT = process.env.PORT || 5000;\n\nconst start = async () => {\n  if (process.env.MONGODB_URI) {\n    try {\n      await mongoose.connect(process.env.MONGODB_URI, { serverSelectionTimeoutMS: 3000 });\n      console.log('Connected to MongoDB');\n    } catch (err) {\n      console.log('MongoDB not available, running without persistence');\n    }\n  } else {\n    console.log('MONGODB_URI not set, running without persistence');\n  }\n\n  createApp().listen(PORT, () => {\n    console.log(`StadiumPilot server running on port ${PORT}`);\n  });\n};\n\nstart();\n"
+    },
+    {
+      "path": "tests/api.test.js",
+      "language": "JavaScript",
+      "loc": 75,
+      "code_loc": 58,
+      "comment_lines": 4,
+      "comment_ratio": 0.0533,
+      "cyclomatic_complexity": 0,
+      "functions": [
+        {
+          "name": "postChat",
+          "lineno": 22,
+          "end_lineno": 22,
+          "complexity": 0,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "node:test",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "node:assert",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "../server/app",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "// API-free endpoint tests \u2014 exercise the real Express app on an ephemeral port.\n// Input validation and stadium endpoints never reach Gemini, so no key or quota is\n// needed. The one Gemini-adjacent test asserts the 503 guard when the key is absent.\n// Run: node --test tests/api.test.js\nconst { test, before, after } = require('node:test');\nconst assert = require('node:assert');\n\ndelete process.env.GEMINI_API_KEY; // must be gone before the app is required\nconst { createApp } = require('../server/app');\n\nlet server;\nlet baseUrl;\n\nbefore(async () => {\n  server = createApp().listen(0);\n  await new Promise(resolve => server.once('listening', resolve));\n  baseUrl = `http://127.0.0.1:${server.address().port}`;\n});\n\nafter(() => server.close());\n\nconst postChat = (body) => fetch(`${baseUrl}/api/chat`, {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify(body),\n});\n\ntest('GET /api/health responds ok', async () => {\n  const res = await fetch(`${baseUrl}/api/health`);\n  assert.strictEqual(res.status, 200);\n  const data = await res.json();\n  assert.strictEqual(data.status, 'ok');\n});\n\ntest('GET /api/stadium returns stadium data and live state', async () => {\n  const res = await fetch(`${baseUrl}/api/stadium`);\n  assert.strictEqual(res.status, 200);\n  const data = await res.json();\n  assert.ok(Array.isArray(data.stadium.gates) && data.stadium.gates.length > 0);\n  assert.ok(Array.isArray(data.stadium.amenities) && data.stadium.amenities.length > 0);\n  assert.ok(data.liveState.crowdDensity && data.liveState.gateStatus);\n});\n\ntest('GET /api/stadium/live returns valid live state', async () => {\n  const res = await fetch(`${baseUrl}/api/stadium/live`);\n  assert.strictEqual(res.status, 200);\n  const data = await res.json();\n  assert.ok(data.crowdDensity && data.gateStatus && data.timestamp);\n});\n\ntest('POST /api/chat rejects a missing message with 400', async () => {\n  const res = await postChat({ profile: {} });\n  assert.strictEqual(res.status, 400);\n  assert.match((await res.json()).error, /required/i);\n});\n\ntest('POST /api/chat rejects a whitespace-only message with 400', async () => {\n  const res = await postChat({ message: '   ' });\n  assert.strictEqual(res.status, 400);\n});\n\ntest('POST /api/chat rejects an over-length message with 400', async () => {\n  const res = await postChat({ message: 'a'.repeat(1500) });\n  assert.strictEqual(res.status, 400);\n  assert.match((await res.json()).error, /too long/i);\n});\n\ntest('POST /api/chat returns 503 (never a fake answer) when no API key is configured', async () => {\n  const res = await postChat({ message: 'Where is the nearest bathroom?' });\n  assert.strictEqual(res.status, 503);\n  const data = await res.json();\n  assert.ok(data.error, 'should explain the missing configuration');\n  assert.strictEqual(data.answer, undefined, 'must not fabricate an AI answer');\n});\n"
     },
     {
       "path": "tests/edge-case-tests.js",
       "language": "JavaScript",
-      "loc": 113,
-      "code_loc": 103,
-      "comment_lines": 0,
-      "comment_ratio": 0.0,
+      "loc": 192,
+      "code_loc": 164,
+      "comment_lines": 13,
+      "comment_ratio": 0.0677,
       "cyclomatic_complexity": 0,
       "functions": [
         {
+          "name": "validateContract",
+          "lineno": 96,
+          "end_lineno": 96,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
+          "name": "checkExpectations",
+          "lineno": 107,
+          "end_lineno": 107,
+          "complexity": 0,
+          "docstring": null
+        },
+        {
           "name": "runTests",
-          "lineno": 54,
-          "end_lineno": 54,
+          "lineno": 145,
+          "end_lineno": 145,
           "complexity": 0,
           "docstring": null
         }
@@ -634,13 +952,55 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "// StadiumPilot edge-case tests (task.md Phase 5 \u2014 every case hits the real AI backend).\n// Run with the server up: node tests/edge-case-tests.js\n// Results are logged in TESTING.md \u2014 update it when behavior changes.\n\nconst BASE_URL = process.env.API_URL || 'http://localhost:5000';\n\nconst FOOD_VENDORS = [\n  'Burger Palace', 'Taco Fiesta', 'Green Bowl', 'Nut-Free Kitchen', 'Pizza Corner', 'Halal Grill',\n];\n\n// A closed North Gate with everything else calm, for the deterministic reroute test\nconst NORTH_GATE_CLOSED = {\n  crowdDensity: { north: 'low', south: 'low', east: 'low', west: 'low' },\n  gateStatus: { G1: 'closed', G2: 'open', G3: 'open', G4: 'open', G5: 'open' },\n  timestamp: new Date().toISOString(),\n};\n\nconst TEST_CASES = [\n  {\n    name: 'Normal Navigation',\n    message: \"Where's the nearest bathroom to Section 114?\",\n    profile: { accessibility: 'none', dietary: [], location: 'Section 114' },\n    expect: { alert: ['normal'], hasRoute: true },\n  },\n  {\n    name: 'French Multilingual Query',\n    message: 'Je suis en fauteuil roulant, comment aller au stand de nourriture ?',\n    profile: { accessibility: 'wheelchair', dietary: [], location: 'Section 101' },\n    // A route OR one clarifying question are both correct (several vendors qualify)\n    expect: { alert: ['normal', 'caution'], routeOrClarify: true, language: ['fr', 'french'] },\n  },\n  {\n    name: 'Emergency - Dizziness',\n    message: \"I feel really dizzy and can't breathe well\",\n    profile: { accessibility: 'none', dietary: [], location: 'Section 201' },\n    expect: { alert: ['emergency'], hasRoute: true },\n  },\n  {\n    name: 'Gibberish Input',\n    message: 'asdkfj gate??',\n    profile: { accessibility: 'none', dietary: [], location: 'Section 101' },\n    expect: { alert: ['normal'], hasClarifyingQuestion: true },\n  },\n  {\n    name: 'Wheelchair vs Stairs-Only Section',\n    message: 'How do I get to Section 214?',\n    profile: { accessibility: 'wheelchair', dietary: [], location: 'Section 101' },\n    // Correct behavior per PROMPT_DESIGN.md: flag the conflict \u2014 never route through\n    // stairs. Accept an alternate route or a clarifying question, but not silence.\n    expect: { alert: ['normal', 'caution'], routeOrClarify: true, routeExcludes: ['Section 214'] },\n  },\n  {\n    name: 'Dietary - Nut-Free Match',\n    message: 'I need nut-free food options nearby',\n    profile: { accessibility: 'none', dietary: ['nut-free'], location: 'Section 101' },\n    expect: { alert: ['normal'], hasRoute: true },\n  },\n  {\n    name: 'Dietary - No Match (kosher)',\n    message: 'Where can I get kosher food?',\n    profile: { accessibility: 'none', dietary: ['kosher'], location: 'Section 101' },\n    // No vendor is kosher: the honest answer routes to no food vendor and never invents one\n    expect: { alert: ['normal'], routeExcludes: FOOD_VENDORS },\n  },\n  {\n    name: 'Open-Ended Food Query',\n    message: \"I'm hungry, what food is available?\",\n    profile: { accessibility: 'none', dietary: [], location: 'Section 102' },\n    // Listing real vendors, routing to one, or asking a preference are all valid \u2014\n    // what matters is the answer stays grounded in vendors that actually exist\n    expect: { alert: ['normal'], answerMentionsAny: FOOD_VENDORS },\n  },\n  {\n    name: 'Gate Status Check',\n    message: 'Is the East Gate open?',\n    profile: { accessibility: 'none', dietary: [], location: 'Section 114' },\n    expect: { alert: ['normal'] },\n  },\n  {\n    name: 'Gate Closes Mid-Session (reroute)',\n    message: 'I need to exit through the North Gate',\n    profile: { accessibility: 'none', dietary: [], location: 'Section 101' },\n    liveStateOverride: NORTH_GATE_CLOSED,\n    // North Gate is closed: any route offered must avoid it\n    expect: { alert: ['normal', 'caution'], routeExcludes: ['North Gate', 'G1'] },\n  },\n  {\n    name: 'Rare Language Fallback (Welsh)',\n    message: \"Ble mae'r toiled agosaf?\",\n    profile: { accessibility: 'none', dietary: [], location: 'Section 101' },\n    // Graceful handling: a valid contract response, no crash, no emergency\n    expect: { alert: ['normal', 'caution'] },\n  },\n];\n\nfunction validateContract(data) {\n  const issues = [];\n  if (typeof data.answer !== 'string' || !data.answer) issues.push('answer missing/empty');\n  if (typeof data.reasoning !== 'string' || !data.reasoning) issues.push('reasoning missing/empty');\n  if (!Array.isArray(data.route)) issues.push('route is not an array');\n  if (!['normal', 'caution', 'emergency'].includes(data.alert_level)) issues.push(`alert_level invalid: ${data.alert_level}`);\n  if (typeof data.language_detected !== 'string') issues.push('language_detected missing');\n  if (!(data.clarifying_question === null || typeof data.clarifying_question === 'string')) issues.push('clarifying_question not string/null');\n  return issues;\n}\n\nfunction checkExpectations(tc, data) {\n  const issues = [];\n  const e = tc.expect;\n  if (e.alert && !e.alert.includes(data.alert_level)) {\n    issues.push(`alert_level expected one of [${e.alert}] got=${data.alert_level}`);\n  }\n  if (e.hasRoute && (!data.route || data.route.length === 0)) {\n    issues.push('expected a route but got empty');\n  }\n  if (e.hasClarifyingQuestion && !data.clarifying_question) {\n    issues.push('expected clarifying_question but got null');\n  }\n  if (e.routeOrClarify && (!data.route || data.route.length === 0) && !data.clarifying_question) {\n    issues.push('expected a route OR a clarifying question, got neither');\n  }\n  if (e.routeExcludes) {\n    const routeText = (data.route || []).join(' | ').toLowerCase();\n    for (const banned of e.routeExcludes) {\n      if (routeText.includes(banned.toLowerCase())) issues.push(`route must not include \"${banned}\"`);\n    }\n  }\n  if (e.answerMentionsAny) {\n    const answer = (data.answer || '').toLowerCase();\n    const clarify = (data.clarifying_question || '').toLowerCase();\n    const grounded = e.answerMentionsAny.some(v => answer.includes(v.toLowerCase()));\n    if (!grounded && !clarify && (!data.route || data.route.length === 0)) {\n      issues.push('answer names no real vendor, offers no route, asks no clarifying question');\n    }\n  }\n  if (e.language) {\n    const lang = (data.language_detected || '').toLowerCase();\n    if (!e.language.some(l => lang.includes(l))) {\n      issues.push(`language_detected expected ~[${e.language}] got=${data.language_detected}`);\n    }\n  }\n  return issues;\n}\n\nasync function runTests() {\n  console.log('=== StadiumPilot Edge Case Tests ===\\n');\n  let passed = 0;\n  let failed = 0;\n\n  for (const tc of TEST_CASES) {\n    // Space requests out: the Gemini free tier enforces a per-minute request cap\n    if (passed + failed > 0) await new Promise(r => setTimeout(r, 6000));\n    process.stdout.write(`[${tc.name}] `);\n    try {\n      const body = { message: tc.message, profile: tc.profile };\n      if (tc.liveStateOverride) body.liveStateOverride = tc.liveStateOverride;\n\n      const res = await fetch(`${BASE_URL}/api/chat`, {\n        method: 'POST',\n        headers: { 'Content-Type': 'application/json' },\n        body: JSON.stringify(body),\n      });\n      const data = await res.json();\n\n      const issues = res.ok\n        ? [...validateContract(data), ...checkExpectations(tc, data)]\n        : [`HTTP ${res.status}: ${data.error || 'unknown error'}`];\n\n      if (issues.length === 0) {\n        console.log('PASS');\n        passed++;\n      } else {\n        console.log(`FAIL: ${issues.join(', ')}`);\n        failed++;\n      }\n\n      console.log(`  Answer: ${data.answer?.substring(0, 80)}...`);\n      console.log(`  Route: ${JSON.stringify(data.route)}`);\n      console.log(`  Alert: ${data.alert_level} | Lang: ${data.language_detected} | Clarify: ${data.clarifying_question ? 'yes' : 'no'}`);\n      console.log('');\n    } catch (err) {\n      console.log(`ERROR: ${err.message}\\n`);\n      failed++;\n    }\n  }\n\n  console.log(`\\n=== Results: ${passed} passed, ${failed} failed out of ${TEST_CASES.length} ===`);\n  process.exitCode = failed > 0 ? 1 : 0;\n}\n\nrunTests();\n"
+    },
+    {
+      "path": "tests/unit.test.js",
+      "language": "JavaScript",
+      "loc": 70,
+      "code_loc": 56,
+      "comment_lines": 3,
+      "comment_ratio": 0.0429,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "module": "node:test",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "node:assert",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "../server/prompts/templates",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "../server/data/stadium",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "../server/data/liveState",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "// API-free unit tests for the server's pure logic \u2014 no Gemini key or quota needed.\n// Run: node --test tests/\nconst { test } = require('node:test');\nconst assert = require('node:assert');\n\nconst { SYSTEM_PROMPT, buildUserPrompt } = require('../server/prompts/templates');\nconst { STADIUM_DATA } = require('../server/data/stadium');\nconst { getLiveState, forceRefresh } = require('../server/data/liveState');\n\nconst sampleProfile = { accessibility: 'wheelchair', dietary: ['halal', 'nut-free'], location: 'Section 101' };\n\ntest('system prompt pins the JSON contract fields', () => {\n  for (const field of ['language_detected', 'answer', 'reasoning', 'route', 'alert_level', 'clarifying_question']) {\n    assert.ok(SYSTEM_PROMPT.includes(`\"${field}\"`), `system prompt missing contract field ${field}`);\n  }\n  assert.match(SYSTEM_PROMPT, /never route through stairs-only/i);\n});\n\ntest('user prompt carries profile constraints and live state', () => {\n  const liveState = getLiveState();\n  const prompt = buildUserPrompt({ message: 'test', profile: sampleProfile, liveState, stadiumData: STADIUM_DATA });\n\n  assert.ok(prompt.includes('wheelchair'), 'accessibility missing');\n  assert.ok(prompt.includes('halal, nut-free'), 'dietary list missing');\n  assert.ok(prompt.includes('Section 101'), 'location missing');\n  assert.ok(prompt.includes('STAIRS ONLY'), 'stairs-only sections not flagged');\n  for (const gate of STADIUM_DATA.gates) {\n    assert.ok(prompt.includes(gate.id), `gate ${gate.id} missing from prompt`);\n  }\n  assert.ok(prompt.includes(JSON.stringify(liveState.gateStatus)), 'gate status not injected');\n});\n\ntest('user prompt only offers amenities that exist in stadium data', () => {\n  const prompt = buildUserPrompt({ message: 'test', profile: sampleProfile, liveState: getLiveState(), stadiumData: STADIUM_DATA });\n  for (const amenity of STADIUM_DATA.amenities) {\n    assert.ok(prompt.includes(amenity.name), `amenity ${amenity.name} missing from prompt`);\n  }\n});\n\ntest('live state generator produces valid densities and gate statuses', () => {\n  const state = forceRefresh();\n  const zoneIds = STADIUM_DATA.zones.map(z => z.id);\n  const gateIds = STADIUM_DATA.gates.map(g => g.id);\n\n  assert.deepStrictEqual(Object.keys(state.crowdDensity).sort(), zoneIds.sort());\n  assert.deepStrictEqual(Object.keys(state.gateStatus).sort(), gateIds.sort());\n  for (const density of Object.values(state.crowdDensity)) {\n    assert.ok(['low', 'medium', 'high', 'very_high'].includes(density), `invalid density ${density}`);\n  }\n  for (const status of Object.values(state.gateStatus)) {\n    assert.ok(['open', 'closed', 'crowded'].includes(status), `invalid gate status ${status}`);\n  }\n});\n\ntest('live state is cached within the 5s window and replaced on refresh', () => {\n  const a = getLiveState();\n  const b = getLiveState();\n  assert.strictEqual(a, b, 'expected cached object within refresh window');\n  const c = forceRefresh();\n  assert.notStrictEqual(a, c, 'forceRefresh should produce a new state');\n});\n\ntest('stadium data has the accessibility and safety fixtures the prompt relies on', () => {\n  assert.ok(STADIUM_DATA.sections.some(s => s.hasStairsOnly), 'need at least one stairs-only section');\n  assert.ok(STADIUM_DATA.amenities.some(a => a.type === 'medical'), 'need a medical point');\n  assert.ok(STADIUM_DATA.gates.some(g => g.accessible), 'need an accessible gate');\n  // The dietary no-match edge case depends on kosher having zero matching vendors\n  assert.ok(!STADIUM_DATA.amenities.some(a => (a.tags || []).includes('kosher')), 'kosher must have no match');\n});\n"
     }
   ],
   "delta": null,
   "ingestion_metadata": {
     "version": "1.0",
-    "timestamp": "2026-07-12T15:56:33.462523+00:00",
+    "timestamp": "2026-07-17T05:01:39.811174+00:00",
     "duration_ms": 0,
     "pipeline_version": "1"
   }

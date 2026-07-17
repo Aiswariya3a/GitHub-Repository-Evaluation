@@ -31,6 +31,8 @@ class RepositoryService:
         if not row: return None
         evaluation = self.evaluations.hydrate(row)
         row["status"] = row["evaluation_status"]
+        row["progress_pct"] = row.get("progress_pct", 0)
+        row["current_step"] = row.get("current_step", "")
         row["repo_data"] = {
             "roll_number": row["roll_number"], "repo": row["repo_url"],
             "public": row["is_public"], "readme_exists": row["readme_exists"],
@@ -57,6 +59,7 @@ class RepositoryService:
     def queue_repository(self, session_id, repository_id): return self.repository.queue(session_id, repository_id)
     def mark_running(self, ids): self.repository.mark_running(ids)
     def mark_failed(self, ids, error): self.repository.mark_failed(ids, error)
+    def update_progress(self, repository_id, pct, step): self.repository.update_progress(repository_id, pct, step)
     def recover_interrupted_evaluations(self): return self.repository.recover_interrupted()
 
     def save_repository_evaluation(self, repository_id, repo_data, evaluation, rubric_version_id):

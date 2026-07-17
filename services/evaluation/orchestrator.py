@@ -76,6 +76,7 @@ class EvaluationOrchestrator:
 
         # Step status tracking
         self.failed_agents: list[str] = []
+        self.progress_callback = None
 
     def _create_session_dir(self, session_id: str, repository_id: str) -> str:
         """Create per-session working directory (ORC-06)."""
@@ -198,6 +199,7 @@ class EvaluationOrchestrator:
         base_repo_url: Optional[str] = None,
         rubric_version_id: Optional[str] = None,
         force: bool = False,
+        progress_callback: Optional[callable] = None,
     ) -> dict:
         """Run the full evaluation pipeline for a single repository.
 
@@ -215,6 +217,9 @@ class EvaluationOrchestrator:
         """
         start_time = time.monotonic()
         session_dir = self._create_session_dir(session_id, repository_id)
+        self.progress_callback = progress_callback
+        if self.progress_callback:
+            self.progress_callback(repository_id, 5, "Queued")
         print(f"[DIAG] Evaluate called: force={force}, session_dir={session_dir}")
         if force and os.path.exists(session_dir):
             shutil.rmtree(session_dir)
@@ -260,6 +265,8 @@ class EvaluationOrchestrator:
             with open(snapshot_path, "w") as f:
                 json.dump(snapshot, f, indent=2, default=str)
             print(f"[DIAG] Ingestion complete: snapshot saved ({len(snapshot.get('files', []))} files in snapshot)")
+            if self.progress_callback:
+                self.progress_callback(repository_id, 15, "Ingested repository data")
         else:
             snapshot = completed["ingestion"]
 
@@ -294,6 +301,8 @@ class EvaluationOrchestrator:
             repo_out = cap_results.get("repo_understanding")
             code_out = cap_results.get("code_understanding")
             collab_out = cap_results.get("collaboration")
+            if self.progress_callback:
+                self.progress_callback(repository_id, 50, "Extracted code capabilities")
 
         # --- Step 3: Rubric Evaluation (parallel per criterion) ---
         if "criteria" in completed:
@@ -349,6 +358,8 @@ class EvaluationOrchestrator:
 
             crit_results = self._run_parallel_agents(criteria_agents, session_dir)
             criterion_results = [v for v in crit_results.values() if v is not None]
+            if self.progress_callback:
+                self.progress_callback(repository_id, 70, "Scored against rubric")
 
             # Log returned keys for debugging (key mismatch detection)
             expected = {(cat["code"], crit["criterion_key"]) for cat, crit in all_criteria}
@@ -382,6 +393,8 @@ class EvaluationOrchestrator:
             print("[DIAG] Step 4: Aggregating scores")
             rubric = self.rubric_service.get_version(rubric_version_id)
             aggregated = aggregate_scores(criterion_results, rubric)
+            if self.progress_callback:
+                self.progress_callback(repository_id, 85, "Aggregated scores")
             agg_path = self._step_output_path(session_dir, "aggregation")
             with open(agg_path, "w") as f:
                 agg_dict = asdict(aggregated) if is_dataclass(aggregated) else aggregated
@@ -418,6 +431,8 @@ class EvaluationOrchestrator:
         # Post-process feedback: attach evidence_keys programmatically using
         # criterion results instead of relying on LLM output (T-02-04).
         self._attach_evidence_keys(feedback, criterion_results)
+        if self.progress_callback:
+            self.progress_callback(repository_id, 95, "Generated feedback")
 
         # --- Step 6: Persist to PostgreSQL (ORC-07) ---
         pipeline_status = "success"
@@ -469,6 +484,8 @@ class EvaluationOrchestrator:
             logger.error(f"Failed to persist results to PostgreSQL: {e}")
             eval_result["persistence_error"] = str(e)
 
+        if self.progress_callback:
+            self.progress_callback(repository_id, 100, "Completed")
         duration = time.monotonic() - start_time
         eval_result["duration_seconds"] = round(duration, 1)
         print(f"[DIAG] evaluate() returning: status={pipeline_status}, duration={round(duration, 1)}s")

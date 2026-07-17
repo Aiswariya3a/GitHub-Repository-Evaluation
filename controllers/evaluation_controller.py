@@ -17,11 +17,21 @@ def _session_rubric_version_id(session):
         return None
     return session.get("rubric_version_id")
 
+def _make_progress_callback(app):
+    def _cb(repository_id, pct, step):
+        try:
+            with app.app_context():
+                services().repositories.repository.update_progress(repository_id, pct, step)
+        except Exception:
+            pass
+    return _cb
+
 def _bg_evaluate(app, session_id, repository_ids, rubric_version_id, force):
     with app.app_context():
         try:
             services().evaluations.evaluate_session_repositories(
                 session_id, repository_ids, rubric_version_id=rubric_version_id, force=force,
+                progress_callback=_make_progress_callback(app),
             )
         except Exception as exc:
             try:

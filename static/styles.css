@@ -20,6 +20,7 @@
 body {
   margin: 0;
   font-family: 'Inter', system-ui, sans-serif;
+  font-size: 17px;
   background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.28), transparent 32%), var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -267,6 +268,24 @@ th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color
 .repo-cell a { color:var(--text); text-decoration:none; }.repo-cell a:hover { color:#a5b4fc; }.small-value { font-size:1rem; }
 .detail-list { display:flex; flex-direction:column; margin-top:12px; }.detail-list > div { display:flex; justify-content:space-between; gap:14px; padding:10px 0; border-bottom:1px solid var(--border); }.detail-list span { color:var(--muted); font-size:.82rem; text-align:right; }.three-columns { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }.three-columns .panel { box-shadow:none; background:rgba(2,8,23,.2); }
 
+
+.progress-panel {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 18px;
+}
+.progress-step-label {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.progress-label {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+  text-align: right;
+}
 
 /* ==========================================
    RESPONSIVE - Media Queries

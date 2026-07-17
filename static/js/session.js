@@ -42,9 +42,12 @@ document.addEventListener('DOMContentLoaded', function() {
         var watchers = Number(r.watchers_count) || 0;
         var issues = Number(r.open_issues_count) || 0;
         var name = r.repo_url.split('/').pop();
+        var progressPct = running ? (Number(r.progress_pct) || 0) : (done ? 100 : 0);
+        var currentStep = running ? (r.current_step || 'Evaluating') : '';
         var confidenceWarning = r.has_low_confidence
             ? '<div class="warning-strip">! Low confidence criteria</div>'
             : '';
+        var progressLabel = running ? '<div class="progress-label">' + window.esc(currentStep) + ' &middot; ' + progressPct + '%</div>' : '';
         return '<article class="repository-card' + (selected.has(r.id) ? ' selected' : '') + '">' +
             '<div class="repository-card-top">' +
             '<label class="check"><input type="checkbox" ' + (selected.has(r.id) ? 'checked' : '') + ' onchange="toggleSelection(\'' + r.id + '\',this.checked)"><span></span></label>' +
@@ -68,7 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
             '<div><span>Health</span><strong>' + score.toFixed(1) + '<small>/20</small></strong></div>' +
             '<div><span>Commits</span><strong>' + (r.commit_count || 0) + '</strong></div>' +
             '<div><span>Evaluated</span><strong class="date-value">' + (r.evaluated_at ? new Date(r.evaluated_at).toLocaleDateString() : '\u2014') + '</strong></div></div>' +
-            '<div class="progress-bar' + (running ? ' indeterminate' : '') + '"><span style="width:' + (done ? 100 : running ? 55 : 8) + '%"></span></div>' +
+            progressLabel +
+            '<div class="progress-bar' + (running ? ' indeterminate' : '') + '"><span style="width:' + progressPct + '%"></span></div>' +
             (r.error ? '<div class="warning-strip">! ' + window.esc(r.error) + '</div>' : '') +
             confidenceWarning +
             '</article>';
@@ -272,6 +276,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     window._evalPoll = null;
                     window.toast('Evaluation failed', 'error');
                     load();
+                } else if (status === 'Evaluating' && d.repository && data) {
+                    var found = false;
+                    data.repositories.forEach(function(r) {
+                        if (r.id === id) {
+                            r.progress_pct = d.repository.progress_pct;
+                            r.current_step = d.repository.current_step;
+                            found = true;
+                        }
+                    });
+                    if (found) renderRepositories();
                 }
             } catch (e) {
                 clearInterval(window._evalPoll);

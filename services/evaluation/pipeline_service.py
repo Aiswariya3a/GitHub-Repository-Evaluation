@@ -28,11 +28,13 @@ class PipelineService:
         base_repo_url: Optional[str] = None,
         rubric_version_id: Optional[str] = None,
         force: bool = False,
+        progress_callback: Optional[callable] = None,
     ) -> dict:
         """Evaluate a single repository through the full pipeline.
 
         Args:
             force: If True, clear cached step files and re-run all steps.
+            progress_callback: Optional callable(repository_id, pct, step)
 
         Returns dict with status, scores, feedback, and any errors.
         """
@@ -44,6 +46,7 @@ class PipelineService:
             base_repo_url=base_repo_url,
             rubric_version_id=rubric_version_id,
             force=force,
+            progress_callback=progress_callback,
         )
 
     def evaluate_session_repositories(
@@ -52,6 +55,7 @@ class PipelineService:
         repository_ids: Optional[list[str]] = None,
         rubric_version_id: Optional[str] = None,
         force: bool = False,
+        progress_callback: Optional[callable] = None,
     ) -> list[dict]:
         """Evaluate all pending repositories in a session.
 
@@ -62,6 +66,7 @@ class PipelineService:
             repository_ids: Optional subset of repository IDs to evaluate
             rubric_version_id: Rubric version to use
             force: If True, clear cached step files and re-run all steps.
+            progress_callback: Optional callable(repository_id, pct, step)
 
         Returns:
             list of evaluation result dicts
@@ -93,6 +98,7 @@ class PipelineService:
                     repository_id=str(repo["id"]),
                     rubric_version_id=rubric_version_id,
                     force=force,
+                    progress_callback=progress_callback,
                 )
                 results.append(result)
                 repo_data = result.get("repo_data", {})

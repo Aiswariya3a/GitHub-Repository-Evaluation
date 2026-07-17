@@ -1174,6 +1174,18 @@ document.addEventListener('DOMContentLoaded', () => {
         })();
         repositoryStatus.textContent = r.status;
         repositoryStatus.className = 'status-badge status-' + r.status.toLowerCase();
+        var progressPanel = document.getElementById('evalProgress');
+        var progressLabel = document.getElementById('evalProgressLabel');
+        var progressBar = document.getElementById('evalProgressBar');
+        if (r.status === 'Evaluating') {
+            progressPanel.style.display = 'block';
+            var pct = Number(r.progress_pct) || 0;
+            var step = r.current_step || 'Evaluating';
+            if (progressLabel) progressLabel.textContent = step + ' \u00B7 ' + pct + '%';
+            if (progressBar) progressBar.style.width = pct + '%';
+        } else {
+            progressPanel.style.display = 'none';
+        }
         repositoryActions.innerHTML =
             '<a class="secondary-btn" href="' + r.repo_url + '" target="_blank">Open GitHub \u2197</a>' +
             '<div class="dropdown"><button class="secondary-btn" onclick="this.nextElementSibling.classList.toggle(\'open\')">Actions \u25BE</button>' +
@@ -1247,6 +1259,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     window._evalPoll = null;
                     toast('Evaluation failed', 'error');
                     load();
+                } else if (status === 'Evaluating' && d.repository) {
+                    var pct = Number(d.repository.progress_pct) || 0;
+                    var step = d.repository.current_step || 'Evaluating';
+                    var progressPanel = document.getElementById('evalProgress');
+                    var progressLabel = document.getElementById('evalProgressLabel');
+                    var progressBar = document.getElementById('evalProgressBar');
+                    if (progressPanel) progressPanel.style.display = 'block';
+                    if (progressLabel) progressLabel.textContent = step + ' \u00B7 ' + pct + '%';
+                    if (progressBar) progressBar.style.width = pct + '%';
+                    repositoryStatus.textContent = 'Evaluating';
+                    repositoryStatus.className = 'status-badge status-evaluating';
                 }
             } catch (e) {
                 clearInterval(window._evalPoll);

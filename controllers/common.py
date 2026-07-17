@@ -60,7 +60,8 @@ def session_context(session_id):
             "watchers_count": repo_data.get("watchers_count", 0),
             "size": repo_data.get("size", 0),
             "default_branch": repo_data.get("default_branch", ""),
-            "progress": 100 if repository["status"] == "Completed" else 50 if repository["status"] == "Evaluating" else 8})
+            "progress": repository.get("progress_pct", 100 if repository["status"] == "Completed" else 50 if repository["status"] == "Evaluating" else 0),
+            "current_step": repository.get("current_step", "")})
     ingestion_commits = _batch_commit_counts([r.get("id") for r in rows])
     for row in rows:
         rid = str(row.get("id", ""))

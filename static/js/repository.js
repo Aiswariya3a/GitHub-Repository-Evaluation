@@ -750,6 +750,156 @@ document.addEventListener('DOMContentLoaded', () => {
         return conf >= 0.7 ? 'High' : conf >= 0.5 ? 'Medium' : 'Low';
     }
 
+    function renderOverviewTab(r, ev, er, criteria) {
+        const container = document.getElementById('overviewContent');
+        if (!container) return;
+
+        if (!criteria || !criteria.length) {
+            container.innerHTML = empty('No assessment data', repository.status === 'Evaluated' ? 'Run an evaluation to generate an assessment.' : 'Evaluation results are not available.');
+            return;
+        }
+
+        const allScores = criteria.map(cr => Number(cr.score || 0));
+        const allMaxes = criteria.map(cr => Number(cr.max_score || 8));
+        const totalScore = allScores.reduce((s, v) => s + v, 0);
+        const totalMax = allMaxes.reduce((s, v) => s + v, 0);
+        const totalPct = totalMax > 0 ? (totalScore / totalMax * 100) : 0;
+        const overallTone = classifyScore(totalScore, totalMax);
+        const grade = totalPct >= 90 ? 'A' : totalPct >= 80 ? 'B' : totalPct >= 70 ? 'C' : totalPct >= 60 ? 'D' : 'F';
+        const avgConf = criteria.reduce((s, cr) => s + Number(cr.confidence || 0), 0) / criteria.length;
+        const lowConfCount = criteria.filter(cr => Number(cr.confidence || 0) < 0.5).length;
+        const needsReview = criteria.filter(cr => Number(cr.confidence || 0) < 0.7).length;
+        const overallRemarks = er.overall_remarks || '';
+
+        const sorted = criteria.slice().sort((a, b) => {
+            const ap = a.max_score > 0 ? Number(a.score) / Number(a.max_score) : 0;
+            const bp = b.max_score > 0 ? Number(b.score) / Number(b.max_score) : 0;
+            return bp - ap;
+        });
+        const strengths = sorted.filter(c => c.max_score > 0 && Number(c.score) / Number(c.max_score) >= 0.7);
+        const concerns = sorted.filter(c => c.max_score > 0 && Number(c.score) / Number(c.max_score) < 0.5);
+
+        const scoreColor = overallTone.tone === 'strong' ? '#86efac'
+            : overallTone.tone === 'satisfactory' ? '#7dd3fc'
+            : overallTone.tone === 'needs-work' ? '#fcd34d' : '#fda4af';
+
+        let html = '';
+
+        // ================================================================
+        // 1. Executive Summary
+        // ================================================================
+        const verdict = totalPct >= 70
+            ? 'This submission demonstrates a satisfactory level of quality across the evaluated dimensions. The project meets expected standards and is generally well-constructed.'
+            : totalPct >= 45
+            ? 'This submission shows potential but has several areas that would benefit from focused improvement before final evaluation.'
+            : 'This submission needs significant attention across multiple quality dimensions. Substantial revisions are recommended.';
+
+        html += '<article class="ai-section">';
+        html += '<div class="ai-section-header"><h2>Executive Summary</h2></div>';
+        html += '<p class="ai-summary-text" style="font-size:.95rem">' + verdict + ' The evaluation identified ' + strengths.length + ' ' + (strengths.length === 1 ? 'strength' : 'strengths') + ' and ' + concerns.length + ' ' + (concerns.length === 1 ? 'area' : 'areas') + ' for improvement.</p>';
+        html += '<div class="ai-verdict-row">';
+        var vChips = [
+            { label: 'Overall', value: overallTone.label, color: scoreColor },
+            { label: 'Grade', value: grade, color: totalPct >= 70 ? '#86efac' : totalPct >= 45 ? '#fcd34d' : '#fda4af' },
+            { label: 'Confidence', value: assessConfidence(avgConf), color: avgConf >= 0.7 ? '#86efac' : avgConf >= 0.5 ? '#fcd34d' : '#fda4af' },
+        ];
+        if (needsReview > 0) vChips.push({ label: 'Review needed', value: needsReview + ' item' + (needsReview > 1 ? 's' : ''), color: '#fda4af' });
+        vChips.forEach(function (v) {
+            html += '<span class="ai-verdict-chip"><span class="ai-verdict-dot" style="background:' + v.color + '"></span>' + esc(v.label) + ': <strong>' + esc(v.value) + '</strong></span>';
+        });
+        html += '</div></article>';
+
+        // ================================================================
+        // 2. Overall Assessment — Hero
+        // ================================================================
+        html += '<article class="ov-assessment">';
+        html += '<div class="ov-assessment-grade" style="color:' + scoreColor + '">' + grade + '</div>';
+        html += '<div class="ov-assessment-score"><span style="color:' + scoreColor + '">' + totalScore.toFixed(1) + '</span><span class="ov-assessment-max">/' + totalMax.toFixed(0) + '</span></div>';
+        html += '<div class="ov-assessment-bar"><div class="ov-assessment-bar-fill" style="width:' + totalPct + '%;background:' + scoreColor + '"></div></div>';
+        html += '<div class="ov-assessment-meta">';
+        html += '<span>Evaluated: ' + (r.evaluated_at ? new Date(r.evaluated_at).toLocaleDateString() : 'Never') + '</span>';
+        html += '<span>Status: ' + esc(r.status || 'Unknown') + '</span>';
+        if (needsReview > 0) html += '<span class="ov-review-flag">Manual review recommended</span>';
+        html += '</div>';
+        html += '<button class="ov-nav-chip" data-tab="evaluation">View full evaluation breakdown \u2192</button>';
+        html += '</article>';
+
+        // ================================================================
+        // 3. Key Strengths — preview with navigation to Code Quality
+        // ================================================================
+        html += '<article class="ai-section"><div class="ai-section-header"><h2>Key Strengths</h2></div>';
+        if (strengths.length) {
+            html += '<div class="ai-card-grid">';
+            strengths.slice(0, 3).forEach(function (cr) {
+                var dim = getCategoryInfo(cr.category_code) || { label: cr.category_code, desc: '' };
+                html += '<div class="ai-strength-card">';
+                html += '<div class="ai-strength-head"><div><span class="ai-strength-dim">' + esc(dim.label) + '</span><span class="ai-strength-criterion">' + esc(getCriterionLabel(cr.criterion_key)) + '</span></div></div>';
+                html += '<div class="ai-strength-score"><span style="color:#86efac">' + Number(cr.score).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span><span class="ai-strength-pct">' + (cr.max_score > 0 ? (Number(cr.score) / Number(cr.max_score) * 100).toFixed(0) : 0) + '%</span></div>';
+                if (cr.remarks) html += '<p class="ai-strength-remark">' + esc(cr.remarks) + '</p>';
+                html += '</div>';
+            });
+            html += '</div>';
+            if (strengths.length > 3) {
+                html += '<p class="ov-nav-hint">+' + (strengths.length - 3) + ' more strength' + (strengths.length - 3 === 1 ? '' : 's') + '. <button class="ov-nav-link" data-tab="quality">See full assessment in Code Quality \u2192</button></p>';
+            } else {
+                html += '<p class="ov-nav-hint"><button class="ov-nav-link" data-tab="quality">View detailed assessment in Code Quality \u2192</button></p>';
+            }
+        } else {
+            html += '<div class="ai-empty-section"><p>No criteria scored above 70%.</p></div>';
+        }
+        html += '</article>';
+
+        // ================================================================
+        // 4. Areas for Improvement — preview with navigation
+        // ================================================================
+        html += '<article class="ai-section"><div class="ai-section-header"><h2>Areas for Improvement</h2></div>';
+        if (concerns.length) {
+            html += '<div class="ai-card-grid">';
+            concerns.slice(0, 3).forEach(function (cr) {
+                var dim = getCategoryInfo(cr.category_code) || { label: cr.category_code, desc: '' };
+                var lowConf = Number(cr.confidence || 0) < 0.5;
+                html += '<div class="ai-concern-card' + (lowConf ? ' needs-review' : '') + '">';
+                html += '<div class="ai-concern-head"><div><span class="ai-concern-dim">' + esc(dim.label) + '</span><span class="ai-concern-criterion">' + esc(getCriterionLabel(cr.criterion_key)) + '</span></div></div>';
+                html += '<div class="ai-concern-score"><span style="color:#fda4af">' + Number(cr.score).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span><span class="ai-concern-pct">' + (cr.max_score > 0 ? (Number(cr.score) / Number(cr.max_score) * 100).toFixed(0) : 0) + '%</span></div>';
+                if (cr.remarks) html += '<p class="ai-concern-remark">' + esc(cr.remarks) + '</p>';
+                if (lowConf) html += '<span class="ai-needs-review-badge">Needs manual review</span>';
+                html += '</div>';
+            });
+            html += '</div>';
+            if (concerns.length > 3) {
+                html += '<p class="ov-nav-hint">+' + (concerns.length - 3) + ' more area' + (concerns.length - 3 === 1 ? '' : 's') + '. <button class="ov-nav-link" data-tab="evaluation">See all scores in Evaluation Detail \u2192</button></p>';
+            } else {
+                html += '<p class="ov-nav-hint"><button class="ov-nav-link" data-tab="evaluation">View per-criterion breakdown in Evaluation Detail \u2192</button></p>';
+            }
+        } else {
+            html += '<div class="ai-empty-section success"><p>All criteria scored at or above 50%. No critical concerns detected.</p></div>';
+        }
+        html += '</article>';
+
+        // ================================================================
+        // 5. Recommendations (top 3-5)
+        // ================================================================
+        if (overallRemarks || concerns.length) {
+            html += '<article class="ai-section"><div class="ai-section-header"><h2>Recommendations</h2></div>';
+            if (overallRemarks) {
+                html += '<div class="ai-recommendation-card"><div class="ai-rec-num">01</div><div><p class="ai-rec-text">' + esc(overallRemarks) + '</p></div></div>';
+            }
+            if (concerns.length) {
+                html += '<div class="ai-rec-context"><p>Based on the evaluation, prioritize improving these areas:</p></div>';
+                concerns.slice(0, 3).forEach(function (cr, i) {
+                    var dim = getCategoryInfo(cr.category_code) || { label: cr.category_code, desc: '' };
+                    var label = getCriterionLabel(cr.criterion_key);
+                    var suggestion = cr.remarks || 'Review and improve the ' + label.toLowerCase() + ' aspect.';
+                    var num = overallRemarks ? (i + 2) : (i + 1);
+                    html += '<div class="ai-recommendation-card"><div class="ai-rec-num">0' + num + '</div><div><span class="ai-rec-dim">' + esc(dim.label) + '</span><p class="ai-rec-text">' + esc(suggestion) + '</p></div></div>';
+                });
+            }
+            html += '</article>';
+        }
+
+        container.innerHTML = html;
+    }
+
     function renderCodeQualityTab(ev, er, criteria) {
         const container = document.getElementById('qualityContent');
         if (!container) return;
@@ -996,10 +1146,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const ev = r.evaluation_result || {};
         const er = ev.feedback || f;
         const score = Number(ev.normalized_to_20 || f.normalized_to_20 || 0);
-        const ing = r.ingestion || {};
-        const rs = ing.repo_stats || {};
-        const gm = ing.github_metadata || {};
-        const langBreak = rs.language_breakdown || {};
         const criteria = ev.criterion_results || [];
 
         sessionBack.href = `/sessions/${sid}`;
@@ -1017,52 +1163,8 @@ document.addEventListener('DOMContentLoaded', () => {
             dropdownEvalBtn.onclick = () => runEvaluation(true);
         }
 
-        const langEntries = Object.entries(langBreak);
-        overviewMetrics.innerHTML =
-            '<article class="metric-card"><p class="metric-label">Total LOC</p><p class="metric-value">' + (rs.total_loc || 0) + '</p></article>' +
-            '<article class="metric-card"><p class="metric-label">Code LOC</p><p class="metric-value">' + (rs.code_loc || 0) + '</p></article>' +
-            '<article class="metric-card"><p class="metric-label">Files</p><p class="metric-value">' + (rs.file_count || 0) + '</p></article>' +
-            '<article class="metric-card"><p class="metric-label">Languages</p><p class="metric-value small-value">' +
-            (langEntries.length ? langEntries.map(([l, n]) => esc(l) + ' (' + n + ')').join(', ') : '\u2014') + '</p></article>';
-
-        dimensionChart.innerHTML = criteria.length
-            ? criteria.map(x => {
-                const label = (x.criterion_key || 'dimension').replace(/_/g, ' ');
-                return '<div><span title="' + esc(x.criterion_key || '') + '">' + esc(label) + '</span>' +
-                    '<div class="distribution-bar"><i style="width:' + ((x.score || 0) / (x.max_score || 8)) * 100 + '%"></i></div>' +
-                    '<strong>' + Number(x.score || 0).toFixed(1) + '</strong></div>';
-            }).join('')
-            : empty('No score dimensions', 'Run an evaluation to generate rubric scores.');
-
-        const warnings = [];
-        const metaValid = gm.commits_count > 0 || (gm.recent_commits && gm.recent_commits.length) || (gm.contributors && gm.contributors.length);
-        if (metaValid && !gm.readme_exists) warnings.push(['warning', 'README missing', 'Add clear setup and usage documentation.']);
-        if (metaValid && !gm.is_public) warnings.push(['danger', 'Repository unavailable', 'Confirm repository visibility and URL access.']);
-        if (score < 12) warnings.push(['warning', 'Health below target', 'Review low-scoring rubric dimensions.']);
-        if (!warnings.length) warnings.push(['success', 'Healthy repository', 'No critical warnings detected.']);
-
-        keyInsights.innerHTML = warnings.map(([tone, title, text]) =>
-            '<div class="insight-alert ' + tone + '"><span>' + (tone === 'success' ? '\u2713' : '!') + '</span>' +
-            '<div><strong>' + title + '</strong><p>' + text + '</p></div></div>'
-        ).join('');
-
-        const overallRemarks = er.overall_remarks || '';
-        recommendations.innerHTML = overallRemarks
-            ? '<div class="recommendation"><span>01</span><p>' + esc(overallRemarks) + '</p></div>'
-            : empty('No recommendations yet', 'Recommendations are generated from saved evaluation results.');
-
+        renderOverviewTab(r, ev, er, criteria);
         renderCodeQualityTab(ev, er, criteria);
-
-        historyContent.innerHTML = [
-            ['Repository added', r.created_at],
-            ['Last updated', r.updated_at],
-            ['Last evaluated', r.evaluated_at],
-            ['Ingestion', ing.repository_metadata ? ing.repository_metadata.status : null],
-            ['Pipeline', ev.pipeline_status]
-        ].filter(([, v]) => v).map(([name, at]) =>
-            '<div class="history-event"><span class="timeline-dot"></span>' +
-            '<div><strong>' + name + '</strong><small>' + (at ? new Date(at).toLocaleString() : 'Not yet') + '</small></div></div>'
-        ).join('');
 
         // ---- New calls: render new tabs ----
         renderIngestionTab(r.ingestion);
@@ -1110,11 +1212,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ---- Tab switching (event delegation) ----
 
-    document.getElementById('repositoryTabs').addEventListener('click', e => {
-        if (!e.target.dataset.tab) return;
+    document.addEventListener('click', e => {
+        const tab = e.target.dataset.tab;
+        if (!tab) return;
         const tabs = document.getElementById('repositoryTabs');
-        tabs.querySelectorAll('button').forEach(x => x.classList.toggle('active', x === e.target));
-        document.querySelectorAll('.tab-panel').forEach(x => x.classList.toggle('active', x.id === 'tab-' + e.target.dataset.tab));
+        if (!tabs) return;
+        tabs.querySelectorAll('button').forEach(x => x.classList.toggle('active', x.dataset.tab === tab));
+        document.querySelectorAll('.tab-panel').forEach(x => x.classList.toggle('active', x.id === 'tab-' + tab));
     });
 
     // ---- Initialize ----

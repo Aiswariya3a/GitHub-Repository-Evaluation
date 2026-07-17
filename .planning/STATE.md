@@ -3,8 +3,11 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Frontend Dashboard
 current_plan: 4/4
-status: completed
-last_updated: "2026-07-13T12:00:00.000Z"
+status: archived
+last_updated: "2026-07-17T00:00:00.000Z"
+archived_milestones:
+  - v1.0
+  - v2.0
 progress:
   total_phases: 5
   completed_phases: 5
@@ -23,25 +26,21 @@ progress:
 
 **Core Value:** Accurately evaluate student code against any instructor-defined rubric using a modular, rubric-agnostic pipeline of specialized SLM agents — where every evaluation is reproducible, evidence-based, and debugging is straightforward.
 
-**Current Focus:** Milestone v1.0 complete — planning next milestone
+**Current Focus:** Milestones v1.0 + v2.0 complete — planning next milestone
 
 ---
 
 ## Current Position
 
-Phase: 5 (Frontend Dashboard)
+**Status:** v2.0 Milestone ARCHIVED (2026-07-17)
 
-- **Milestone:** 2.0 — Frontend Dashboard
-- **Phase:** 5
-- **Phase Status:** In Progress
-- **Plan 01:** Fix PDF report generation pipeline ✓ COMPLETE
-- **Plan 02:** Ingestion snapshot + evaluation detail tabs ✓ COMPLETE
-- **Plan 03:** Plagiarism results + JS extraction + analytics enhancement ✓ COMPLETE
-- **Plan 04:** CSS organization + UX polish ✓ COMPLETE
-- **Current Plan:** 4/4
-- **Plan Status:** Plan 04 complete — CSS files organized with section headers (BASE, LAYOUT, COMPONENTS, STATES, RESPONSIVE in styles.css; PAGE:/COMPONENT:/EVALUATION in dashboard.css), duplicate row-error removed, error handling improved across templates (reportsError, analyticsError divs), skeleton loading in analytics page, flash messages upgraded to styled containers, confidence-badge and detail-row styles finalized
-- **Phase 05 All Plans Complete:** All 4 plans executed. Frontend dashboard fully polished with organized CSS, extracted JS, improved error handling, plagiarism detection, analytics enhancement, ingestion/evaluation detail tabs, fixed PDF reports, and UX consistency.
-- **Overall Progress:** 16/16 plans complete across all phases
+Both milestones complete:
+- v1.0 — SLM Pipeline Replacement (Phases 1-4, 12 plans)
+- v2.0 — Frontend Dashboard (Phase 5, 4 plans)
+
+**Overall Progress:** 16/16 plans complete across all phases
+
+**Next:** Planning next milestone
 
 ---
 
@@ -165,8 +164,8 @@ None.
 
 ### Next Session
 
-- Execute Phase 5 Plan 4: Analytics page + UX polish
+- Plan next milestone (Local LLM upgrade, new capability agents, etc.)
 
 ---
 
-*Last updated: 2026-07-12 (Phase 3 Plan 1 complete)*
+*Last updated: 2026-07-17 (v2.0 milestone archived)*

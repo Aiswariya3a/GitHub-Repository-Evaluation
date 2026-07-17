@@ -10,18 +10,21 @@ Accurately evaluate student code against any instructor-defined rubric using a m
 
 ## Current State
 
-**Shipped:** v1.0 — SLM Pipeline Replacement (2026-07-12)
-**Phases:** 4 phases, 12 plans
+**Shipped:** v2.0 — Frontend Dashboard (2026-07-13)
+**Total shipped:** v1.0 SLM Pipeline (2026-07-12) + v2.0 Frontend Dashboard (2026-07-13)
+**Phases:** 5 phases, 16 plans
 **Tests:** 110 passing (2 integration gated)
-**Architecture:** Multi-agent SLM pipeline with Ollama (Qwen2.5-Coder 3B + Phi-4 Mini)
-**Tech stack:** Python 3.11+, PostgreSQL, Ollama, Flask, pytest
+**Commits:** 14 for v2.0 (78 files changed, +36,081 lines)
+**Architecture:** Multi-agent SLM pipeline with Ollama + Flask frontend dashboard
+**Tech stack:** Python 3.11+, PostgreSQL, Ollama, Flask, pytest, Vanilla JS
 
-All 45 v1 requirements implemented and verified. The old monolithic Gemini-based evaluation engine has been fully replaced with a modular pipeline supporting parallel agent execution, deterministic score aggregation, and file-based recovery.
+All 45 v1 requirements implemented and verified. Frontend dashboard fully enhanced with ingestion/evaluation detail tabs, plagiarism detection display, analytics (score distribution + session comparison), 5 extracted JS files with shared utilities, organized CSS, and polished UX. The old monolithic Gemini-based evaluation engine has been fully replaced with a modular pipeline supporting parallel agent execution, deterministic score aggregation, and file-based recovery.
 
 ## Requirements
 
 ### Validated
 
+**v1.0 — SLM Pipeline:**
 - ✓ Independent data ingestion pipeline (ING-01 through ING-08) — v1.0
 - ✓ Repository Understanding Agent (AGN-01) — v1.0
 - ✓ Code Understanding Agent (AGN-02) — v1.0
@@ -35,9 +38,16 @@ All 45 v1 requirements implemented and verified. The old monolithic Gemini-based
 - ✓ Unit/integration/schema tests (TST-01 through TST-04) — v1.0
 - ✓ Legacy code cleanup (CLN-01 through CLN-05) — v1.0
 
+**v2.0 — Frontend Dashboard:**
+- ✓ PDF report generation pipeline fix (lazy import, circular dependency resolved) — v2.0
+- ✓ Ingestion snapshot + evaluation detail tabs with confidence badges — v2.0
+- ✓ Plagiarism detection display, low-confidence filter, analytics enhancement — v2.0
+- ✓ JavaScript extraction to dedicated files with shared utilities — v2.0
+- ✓ CSS organization, error handling, skeleton loading, styled flash messages — v2.0
+
 ### Active
 
-No active v1 requirements remain. Next milestone will define v2 requirements.
+No active requirements remain. Next milestone will define new requirements.
 
 ### Out of Scope
 
@@ -51,22 +61,23 @@ No active v1 requirements remain. Next milestone will define v2 requirements.
 
 ## Context
 
-Shipped v1.0 with the complete multi-agent SLM evaluation pipeline. The replacement of the monolithic Gemini-based engine is fully complete. Current codebase:
+Shipped v2.0 Frontend Dashboard on top of the v1.0 SLM pipeline. Both milestones complete. Current codebase:
 
-- **Language:** Python 3.11+
+- **Language:** Python 3.11+, Vanilla JavaScript (ES6)
 - **Database:** PostgreSQL with 3 migrations (ingestion_records, evaluation_results, archived old tables)
 - **SLM runtime:** Ollama with Qwen2.5-Coder 3B (code) and Phi-4 Mini (reasoning)
-- **Tests:** 110 passing (100 non-integration + 10 new _set_nested + 2 integration gated)
+- **Tests:** 110 passing (100 non-integration + 10 _set_nested + 2 integration gated)
 - **Architecture:** Modular pipeline: ingestion → 3 parallel capability agents → rubric evaluation → aggregation → feedback → persistence
-- **Key design decisions:** File-based agent communication, deterministic score aggregation, configurable model routing, temperature=0 enforcement
+- **Frontend:** Flask templates with 5 extracted JS files (common.js, session.js, dashboard.js, repository.js, reports.js), organized CSS (14 section headers), no framework dependency
+- **Key design decisions:** File-based agent communication, deterministic score aggregation, configurable model routing, temperature=0 enforcement, lazy import for circular dependency resolution, common.js `window.*` shared utilities
 
 Prior codebase mapping at `.planning/codebase/` documents the full architecture, stack, conventions, and concerns.
 
 ## Next Milestone Goals
 
-The v1.0 requirements are fully shipped. Future milestones could include:
+The v1.0 pipeline + v2.0 dashboard are both fully shipped. Future milestones could include:
 
-- Additional SLM models (Qwen3-Coder, DeepSeek-Coder)
+- Local LLM upgrade (new SLM models: Qwen3-Coder, DeepSeek-Coder, etc.)
 - Additional capability agents (Documentation Analysis, Complexity Analysis)
 - Human-in-the-loop review for low-confidence evaluations
 - Performance benchmarks and optimization
@@ -96,12 +107,18 @@ The v1.0 requirements are fully shipped. Future milestones could include:
 | Partial results on agent failure | Continue with available data; note which agents failed | ✓ Good — resilient pipeline |
 | Preserve existing rubric format | Categories + criteria with points; no changes needed | ✓ Good — backward compatible |
 | Temperature=0 enforced silently | Reproducibility for all SLM inference | ✓ Good — overrides non-zero values with log warning |
+| Lazy import in report_service.generate() | Breaks circular dependency (pdf_gen -> services -> pdf_gen) | ✓ Good — standard Python pattern |
+| session_context() returns 4-tuple | Plagiarism data needs without breaking existing callers | ✓ Good — backward compatible |
+| Shared JS utilities on window.* | Cross-file access without a bundler | ✓ Good — simple, works with Flask static serving |
+| 3 DOMContentLoaded handlers in dashboard.js | One file serves dashboard, overview, analytics pages | ✓ Good — avoids separate files for each page |
+| CSS section headers (BASE/LAYOUT/COMPONENTS/STATES/RESPONSIVE) | Maintainability without a CSS preprocessor | ✓ Good — clear organization |
 
 ## Evolution
 
 This document evolves at phase transitions and milestone boundaries.
 
 - **v1.0 shipped:** All 45 requirements moved to Validated. Full review completed. Core Value confirmed correct. Out of Scope audit passed.
+- **v2.0 shipped:** Frontend Dashboard archived. 5 UI items added to Validated. 6 new Key Decisions recorded. ARCHIVE.md updated.
 
 ---
-*Last updated: 2026-07-12 after v1.0 milestone*
+*Last updated: 2026-07-17 after v2.0 milestone*

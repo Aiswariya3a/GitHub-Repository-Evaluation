@@ -56,4 +56,6 @@
 
 ## Archive
 
-Full milestone details: [.planning/milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md)
+Full milestone details:
+- [v1.0 SLM Pipeline Replacement](milestones/v1.0-ROADMAP.md)
+- [v2.0 Frontend Dashboard](milestones/v2.0-ROADMAP.md)

@@ -249,32 +249,35 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         window.toast('Evaluation started', 'success');
-        var resp = await fetch('/api/sessions/' + sid + '/repositories/' + id + '/' + (re ? 'reevaluate' : 'evaluate'), { method: 'POST' });
-        if (!resp.ok) { var d = await resp.json(); window.toast(d.error || 'Evaluation failed to start', 'error'); return; }
+        fetch('/api/sessions/' + sid + '/repositories/' + id + '/' + (re ? 'reevaluate' : 'evaluate'), { method: 'POST' })
+            .then(function(r) { if (!r.ok) r.json().then(function(d) { window.toast(d.error || 'Evaluation failed to start', 'error'); }); })
+            .catch(function() {});
         pollOneUntilDone(id);
     };
 
     function pollOneUntilDone(id) {
-        var poll = setInterval(async function() {
+        if (window._evalPoll) clearInterval(window._evalPoll);
+        window._evalPoll = setInterval(async function() {
             try {
                 var resp = await fetch('/api/sessions/' + sid + '/repositories/' + id);
                 var d = await resp.json();
                 var status = d.repository && d.repository.status;
                 if (status === 'Completed') {
-                    clearInterval(poll);
+                    clearInterval(window._evalPoll);
+                    window._evalPoll = null;
                     window.toast('Evaluation completed');
                     load();
                 } else if (status === 'Failed' || status === 'Error') {
-                    clearInterval(poll);
+                    clearInterval(window._evalPoll);
+                    window._evalPoll = null;
                     window.toast('Evaluation failed', 'error');
                     load();
                 }
             } catch (e) {
-                clearInterval(poll);
-                window.toast('Error checking evaluation status', 'error');
-                load();
+                clearInterval(window._evalPoll);
+                window._evalPoll = null;
             }
-        }, 2000);
+        }, 3000);
     }
 
     window.bulkEvaluate = async function() {

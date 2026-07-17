@@ -1224,32 +1224,35 @@ document.addEventListener('DOMContentLoaded', () => {
     async function runEvaluation(re) {
         if (!await confirmAction((re ? 'Re-evaluate' : 'Evaluate') + ' this repository?', 'Repository evaluation')) return;
         toast('Evaluation started');
-        const response = await fetch('/api/sessions/' + sid + '/repositories/' + rid + '/' + (re ? 'reevaluate' : 'evaluate'), { method: 'POST' });
-        if (!response.ok) { const d = await response.json(); toast(d.error || 'Evaluation failed to start', 'error'); return; }
+        fetch('/api/sessions/' + sid + '/repositories/' + rid + '/' + (re ? 'reevaluate' : 'evaluate'), { method: 'POST' })
+            .then(function(r) { if (!r.ok) r.json().then(function(d) { toast(d.error || 'Evaluation failed to start', 'error'); }); })
+            .catch(function() {});
         pollUntilDone();
     }
 
     function pollUntilDone() {
-        var poll = setInterval(async function() {
+        if (window._evalPoll) clearInterval(window._evalPoll);
+        window._evalPoll = setInterval(async function() {
             try {
                 var resp = await fetch('/api/sessions/' + sid + '/repositories/' + rid);
                 var d = await resp.json();
                 var status = d.repository && d.repository.status;
                 if (status === 'Completed') {
-                    clearInterval(poll);
+                    clearInterval(window._evalPoll);
+                    window._evalPoll = null;
                     toast('Evaluation completed');
                     load();
                 } else if (status === 'Failed' || status === 'Error') {
-                    clearInterval(poll);
+                    clearInterval(window._evalPoll);
+                    window._evalPoll = null;
                     toast('Evaluation failed', 'error');
                     load();
                 }
             } catch (e) {
-                clearInterval(poll);
-                toast('Error checking evaluation status', 'error');
-                load();
+                clearInterval(window._evalPoll);
+                window._evalPoll = null;
             }
-        }, 2000);
+        }, 3000);
     }
 
     // ---- Tab switching (event delegation) ----

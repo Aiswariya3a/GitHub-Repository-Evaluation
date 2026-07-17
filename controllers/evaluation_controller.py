@@ -23,8 +23,13 @@ def _bg_evaluate(app, session_id, repository_ids, rubric_version_id, force):
             services().evaluations.evaluate_session_repositories(
                 session_id, repository_ids, rubric_version_id=rubric_version_id, force=force,
             )
-        except Exception:
-            pass
+        except Exception as exc:
+            try:
+                svc = services()
+                for rid in (repository_ids or []):
+                    svc.repositories.mark_failed([rid], str(exc))
+            except Exception:
+                pass
 
 @evaluation_controller.post("/api/sessions/<session_id>/evaluate")
 def evaluate_session(session_id):

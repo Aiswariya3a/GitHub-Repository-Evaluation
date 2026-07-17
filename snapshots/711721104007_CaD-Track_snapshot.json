@@ -2,20 +2,190 @@
   "repository_metadata": {
     "url": "https://github.com/joedanields/CaD-Track",
     "clone_url": "https://github.com/joedanields/CaD-Track",
-    "clone_timestamp": "2026-07-12T16:12:48.109102+00:00",
+    "clone_timestamp": "2026-07-17T08:06:46.039844+00:00",
     "status": "success",
     "base_repo_url": null
   },
   "github_metadata": {
-    "commits_count": 3,
-    "recent_commits": [],
-    "contributors": [],
+    "commits_count": 27,
+    "recent_commits": [
+      {
+        "sha": "5ae85e868e12",
+        "author": "joedanields",
+        "date": "2026-07-03T10:02:09Z",
+        "message": "added samples"
+      },
+      {
+        "sha": "016f69b168f8",
+        "author": "joedanields",
+        "date": "2026-07-03T09:35:59Z",
+        "message": "final commit"
+      },
+      {
+        "sha": "95e56a430210",
+        "author": "joedanields",
+        "date": "2026-07-03T09:19:51Z",
+        "message": "extract.py modified"
+      },
+      {
+        "sha": "cc190424f40a",
+        "author": "joedanields",
+        "date": "2026-07-03T09:16:37Z",
+        "message": "genrrator aded"
+      },
+      {
+        "sha": "5e6bd180384a",
+        "author": "joedanields",
+        "date": "2026-07-03T09:16:10Z",
+        "message": "code added"
+      },
+      {
+        "sha": "a48808f36dfd",
+        "author": "joedanields",
+        "date": "2026-07-03T09:13:09Z",
+        "message": "config added"
+      },
+      {
+        "sha": "8d44859f72e7",
+        "author": "joedanields",
+        "date": "2026-07-03T09:06:06Z",
+        "message": "added final touched"
+      },
+      {
+        "sha": "5d0e1af85548",
+        "author": "joedanields",
+        "date": "2026-07-03T09:03:27Z",
+        "message": "added more docs"
+      },
+      {
+        "sha": "030297a2f7e8",
+        "author": "joedanields",
+        "date": "2026-07-03T09:00:59Z",
+        "message": "entity match file addded"
+      },
+      {
+        "sha": "eb9eb84c50b8",
+        "author": "joedanields",
+        "date": "2026-07-03T08:59:10Z",
+        "message": "pair test code added"
+      },
+      {
+        "sha": "e861ea80f5e6",
+        "author": "joedanields",
+        "date": "2026-07-03T08:58:54Z",
+        "message": "pippline test code added"
+      },
+      {
+        "sha": "01b825aea8bb",
+        "author": "joedanields",
+        "date": "2026-07-03T08:58:33Z",
+        "message": "statss & classify test file added"
+      },
+      {
+        "sha": "13fdd7d12069",
+        "author": "joedanields",
+        "date": "2026-07-03T08:58:10Z",
+        "message": "severity bucket & entity test file"
+      },
+      {
+        "sha": "97b787f31fa9",
+        "author": "joedanields",
+        "date": "2026-07-03T08:57:42Z",
+        "message": "test files"
+      },
+      {
+        "sha": "4a2088bde447",
+        "author": "joedanields",
+        "date": "2026-07-03T08:57:12Z",
+        "message": "added app.js"
+      },
+      {
+        "sha": "e7f463ed14d3",
+        "author": "joedanields",
+        "date": "2026-07-03T08:56:58Z",
+        "message": "index.html added"
+      },
+      {
+        "sha": "2f2cbac23a28",
+        "author": "joedanields",
+        "date": "2026-07-03T08:56:31Z",
+        "message": "modiefied compare.py and generator"
+      },
+      {
+        "sha": "37ba3af885bf",
+        "author": "joedanields",
+        "date": "2026-07-03T08:55:22Z",
+        "message": "extract.py edited"
+      },
+      {
+        "sha": "539662803457",
+        "author": "joedanields",
+        "date": "2026-07-03T08:53:28Z",
+        "message": "init.py added"
+      },
+      {
+        "sha": "698fe6c899a7",
+        "author": "joedanields",
+        "date": "2026-07-03T08:52:32Z",
+        "message": "compare& render"
+      },
+      {
+        "sha": "8a5dfc0b2ad3",
+        "author": "joedanields",
+        "date": "2026-07-03T08:52:16Z",
+        "message": "genrator.py added"
+      },
+      {
+        "sha": "e00f7cc83d8f",
+        "author": "joedanields",
+        "date": "2026-07-03T08:50:51Z",
+        "message": "match.py & classify added"
+      },
+      {
+        "sha": "ac64df5a7f1b",
+        "author": "joedanields",
+        "date": "2026-07-03T08:50:26Z",
+        "message": "title block initailised"
+      },
+      {
+        "sha": "9234f1d69041",
+        "author": "joedanields",
+        "date": "2026-07-03T08:50:07Z",
+        "message": "validate code added"
+      },
+      {
+        "sha": "0cb6cdf3d0ee",
+        "author": "joedanields",
+        "date": "2026-07-03T08:49:29Z",
+        "message": "Config files added"
+      },
+      {
+        "sha": "728b35486c9f",
+        "author": "joedanields",
+        "date": "2026-07-03T08:49:08Z",
+        "message": "base docs added"
+      },
+      {
+        "sha": "25ce36968944",
+        "author": "Joe Daniel A",
+        "date": "2026-07-03T08:27:07Z",
+        "message": "Initial commit"
+      }
+    ],
+    "contributors": [
+      {
+        "login": "joedanields",
+        "contributions": 27,
+        "html_url": "https://github.com/joedanields",
+        "avatar_url": "https://avatars.githubusercontent.com/u/179472809?v=4"
+      }
+    ],
     "pull_requests_count": 0,
     "pull_requests": [],
     "issues_count": 0,
     "issues": [],
-    "is_public": false,
-    "readme_exists": false
+    "is_public": true,
+    "readme_exists": true
   },
   "repo_stats": {
     "total_loc": 2066,
@@ -43,7 +213,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": ""
     },
     {
       "path": "backend/app/api/__init__.py",
@@ -57,7 +228,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": ""
     },
     {
       "path": "backend/app/api/routes.py",
@@ -223,7 +395,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"HTTP API endpoints.\"\"\"\nfrom __future__ import annotations\n\nimport shutil\n\nfrom fastapi import APIRouter, HTTPException, UploadFile\nfrom fastapi.responses import Response\n\nfrom ..config import settings\nfrom ..ingest.loader import load_input\nfrom ..ingest.validate import ValidationError, validate_upload\nfrom ..jobs.store import store\nfrom ..models.schemas import JobStatus, UploadResponse\nfrom ..pipeline.compare import run_comparison\nfrom ..viz.render import render_bbox_overlay, render_original, render_side_by_side\n\nrouter = APIRouter(prefix=\"/api\")\n\n\n@router.post(\"/upload\", response_model=UploadResponse)\nasync def upload(file_a: UploadFile, file_b: UploadFile) -> UploadResponse:\n    saved = []\n    for tag, f in ((\"a\", file_a), (\"b\", file_b)):\n        data = await f.read()\n        try:\n            ext = validate_upload(f.filename or f\"file_{tag}\", data)\n        except ValidationError as exc:\n            raise HTTPException(status_code=400, detail=str(exc)) from exc\n        saved.append((tag, data, ext))\n\n    job = store.create(file_a=settings.upload_dir / \"pending_a\", file_b=settings.upload_dir / \"pending_b\")\n    job_dir = settings.upload_dir / job.job_id\n    job_dir.mkdir(parents=True, exist_ok=True)\n    for tag, data, ext in saved:\n        path = job_dir / f\"{tag}{ext}\"\n        path.write_bytes(data)\n        if tag == \"a\":\n            job.file_a = path\n        else:\n            job.file_b = path\n    return UploadResponse(job_id=job.job_id, file_a=job.file_a.name, file_b=job.file_b.name)\n\n\n@router.post(\"/compare/{job_id}\", response_model=JobStatus)\ndef compare(job_id: str) -> JobStatus:\n    job = store.get(job_id)\n    if job is None:\n        raise HTTPException(status_code=404, detail=\"Unknown job id\")\n    job.status = \"processing\"\n    try:\n        result = run_comparison(job.job_id, job.file_a, job.file_b)\n        job.diff = result.diff\n        job.stats = result.stats\n        job.summary = result.summary\n        job.status = \"done\"\n    except Exception as exc:  # surface pipeline failures to the client\n        job.status = \"failed\"\n        job.error = str(exc)\n    return _job_status(job_id)\n\n\n@router.get(\"/jobs/{job_id}\", response_model=JobStatus)\ndef job_status(job_id: str) -> JobStatus:\n    return _job_status(job_id)\n\n\ndef _job_status(job_id: str) -> JobStatus:\n    job = store.get(job_id)\n    if job is None:\n        raise HTTPException(status_code=404, detail=\"Unknown job id\")\n    return JobStatus(\n        job_id=job.job_id,\n        status=job.status,  # type: ignore[arg-type]\n        error=job.error,\n        diff_result=job.diff,\n        stats=job.stats,\n        summary=job.summary,\n    )\n\n\n@router.get(\"/jobs/{job_id}/summary\")\ndef get_summary(job_id: str) -> dict:\n    job = _require_done(job_id)\n    return {\"summary\": job.summary}\n\n\n@router.get(\"/jobs/{job_id}/stats\")\ndef get_stats(job_id: str):\n    return _require_done(job_id).stats\n\n\n@router.get(\"/jobs/{job_id}/visualization\")\ndef visualization(job_id: str, mode: str = \"bbox\") -> Response:\n    job = _require_done(job_id)\n    doc_a = load_input(job.file_a)\n    doc_b = load_input(job.file_b)\n    try:\n        if mode == \"bbox\":\n            png = render_bbox_overlay(doc_b.page, job.diff)\n        elif mode == \"side_by_side\":\n            png = render_side_by_side(doc_a.page, doc_b.page, job.diff)\n        elif mode == \"original_a\":\n            png = render_original(doc_a.page)\n        elif mode == \"original_b\":\n            png = render_original(doc_b.page)\n        else:\n            raise HTTPException(\n                status_code=400,\n                detail=\"mode must be one of: bbox, side_by_side, original_a, original_b\",\n            )\n    finally:\n        doc_a.close()\n        doc_b.close()\n    return Response(content=png, media_type=\"image/png\")\n\n\n@router.delete(\"/jobs/{job_id}\")\ndef delete_job(job_id: str) -> dict:\n    job = store.get(job_id)\n    if job is None:\n        raise HTTPException(status_code=404, detail=\"Unknown job id\")\n    shutil.rmtree(settings.upload_dir / job_id, ignore_errors=True)\n    store.delete(job_id)\n    return {\"deleted\": job_id}\n\n\ndef _require_done(job_id: str):\n    job = store.get(job_id)\n    if job is None:\n        raise HTTPException(status_code=404, detail=\"Unknown job id\")\n    if job.status != \"done\":\n        raise HTTPException(status_code=409, detail=f\"Job status is '{job.status}', not 'done'\")\n    return job\n"
     },
     {
       "path": "backend/app/config.py",
@@ -266,7 +439,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Central configuration for CaD-Track.\n\nAll tunable thresholds live here so the diff behaviour can be adjusted\nwithout touching algorithm code.\n\"\"\"\nfrom pathlib import Path\n\nfrom pydantic import BaseModel\n\n\nclass Settings(BaseModel):\n    # --- storage ---\n    upload_dir: Path = Path(__file__).resolve().parent.parent / \"uploads\"\n    max_file_size_mb: int = 50\n    allowed_extensions: tuple[str, ...] = (\".pdf\", \".png\", \".jpg\", \".jpeg\")\n\n    # --- page classification ---\n    # a page with at least this many vector drawing objects is \"vector\"\n    min_vector_drawings: int = 5\n\n    # --- vector extraction / grouping ---\n    # endpoints closer than this (in normalized page units, fraction of the\n    # page diagonal) are considered connected when grouping primitives\n    endpoint_join_tol: float = 0.004\n\n    # --- entity matching ---\n    # matched entities whose centroids differ by more than this fraction of\n    # the page diagonal are classified \"moved\"\n    match_search_radius: float = 0.05\n    moved_tol: float = 0.008\n    # minimum string similarity (0..1) for two text spans to be a match\n    text_match_ratio: float = 0.75\n\n    # --- OCR ---\n    ocr_dpi: int = 300\n    min_ocr_confidence: int = 40  # tesseract 0-100\n\n    # --- approximate geometry tracing (raster inputs) ---\n    trace_dpi: int = 150\n    ink_threshold: int = 200          # gray value below which a pixel is \"ink\"\n    min_component_px: int = 30        # drop ink components smaller than this\n    min_entity_span: float = 0.015    # drop traced entities smaller than this (bbox diagonal)\n    trace_confidence: float = 0.8     # confidence assigned to traced entities\n    # traced entities need looser thresholds than exact vector data\n    approx_modified_compat: float = 0.55\n    approx_moved_tol: float = 0.02\n\n    # --- summary severity buckets (fraction of total page area changed) ---\n    severity_minor: float = 0.02\n    severity_moderate: float = 0.10\n\n    # --- visualization ---\n    render_dpi: int = 150\n    max_summary_regions: int = 3\n\n\nsettings = Settings()\nsettings.upload_dir.mkdir(parents=True, exist_ok=True)\n"
     },
     {
       "path": "backend/app/detect/__init__.py",
@@ -280,7 +454,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": ""
     },
     {
       "path": "backend/app/detect/classify.py",
@@ -335,7 +510,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Classify a page as vector (real CAD export) or raster (scan/flattened).\n\nVector pages expose real drawing primitives via get_drawings() and/or\npositioned text spans via get_text(). Raster pages are typically a single\nfull-page embedded image with neither.\n\"\"\"\nfrom __future__ import annotations\n\nfrom typing import Literal\n\nimport fitz\n\nfrom ..config import settings\n\nPageType = Literal[\"vector\", \"raster\"]\n\n\ndef classify_page(page: fitz.Page) -> PageType:\n    drawings = page.get_drawings()\n    if len(drawings) >= settings.min_vector_drawings:\n        return \"vector\"\n\n    text = page.get_text(\"text\").strip()\n    if text:\n        # real positioned text but few drawings \u2014 still vector content\n        return \"vector\"\n\n    return \"raster\"\n"
     },
     {
       "path": "backend/app/entity_match/__init__.py",
@@ -349,7 +525,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": ""
     },
     {
       "path": "backend/app/entity_match/classify.py",
@@ -436,7 +613,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Classify matched entity pairs into added/removed/moved/modified regions.\"\"\"\nfrom __future__ import annotations\n\nimport uuid\n\nfrom ..config import settings\nfrom ..models.diff_result import ChangeType, Entity, EntityKind, Region\nfrom .match import MatchPair, compatibility\n\n\ndef _area(bbox: tuple[float, float, float, float]) -> float:\n    return max(0.0, bbox[2] - bbox[0]) * max(0.0, bbox[3] - bbox[1])\n\n\ndef _label(e: Entity) -> str:\n    if e.kind == EntityKind.TEXT:\n        return f\"text: '{e.text}'\"\n    if \"ink\" in e.shape_signature:\n        return \"drawing structure (traced)\"\n    return f\"geometry ({e.primitive_count} segment{'s' if e.primitive_count != 1 else ''})\"\n\n\ndef _region(\n    entity: Entity,\n    change_type: ChangeType,\n    detail: str | None = None,\n    old_bbox: tuple[float, float, float, float] | None = None,\n    confidence: float | None = None,\n) -> Region:\n    return Region(\n        id=uuid.uuid4().hex[:12],\n        change_type=change_type,\n        kind=entity.kind,\n        bbox=entity.bbox,\n        centroid=entity.centroid,\n        area_fraction=_area(entity.bbox),\n        confidence=confidence if confidence is not None else entity.confidence,\n        label=_label(entity),\n        detail=detail,\n        old_bbox=old_bbox,\n    )\n\n\ndef classify_matches(pairs: list[MatchPair]) -> list[Region]:\n    regions: list[Region] = []\n    for pair in pairs:\n        if pair.old is not None and pair.new is None:\n            regions.append(_region(pair.old, ChangeType.REMOVED))\n            continue\n        if pair.old is None and pair.new is not None:\n            regions.append(_region(pair.new, ChangeType.ADDED))\n            continue\n\n        old, new = pair.old, pair.new\n        assert old is not None and new is not None\n        conf = min(old.confidence, new.confidence)\n        # traced/OCR entities carry jitter: require larger displacement and a\n        # bigger similarity drop before flagging a change\n        exact = conf >= 1.0\n\n        moved = pair.distance > (settings.moved_tol if exact else settings.approx_moved_tol)\n        if old.kind == EntityKind.TEXT:\n            content_changed = (old.text or \"\") != (new.text or \"\")\n        else:\n            threshold = 0.98 if exact else settings.approx_modified_compat\n            content_changed = compatibility(old, new) < threshold\n\n        if content_changed:\n            detail = (\n                f\"'{old.text}' -> '{new.text}'\"\n                if old.kind == EntityKind.TEXT\n                else \"geometry altered\"\n            )\n            regions.append(\n                _region(new, ChangeType.MODIFIED, detail=detail, old_bbox=old.bbox, confidence=conf)\n            )\n        elif moved:\n            regions.append(\n                _region(new, ChangeType.MOVED, old_bbox=old.bbox, confidence=conf)\n            )\n        # matched, same content, same position -> unchanged, no region\n    return regions\n"
     },
     {
       "path": "backend/app/entity_match/match.py",
@@ -549,7 +727,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Match entities between v1 and v2 of a drawing.\n\nNearest-neighbor assignment over normalized centroids (KD-tree), gated by a\ncompatibility check (text similarity for TEXT entities, shape-signature\nsimilarity for GEOMETRY entities). Greedy one-to-one by ascending distance.\n\nBecause all coordinates are normalized, a global page shift/scale between\nthe two files does not create spurious mismatches the way pixel diffing did.\n\"\"\"\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom difflib import SequenceMatcher\nfrom typing import Optional\n\nimport numpy as np\nfrom scipy.spatial import cKDTree\n\nfrom ..config import settings\nfrom ..models.diff_result import Entity, EntityKind\n\n\n@dataclass\nclass MatchPair:\n    old: Optional[Entity]\n    new: Optional[Entity]\n    distance: float = 0.0\n\n\ndef _text_similarity(a: str, b: str) -> float:\n    return SequenceMatcher(None, a, b).ratio()\n\n\ndef _signature_similarity(a: Entity, b: Entity) -> float:\n    \"\"\"Similarity of primitive-kind histograms plus size agreement, 0..1.\"\"\"\n    kinds = set(a.shape_signature) | set(b.shape_signature)\n    if not kinds:\n        return 1.0\n    overlap = sum(\n        min(a.shape_signature.get(k, 0), b.shape_signature.get(k, 0)) for k in kinds\n    )\n    total = sum(\n        max(a.shape_signature.get(k, 0), b.shape_signature.get(k, 0)) for k in kinds\n    )\n    hist_sim = overlap / total if total else 1.0\n\n    area_a = (a.bbox[2] - a.bbox[0]) * (a.bbox[3] - a.bbox[1])\n    area_b = (b.bbox[2] - b.bbox[0]) * (b.bbox[3] - b.bbox[1])\n    if max(area_a, area_b) < 1e-12:\n        size_sim = 1.0\n    else:\n        size_sim = min(area_a, area_b) / max(area_a, area_b)\n    return 0.7 * hist_sim + 0.3 * size_sim\n\n\ndef compatibility(a: Entity, b: Entity) -> float:\n    \"\"\"0..1 score of whether a and b plausibly represent the same element.\"\"\"\n    if a.kind != b.kind:\n        return 0.0\n    if a.kind == EntityKind.TEXT:\n        return _text_similarity(a.text or \"\", b.text or \"\")\n    return _signature_similarity(a, b)\n\n\ndef match_entities(\n    old: list[Entity],\n    new: list[Entity],\n    search_radius: float | None = None,\n) -> list[MatchPair]:\n    \"\"\"Return matched pairs plus unmatched singletons from both sides.\"\"\"\n    radius = search_radius if search_radius is not None else settings.match_search_radius\n    pairs: list[MatchPair] = []\n\n    if not old or not new:\n        pairs += [MatchPair(old=e, new=None) for e in old]\n        pairs += [MatchPair(old=None, new=e) for e in new]\n        return pairs\n\n    tree = cKDTree(np.array([e.centroid for e in new]))\n    k = min(8, len(new))\n    candidates: list[tuple[float, int, int]] = []  # (cost, old_idx, new_idx)\n\n    for i, e_old in enumerate(old):\n        dists, idxs = tree.query(e_old.centroid, k=k)\n        if k == 1:\n            dists, idxs = [dists], [idxs]\n        for dist, j in zip(dists, idxs):\n            if dist > radius:\n                continue\n            e_new = new[int(j)]\n            compat = compatibility(e_old, e_new)\n            if e_old.kind == EntityKind.TEXT:\n                # an annotation at (nearly) the same position is the same\n                # slot even when its value changed (e.g. \"R10\" -> \"R15\"),\n                # so proximity relaxes the required text similarity\n                min_compat = 0.2 if dist <= settings.moved_tol else settings.text_match_ratio\n            else:\n                min_compat = 0.5\n            if compat < min_compat:\n                continue\n            # lower cost = closer and more similar\n            cost = dist + (1.0 - compat) * radius\n            candidates.append((cost, i, int(j)))\n\n    candidates.sort()\n    used_old: set[int] = set()\n    used_new: set[int] = set()\n    for cost, i, j in candidates:\n        if i in used_old or j in used_new:\n            continue\n        used_old.add(i)\n        used_new.add(j)\n        dx = old[i].centroid[0] - new[j].centroid[0]\n        dy = old[i].centroid[1] - new[j].centroid[1]\n        pairs.append(MatchPair(old=old[i], new=new[j], distance=(dx * dx + dy * dy) ** 0.5))\n\n    pairs += [MatchPair(old=e, new=None) for i, e in enumerate(old) if i not in used_old]\n    pairs += [MatchPair(old=None, new=e) for j, e in enumerate(new) if j not in used_new]\n    return pairs\n"
     },
     {
       "path": "backend/app/ingest/__init__.py",
@@ -563,7 +742,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": ""
     },
     {
       "path": "backend/app/ingest/loader.py",
@@ -655,7 +835,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Load an uploaded file into a uniform InputDocument wrapper.\n\nPDFs are opened with PyMuPDF; plain images are wrapped in a single-page\nPDF-like interface by converting them to a fitz document via Pixmap, so the\nrest of the pipeline only ever deals with fitz pages.\n\"\"\"\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom pathlib import Path\n\nimport fitz\n\n\n@dataclass\nclass InputDocument:\n    path: Path\n    doc: fitz.Document\n    is_pdf: bool\n\n    @property\n    def page(self) -> fitz.Page:\n        \"\"\"First page \u2014 MVP compares page 1 of each document.\"\"\"\n        return self.doc[0]\n\n    def close(self) -> None:\n        self.doc.close()\n\n\ndef load_input(path: Path) -> InputDocument:\n    ext = path.suffix.lower()\n    if ext == \".pdf\":\n        doc = fitz.open(path)\n        if doc.page_count == 0:\n            doc.close()\n            raise ValueError(f\"PDF '{path.name}' has no pages.\")\n        return InputDocument(path=path, doc=doc, is_pdf=True)\n\n    # plain image: wrap in a one-page PDF so downstream code is uniform\n    img_doc = fitz.open(path)  # fitz opens images natively\n    pdf_bytes = img_doc.convert_to_pdf()\n    img_doc.close()\n    doc = fitz.open(\"pdf\", pdf_bytes)\n    return InputDocument(path=path, doc=doc, is_pdf=False)\n"
     },
     {
       "path": "backend/app/ingest/validate.py",
@@ -713,7 +894,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Upload validation: extension, size, and magic-byte checks (FR-1).\"\"\"\nfrom __future__ import annotations\n\nfrom pathlib import Path\n\nfrom ..config import settings\n\n# magic bytes for the formats we accept\n_MAGIC = {\n    \".pdf\": [b\"%PDF\"],\n    \".png\": [b\"\\x89PNG\"],\n    \".jpg\": [b\"\\xff\\xd8\\xff\"],\n    \".jpeg\": [b\"\\xff\\xd8\\xff\"],\n}\n\n\nclass ValidationError(ValueError):\n    pass\n\n\ndef validate_upload(filename: str, data: bytes) -> str:\n    \"\"\"Validate an uploaded file. Returns the normalized extension.\n\n    Raises ValidationError with a user-facing message on failure.\n    \"\"\"\n    ext = Path(filename).suffix.lower()\n    if ext not in settings.allowed_extensions:\n        raise ValidationError(\n            f\"Unsupported file type '{ext}'. Allowed: {', '.join(settings.allowed_extensions)}\"\n        )\n    if not data:\n        raise ValidationError(f\"File '{filename}' is empty.\")\n    if len(data) > settings.max_file_size_mb * 1024 * 1024:\n        raise ValidationError(\n            f\"File '{filename}' exceeds the {settings.max_file_size_mb} MB size limit.\"\n        )\n    if not any(data.startswith(m) for m in _MAGIC[ext]):\n        raise ValidationError(\n            f\"File '{filename}' does not look like a valid {ext} file (bad file header).\"\n        )\n    return ext\n"
     },
     {
       "path": "backend/app/jobs/__init__.py",
@@ -727,7 +909,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": ""
     },
     {
       "path": "backend/app/jobs/store.py",
@@ -874,7 +1057,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"In-memory job store (MVP). Swap for SQLite if persistence is needed.\"\"\"\nfrom __future__ import annotations\n\nimport threading\nimport uuid\nfrom dataclasses import dataclass, field\nfrom pathlib import Path\nfrom typing import Optional\n\nfrom ..models.schemas import StatsSummary\nfrom ..models.diff_result import DiffResult\n\n\n@dataclass\nclass Job:\n    job_id: str\n    file_a: Path\n    file_b: Path\n    status: str = \"uploaded\"  # uploaded | processing | done | failed\n    error: Optional[str] = None\n    diff: Optional[DiffResult] = None\n    stats: Optional[StatsSummary] = None\n    summary: Optional[str] = None\n\n\nclass JobStore:\n    def __init__(self) -> None:\n        self._jobs: dict[str, Job] = {}\n        self._lock = threading.Lock()\n\n    def create(self, file_a: Path, file_b: Path) -> Job:\n        job = Job(job_id=uuid.uuid4().hex[:16], file_a=file_a, file_b=file_b)\n        with self._lock:\n            self._jobs[job.job_id] = job\n        return job\n\n    def get(self, job_id: str) -> Optional[Job]:\n        return self._jobs.get(job_id)\n\n    def delete(self, job_id: str) -> bool:\n        with self._lock:\n            return self._jobs.pop(job_id, None) is not None\n\n\nstore = JobStore()\n"
     },
     {
       "path": "backend/app/main.py",
@@ -952,7 +1136,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"CaD-Track backend entry point.\n\nRun with:  uvicorn app.main:app --reload  (from the backend/ directory)\n\"\"\"\nfrom __future__ import annotations\n\nfrom pathlib import Path\n\nfrom fastapi import FastAPI\nfrom fastapi.middleware.cors import CORSMiddleware\nfrom fastapi.responses import FileResponse\nfrom fastapi.staticfiles import StaticFiles\n\nfrom .api.routes import router\n\napp = FastAPI(\n    title=\"CaD-Track\",\n    description=\"Git-style change tracking for CAD drawings: structured \"\n    \"entity diffing of vector geometry and text/annotations \u2014 no pixel diffing.\",\n    version=\"0.1.0\",\n)\n\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"*\"],\n    allow_methods=[\"*\"],\n    allow_headers=[\"*\"],\n)\n\napp.include_router(router)\n\n_FRONTEND = Path(__file__).resolve().parent.parent.parent / \"frontend\"\nif _FRONTEND.exists():\n    app.mount(\"/static\", StaticFiles(directory=_FRONTEND / \"src\"), name=\"static\")\n\n    @app.get(\"/\", include_in_schema=False)\n    def index() -> FileResponse:\n        return FileResponse(_FRONTEND / \"index.html\")\n"
     },
     {
       "path": "backend/app/models/__init__.py",
@@ -966,7 +1151,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": ""
     },
     {
       "path": "backend/app/models/diff_result.py",
@@ -1053,7 +1239,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Unified diff schema shared by the vector and OCR extraction paths.\n\nEverything downstream (stats, visualization, summary) consumes these models\nand never needs to know which path produced them. All coordinates are\nnormalized to [0, 1] relative to the page/image size so that two documents\nwith different pixel dimensions are directly comparable \u2014 this is the core\nfix for the old \"whole page shifted a few pixels -> 100% changed\" bug.\n\"\"\"\nfrom __future__ import annotations\n\nfrom enum import Enum\nfrom typing import Literal, Optional\n\nfrom pydantic import BaseModel, Field\n\nBBox = tuple[float, float, float, float]  # x0, y0, x1, y1 normalized [0,1]\nPoint = tuple[float, float]\n\n\nclass ChangeType(str, Enum):\n    ADDED = \"added\"\n    REMOVED = \"removed\"\n    MOVED = \"moved\"\n    MODIFIED = \"modified\"\n\n\nclass EntityKind(str, Enum):\n    GEOMETRY = \"geometry\"  # grouped vector primitives (lines/curves/rects)\n    TEXT = \"text\"          # a text span (vector text or OCR word/line)\n\n\nclass Entity(BaseModel):\n    \"\"\"A structured drawing element extracted from one document version.\"\"\"\n\n    id: str\n    kind: EntityKind\n    bbox: BBox\n    centroid: Point\n    # geometry entities: histogram of primitive kinds, e.g. {\"l\": 12, \"c\": 3}\n    shape_signature: dict[str, int] = Field(default_factory=dict)\n    # text entities: the string content\n    text: Optional[str] = None\n    # 1.0 for vector-extracted entities, OCR confidence (0..1) otherwise\n    confidence: float = 1.0\n    primitive_count: int = 0\n\n\nclass Region(BaseModel):\n    \"\"\"One detected change between the two versions.\"\"\"\n\n    id: str\n    change_type: ChangeType\n    kind: EntityKind\n    bbox: BBox\n    centroid: Point\n    area_fraction: float  # bbox area / page area\n    confidence: float\n    label: Optional[str] = None       # e.g. \"text: 'R10'\" or \"geometry (14 segments)\"\n    detail: Optional[str] = None      # e.g. \"'REV B' -> 'REV C'\" for modified text\n    old_bbox: Optional[BBox] = None   # for moved/modified: where it was in v1\n\n\nclass DiffResult(BaseModel):\n    job_id: str\n    path_a: Literal[\"vector\", \"raster\"]\n    path_b: Literal[\"vector\", \"raster\"]\n    # which comparison mode was actually possible given the two input types\n    compare_mode: Literal[\"geometry+text\", \"approx-geometry+text\"]\n    page_width_a: float\n    page_height_a: float\n    page_width_b: float\n    page_height_b: float\n    regions: list[Region]\n    entity_count_a: int\n    entity_count_b: int\n    notes: list[str] = Field(default_factory=list)\n"
     },
     {
       "path": "backend/app/models/schemas.py",
@@ -1132,7 +1319,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Pydantic request/response models for the HTTP API.\"\"\"\nfrom __future__ import annotations\n\nfrom typing import Literal, Optional\n\nfrom pydantic import BaseModel\n\nfrom .diff_result import DiffResult\n\n\nclass UploadResponse(BaseModel):\n    job_id: str\n    file_a: str\n    file_b: str\n\n\nclass RegionStat(BaseModel):\n    id: str\n    change_type: str\n    kind: str\n    location: str\n    area_fraction: float\n    bbox: tuple[float, float, float, float]\n    label: Optional[str] = None\n    detail: Optional[str] = None\n\n\nclass StatsSummary(BaseModel):\n    total_regions: int\n    added_count: int\n    removed_count: int\n    moved_count: int\n    modified_count: int\n    total_changed_area_fraction: float\n    per_region: list[RegionStat]\n\n\nclass JobStatus(BaseModel):\n    job_id: str\n    status: Literal[\"uploaded\", \"processing\", \"done\", \"failed\"]\n    error: Optional[str] = None\n    diff_result: Optional[DiffResult] = None\n    stats: Optional[StatsSummary] = None\n    summary: Optional[str] = None\n"
     },
     {
       "path": "backend/app/ocr/__init__.py",
@@ -1146,7 +1334,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": ""
     },
     {
       "path": "backend/app/ocr/extract.py",
@@ -1238,7 +1427,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"OCR extraction path for raster-only pages (scans / flattened images).\n\nProduces TEXT entities only \u2014 there is no vector data to recover, so\ngeometry changes on pure-raster pages are out of scope by design (the diff\nengine works on structured entities, never on pixels).\n\"\"\"\nfrom __future__ import annotations\n\nimport shutil\nimport uuid\nfrom pathlib import Path\n\nimport fitz\nimport pytesseract\nfrom PIL import Image\n\n# locate the tesseract binary when it isn't on PATH (default Windows installs)\nif shutil.which(\"tesseract\") is None:\n    for candidate in (\n        Path(r\"C:\\Program Files\\Tesseract-OCR\\tesseract.exe\"),\n        Path.home() / r\"AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe\",\n    ):\n        if candidate.exists():\n            pytesseract.pytesseract.tesseract_cmd = str(candidate)\n            break\n\nfrom ..config import settings\nfrom ..models.diff_result import Entity, EntityKind\n\n\ndef rasterize_page(page: fitz.Page, dpi: int | None = None) -> Image.Image:\n    dpi = dpi or settings.ocr_dpi\n    pix = page.get_pixmap(dpi=dpi, colorspace=fitz.csGRAY)\n    return Image.frombytes(\"L\", (pix.width, pix.height), pix.samples)\n\n\ndef extract_text_entities(page: fitz.Page) -> list[Entity]:\n    img = rasterize_page(page)\n    w, h = img.size\n    data = pytesseract.image_to_data(img, output_type=pytesseract.Output.DICT)\n\n    entities: list[Entity] = []\n    for i, raw in enumerate(data[\"text\"]):\n        text = (raw or \"\").strip()\n        if not text:\n            continue\n        try:\n            conf = float(data[\"conf\"][i])\n        except (TypeError, ValueError):\n            conf = -1.0\n        if conf < settings.min_ocr_confidence:\n            continue\n        x, y = data[\"left\"][i], data[\"top\"][i]\n        bw, bh = data[\"width\"][i], data[\"height\"][i]\n        bbox = (x / w, y / h, (x + bw) / w, (y + bh) / h)\n        entities.append(\n            Entity(\n                id=uuid.uuid4().hex[:12],\n                kind=EntityKind.TEXT,\n                bbox=bbox,\n                centroid=((bbox[0] + bbox[2]) / 2, (bbox[1] + bbox[3]) / 2),\n                text=text,\n                confidence=conf / 100.0,\n            )\n        )\n    return entities\n"
     },
     {
       "path": "backend/app/pipeline/__init__.py",
@@ -1252,7 +1442,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": ""
     },
     {
       "path": "backend/app/pipeline/compare.py",
@@ -1410,7 +1601,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Pipeline orchestration: classify -> extract -> match -> classify -> stats -> summary.\n\nComparison modes, decided by what both inputs can provide:\n\n- both vector          -> \"geometry+text\": exact vector primitives + text spans.\n- any raster involved  -> \"approx-geometry+text\": text comes from the vector\n  side's exact spans and/or OCR on the raster side, while geometry on BOTH\n  sides is traced into line segments from the rendered page (like-for-like),\n  so drawing-design changes are detected even for scans \u2014 still via entity\n  matching, never a pixel comparison.\n\"\"\"\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom pathlib import Path\n\nimport fitz\n\nfrom ..detect.classify import classify_page\nfrom ..entity_match.classify import classify_matches\nfrom ..entity_match.match import match_entities\nfrom ..ingest.loader import load_input\nfrom ..models.diff_result import DiffResult, Entity, EntityKind\nfrom ..models.schemas import StatsSummary\nfrom ..ocr.extract import extract_text_entities\nfrom ..raster_geom.extract import extract_geometry_entities\nfrom ..stats.aggregate import compute_stats\nfrom ..summary.generator import generate_summary\nfrom ..vector.extract import extract_primitives, extract_text_spans\nfrom ..vector.group import group_into_entities, text_spans_to_entities\n\n\n@dataclass\nclass CompareResult:\n    diff: DiffResult\n    stats: StatsSummary\n    summary: str\n\n\ndef _extract_entities(page: fitz.Page, page_type: str, approx: bool) -> list[Entity]:\n    # text: exact spans for vector pages, OCR words for raster pages\n    if page_type == \"vector\":\n        text_entities = text_spans_to_entities(extract_text_spans(page))\n    else:\n        text_entities = extract_text_entities(page)\n\n    # geometry: exact primitives when both sides are vector, traced segments\n    # (text areas masked) when any side is raster\n    if approx:\n        text_bboxes = [e.bbox for e in text_entities]\n        geom_entities = extract_geometry_entities(page, text_bboxes)\n    else:\n        geom_entities = group_into_entities(extract_primitives(page))\n\n    return text_entities + geom_entities\n\n\ndef run_comparison(job_id: str, path_a: Path, path_b: Path) -> CompareResult:\n    doc_a = load_input(path_a)\n    doc_b = load_input(path_b)\n    try:\n        page_a, page_b = doc_a.page, doc_b.page\n        type_a = classify_page(page_a)\n        type_b = classify_page(page_b)\n\n        approx = \"raster\" in (type_a, type_b)\n        notes: list[str] = []\n        if approx:\n            raster_side = \"A\" if type_a == \"raster\" else \"B\"\n            if type_a == \"raster\" and type_b == \"raster\":\n                raster_side = \"both inputs\"\n            notes.append(\n                f\"Raster input detected ({raster_side}): geometry was compared \"\n                \"approximately by tracing drawing lines from both rendered pages; \"\n                \"text was compared via OCR on the raster side.\"\n            )\n\n        entities_a = _extract_entities(page_a, type_a, approx)\n        entities_b = _extract_entities(page_b, type_b, approx)\n\n        if approx:\n            for kind, what in ((EntityKind.TEXT, \"readable text elements\"),\n                               (EntityKind.GEOMETRY, \"distinct drawing structures\")):\n                counts = {\n                    \"A\": sum(1 for e in entities_a if e.kind == kind),\n                    \"B\": sum(1 for e in entities_b if e.kind == kind),\n                }\n                low, high = min(counts.values()), max(counts.values())\n                if high > 0 and low < 0.2 * high:\n                    sparse = min(counts, key=counts.get)\n                    notes.append(\n                        f\"Warning: input {sparse} yielded far fewer {what} \"\n                        f\"({low} vs {high}) \u2014 likely a low-resolution scan. \"\n                        \"Change results are unreliable; many elements will \"\n                        \"appear as added/removed. Provide a higher-resolution \"\n                        \"scan or a native vector PDF for a meaningful comparison.\"\n                    )\n\n        pairs = match_entities(entities_a, entities_b)\n        regions = classify_matches(pairs)\n\n        diff = DiffResult(\n            job_id=job_id,\n            path_a=type_a,\n            path_b=type_b,\n            compare_mode=\"approx-geometry+text\" if approx else \"geometry+text\",\n            page_width_a=page_a.rect.width,\n            page_height_a=page_a.rect.height,\n            page_width_b=page_b.rect.width,\n            page_height_b=page_b.rect.height,\n            regions=regions,\n            entity_count_a=len(entities_a),\n            entity_count_b=len(entities_b),\n            notes=notes,\n        )\n        stats = compute_stats(diff)\n        summary = generate_summary(diff, stats)\n        return CompareResult(diff=diff, stats=stats, summary=summary)\n    finally:\n        doc_a.close()\n        doc_b.close()\n"
     },
     {
       "path": "backend/app/raster_geom/__init__.py",
@@ -1424,7 +1616,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": ""
     },
     {
       "path": "backend/app/raster_geom/extract.py",
@@ -1506,7 +1699,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Approximate geometry extraction for comparisons involving raster inputs.\n\nThe drawing's ink is decomposed into connected components (clusters of\ntouching dark pixels); each component becomes an Entity with a normalized\nbbox, centroid, and its share of the page's total ink. The diff itself\nremains structural entity matching \u2014 no pixel mask or image alignment is\never compared.\n\nConnected-component labeling is deterministic: identical drawing regions\nproduce identical entities on both sides and match exactly, while genuinely\nadded or removed structures have no counterpart. Ink *share* (rather than\nabsolute pixel counts) makes the signature robust to systematic line-width\ndifferences between a rendered vector page and a scan.\n\nWhen either input is raster, BOTH sides are traced from their rendered pages\nso the matcher compares like with like. Known text areas are masked out\nfirst (each side using its own text entities) so glyph strokes don't\nmasquerade as drawing geometry \u2014 text is diffed separately.\n\"\"\"\nfrom __future__ import annotations\n\nimport uuid\n\nimport fitz\nimport numpy as np\nfrom skimage.measure import label, regionprops\n\nfrom ..config import settings\nfrom ..models.diff_result import BBox, Entity, EntityKind\n\n\ndef _page_to_gray(page: fitz.Page, dpi: int) -> np.ndarray:\n    pix = page.get_pixmap(dpi=dpi, colorspace=fitz.csGRAY)\n    return np.frombuffer(pix.samples, dtype=np.uint8).reshape(pix.height, pix.width).copy()\n\n\ndef extract_geometry_entities(\n    page: fitz.Page, text_bboxes: list[BBox]\n) -> list[Entity]:\n    gray = _page_to_gray(page, settings.trace_dpi)\n    h, w = gray.shape\n    ink = gray < settings.ink_threshold\n\n    # mask out known text areas (normalized bboxes -> pixels, small padding)\n    pad = max(1, int(0.002 * max(w, h)))\n    for x0, y0, x1, y1 in text_bboxes:\n        r0 = max(0, int(y0 * h) - pad)\n        r1 = min(h, int(y1 * h) + pad)\n        c0 = max(0, int(x0 * w) - pad)\n        c1 = min(w, int(x1 * w) + pad)\n        ink[r0:r1, c0:c1] = False\n\n    total_ink = int(ink.sum())\n    if total_ink == 0:\n        return []\n\n    labeled = label(ink, connectivity=2)\n    entities: list[Entity] = []\n    for prop in regionprops(labeled):\n        if prop.area < settings.min_component_px:\n            continue  # speckle / scan noise\n        r0, c0, r1, c1 = prop.bbox\n        bbox = (c0 / w, r0 / h, c1 / w, r1 / h)\n        span = ((bbox[2] - bbox[0]) ** 2 + (bbox[3] - bbox[1]) ** 2) ** 0.5\n        if span < settings.min_entity_span:\n            continue\n        cy, cx = prop.centroid\n        # ink share in basis points; scale-free so a thick scan and a thin\n        # vector render of the same structure still look alike\n        ink_share = max(1, round(prop.area / total_ink * 10000))\n        entities.append(\n            Entity(\n                id=uuid.uuid4().hex[:12],\n                kind=EntityKind.GEOMETRY,\n                bbox=bbox,\n                centroid=(cx / w, cy / h),\n                shape_signature={\"ink\": ink_share},\n                confidence=settings.trace_confidence,\n            )\n        )\n    return entities\n"
     },
     {
       "path": "backend/app/stats/__init__.py",
@@ -1520,7 +1714,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": ""
     },
     {
       "path": "backend/app/stats/aggregate.py",
@@ -1586,7 +1781,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Aggregate diff regions into the FR-5 statistics summary.\"\"\"\nfrom __future__ import annotations\n\nfrom ..models.diff_result import ChangeType, DiffResult\nfrom ..models.schemas import RegionStat, StatsSummary\nfrom ..summary.location import bucket_location\n\n\ndef _union_area(boxes: list[tuple[float, float, float, float]]) -> float:\n    \"\"\"Union of axis-aligned bbox areas via coordinate-grid sweep.\n\n    Rect-level (not pixel-mask) computation: build the grid of unique x/y\n    edges and sum covered cells, so overlapping regions aren't double-counted.\n    \"\"\"\n    if not boxes:\n        return 0.0\n    xs = sorted({v for b in boxes for v in (b[0], b[2])})\n    ys = sorted({v for b in boxes for v in (b[1], b[3])})\n    total = 0.0\n    for i in range(len(xs) - 1):\n        for j in range(len(ys) - 1):\n            cx = (xs[i] + xs[i + 1]) / 2\n            cy = (ys[j] + ys[j + 1]) / 2\n            if any(b[0] <= cx <= b[2] and b[1] <= cy <= b[3] for b in boxes):\n                total += (xs[i + 1] - xs[i]) * (ys[j + 1] - ys[j])\n    return total\n\n\ndef compute_stats(diff: DiffResult) -> StatsSummary:\n    counts = {ct: 0 for ct in ChangeType}\n    for region in diff.regions:\n        counts[region.change_type] += 1\n\n    per_region = [\n        RegionStat(\n            id=r.id,\n            change_type=r.change_type.value,\n            kind=r.kind.value,\n            location=bucket_location(*r.centroid),\n            area_fraction=round(r.area_fraction, 6),\n            bbox=r.bbox,\n            label=r.label,\n            detail=r.detail,\n        )\n        for r in sorted(diff.regions, key=lambda r: r.area_fraction, reverse=True)\n    ]\n\n    return StatsSummary(\n        total_regions=len(diff.regions),\n        added_count=counts[ChangeType.ADDED],\n        removed_count=counts[ChangeType.REMOVED],\n        moved_count=counts[ChangeType.MOVED],\n        modified_count=counts[ChangeType.MODIFIED],\n        total_changed_area_fraction=round(\n            _union_area([r.bbox for r in diff.regions]), 6\n        ),\n        per_region=per_region,\n    )\n"
     },
     {
       "path": "backend/app/summary/__init__.py",
@@ -1600,7 +1796,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": ""
     },
     {
       "path": "backend/app/summary/generator.py",
@@ -1679,7 +1876,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Rule-based natural-language change summary (FR-6).\n\nPure string templating over computed stats \u2014 no LLM anywhere. Mirrors the\nexample paragraph style from the requirements document.\n\"\"\"\nfrom __future__ import annotations\n\nfrom ..config import settings\nfrom ..models.diff_result import DiffResult\nfrom ..models.schemas import RegionStat, StatsSummary\nfrom .severity import bucket_severity\n\n_NUM_WORDS = {\n    1: \"one\", 2: \"two\", 3: \"three\", 4: \"four\", 5: \"five\",\n    6: \"six\", 7: \"seven\", 8: \"eight\", 9: \"nine\", 10: \"ten\",\n}\n\n\ndef _num_word(n: int) -> str:\n    return _NUM_WORDS.get(n, str(n))\n\n\ndef _describe(stat: RegionStat) -> str:\n    what = \"annotation\" if stat.kind == \"text\" else \"drawing element\"\n    loc = stat.location if stat.location == \"center\" else f\"{stat.location} region\"\n    if stat.change_type == \"added\":\n        return f\"a new {what} has appeared in the {loc}\"\n    if stat.change_type == \"removed\":\n        return f\"an existing {what} in the {loc} has been removed\"\n    if stat.change_type == \"moved\":\n        return f\"a {what} near the {loc} has shifted position\"\n    # modified\n    if stat.detail and stat.kind == \"text\":\n        return f\"an annotation in the {loc} was changed ({stat.detail})\"\n    return f\"structural modifications were detected near the {loc}\"\n\n\ndef generate_summary(diff: DiffResult, stats: StatsSummary) -> str:\n    if stats.total_regions == 0:\n        base = \"No significant differences were detected between the two drawings.\"\n        if diff.compare_mode == \"approx-geometry+text\":\n            base += (\n                \" Note: at least one input is a raster scan, so geometry was \"\n                \"compared approximately from traced drawing lines and text via OCR.\"\n            )\n        return base\n\n    severity = bucket_severity(stats.total_changed_area_fraction)\n    n = stats.total_regions\n    parts = [\n        f\"The comparison identified {_num_word(n)} \"\n        f\"{severity} change{'s' if n != 1 else ''} between the two drawings.\"\n    ]\n\n    top = stats.per_region[: settings.max_summary_regions]\n    if top:\n        sentences = [_describe(s) for s in top]\n        if len(sentences) == 1:\n            body = sentences[0].capitalize() + \".\"\n        else:\n            body = (\n                sentences[0].capitalize()\n                + \", while \"\n                + \"; additionally, \".join(sentences[1:])\n                + \".\"\n            )\n        parts.append(body)\n\n    remaining = n - len(top)\n    if remaining > 0:\n        parts.append(\n            f\"{_num_word(remaining).capitalize()} further smaller \"\n            f\"change{'s were' if remaining != 1 else ' was'} also detected.\"\n        )\n\n    parts.append(\n        \"These changes affect approximately \"\n        f\"{stats.total_changed_area_fraction * 100:.1f}% of the total drawing area.\"\n    )\n\n    if diff.compare_mode == \"approx-geometry+text\":\n        parts.append(\n            \"Note: at least one input is a raster scan, so geometry changes \"\n            \"were detected approximately by tracing drawing lines on both \"\n            \"pages, and text was compared via OCR; small changes may be \"\n            \"missed and positions are approximate.\"\n        )\n\n    parts += [n for n in diff.notes if n.startswith(\"Warning:\")]\n\n    return \" \".join(parts)\n"
     },
     {
       "path": "backend/app/summary/location.py",
@@ -1715,7 +1913,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Map a normalized centroid to a human location label via a 3x3 grid.\"\"\"\nfrom __future__ import annotations\n\n\ndef bucket_location(cx: float, cy: float) -> str:\n    col = \"left\" if cx < 1 / 3 else (\"right\" if cx > 2 / 3 else \"center\")\n    row = \"upper\" if cy < 1 / 3 else (\"lower\" if cy > 2 / 3 else \"middle\")\n\n    if row == \"middle\" and col == \"center\":\n        return \"center\"\n    if row == \"middle\":\n        return col  # \"left\" / \"right\" (middle band)\n    if col == \"center\":\n        return row  # \"upper\" / \"lower\" (middle column)\n    return f\"{row}-{col}\"  # e.g. \"lower-right\"\n"
     },
     {
       "path": "backend/app/summary/severity.py",
@@ -1758,7 +1957,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Bucket total changed-area fraction into a severity word.\"\"\"\nfrom __future__ import annotations\n\nfrom ..config import settings\n\n\ndef bucket_severity(area_fraction: float) -> str:\n    if area_fraction < settings.severity_minor:\n        return \"minor\"\n    if area_fraction < settings.severity_moderate:\n        return \"moderate\"\n    return \"significant\"\n"
     },
     {
       "path": "backend/app/vector/__init__.py",
@@ -1772,7 +1972,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": ""
     },
     {
       "path": "backend/app/vector/extract.py",
@@ -1872,7 +2073,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Extract vector primitives and text spans from a native-vector PDF page.\n\nCoordinates are normalized to [0,1] against the page rect immediately so\nevery later stage is resolution/page-size independent.\n\"\"\"\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\n\nimport fitz\n\nPoint = tuple[float, float]\n\n\n@dataclass\nclass Primitive:\n    kind: str  # \"l\" line, \"c\" bezier curve, \"re\" rect, \"qu\" quad\n    points: list[Point]  # normalized endpoints/control points\n    width: float = 0.0\n\n    @property\n    def endpoints(self) -> list[Point]:\n        \"\"\"Points used for connectivity clustering (first and last).\"\"\"\n        if not self.points:\n            return []\n        return [self.points[0], self.points[-1]]\n\n\n@dataclass\nclass RawTextSpan:\n    text: str\n    bbox: tuple[float, float, float, float]  # normalized\n    size: float = 0.0\n    confidence: float = 1.0\n\n\ndef _norm_point(p, w: float, h: float) -> Point:\n    return (p.x / w, p.y / h)\n\n\ndef _norm_rect(r: fitz.Rect, w: float, h: float) -> tuple[float, float, float, float]:\n    return (r.x0 / w, r.y0 / h, r.x1 / w, r.y1 / h)\n\n\ndef extract_primitives(page: fitz.Page) -> list[Primitive]:\n    w, h = page.rect.width, page.rect.height\n    primitives: list[Primitive] = []\n    for drawing in page.get_drawings():\n        width = drawing.get(\"width\") or 0.0\n        for item in drawing[\"items\"]:\n            op = item[0]\n            if op == \"l\":  # line: (op, p1, p2)\n                pts = [_norm_point(item[1], w, h), _norm_point(item[2], w, h)]\n            elif op == \"c\":  # bezier: (op, p1, p2, p3, p4)\n                pts = [_norm_point(p, w, h) for p in item[1:5]]\n            elif op == \"re\":  # rect: (op, rect, orientation?)\n                r = item[1]\n                pts = [\n                    (r.x0 / w, r.y0 / h),\n                    (r.x1 / w, r.y0 / h),\n                    (r.x1 / w, r.y1 / h),\n                    (r.x0 / w, r.y1 / h),\n                ]\n            elif op == \"qu\":  # quad: (op, quad)\n                q = item[1]\n                pts = [_norm_point(p, w, h) for p in (q.ul, q.ur, q.lr, q.ll)]\n            else:\n                continue\n            primitives.append(Primitive(kind=op, points=pts, width=width))\n    return primitives\n\n\ndef extract_text_spans(page: fitz.Page) -> list[RawTextSpan]:\n    w, h = page.rect.width, page.rect.height\n    spans: list[RawTextSpan] = []\n    data = page.get_text(\"dict\")\n    for block in data.get(\"blocks\", []):\n        for line in block.get(\"lines\", []):\n            for span in line.get(\"spans\", []):\n                text = span[\"text\"].strip()\n                if not text:\n                    continue\n                spans.append(\n                    RawTextSpan(\n                        text=text,\n                        bbox=_norm_rect(fitz.Rect(span[\"bbox\"]), w, h),\n                        size=span.get(\"size\", 0.0),\n                    )\n                )\n    return spans\n"
     },
     {
       "path": "backend/app/vector/group.py",
@@ -2002,7 +2204,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Group vector primitives into entities via connectivity clustering.\n\nTwo primitives belong to the same entity when any endpoint of one lies\nwithin a small tolerance of an endpoint of the other (union-find over a\nspatial grid). This approximates \"one drawn symbol/feature\" without a\ntrained model \u2014 GAT-CADNet-style learned symbol spotting is the documented\nfuture upgrade path.\n\"\"\"\nfrom __future__ import annotations\n\nimport uuid\nfrom collections import Counter, defaultdict\n\nfrom ..config import settings\nfrom ..models.diff_result import Entity, EntityKind\nfrom .extract import Primitive, RawTextSpan\n\n\nclass _UnionFind:\n    def __init__(self, n: int):\n        self.parent = list(range(n))\n\n    def find(self, x: int) -> int:\n        while self.parent[x] != x:\n            self.parent[x] = self.parent[self.parent[x]]\n            x = self.parent[x]\n        return x\n\n    def union(self, a: int, b: int) -> None:\n        ra, rb = self.find(a), self.find(b)\n        if ra != rb:\n            self.parent[rb] = ra\n\n\ndef group_into_entities(\n    primitives: list[Primitive], tol: float | None = None\n) -> list[Entity]:\n    if not primitives:\n        return []\n    tol = tol if tol is not None else settings.endpoint_join_tol\n\n    uf = _UnionFind(len(primitives))\n    # spatial grid over endpoints: cell size = tol, check own + neighbor cells\n    grid: dict[tuple[int, int], list[int]] = defaultdict(list)\n    cell = max(tol, 1e-6)\n\n    for idx, prim in enumerate(primitives):\n        for (x, y) in prim.endpoints:\n            cx, cy = int(x / cell), int(y / cell)\n            for dx in (-1, 0, 1):\n                for dy in (-1, 0, 1):\n                    for other in grid.get((cx + dx, cy + dy), []):\n                        if other == idx:\n                            continue\n                        for (ox, oy) in primitives[other].endpoints:\n                            if abs(ox - x) <= tol and abs(oy - y) <= tol:\n                                uf.union(idx, other)\n                                break\n            grid[(cx, cy)].append(idx)\n\n    clusters: dict[int, list[Primitive]] = defaultdict(list)\n    for idx, prim in enumerate(primitives):\n        clusters[uf.find(idx)].append(prim)\n\n    entities: list[Entity] = []\n    for prims in clusters.values():\n        xs = [x for p in prims for (x, _) in p.points]\n        ys = [y for p in prims for (_, y) in p.points]\n        bbox = (min(xs), min(ys), max(xs), max(ys))\n        centroid = ((bbox[0] + bbox[2]) / 2, (bbox[1] + bbox[3]) / 2)\n        signature = dict(Counter(p.kind for p in prims))\n        entities.append(\n            Entity(\n                id=uuid.uuid4().hex[:12],\n                kind=EntityKind.GEOMETRY,\n                bbox=bbox,\n                centroid=centroid,\n                shape_signature=signature,\n                primitive_count=len(prims),\n            )\n        )\n    return entities\n\n\ndef text_spans_to_entities(spans: list[RawTextSpan]) -> list[Entity]:\n    entities: list[Entity] = []\n    for span in spans:\n        x0, y0, x1, y1 = span.bbox\n        entities.append(\n            Entity(\n                id=uuid.uuid4().hex[:12],\n                kind=EntityKind.TEXT,\n                bbox=span.bbox,\n                centroid=((x0 + x1) / 2, (y0 + y1) / 2),\n                text=span.text,\n                confidence=span.confidence,\n            )\n        )\n    return entities\n"
     },
     {
       "path": "backend/app/vector/titleblock.py",
@@ -2061,7 +2264,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Title-block isolation.\n\nEngineering drawings conventionally place a metadata block (title, revision,\ndrawn-by, date, scale) in the bottom band or bottom-right corner. Entities\ninside that region are compared as labeled metadata rather than as drawing\ngeometry, so recurring border/legend content doesn't pollute the diff.\n\nMVP heuristic: the bottom-right region (bottom 15% band intersected with the\nright 30% column) counts as title block when it contains a dense cluster of\nshort text spans.\n\"\"\"\nfrom __future__ import annotations\n\nfrom ..models.diff_result import BBox, Entity, EntityKind\n\n# normalized region: (x0, y0, x1, y1)\n_TITLEBLOCK_CANDIDATE: BBox = (0.70, 0.85, 1.0, 1.0)\n_MIN_SPANS_FOR_TITLEBLOCK = 3\n\n\ndef _inside(centroid: tuple[float, float], region: BBox) -> bool:\n    x, y = centroid\n    return region[0] <= x <= region[2] and region[1] <= y <= region[3]\n\n\ndef detect_titleblock_region(entities: list[Entity]) -> BBox | None:\n    \"\"\"Return the title-block bbox if the candidate corner is text-dense.\"\"\"\n    text_inside = [\n        e\n        for e in entities\n        if e.kind == EntityKind.TEXT and _inside(e.centroid, _TITLEBLOCK_CANDIDATE)\n    ]\n    if len(text_inside) >= _MIN_SPANS_FOR_TITLEBLOCK:\n        return _TITLEBLOCK_CANDIDATE\n    return None\n\n\ndef split_titleblock(\n    entities: list[Entity],\n) -> tuple[list[Entity], list[Entity], BBox | None]:\n    \"\"\"Split entities into (drawing_body, titleblock_entities, region).\"\"\"\n    region = detect_titleblock_region(entities)\n    if region is None:\n        return entities, [], None\n    body = [e for e in entities if not _inside(e.centroid, region)]\n    block = [e for e in entities if _inside(e.centroid, region)]\n    return body, block, region\n"
     },
     {
       "path": "backend/app/viz/__init__.py",
@@ -2075,7 +2279,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": ""
     },
     {
       "path": "backend/app/viz/render.py",
@@ -2188,7 +2393,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Visualization rendering (FR-4).\n\nPages are rasterized here purely for human display \u2014 the diff itself was\nalready decided on structured entities before any pixel exists. Boxes are\ndrawn with Pillow on the rendered page.\n\"\"\"\nfrom __future__ import annotations\n\nimport io\n\nimport fitz\nfrom PIL import Image, ImageDraw, ImageFont\n\nfrom ..config import settings\nfrom ..models.diff_result import ChangeType, DiffResult, Region\n\n_COLORS = {\n    ChangeType.ADDED: (46, 160, 67),      # green\n    ChangeType.REMOVED: (218, 54, 51),    # red\n    ChangeType.MOVED: (227, 179, 65),     # amber\n    ChangeType.MODIFIED: (31, 111, 235),  # blue\n}\n\n\ndef render_page(page: fitz.Page, dpi: int | None = None) -> Image.Image:\n    pix = page.get_pixmap(dpi=dpi or settings.render_dpi)\n    return Image.frombytes(\"RGB\", (pix.width, pix.height), pix.samples)\n\n\ndef _draw_regions(img: Image.Image, regions: list[Region], use_old_bbox: bool) -> Image.Image:\n    draw = ImageDraw.Draw(img)\n    w, h = img.size\n    try:\n        font = ImageFont.truetype(\"arial.ttf\", max(12, h // 90))\n    except OSError:\n        font = ImageFont.load_default()\n\n    for region in regions:\n        bbox = region.old_bbox if (use_old_bbox and region.old_bbox) else region.bbox\n        if use_old_bbox and region.change_type == ChangeType.ADDED:\n            continue  # additions don't exist on the old page\n        if not use_old_bbox and region.change_type == ChangeType.REMOVED:\n            bbox = region.bbox  # removals drawn where the element used to be\n        color = _COLORS[region.change_type]\n        px = [bbox[0] * w, bbox[1] * h, bbox[2] * w, bbox[3] * h]\n        # pad tiny boxes so they stay visible\n        pad = max(2.0, 0.002 * max(w, h))\n        px = [px[0] - pad, px[1] - pad, px[2] + pad, px[3] + pad]\n        draw.rectangle(px, outline=color, width=max(2, h // 400))\n        tag = region.change_type.value\n        draw.text((px[0], max(0, px[1] - font.size - 2)), tag, fill=color, font=font)\n    return img\n\n\ndef render_bbox_overlay(page_b: fitz.Page, diff: DiffResult) -> bytes:\n    \"\"\"New version annotated with all change regions.\"\"\"\n    img = _draw_regions(render_page(page_b), diff.regions, use_old_bbox=False)\n    return _to_png(img)\n\n\ndef render_side_by_side(page_a: fitz.Page, page_b: fitz.Page, diff: DiffResult) -> bytes:\n    img_a = _draw_regions(render_page(page_a), diff.regions, use_old_bbox=True)\n    img_b = _draw_regions(render_page(page_b), diff.regions, use_old_bbox=False)\n    # equalize heights\n    target_h = max(img_a.height, img_b.height)\n    def _scale(im: Image.Image) -> Image.Image:\n        if im.height == target_h:\n            return im\n        w = round(im.width * target_h / im.height)\n        return im.resize((w, target_h))\n    img_a, img_b = _scale(img_a), _scale(img_b)\n    gap = 16\n    combo = Image.new(\"RGB\", (img_a.width + gap + img_b.width, target_h), (255, 255, 255))\n    combo.paste(img_a, (0, 0))\n    combo.paste(img_b, (img_a.width + gap, 0))\n    return _to_png(combo)\n\n\ndef render_original(page: fitz.Page) -> bytes:\n    return _to_png(render_page(page))\n\n\ndef _to_png(img: Image.Image) -> bytes:\n    buf = io.BytesIO()\n    img.save(buf, format=\"PNG\")\n    return buf.getvalue()\n"
     },
     {
       "path": "frontend/index.html",
@@ -2202,7 +2408,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>CaD-Track \u2014 CAD Drawing Diff</title>\n<style>\n  :root {\n    --bg: #0d1117; --panel: #161b22; --border: #30363d;\n    --text: #e6edf3; --muted: #8b949e; --accent: #2f81f7;\n    --added: #2ea043; --removed: #da3633; --moved: #e3b341; --modified: #1f6feb;\n  }\n  * { box-sizing: border-box; }\n  body { margin: 0; font-family: \"Segoe UI\", system-ui, sans-serif; background: var(--bg); color: var(--text); }\n  header { padding: 1rem 2rem; border-bottom: 1px solid var(--border); display: flex; align-items: baseline; gap: 1rem; }\n  header h1 { margin: 0; font-size: 1.3rem; }\n  header span { color: var(--muted); font-size: .9rem; }\n  main { max-width: 1400px; margin: 0 auto; padding: 1.5rem 2rem; }\n  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; margin-bottom: 1.25rem; }\n  .uploads { display: flex; gap: 1rem; flex-wrap: wrap; }\n  .dropzone { flex: 1; min-width: 260px; border: 2px dashed var(--border); border-radius: 8px; padding: 1.5rem; text-align: center; color: var(--muted); cursor: pointer; }\n  .dropzone.hasfile { border-color: var(--accent); color: var(--text); }\n  button { background: var(--accent); border: none; color: #fff; padding: .6rem 1.6rem; border-radius: 6px; font-size: 1rem; cursor: pointer; margin-top: 1rem; }\n  button:disabled { opacity: .45; cursor: default; }\n  .tabs { display: flex; gap: .5rem; margin-bottom: 1rem; flex-wrap: wrap; }\n  .tabs button { margin: 0; padding: .4rem 1rem; background: var(--panel); border: 1px solid var(--border); color: var(--muted); }\n  .tabs button.active { background: var(--accent); color: #fff; border-color: var(--accent); }\n  #viz-img { max-width: 100%; border: 1px solid var(--border); border-radius: 6px; background: #fff; }\n  table { width: 100%; border-collapse: collapse; font-size: .9rem; }\n  th, td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--border); }\n  th { color: var(--muted); font-weight: 600; }\n  .chip { display: inline-block; padding: .1rem .55rem; border-radius: 10px; font-size: .8rem; color: #fff; }\n  .chip.added { background: var(--added); } .chip.removed { background: var(--removed); }\n  .chip.moved { background: var(--moved); color: #000; } .chip.modified { background: var(--modified); }\n  .statgrid { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }\n  .stat { flex: 1; min-width: 130px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: .8rem; text-align: center; }\n  .stat b { display: block; font-size: 1.6rem; }\n  .stat span { color: var(--muted); font-size: .8rem; }\n  #summary-text { line-height: 1.65; }\n  .note { color: var(--moved); font-size: .88rem; margin-top: .6rem; }\n  #status { color: var(--muted); margin-top: .8rem; }\n  .hidden { display: none; }\n</style>\n</head>\n<body>\n<header>\n  <h1>CaD-Track</h1>\n  <span>git-style change tracking for CAD drawings \u2014 structured entity diff, no pixel comparison</span>\n</header>\n<main>\n  <section class=\"card\" id=\"upload-card\">\n    <h2>1 \u00b7 Upload two versions</h2>\n    <div class=\"uploads\">\n      <div class=\"dropzone\" id=\"drop-a\">Drawing A (old / v1)<br><small>PDF, PNG, JPG</small>\n        <input type=\"file\" id=\"file-a\" accept=\".pdf,.png,.jpg,.jpeg\" hidden></div>\n      <div class=\"dropzone\" id=\"drop-b\">Drawing B (new / v2)<br><small>PDF, PNG, JPG</small>\n        <input type=\"file\" id=\"file-b\" accept=\".pdf,.png,.jpg,.jpeg\" hidden></div>\n    </div>\n    <button id=\"compare-btn\" disabled>Compare</button>\n    <div id=\"status\"></div>\n  </section>\n\n  <section class=\"card hidden\" id=\"viz-card\">\n    <h2>2 \u00b7 Visualization</h2>\n    <div class=\"tabs\" id=\"viz-tabs\">\n      <button data-mode=\"bbox\" class=\"active\">Changes overlay</button>\n      <button data-mode=\"side_by_side\">Side by side</button>\n      <button data-mode=\"original_a\">Original A</button>\n      <button data-mode=\"original_b\">Original B</button>\n    </div>\n    <img id=\"viz-img\" alt=\"diff visualization\">\n  </section>\n\n  <section class=\"card hidden\" id=\"stats-card\">\n    <h2>3 \u00b7 Statistics</h2>\n    <div class=\"statgrid\" id=\"stat-tiles\"></div>\n    <table>\n      <thead><tr><th>Type</th><th>Kind</th><th>Location</th><th>Area %</th><th>Detail</th></tr></thead>\n      <tbody id=\"region-rows\"></tbody>\n    </table>\n  </section>\n\n  <section class=\"card hidden\" id=\"summary-card\">\n    <h2>4 \u00b7 Change summary</h2>\n    <p id=\"summary-text\"></p>\n    <div id=\"notes\"></div>\n  </section>\n</main>\n<script src=\"/static/app.js\"></script>\n</body>\n</html>\n"
     },
     {
       "path": "frontend/src/app.js",
@@ -2245,7 +2452,8 @@
       "classes": [],
       "imports": [],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "const API = \"/api\";\n\nconst state = { fileA: null, fileB: null, jobId: null };\n\nfunction bindDropzone(zoneId, inputId, key) {\n  const zone = document.getElementById(zoneId);\n  const input = document.getElementById(inputId);\n  zone.addEventListener(\"click\", () => input.click());\n  input.addEventListener(\"change\", () => setFile(zone, input.files[0], key));\n  zone.addEventListener(\"dragover\", (e) => e.preventDefault());\n  zone.addEventListener(\"drop\", (e) => {\n    e.preventDefault();\n    if (e.dataTransfer.files.length) setFile(zone, e.dataTransfer.files[0], key);\n  });\n}\n\nfunction setFile(zone, file, key) {\n  if (!file) return;\n  state[key] = file;\n  zone.classList.add(\"hasfile\");\n  zone.innerHTML = `<b>${file.name}</b><br><small>${(file.size / 1024 / 1024).toFixed(1)} MB</small>`;\n  document.getElementById(\"compare-btn\").disabled = !(state.fileA && state.fileB);\n}\n\nbindDropzone(\"drop-a\", \"file-a\", \"fileA\");\nbindDropzone(\"drop-b\", \"file-b\", \"fileB\");\n\nconst statusEl = document.getElementById(\"status\");\n\ndocument.getElementById(\"compare-btn\").addEventListener(\"click\", async () => {\n  const btn = document.getElementById(\"compare-btn\");\n  btn.disabled = true;\n  statusEl.textContent = \"Uploading\u2026\";\n  try {\n    const form = new FormData();\n    form.append(\"file_a\", state.fileA);\n    form.append(\"file_b\", state.fileB);\n    const up = await fetch(`${API}/upload`, { method: \"POST\", body: form });\n    if (!up.ok) throw new Error((await up.json()).detail || \"upload failed\");\n    const { job_id } = await up.json();\n    state.jobId = job_id;\n\n    statusEl.textContent = \"Comparing\u2026 (extracting entities and matching)\";\n    const cmp = await fetch(`${API}/compare/${job_id}`, { method: \"POST\" });\n    if (!cmp.ok) throw new Error((await cmp.json()).detail || \"compare failed\");\n    const job = await cmp.json();\n    if (job.status === \"failed\") throw new Error(job.error || \"comparison failed\");\n\n    statusEl.textContent = \"Done.\";\n    renderResults(job);\n  } catch (err) {\n    statusEl.textContent = `Error: ${err.message}`;\n  } finally {\n    btn.disabled = false;\n  }\n});\n\nfunction renderResults(job) {\n  for (const id of [\"viz-card\", \"stats-card\", \"summary-card\"])\n    document.getElementById(id).classList.remove(\"hidden\");\n\n  setVizMode(\"bbox\");\n\n  const s = job.stats;\n  document.getElementById(\"stat-tiles\").innerHTML = `\n    <div class=\"stat\"><b>${s.total_regions}</b><span>total changes</span></div>\n    <div class=\"stat\"><b>${s.added_count}</b><span>added</span></div>\n    <div class=\"stat\"><b>${s.removed_count}</b><span>removed</span></div>\n    <div class=\"stat\"><b>${s.moved_count}</b><span>moved</span></div>\n    <div class=\"stat\"><b>${s.modified_count}</b><span>modified</span></div>\n    <div class=\"stat\"><b>${(s.total_changed_area_fraction * 100).toFixed(1)}%</b><span>area changed</span></div>`;\n\n  document.getElementById(\"region-rows\").innerHTML = s.per_region\n    .slice(0, 100)\n    .map(\n      (r) => `<tr>\n        <td><span class=\"chip ${r.change_type}\">${r.change_type}</span></td>\n        <td>${r.kind}</td>\n        <td>${r.location}</td>\n        <td>${(r.area_fraction * 100).toFixed(2)}%</td>\n        <td>${r.detail || r.label || \"\"}</td>\n      </tr>`\n    )\n    .join(\"\");\n\n  document.getElementById(\"summary-text\").textContent = job.summary;\n  document.getElementById(\"notes\").innerHTML = (job.diff_result.notes || [])\n    .map((n) => `<div class=\"note\">\u26a0 ${n}</div>`)\n    .join(\"\");\n}\n\ndocument.getElementById(\"viz-tabs\").addEventListener(\"click\", (e) => {\n  const btn = e.target.closest(\"button[data-mode]\");\n  if (btn) setVizMode(btn.dataset.mode);\n});\n\nfunction setVizMode(mode) {\n  document\n    .querySelectorAll(\"#viz-tabs button\")\n    .forEach((b) => b.classList.toggle(\"active\", b.dataset.mode === mode));\n  document.getElementById(\"viz-img\").src =\n    `${API}/jobs/${state.jobId}/visualization?mode=${mode}&t=${Date.now()}`;\n}\n"
     },
     {
       "path": "tests/conftest.py",
@@ -2272,7 +2480,8 @@
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "import sys\nfrom pathlib import Path\n\n# make `app` importable from the backend package\nsys.path.insert(0, str(Path(__file__).resolve().parent.parent / \"backend\"))\n\nSAMPLES = Path(__file__).resolve().parent.parent / \"samples\"\n"
     },
     {
       "path": "tests/integration/test_ocr_pipeline.py",
@@ -2371,7 +2580,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Full-pipeline test on a synthetic raster image pair (OCR path).\"\"\"\nimport pytest\nfrom PIL import Image, ImageDraw, ImageFont\n\nfrom app.models.diff_result import ChangeType\nfrom app.pipeline.compare import run_comparison\n\n\ndef _font(size=48):\n    try:\n        return ImageFont.truetype(\"arial.ttf\", size)\n    except OSError:\n        return ImageFont.load_default()\n\n\ndef _make_image(path, labels):\n    img = Image.new(\"L\", (1600, 1200), 255)\n    draw = ImageDraw.Draw(img)\n    font = _font()\n    for text, xy in labels:\n        draw.text(xy, text, fill=0, font=font)\n    img.save(path)\n\n\nBASE_LABELS = [\n    (\"PART NUMBER 4711\", (150, 150)),\n    (\"MATERIAL STEEL\", (150, 400)),\n    (\"TOLERANCE 0.05\", (150, 650)),\n]\n\n\ndef test_added_label_detected(tmp_path):\n    a = tmp_path / \"v1.png\"\n    b = tmp_path / \"v2.png\"\n    _make_image(a, BASE_LABELS)\n    _make_image(b, BASE_LABELS + [(\"REVISED 2026\", (900, 950))])\n    result = run_comparison(\"test\", a, b)\n\n    assert result.diff.compare_mode == \"approx-geometry+text\"\n    added = [r for r in result.diff.regions if r.change_type == ChangeType.ADDED]\n    # OCR splits labels into words; all added words belong to the new label\n    assert added, \"expected the new label to be detected\"\n    assert all(r.centroid[0] > 0.5 and r.centroid[1] > 0.5 for r in added)\n    # the unchanged labels must not appear as changes\n    non_added = [r for r in result.diff.regions if r.change_type != ChangeType.ADDED]\n    assert non_added == []\n\n\ndef test_added_shape_detected(tmp_path):\n    \"\"\"Geometry change in a raster drawing: a new rectangle must be found.\"\"\"\n    from PIL import ImageDraw\n\n    def make(path, with_shape):\n        img = Image.new(\"L\", (1600, 1200), 255)\n        draw = ImageDraw.Draw(img)\n        # common structure: a large part outline + one detail line\n        draw.rectangle([200, 200, 900, 700], outline=0, width=4)\n        draw.line([950, 250, 1400, 500], fill=0, width=4)\n        if with_shape:\n            draw.rectangle([1100, 800, 1450, 1050], outline=0, width=4)\n        img.save(path)\n\n    a = tmp_path / \"v1.png\"\n    b = tmp_path / \"v2.png\"\n    make(a, with_shape=False)\n    make(b, with_shape=True)\n    result = run_comparison(\"test\", a, b)\n\n    added = [\n        r for r in result.diff.regions\n        if r.change_type == ChangeType.ADDED and r.kind.value == \"geometry\"\n    ]\n    assert added, \"expected the new rectangle to be detected as added geometry\"\n    # it sits in the lower-right quadrant\n    assert any(r.centroid[0] > 0.5 and r.centroid[1] > 0.5 for r in added)\n    # the unchanged outline and line must not be flagged as added/removed\n    removed = [r for r in result.diff.regions if r.change_type == ChangeType.REMOVED]\n    assert removed == []\n\n\ndef test_identical_images_report_no_changes(tmp_path):\n    a = tmp_path / \"v1.png\"\n    b = tmp_path / \"v2.png\"\n    _make_image(a, BASE_LABELS)\n    _make_image(b, BASE_LABELS)\n    result = run_comparison(\"test\", a, b)\n    assert result.diff.regions == []\n    assert \"No significant differences\" in result.summary\n"
     },
     {
       "path": "tests/integration/test_real_pair.py",
@@ -2414,7 +2624,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Smoke test on the real sample pair (vector v1 vs low-res raster v2).\"\"\"\nfrom conftest import SAMPLES\n\nfrom app.pipeline.compare import run_comparison\n\n\ndef test_real_pair_completes():\n    result = run_comparison(\n        \"real\",\n        SAMPLES / \"real_pair\" / \"v1-new.pdf\",\n        SAMPLES / \"real_pair\" / \"v2-new.pdf\",\n    )\n    assert result.diff.path_a == \"vector\"\n    assert result.diff.path_b == \"raster\"\n    assert result.diff.compare_mode == \"approx-geometry+text\"\n    assert result.summary\n    # the v2 scan is too low-resolution for reliable OCR; the pipeline must\n    # say so instead of pretending the comparison is trustworthy\n    assert any(n.startswith(\"Warning:\") for n in result.diff.notes)\n"
     },
     {
       "path": "tests/integration/test_vector_pipeline.py",
@@ -2495,7 +2706,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Full-pipeline test on a synthetic vector PDF pair with known changes.\"\"\"\nimport fitz\nimport pytest\n\nfrom app.models.diff_result import ChangeType\nfrom app.pipeline.compare import run_comparison\n\n\ndef _make_pdf(path, extra_line=False, label=\"SCALE 1:8\"):\n    doc = fitz.open()\n    page = doc.new_page(width=600, height=400)\n    # a fixed rectangle \"part outline\"\n    page.draw_rect(fitz.Rect(100, 100, 300, 250), width=2)\n    # a diagonal detail line\n    page.draw_line(fitz.Point(320, 120), fitz.Point(450, 200), width=1.5)\n    # a text annotation\n    page.insert_text(fitz.Point(100, 320), label, fontsize=14)\n    if extra_line:\n        # the one known geometry change, far from everything else\n        page.draw_line(fitz.Point(480, 300), fitz.Point(560, 360), width=2)\n    doc.save(path)\n    doc.close()\n\n\n@pytest.fixture\ndef pdf_pair(tmp_path):\n    a = tmp_path / \"v1.pdf\"\n    b = tmp_path / \"v2.pdf\"\n    _make_pdf(a)\n    _make_pdf(b, extra_line=True)\n    return a, b\n\n\ndef test_added_line_detected(pdf_pair):\n    a, b = pdf_pair\n    result = run_comparison(\"test\", a, b)\n    assert result.diff.compare_mode == \"geometry+text\"\n    added = [r for r in result.diff.regions if r.change_type == ChangeType.ADDED]\n    assert len(added) == 1\n    # the added region is in the lower-right of the 600x400 page\n    cx, cy = added[0].centroid\n    assert cx > 2 / 3 and cy > 2 / 3\n    # nothing else changed\n    assert len(result.diff.regions) == 1\n    assert \"one\" in result.summary and \"lower-right\" in result.summary\n\n\ndef test_text_change_detected(tmp_path):\n    a = tmp_path / \"v1.pdf\"\n    b = tmp_path / \"v2.pdf\"\n    _make_pdf(a, label=\"SCALE 1:8\")\n    _make_pdf(b, label=\"SCALE 1:4\")\n    result = run_comparison(\"test\", a, b)\n    modified = [r for r in result.diff.regions if r.change_type == ChangeType.MODIFIED]\n    assert len(modified) == 1\n    assert modified[0].detail == \"'SCALE 1:8' -> 'SCALE 1:4'\"\n    assert len(result.diff.regions) == 1\n\n\ndef test_identical_pdfs_report_no_changes(tmp_path):\n    a = tmp_path / \"v1.pdf\"\n    b = tmp_path / \"v2.pdf\"\n    _make_pdf(a)\n    _make_pdf(b)\n    result = run_comparison(\"test\", a, b)\n    assert result.diff.regions == []\n    assert \"No significant differences\" in result.summary\n"
     },
     {
       "path": "tests/unit/test_classify.py",
@@ -2539,7 +2751,8 @@
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "from conftest import SAMPLES\n\nfrom app.detect.classify import classify_page\nfrom app.ingest.loader import load_input\n\n\ndef test_real_samples_classification():\n    doc_a = load_input(SAMPLES / \"real_pair\" / \"v1-new.pdf\")\n    doc_b = load_input(SAMPLES / \"real_pair\" / \"v2-new.pdf\")\n    try:\n        assert classify_page(doc_a.page) == \"vector\"\n        assert classify_page(doc_b.page) == \"raster\"\n    finally:\n        doc_a.close()\n        doc_b.close()\n"
     },
     {
       "path": "tests/unit/test_entity_match.py",
@@ -2619,7 +2832,8 @@
           "type": "docstring"
         }
       ],
-      "capabilities": []
+      "capabilities": [],
+      "content": "\"\"\"Core diff-engine test: one added, one removed, one moved, one modified.\"\"\"\nfrom app.entity_match.classify import classify_matches\nfrom app.entity_match.match import match_entities\nfrom app.models.diff_result import ChangeType, Entity, EntityKind\n\n\ndef _text(id_, x, y, text):\n    return Entity(\n        id=id_,\n        kind=EntityKind.TEXT,\n        bbox=(x - 0.02, y - 0.01, x + 0.02, y + 0.01),\n        centroid=(x, y),\n        text=text,\n    )\n\n\ndef _geom(id_, x, y, signature=None, count=4):\n    return Entity(\n        id=id_,\n        kind=EntityKind.GEOMETRY,\n        bbox=(x - 0.05, y - 0.05, x + 0.05, y + 0.05),\n        centroid=(x, y),\n        shape_signature=signature or {\"l\": count},\n        primitive_count=count,\n    )\n\n\ndef test_added_removed_moved_modified():\n    old = [\n        _text(\"t1\", 0.20, 0.20, \"R10\"),        # will be modified -> \"R15\"\n        _text(\"t2\", 0.50, 0.50, \"SCALE 1:8\"),  # unchanged\n        _geom(\"g1\", 0.80, 0.20),               # will be removed\n        _geom(\"g2\", 0.30, 0.80),               # will be moved\n    ]\n    new = [\n        _text(\"t1n\", 0.20, 0.20, \"R15\"),\n        _text(\"t2n\", 0.50, 0.50, \"SCALE 1:8\"),\n        _geom(\"g2n\", 0.33, 0.80),              # moved by 0.03 (> moved_tol)\n        _geom(\"g3\", 0.60, 0.60),               # added\n    ]\n\n    regions = classify_matches(match_entities(old, new))\n    by_type = {r.change_type: r for r in regions}\n\n    assert len(regions) == 4\n    assert by_type[ChangeType.MODIFIED].detail == \"'R10' -> 'R15'\"\n    assert by_type[ChangeType.REMOVED].kind == EntityKind.GEOMETRY\n    assert by_type[ChangeType.MOVED].old_bbox is not None\n    assert by_type[ChangeType.ADDED].centroid == (0.60, 0.60)\n\n\ndef test_identical_inputs_yield_no_regions():\n    ents = [_text(\"a\", 0.3, 0.3, \"NOTE 1\"), _geom(\"b\", 0.7, 0.7)]\n    regions = classify_matches(match_entities(ents, ents))\n    assert regions == []\n\n\ndef test_global_shift_within_radius_is_not_total_change():\n    \"\"\"The original bug: a small uniform offset must not flag everything.\n\n    Every entity is shifted by 1% of the page \u2014 matching still pairs them\n    up (they land within the search radius) and classifies them as moved,\n    NOT as unrelated added+removed pairs.\n    \"\"\"\n    old = [_text(f\"o{i}\", 0.1 * i, 0.1 * i, f\"LBL{i}\") for i in range(1, 8)]\n    new = [_text(f\"n{i}\", 0.1 * i + 0.01, 0.1 * i + 0.01, f\"LBL{i}\") for i in range(1, 8)]\n    regions = classify_matches(match_entities(old, new))\n    assert all(r.change_type == ChangeType.MOVED for r in regions)\n    assert len(regions) == 7  # everything matched, nothing added/removed\n"
     },
     {
       "path": "tests/unit/test_location_bucket.py",
@@ -2663,7 +2877,8 @@
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "from app.summary.location import bucket_location\n\n\ndef test_corners():\n    assert bucket_location(0.1, 0.1) == \"upper-left\"\n    assert bucket_location(0.9, 0.1) == \"upper-right\"\n    assert bucket_location(0.1, 0.9) == \"lower-left\"\n    assert bucket_location(0.9, 0.9) == \"lower-right\"\n\n\ndef test_center_and_bands():\n    assert bucket_location(0.5, 0.5) == \"center\"\n    assert bucket_location(0.1, 0.5) == \"left\"\n    assert bucket_location(0.9, 0.5) == \"right\"\n    assert bucket_location(0.5, 0.1) == \"upper\"\n    assert bucket_location(0.5, 0.9) == \"lower\"\n\n\ndef test_boundaries():\n    # exactly on the 1/3 line belongs to the center band\n    assert bucket_location(1 / 3, 1 / 3) == \"center\"\n    assert bucket_location(2 / 3, 2 / 3) == \"center\"\n"
     },
     {
       "path": "tests/unit/test_severity_bucket.py",
@@ -2700,7 +2915,8 @@
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "from app.config import settings\nfrom app.summary.severity import bucket_severity\n\n\ndef test_buckets():\n    assert bucket_severity(0.0) == \"minor\"\n    assert bucket_severity(settings.severity_minor - 1e-9) == \"minor\"\n    assert bucket_severity(settings.severity_minor) == \"moderate\"\n    assert bucket_severity(settings.severity_moderate - 1e-9) == \"moderate\"\n    assert bucket_severity(settings.severity_moderate) == \"significant\"\n    assert bucket_severity(0.5) == \"significant\"\n"
     },
     {
       "path": "tests/unit/test_stats.py",
@@ -2755,13 +2971,14 @@
         }
       ],
       "docstrings": [],
-      "capabilities": []
+      "capabilities": [],
+      "content": "from app.models.diff_result import ChangeType, DiffResult, EntityKind, Region\nfrom app.stats.aggregate import _union_area, compute_stats\n\n\ndef _region(id_, bbox, change_type):\n    cx, cy = (bbox[0] + bbox[2]) / 2, (bbox[1] + bbox[3]) / 2\n    return Region(\n        id=id_,\n        change_type=change_type,\n        kind=EntityKind.GEOMETRY,\n        bbox=bbox,\n        centroid=(cx, cy),\n        area_fraction=(bbox[2] - bbox[0]) * (bbox[3] - bbox[1]),\n        confidence=1.0,\n    )\n\n\ndef test_union_area_no_double_count():\n    # two identical boxes -> union equals one box's area\n    boxes = [(0.0, 0.0, 0.5, 0.5), (0.0, 0.0, 0.5, 0.5)]\n    assert abs(_union_area(boxes) - 0.25) < 1e-9\n\n    # disjoint boxes add up\n    boxes = [(0.0, 0.0, 0.1, 0.1), (0.5, 0.5, 0.6, 0.6)]\n    assert abs(_union_area(boxes) - 0.02) < 1e-9\n\n    # 50% overlap\n    boxes = [(0.0, 0.0, 0.2, 0.1), (0.1, 0.0, 0.3, 0.1)]\n    assert abs(_union_area(boxes) - 0.03) < 1e-9\n\n\ndef test_compute_stats_counts_and_order():\n    diff = DiffResult(\n        job_id=\"t\",\n        path_a=\"vector\",\n        path_b=\"vector\",\n        compare_mode=\"geometry+text\",\n        page_width_a=100, page_height_a=100,\n        page_width_b=100, page_height_b=100,\n        regions=[\n            _region(\"r1\", (0.0, 0.0, 0.1, 0.1), ChangeType.ADDED),\n            _region(\"r2\", (0.5, 0.5, 0.9, 0.9), ChangeType.REMOVED),\n            _region(\"r3\", (0.2, 0.2, 0.25, 0.25), ChangeType.MOVED),\n        ],\n        entity_count_a=10,\n        entity_count_b=10,\n    )\n    stats = compute_stats(diff)\n    assert stats.total_regions == 3\n    assert (stats.added_count, stats.removed_count, stats.moved_count) == (1, 1, 1)\n    # per_region sorted by area desc -> the big removed box first\n    assert stats.per_region[0].id == \"r2\"\n    assert abs(stats.total_changed_area_fraction - (0.01 + 0.16 + 0.0025)) < 1e-6\n"
     }
   ],
   "delta": null,
   "ingestion_metadata": {
     "version": "1.0",
-    "timestamp": "2026-07-12T16:12:53.633757+00:00",
+    "timestamp": "2026-07-17T08:06:50.844130+00:00",
     "duration_ms": 0,
     "pipeline_version": "1"
   }

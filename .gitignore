@@ -12,3 +12,4 @@ evaluations/
 data/
 database/
 controllers/__pycache__/__init__.cpython-311.pyc
+*.csv

@@ -1,1 +1,30 @@
-{% extends "base.html" %}{% block content %}<header class="page-heading"><div><p class="eyebrow">Configuration</p><h1>Settings</h1><p class="hero-copy">Runtime configuration for the evaluation workspace.</p></div></header><section class="settings-grid"><article class="panel"><h2>PostgreSQL</h2><p class="settings-copy">PostgreSQL is the single source of truth. Connection credentials are loaded securely from <code>DATABASE_URL</code> and are never exposed to the browser.</p><span class="status-badge session-active">Configured server-side</span></article><article class="panel"><h2>Evaluation worker</h2><p class="settings-copy">Interrupted evaluations automatically return to Pending on startup. The runner can be replaced with a background queue without changing controllers.</p><span class="status-badge session-completed">Subprocess runner</span></article><article class="panel"><h2>Reports</h2><p class="settings-copy">PDFs are generated on demand exclusively from stored database records.</p><span class="status-badge session-completed">Database-backed</span></article></section>{% endblock %}
+{% extends "base.html" %}{% block content %}
+<header class="page-heading"><div><p class="eyebrow">System</p><h1>Administration</h1><p class="hero-copy">Platform health, configuration, and operational statistics for the evaluation workspace.</p></div><button class="secondary-btn" onclick="refreshStatus()" style="flex:none;padding:9px 16px;font-size:.8rem">Refresh</button></header>
+
+<section class="admin-grid" id="adminApp">
+  <div class="admin-health-grid" id="healthCards">
+    <article class="admin-card skeleton-card"><div class="admin-card-icon"></div><div class="admin-card-value skeleton-line"></div><div class="admin-card-label skeleton-line short"></div></article>
+    <article class="admin-card skeleton-card"><div class="admin-card-icon"></div><div class="admin-card-value skeleton-line"></div><div class="admin-card-label skeleton-line short"></div></article>
+    <article class="admin-card skeleton-card"><div class="admin-card-icon"></div><div class="admin-card-value skeleton-line"></div><div class="admin-card-label skeleton-line short"></div></article>
+    <article class="admin-card skeleton-card"><div class="admin-card-icon"></div><div class="admin-card-value skeleton-line"></div><div class="admin-card-label skeleton-line short"></div></article>
+  </div>
+
+  <div class="admin-two-col">
+    <article class="panel">
+      <div class="panel-header bordered"><h2>Database Tables</h2><span class="admin-badge" id="dbStatusBadge">Checking...</span></div>
+      <div class="admin-table-wrap" id="dbTableBody"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+    </article>
+    <article class="panel">
+      <div class="panel-header bordered"><h2>Configuration</h2><span class="admin-badge">Read-only</span></div>
+      <div class="admin-config-list" id="configBody"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+    </article>
+  </div>
+
+  <article class="panel">
+    <div class="panel-header bordered"><h2>Runtime</h2><span class="admin-badge">Server info</span></div>
+    <div class="admin-runtime" id="runtimeBody"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+  </article>
+</section>
+
+<script src="{{ url_for('static', filename='js/settings.js') }}"></script>
+{% endblock %}

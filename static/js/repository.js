@@ -755,7 +755,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!container) return;
 
         if (!criteria || !criteria.length) {
-            container.innerHTML = empty('No assessment data', repository.status === 'Evaluated' ? 'Run an evaluation to generate an assessment.' : 'Evaluation results are not available.');
+            container.innerHTML = empty('No assessment data', repository.status === 'Completed' ? 'Evaluation results are not available.' : 'Run an evaluation to generate an assessment.');
             return;
         }
 
@@ -905,7 +905,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!container) return;
 
         if (!criteria || !criteria.length) {
-            const note = repository && repository.status === 'Evaluated'
+            const note = repository && repository.status !== 'Completed'
                 ? 'Run evaluation to generate metrics.'
                 : 'Evaluation failed. Check errors and retry.';
             container.innerHTML = empty('No assessment data', note);

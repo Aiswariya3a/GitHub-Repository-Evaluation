@@ -273,9 +273,46 @@ def generate_pdf(session_id: str, output_dir: str) -> str:
     rubric_type = report_rubric["type"]
     rubric_max_score = report_rubric["max_score"]
     category_max_scores = report_rubric["category_max_scores"]
+
+    # Build full evaluation data from evaluation_results (criterion_results, feedback)
+    full_eval_by_roll = {}
+    for repo in saved_repositories:
+        rid = str(repo["id"])
+        er = store.evaluations.get_evaluation_result(rid, session_id)
+        if er:
+            roll = normalize_roll(repo.get("roll_number", ""))
+            criteria = er.get("criterion_results") or []
+            questions = {}
+            for cr in criteria:
+                cat = cr.get("category_code", "")
+                if cat not in questions:
+                    questions[cat] = {"total": 0}
+                ck = cr.get("criterion_key", "")
+                questions[cat][ck] = {
+                    "score": cr.get("score", 0),
+                    "remarks": cr.get("remarks", ""),
+                }
+                questions[cat]["total"] += cr.get("score", 0)
+            feedback = er.get("feedback") or {}
+            full_eval_by_roll[roll] = {
+                "final": {
+                    "total_out_of_80": er.get("total_score", 0),
+                    "normalized_to_20": er.get("normalized_to_20", 0),
+                    "overall_remarks": feedback.get("summary", ""),
+                },
+                "questions": questions,
+            }
+
     repo_df = pd.DataFrame([repo["repo_data"] for repo in saved_repositories], columns=["roll_number", "repo", "public", "readme_exists", "commit_count"])
     eval_df = pd.DataFrame([
-        {**repo["evaluation_data"], "evaluation": json.dumps(repo["evaluation_data"]["evaluation"])}
+        {
+            "roll_number": repo.get("roll_number", ""),
+            "repo": repo.get("repo_url", ""),
+            "evaluation": json.dumps(
+                full_eval_by_roll.get(normalize_roll(repo.get("roll_number", "")), {}),
+                default=str,
+            ),
+        }
         for repo in saved_repositories
     ], columns=["roll_number", "repo", "evaluation"])
     plag_df = pd.DataFrame(store.plagiarism(session_id), columns=["roll1", "roll2", "similarity"])

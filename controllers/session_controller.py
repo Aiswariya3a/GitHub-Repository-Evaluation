@@ -43,6 +43,56 @@ def detail_api(session_id):
 @session_controller.get("/api/dashboard")
 def dashboard_api(): return jsonify(services().repositories.dashboard())
 
+@session_controller.get("/api/system/status")
+def system_status_api():
+    import os, platform, sys
+    from datetime import datetime
+    from database.postgres import connect
+    stats = {}
+    try:
+        with connect() as db:
+            rows = db.execute("""
+                SELECT relname AS table_name, n_live_tup AS row_estimate
+                FROM pg_stat_user_tables ORDER BY relname
+            """).fetchall()
+            stats["tables"] = {r["table_name"]: r["row_estimate"] for r in rows}
+            exact = {}
+            for tbl in ["evaluation_sessions","repositories","evaluation_results","ingestion_records","rubrics","rubric_versions","plagiarism_results"]:
+                r = db.execute(f"SELECT COUNT(*) c FROM {tbl}").fetchone()
+                exact[tbl] = r["c"]
+            stats["table_counts"] = exact
+        stats["database"] = "connected"
+    except Exception as exc:
+        stats["database"] = f"error: {exc}"
+    ollama_config = {}
+    try:
+        svc = services()
+        if hasattr(svc.evaluations, 'orchestrator'):
+            o = svc.evaluations.orchestrator.ollama
+            if o:
+                ollama_config = {
+                    "host": o.base_url,
+                    "timeout": o.timeout,
+                    "code_model": o._model_map.get("code", ""),
+                    "reasoning_model": o._model_map.get("reasoning", ""),
+                }
+    except Exception:
+        pass
+    return jsonify({
+        "database": stats,
+        "ollama": ollama_config,
+        "system": {
+            "python_version": sys.version.split()[0],
+            "platform": platform.platform(),
+            "hostname": platform.node(),
+            "server_time": datetime.now().isoformat(),
+        },
+        "worker": {
+            "type": "pipeline (async per-repo)",
+            "mode": "in_process",
+        },
+    })
+
 @session_controller.patch("/api/sessions/<session_id>")
 def update_api(session_id):
     payload = request.get_json(silent=True) or {}

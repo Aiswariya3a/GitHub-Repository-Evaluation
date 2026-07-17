@@ -1,1 +1,46 @@
-{% extends "base.html" %}{% block content %}<header class="page-heading modern-heading"><div><p class="eyebrow">Stored results</p><h1>Reports</h1><p class="hero-copy">Generate polished reports on demand from PostgreSQL records.</p></div></header><section class="stats-grid dashboard-kpis"><article class="metric-card modern-kpi violet"><p class="metric-label">Report source</p><p class="metric-value small-value">PostgreSQL</p><span class="metric-caption">Always current</span></article><article class="metric-card modern-kpi green"><p class="metric-label">Format</p><p class="metric-value small-value">PDF</p><span class="metric-caption">Session and repository</span></article></section><section class="panel"><div class="panel-header"><div><p class="eyebrow">Report library</p><h2>Session reports</h2></div><div class="search-field"><span>⌕</span><input id="reportSearch" placeholder="Search reports…"></div></div><div id="reportsError" class="api-error" hidden></div><div id="reportSessions" class="activity-list"><div class="skeleton-row"></div><div class="skeleton-row"></div></div></section><script src="{{ url_for('static', filename='js/reports.js') }}"></script>{% endblock %}
+{% extends "base.html" %}{% block content %}
+<header class="page-heading modern-heading">
+  <div>
+    <p class="eyebrow">Document management</p>
+    <h1>Reports</h1>
+    <p class="hero-copy">
+      Generate polished on-demand PDF reports from stored evaluation records.
+    </p>
+  </div>
+</header>
+<section class="stats-grid dashboard-kpis" id="reportStats">
+  <article class="metric-card modern-kpi violet">
+    <p class="metric-label">Total reports</p>
+    <p class="metric-value" id="statTotalReports">&mdash;</p>
+    <span class="metric-caption">Sessions with evaluations</span>
+  </article>
+  <article class="metric-card modern-kpi green">
+    <p class="metric-label">Evaluated repositories</p>
+    <p class="metric-value" id="statTotalEvaluated">&mdash;</p>
+    <span class="metric-caption">Across all sessions</span>
+  </article>
+  <article class="metric-card modern-kpi amber">
+    <p class="metric-label">Latest report</p>
+    <p class="metric-value small-value" id="statLatestReport">&mdash;</p>
+    <span class="metric-caption" id="statLatestCaption">No reports yet</span>
+  </article>
+</section>
+<section class="panel report-panel">
+  <div class="panel-header">
+    <div>
+      <p class="eyebrow">Report library</p>
+      <h2>Session reports</h2>
+    </div>
+    <div class="search-field">
+      <span>&#x2315;</span
+      ><input id="reportSearch" placeholder="Search reports&hellip;" />
+    </div>
+  </div>
+  <div id="reportsError" class="api-error" hidden></div>
+  <div id="reportSessions" class="report-list">
+    <div class="skeleton-row"></div>
+    <div class="skeleton-row"></div>
+  </div>
+</section>
+<script src="{{ url_for('static', filename='js/reports.js') }}"></script>
+{% endblock %}

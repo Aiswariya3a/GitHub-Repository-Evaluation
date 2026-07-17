@@ -1,3 +1,5 @@
+import shutil
+
 from flask import Blueprint, abort, flash, redirect, send_file, url_for
 
 from .common import services
@@ -5,7 +7,9 @@ from .common import services
 report_controller = Blueprint("report", __name__)
 
 def send_generated(temp, path, name):
-    response = send_file(path, as_attachment=True, download_name=name); response.call_on_close(temp.cleanup); return response
+    response = send_file(path, as_attachment=True, download_name=name)
+    response.call_on_close(lambda: shutil.rmtree(temp.name, ignore_errors=True))
+    return response
 
 @report_controller.get("/sessions/<session_id>/report")
 def session_report(session_id):

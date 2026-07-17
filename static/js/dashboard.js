@@ -193,11 +193,46 @@ document.addEventListener('DOMContentLoaded', function() {
                 }).join('') || '<p class="empty-state">No evaluations currently running.</p>';
             }
 
-            var technologyBreakdown = document.getElementById('technologyBreakdown');
-            if (technologyBreakdown) {
-                technologyBreakdown.innerHTML = (d.technologies || []).map(function(t) {
-                    return '<div><span>' + window.esc(t.language || t.name || t) + '</span><div class="distribution-bar"><i style="width:' + (t.count ? Math.min(100, t.count / Math.max.apply(null, (d.technologies || []).map(function(x) { return x.count || 1; })) * 100) : 10) + '%"></i></div><strong>' + (t.count || 0) + '</strong></div>';
-                }).join('') || '<p class="empty-state">No technology data.</p>';
+            var techEl = document.getElementById('technologyBreakdown');
+            var techCard = document.getElementById('techCard');
+            var portfolioCard = document.getElementById('portfolioCard');
+            var portfolioEl = document.getElementById('portfolioBreakdown');
+            if (techEl && techCard && portfolioCard && portfolioEl) {
+                var techData = d.technologies || [];
+                if (techData.length) {
+                    techCard.hidden = false;
+                    portfolioCard.hidden = true;
+                    techEl.innerHTML = techData.map(function(t) {
+                        return '<div><span>' + window.esc(t.language || t.name || t) + '</span><div class="distribution-bar"><i style="width:' + (t.count ? Math.min(100, t.count / Math.max.apply(null, techData.map(function(x) { return x.count || 1; })) * 100) : 10) + '%"></i></div><strong>' + (t.count || 0) + '</strong></div>';
+                    }).join('');
+                } else {
+                    techCard.hidden = true;
+                    portfolioCard.hidden = false;
+                    var total = Number(m.repository_count || 0);
+                    var done = Number(m.evaluated_count || 0);
+                    var running = Number(m.running_count || 0);
+                    var remaining = total - done - running;
+                    var donePct = total ? (done / total * 100) : 0;
+                    var runPct = total ? (running / total * 100) : 0;
+                    var remPct = total ? (remaining / total * 100) : 0;
+                    var portfolioStatus = total === 0 ? 'no-data' :
+                        done === total ? 'all-done' :
+                        running > 0 ? 'in-progress' : 'not-started';
+                    portfolioEl.innerHTML =
+                        '<div class="portfolio-metric"><span class="portfolio-stat-value">' + total + '</span><span class="portfolio-stat-label">Total repositories</span></div>' +
+                        '<div class="portfolio-bar-track"><i class="portfolio-bar-seg portfolio-bar-done" style="width:' + donePct + '%"></i>' +
+                        (running ? '<i class="portfolio-bar-seg portfolio-bar-run" style="width:' + runPct + '%"></i>' : '') +
+                        '<i class="portfolio-bar-seg portfolio-bar-rem" style="width:' + (remaining > 0 ? remPct : 0) + '%"></i></div>' +
+                        '<div class="portfolio-legend">' +
+                        '<span><i class="portfolio-legend-dot dot-done"></i>Completed <strong>' + done + '</strong></span>' +
+                        (running ? '<span><i class="portfolio-legend-dot dot-run"></i>Running <strong>' + running + '</strong></span>' : '') +
+                        '<span><i class="portfolio-legend-dot dot-rem"></i>Pending <strong>' + Math.max(0, remaining) + '</strong></span></div>' +
+                        '<div class="portfolio-caption">' +
+                        (portfolioStatus === 'all-done' ? 'All repositories have been evaluated.' :
+                         portfolioStatus === 'in-progress' ? running + ' evaluation' + (running > 1 ? 's' : '') + ' currently in progress.' :
+                         portfolioStatus === 'not-started' ? 'Evaluations pending for ' + total + ' repositor' + (total > 1 ? 'ies' : 'y') + '.' :
+                         'No repositories tracked yet.') + '</div>';
+                }
             }
 
             var leaderboard = document.getElementById('leaderboard');

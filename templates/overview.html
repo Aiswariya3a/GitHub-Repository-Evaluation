@@ -1,14 +1,113 @@
 {% extends "base.html" %}{% block content %}
-<header class="page-heading modern-heading"><div><div class="heading-line"><p class="eyebrow">Command center</p><span class="live-indicator">Live data</span></div><h1>Good evening, Evaluator</h1><p class="hero-copy">Everything happening across your evaluation workspace, at a glance.</p></div><div class="action-row"><button class="secondary-btn" onclick="openCommandPalette()">Search</button><a class="primary-btn link-btn" href="{{ url_for('session.sessions_page') }}">New evaluation</a></div></header>
+<header class="page-heading modern-heading">
+  <div>
+    <div class="heading-line">
+      <p class="eyebrow">Command center</p>
+      <span class="live-indicator">Live data</span>
+    </div>
+    <h1>Good evening, Evaluator</h1>
+    <p class="hero-copy">
+      Everything happening across your evaluation workspace, at a glance.
+    </p>
+  </div>
+  <div class="action-row">
+    <button class="secondary-btn" onclick="openCommandPalette()">Search</button
+    ><a
+      class="primary-btn link-btn"
+      href="{{ url_for('session.sessions_page') }}"
+      >New evaluation</a
+    >
+  </div>
+</header>
 <div id="dashboardError" class="api-error" hidden></div>
-<section class="stats-grid dashboard-kpis" id="dashboardKpis">{% for _ in range(4) %}<article class="metric-card skeleton-card"><div class="skeleton-line short"></div><div class="skeleton-block"></div></article>{% endfor %}</section>
+<section class="stats-grid dashboard-kpis" id="dashboardKpis">
+  {% for _ in range(4) %}
+  <article class="metric-card skeleton-card">
+    <div class="skeleton-line short"></div>
+    <div class="skeleton-block"></div>
+  </article>
+  {% endfor %}
+</section>
 <section class="dashboard-component-grid">
-  <article class="panel health-card"><div class="panel-header"><div><p class="eyebrow">Health overview</p><h2>Project health</h2></div><select class="compact-select"><option>All time</option></select></div><div id="healthGauge" class="health-gauge skeleton-block"></div><div id="healthLegend" class="health-legend"></div></article>
-  <article class="panel score-chart-card"><div class="panel-header"><div><p class="eyebrow">Distribution</p><h2>Evaluation scores</h2></div><a href="/analytics" class="text-link">Explore</a></div><div id="scoreChart" class="vertical-chart"><div class="skeleton-block"></div></div></article>
-  <article class="panel activity-card"><div class="panel-header"><div><p class="eyebrow">Activity feed</p><h2>Recent evaluations</h2></div><button class="icon-btn" title="More actions">•••</button></div><div id="recentActivity" class="activity-list"><div class="skeleton-row"></div><div class="skeleton-row"></div><div class="skeleton-row"></div></div></article>
-  <article class="panel running-card"><div class="panel-header"><div><p class="eyebrow">In progress</p><h2>Running evaluations</h2></div><span id="runningCount" class="count-pill">0</span></div><div id="runningEvaluations" class="activity-list"><div class="skeleton-row"></div></div></article>
-  <article class="panel technology-card"><div class="panel-header"><div><p class="eyebrow">Technology</p><h2>Stack breakdown</h2></div></div><div id="technologyBreakdown" class="technology-bars"></div></article>
-  <article class="panel leaderboard-card"><div class="panel-header"><div><p class="eyebrow">Top performers</p><h2>Repository leaderboard</h2></div><a href="/analytics" class="text-link">View all</a></div><div id="leaderboard" class="leaderboard"></div></article>
+  <article class="panel health-card">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Health overview</p>
+        <h2>Project health</h2>
+      </div>
+      <select class="compact-select">
+        <option>All time</option>
+      </select>
+    </div>
+    <div id="healthGauge" class="health-gauge skeleton-block"></div>
+    <div id="healthLegend" class="health-legend"></div>
+  </article>
+  <article class="panel score-chart-card">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Distribution</p>
+        <h2>Evaluation scores</h2>
+      </div>
+      <a href="/analytics" class="text-link">Explore</a>
+    </div>
+    <div id="scoreChart" class="vertical-chart">
+      <div class="skeleton-block"></div>
+    </div>
+  </article>
+  <article class="panel activity-card">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Activity feed</p>
+        <h2>Recent evaluations</h2>
+      </div>
+      <button class="icon-btn" title="More actions">•••</button>
+    </div>
+    <div id="recentActivity" class="activity-list">
+      <div class="skeleton-row"></div>
+      <div class="skeleton-row"></div>
+      <div class="skeleton-row"></div>
+    </div>
+  </article>
+  <article class="panel running-card">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">In progress</p>
+        <h2>Running evaluations</h2>
+      </div>
+      <span id="runningCount" class="count-pill">0</span>
+    </div>
+    <div id="runningEvaluations" class="activity-list">
+      <div class="skeleton-row"></div>
+    </div>
+  </article>
+  <article class="panel technology-card" id="techCard">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Technology</p>
+        <h2>Stack breakdown</h2>
+      </div>
+    </div>
+    <div id="technologyBreakdown" class="technology-bars"></div>
+  </article>
+  <article class="panel portfolio-card" id="portfolioCard" hidden>
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Portfolio</p>
+        <h2>Repository status</h2>
+      </div>
+    </div>
+    <div id="portfolioBreakdown" class="portfolio-bars"></div>
+  </article>
+  <article class="panel leaderboard-card">
+    <div class="panel-header">
+      <div>
+        <p class="eyebrow">Top performers</p>
+        <h2>Repository leaderboard</h2>
+      </div>
+      <a href="/analytics" class="text-link">View all</a>
+    </div>
+    <div id="leaderboard" class="leaderboard"></div>
+  </article>
 </section>
 <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 {% endblock %}

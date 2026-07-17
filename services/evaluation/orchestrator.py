@@ -385,7 +385,7 @@ class EvaluationOrchestrator:
             agg_path = self._step_output_path(session_dir, "aggregation")
             with open(agg_path, "w") as f:
                 agg_dict = asdict(aggregated) if is_dataclass(aggregated) else aggregated
-                json.dump(agg_dict, f, indent=2)
+                json.dump(agg_dict, f, indent=2, default=str)
 
         # --- Step 5: Feedback Generation (sequential) ---
         if "feedback" in completed:

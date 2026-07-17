@@ -58,6 +58,7 @@ class FileRecord:
     imports: list[ImportInfo] = field(default_factory=list)
     docstrings: list[DocstringInfo] = field(default_factory=list)
     capabilities: list[str] = field(default_factory=list)
+    content: str = ""
 
 
 @dataclass

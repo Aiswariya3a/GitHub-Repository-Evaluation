@@ -67,34 +67,34 @@ class SnapshotBuilder:
         file_records: list[dict],
         metrics_results: list[dict],
     ) -> list[dict]:
-        merged = []
-        for i, f_rec in enumerate(file_records):
-            entry = {
-                "path": f_rec.get("path", ""),
-                "language": f_rec.get("language", ""),
-                "loc": 0,
-                "code_loc": 0,
-                "comment_lines": 0,
-                "comment_ratio": 0.0,
-                "cyclomatic_complexity": 0,
-                "functions": [],
-                "classes": [],
-                "imports": [],
-                "docstrings": [],
-                "capabilities": [],
-            }
+        # Build path-indexed lookup from metrics_results so index misalignment
+        # (from files that failed to read) does not corrupt content mapping
+        metrics_by_path: dict[str, dict] = {}
+        for m in metrics_results:
+            path = m.get("path", m.get("_path", ""))
+            if path:
+                metrics_by_path[path] = m
 
-            if i < len(metrics_results):
-                m = metrics_results[i]
-                entry["loc"] = m.get("loc", 0)
-                entry["code_loc"] = m.get("code_loc", 0)
-                entry["comment_lines"] = m.get("comment_lines", 0)
-                entry["comment_ratio"] = m.get("comment_ratio", 0.0)
-                entry["cyclomatic_complexity"] = m.get("cyclomatic_complexity", 0)
-                entry["functions"] = m.get("functions", [])
-                entry["classes"] = m.get("classes", [])
-                entry["imports"] = m.get("imports", [])
-                entry["docstrings"] = m.get("docstrings", [])
+        merged = []
+        for f_rec in file_records:
+            path = f_rec.get("path", "")
+            m = metrics_by_path.get(path, {})
+
+            entry = {
+                "path": path,
+                "language": f_rec.get("language", ""),
+                "loc": m.get("loc", 0),
+                "code_loc": m.get("code_loc", 0),
+                "comment_lines": m.get("comment_lines", 0),
+                "comment_ratio": m.get("comment_ratio", 0.0),
+                "cyclomatic_complexity": m.get("cyclomatic_complexity", 0),
+                "functions": m.get("functions", []),
+                "classes": m.get("classes", []),
+                "imports": m.get("imports", []),
+                "docstrings": m.get("docstrings", []),
+                "capabilities": [],
+                "content": m.get("content", ""),
+            }
 
             merged.append(entry)
 

@@ -96,6 +96,7 @@ class EvaluationOrchestrator:
         """
         completed = {}
         step_files = {
+            "ingestion": self._step_output_path(session_dir, "ingestion"),
             "repo_understanding": self._step_output_path(session_dir, "repo_understanding"),
             "code_understanding": self._step_output_path(session_dir, "code_understanding"),
             "collaboration": self._step_output_path(session_dir, "collaboration"),
@@ -168,13 +169,8 @@ class EvaluationOrchestrator:
         return None
 
     def _run_parallel_agents(self, agents: list[tuple], session_dir: str) -> dict:
-        """Run independent agents in parallel respecting max_parallel (ORC-04).
-
-        Args:
-            agents: list of tuples (agent_callable, agent_name, step_name)
-        Returns:
-            dict: {step_name: output_dict or None}
-        """
+        """Run independent agents in parallel respecting max_parallel (ORC-04)."""
+        print(f"[DIAG] _run_parallel_agents: launching {len(agents)} agents (max_workers={self.max_parallel})")
         results = {}
         with ThreadPoolExecutor(max_workers=self.max_parallel) as executor:
             future_map = {}
@@ -219,21 +215,29 @@ class EvaluationOrchestrator:
         """
         start_time = time.monotonic()
         session_dir = self._create_session_dir(session_id, repository_id)
+        print(f"[DIAG] Evaluate called: force={force}, session_dir={session_dir}")
         if force and os.path.exists(session_dir):
             shutil.rmtree(session_dir)
             os.makedirs(session_dir, exist_ok=True)
             logger.info(f"Force re-evaluation: cleared cache at {session_dir}")
+            print(f"[DIAG] Cache cleared at {session_dir}")
         completed = self._detect_completed_steps(session_dir)
+        print(f"[DIAG] Completed steps after detection: {list(completed.keys())}")
 
         # --- Step 1: Ingestion ---
-        if "repo_understanding" not in completed:
+        if "ingestion" not in completed:
             logger.info("Step 1: Running ingestion")
+            print(f"[DIAG] Step 1: Ingestion will run (ingestion not in completed)")
             ingestion_result = self.ingestion_service.ingest(
                 repo_url=repo_url,
                 roll_number=roll_number,
                 base_repo_url=base_repo_url,
                 repository_id=repository_id,
             )
+            print(f"[DIAG] Ingestion returned: status={ingestion_result.get('status')}, "
+                  f"has_snapshot={'snapshot' in ingestion_result}, "
+                  f"has_rec_id={bool(ingestion_result.get('ingestion_record_id'))}, "
+                  f"error={ingestion_result.get('error')}")
             snapshot = ingestion_result.get("snapshot")
             if not snapshot:
                 # Try loading from ingestion_repo
@@ -242,27 +246,33 @@ class EvaluationOrchestrator:
                     record = self.ingestion_repo.get_ingestion_by_id(str(rec_id))
                     snapshot = record["snapshot"] if record else None
             if not snapshot:
+                print(f"[DIAG] SNAPSHOT IS NONE. Returning early with failed status")
                 return {
                     "status": "failed",
                     "error": "Ingestion produced no snapshot",
                     "failed_agents": [],
                     "results": {},
                 }
-            # Cache snapshot path
+            print(f"[DIAG] Snapshot OK: {len(snapshot.get('files', []))} files, "
+                  f"repo_stats keys={list(snapshot.get('repo_stats', {}).keys())}")
+            # Cache snapshot
             snapshot_path = self._step_output_path(session_dir, "ingestion")
             with open(snapshot_path, "w") as f:
                 json.dump(snapshot, f, indent=2, default=str)
+            print(f"[DIAG] Ingestion complete: snapshot saved ({len(snapshot.get('files', []))} files in snapshot)")
         else:
-            snapshot = completed["repo_understanding"]
+            snapshot = completed["ingestion"]
 
         # --- Step 2: Capability Extraction (parallel) ---
         if all(s in completed for s in ["repo_understanding", "code_understanding", "collaboration"]):
             logger.info("Step 2: All capability outputs found, skipping")
+            print("[DIAG] Step 2: All capability outputs found, skipping")
             repo_out = completed["repo_understanding"]
             code_out = completed["code_understanding"]
             collab_out = completed["collaboration"]
         else:
             logger.info("Step 2: Running capability extraction agents")
+            print("[DIAG] Step 2: Running capability extraction agents (this will call Ollama)")
             agents = [
                 (lambda: self._run_agent_with_retry(
                     self.repo_agent, "RepoUnderstandingAgent", snapshot,
@@ -288,9 +298,11 @@ class EvaluationOrchestrator:
         # --- Step 3: Rubric Evaluation (parallel per criterion) ---
         if "criteria" in completed:
             logger.info("Step 3: Criteria evaluation output found, skipping")
+            print("[DIAG] Step 3: Criteria found, skipping")
             criterion_results = completed["criteria"]
         else:
             logger.info("Step 3: Running rubric criteria evaluation")
+            print("[DIAG] Step 3: Running criteria evaluation")
             rubric_version_id = rubric_version_id or self.rubric_service.default_version_id
             rubric = self.rubric_service.get_version(rubric_version_id)
 
@@ -303,7 +315,7 @@ class EvaluationOrchestrator:
 
             for cat, crit in all_criteria:
                 try:
-                    evidence = route_evidence(snapshot, cat["code"])
+                    evidence = route_evidence(snapshot, cat["code"], criterion_key=crit["criterion_key"])
                     input_data = {
                         "criterion_key": crit["criterion_key"],
                         "category_code": cat["code"],
@@ -363,9 +375,11 @@ class EvaluationOrchestrator:
         # --- Step 4: Score Aggregation (deterministic) ---
         if "aggregation" in completed:
             logger.info("Step 4: Aggregation output found, skipping")
+            print("[DIAG] Step 4: Aggregation found, skipping")
             aggregated = completed["aggregation"]
         else:
             logger.info("Step 4: Aggregating scores")
+            print("[DIAG] Step 4: Aggregating scores")
             rubric = self.rubric_service.get_version(rubric_version_id)
             aggregated = aggregate_scores(criterion_results, rubric)
             agg_path = self._step_output_path(session_dir, "aggregation")
@@ -376,9 +390,11 @@ class EvaluationOrchestrator:
         # --- Step 5: Feedback Generation (sequential) ---
         if "feedback" in completed:
             logger.info("Step 5: Feedback output found, skipping")
+            print("[DIAG] Step 5: Feedback found, skipping")
             feedback = completed["feedback"]
         else:
             logger.info("Step 5: Generating feedback")
+            print("[DIAG] Step 5: Generating feedback")
             feedback_input = {
                 "aggregated_result": asdict(aggregated) if is_dataclass(aggregated) else aggregated,
                 "criterion_results": criterion_results,
@@ -455,5 +471,6 @@ class EvaluationOrchestrator:
 
         duration = time.monotonic() - start_time
         eval_result["duration_seconds"] = round(duration, 1)
+        print(f"[DIAG] evaluate() returning: status={pipeline_status}, duration={round(duration, 1)}s")
 
         return eval_result

@@ -31,6 +31,8 @@ class RepoUnderstandingAgent(BaseAgent):
     input_data (AGN-05), and writes validated structured output.
     """
 
+    MAX_CONTENT_CHARS_PER_FILE = 2000
+
     def run(
         self,
         input_data: dict,
@@ -41,7 +43,7 @@ class RepoUnderstandingAgent(BaseAgent):
         Args:
             input_data: ProjectSnapshot dict containing:
                 - repo_stats: Repository statistics (language breakdown, LOC, etc.)
-                - files: List of file records with paths, languages, metrics
+                - files: List of file records with paths, languages, metrics, content
                 - repository_metadata: Basic repo metadata
             output_path: If provided, writes validated output to this path.
 
@@ -53,10 +55,23 @@ class RepoUnderstandingAgent(BaseAgent):
         repo_stats = input_data.get("repo_stats", {})
         files = input_data.get("files", [])
         repo_metadata = input_data.get("repository_metadata", {})
+        print(
+            f"[DIAG] RepoUnderstandingAgent snapshot: "
+            f"file_count={repo_stats.get('file_count', 0)} "
+            f"total_loc={repo_stats.get('total_loc', 0)} "
+            f"languages={list(repo_stats.get('language_breakdown', {}).keys())} "
+            f"files_in_snapshot={len(files)}"
+        )
+        if not files:
+            print(
+                f"[DIAG] RepoUnderstandingAgent: ZERO files in snapshot! "
+                f"snapshot_keys={list(input_data.keys())} "
+                f"repo_stats_keys={list(repo_stats.keys())}"
+            )
 
         # Build a concise user prompt with repository overview
-        # Include only path + language + loc for token efficiency (Pitfall 2)
         file_summaries = self._build_file_summary(files)
+        file_contents = self._build_file_contents(files)
 
         user_prompt = (
             "Repository Overview:\n"
@@ -69,6 +84,7 @@ class RepoUnderstandingAgent(BaseAgent):
             "Files:\n"
             f"{file_summaries}\n\n"
             f"Repository URL: {repo_metadata.get('url', 'N/A')}\n"
+            f"\nSource Code Contents (key files):\n{file_contents}\n"
         )
 
         logger.info(
@@ -156,6 +172,27 @@ class RepoUnderstandingAgent(BaseAgent):
                     })
             normalized["key_files"] = rebuilt
         return normalized
+
+    def _build_file_contents(self, files: list[dict], max_files: int = 10) -> str:
+        sorted_files = sorted(
+            files,
+            key=lambda f: f.get("loc", f.get("code_loc", 0)) or 0,
+            reverse=True,
+        )
+        lines = []
+        for i, f in enumerate(sorted_files):
+            if i >= max_files:
+                break
+            content = f.get("content", "")
+            if not content:
+                continue
+            path = f.get("path", "unknown")
+            lang = f.get("language", "unknown")
+            preview = content[:self.MAX_CONTENT_CHARS_PER_FILE]
+            if len(content) > self.MAX_CONTENT_CHARS_PER_FILE:
+                preview += "\n... [truncated]"
+            lines.append(f"--- {path} ---\n```{lang}\n{preview}\n```")
+        return "\n".join(lines) if lines else "(no source content available)"
 
     def _build_file_summary(self, files: list[dict], max_files: int = 30) -> str:
         """Build a concise file summary string.

@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import shutil
 import time
@@ -76,11 +77,22 @@ class IngestionService:
 
             # Stage 2: GitHub Metadata
             meta_start = time.monotonic()
-            github_metadata = {"commits_count": 0, "recent_commits": [], "contributors": [], "pull_requests_count": 0, "pull_requests": [], "issues_count": 0, "issues": []}
+            default_github_metadata = {"commits_count": 0, "recent_commits": [], "contributors": [], "pull_requests_count": 0, "pull_requests": [], "issues_count": 0, "issues": [], "is_public": False, "readme_exists": False}
             try:
                 github_metadata = self.github.get_full_metadata(repo_url)
-            except Exception:
-                pass
+                if not github_metadata.get("commits_count") and not github_metadata.get("contributors"):
+                    logging.getLogger(__name__).warning(
+                        "GitHub API returned zero commits/contributors for %s — check GITHUB_TOKEN",
+                        repo_url,
+                    )
+            except Exception as e:
+                logging.getLogger(__name__).error(
+                    "GitHub metadata fetch failed for %s: %s", repo_url, e,
+                )
+                github_metadata = default_github_metadata
+            else:
+                if "is_public" not in github_metadata:
+                    github_metadata = default_github_metadata
             meta_duration = int((time.monotonic() - meta_start) * 1000)
 
             # Stage 3: File Discovery
@@ -96,33 +108,47 @@ class IngestionService:
             if not discovered_files:
                 error = (error or "") + "; No source files discovered"
                 status = "partial"
+                diag = (
+                    f"[DIAG] FILE DISCOVERY ZERO FILES at {clone_path}. "
+                    f"Exists={os.path.exists(clone_path) if clone_path else 'N/A'}. "
+                    f"IsDir={os.path.isdir(clone_path) if (clone_path and os.path.exists(clone_path)) else 'N/A'}. "
+                    f"Contents={os.listdir(clone_path)[:20] if (clone_path and os.path.exists(clone_path) and os.path.isdir(clone_path)) else 'N/A'}"
+                )
+                print(diag)
+                logging.getLogger(__name__).warning(diag)
+            else:
+                diag = f"[DIAG] FILE DISCOVERY OK: {len(discovered_files)} files at {clone_path}. First 5: {[f.path for f in discovered_files[:5]]}"
+                print(diag)
+                logging.getLogger(__name__).info(diag)
 
             # Stage 4 & 5: Parse + Metrics
             parse_metrics_start = time.monotonic()
             file_records: list[dict] = [f.to_dict() for f in discovered_files]
             metrics_results: list[dict] = []
             parse_errors = 0
+            print(f"[DIAG] Starting parse for {len(discovered_files)} files ({discover_duration}ms discover)")
 
             for file_info in discovered_files:
                 file_path = os.path.join(clone_path, file_info.path)
                 file_result = {
+                    "path": file_info.path,
                     "loc": 0, "code_loc": 0, "comment_lines": 0,
                     "comment_ratio": 0.0, "cyclomatic_complexity": 0,
                     "functions": [], "classes": [], "imports": [], "docstrings": [],
+                    "content": "",
                 }
 
                 try:
                     source = self._read_source_file(file_path)
-                    if source is None:
-                        continue
+                    if source is not None:
+                        file_result["content"] = source
+                        parsed = self.parser.parse_file(source, file_info.language)
+                        file_result.update(parsed)
 
-                    parsed = self.parser.parse_file(source, file_info.language)
-                    file_result.update(parsed)
-
-                    comment_syntax = self.discoverer.get_comment_syntax(file_info.language)
-                    mc = MetricsCalculator(comment_syntax=comment_syntax)
-                    metrics = mc.compute_metrics(source, parsed)
-                    file_result.update(metrics)
+                        comment_syntax = self.discoverer.get_comment_syntax(file_info.language)
+                        mc = MetricsCalculator(comment_syntax=comment_syntax)
+                        metrics = mc.compute_metrics(source, parsed)
+                        file_result.update(metrics)
 
                 except Exception:
                     parse_errors += 1
@@ -248,6 +274,15 @@ class IngestionService:
         finally:
             if clone_path and os.path.exists(clone_path):
                 shutil.rmtree(clone_path, ignore_errors=True)
+                if os.path.exists(clone_path):
+                    try:
+                        subprocess.run(
+                            ["rmdir", "/s", "/q", clone_path],
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                            shell=True, timeout=30,
+                        )
+                    except Exception:
+                        pass
 
     def _read_source_file(self, file_path: str) -> Optional[str]:
         try:

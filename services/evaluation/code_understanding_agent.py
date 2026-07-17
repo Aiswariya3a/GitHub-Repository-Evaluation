@@ -19,7 +19,8 @@ from services.evaluation.ollama_router import CODE_UNDERSTANDING_SYSTEM_PROMPT
 logger = logging.getLogger(__name__)
 
 # Maximum files to include in prompt to avoid context window overflow
-MAX_FILES_IN_PROMPT = 10
+MAX_FILES_IN_PROMPT = 15
+MAX_CONTENT_CHARS_PER_FILE = 3000
 
 
 class CodeUnderstandingAgent(BaseAgent):
@@ -258,6 +259,14 @@ class CodeUnderstandingAgent(BaseAgent):
             if imports:
                 imp_strs = [imp.get("module", "?") for imp in imports]
                 lines.append(f"  Imports: {', '.join(imp_strs)}")
+
+            # Source code content (cloned data)
+            content = f.get("content", "")
+            if content:
+                content_preview = content[:MAX_CONTENT_CHARS_PER_FILE]
+                if len(content) > MAX_CONTENT_CHARS_PER_FILE:
+                    content_preview += "\n... [truncated]"
+                lines.append(f"  Source:\n```{language}\n{content_preview}\n```")
 
             lines.append("---")
 

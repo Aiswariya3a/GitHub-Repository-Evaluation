@@ -50,6 +50,30 @@ Low-Confidence Criteria: {low_conf_list}
 
 Please generate structured feedback based on this data."""
 
+FEEDBACK_RETRY_PROMPT_TEMPLATE = """The previous response was missing the "summary" field. Please fix the response.
+
+The "summary" field is REQUIRED — a plain string of 2-3 sentences providing an overall assessment.
+
+Your complete response MUST have ALL 4 keys:
+- "strengths"
+- "weaknesses"
+- "suggestions"
+- "summary"
+
+Previous validation errors:
+{validation_errors}
+
+Criterion Scores:
+{scores_summary}
+
+Category Totals:
+{category_summary}
+
+Overall Score: {total_score}/{max_score} ({percentage}%)
+Low-Confidence Criteria: {low_conf_list}
+
+Please generate a complete, valid response."""
+
 
 class FeedbackAgent(BaseAgent):
     """Generates structured feedback from aggregated criterion evaluations.
@@ -136,10 +160,24 @@ class FeedbackAgent(BaseAgent):
         result = None
         for attempt in range(3):
             try:
+                if attempt == 0:
+                    current_prompt = user_prompt
+                else:
+                    err_text = "; ".join(last_errors) if last_errors else "unknown validation errors"
+                    current_prompt = FEEDBACK_RETRY_PROMPT_TEMPLATE.format(
+                        validation_errors=err_text,
+                        scores_summary=scores_summary,
+                        category_summary=category_summary,
+                        total_score=total_score,
+                        max_score=max_score,
+                        percentage=percentage,
+                        low_conf_list=low_conf_list,
+                    )
+
                 raw = self.ollama.infer(
                     model_role="reasoning",
                     system_prompt=FEEDBACK_SYSTEM_PROMPT,
-                    user_prompt=user_prompt,
+                    user_prompt=current_prompt,
                     format="json",
                 )
                 result = self._normalize_feedback(raw)
@@ -147,6 +185,11 @@ class FeedbackAgent(BaseAgent):
                 if is_valid:
                     break
                 else:
+                    last_errors = errors
+                    result = self._ensure_summary(result)
+                    is_valid, errors = self._validate_output(result, FEEDBACK_SCHEMA)
+                    if is_valid:
+                        break
                     logger.warning(
                         "FeedbackAgent attempt %d: schema validation failed: %s",
                         attempt + 1,
@@ -154,6 +197,7 @@ class FeedbackAgent(BaseAgent):
                     )
                     result = None
             except Exception as e:
+                last_errors = [str(e)]
                 logger.error(
                     "FeedbackAgent attempt %d: error: %s",
                     attempt + 1,
@@ -282,3 +326,21 @@ class FeedbackAgent(BaseAgent):
             normalized["suggestions"] = rebuilt
 
         return normalized
+
+    @staticmethod
+    def _ensure_summary(result: dict) -> dict:
+        """Ensure 'summary' field exists, synthesizing one from other fields if missing."""
+        if "summary" in result and result["summary"]:
+            return result
+        strengths = result.get("strengths", [])
+        weaknesses = result.get("weaknesses", [])
+        suggestions = result.get("suggestions", [])
+        parts = []
+        if strengths:
+            parts.append(f"Strengths include {strengths[0].get('area', 'several areas')}")
+        if weaknesses:
+            parts.append(f"Areas for improvement include {weaknesses[0].get('area', 'several areas')}")
+        if suggestions:
+            parts.append(f"Key suggestion: {suggestions[0].get('suggestion', 'review the feedback above')}")
+        result["summary"] = ". ".join(parts) + "." if parts else "Evaluation complete."
+        return result

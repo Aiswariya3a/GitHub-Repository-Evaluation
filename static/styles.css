@@ -32,7 +32,7 @@ body {
 .topbar a { color: var(--muted); text-decoration: none; font-weight: 600; }
 .topbar .brand { color: var(--text); display: flex; align-items: center; gap: 10px; }
 .nav-location { color: var(--muted); font-size: .85rem; }
-.application-layout { display: grid; grid-template-columns: 220px minmax(0,1fr); max-width: 1680px; margin: 0 auto; }
+.application-layout { display: grid; grid-template-columns: 220px minmax(0,1fr); }
 .sidebar { min-height: calc(100vh - 68px); border-right: 1px solid var(--border); padding: 24px 16px; }
 .sidebar nav { position: sticky; top: 92px; display: flex; flex-direction: column; gap: 5px; }
 .sidebar a { color: var(--muted); text-decoration: none; padding: 10px 12px; border-radius: 10px; font-size: .88rem; font-weight: 600; }
@@ -66,7 +66,7 @@ input:focus { outline: 2px solid rgba(79,70,229,.35); border-color: var(--indigo
    COMPONENTS - Buttons, Cards, Dialogs, Forms, Tables, Badges, Progress Bars
    ========================================== */
 
-.app-shell { max-width: 1440px; margin: 0 auto; padding: 24px; }
+.app-shell { padding: 24px; }
 .hero-card, .panel, .metric-card {
   background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(17, 28, 51, 0.95));
   border: 1px solid var(--border);

@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Executive AI Dashboard & Async Evaluation
-status: v3.0 Milestone ARCHIVED (2026-07-18)
-last_updated: "2026-07-18T13:10:42.000Z"
+status: completed
+last_updated: "2026-07-18T13:45:00.000Z"
 progress:
-  total_phases: 5
-  completed_phases: 5
-  total_plans: 14
-  completed_plans: 14
+  total_phases: 6
+  completed_phases: 6
+  total_plans: 16
+  completed_plans: 16
   percent: 100
 ---
 
@@ -37,9 +37,9 @@ Milestones:
 - ✅ v3.0 — Executive AI Dashboard & Async Evaluation (Phases 6-10, 15 direct commits)
 - 🔄 v4.0 — Human-in-the-Loop Review (Phase 11 complete, Phases 12-13 remaining)
 
-**v4.0 Progress:** 2/2 plans complete (Phase 11: HITL Data Model & Backend)
+**v4.0 Progress:** 3/4 plans complete (Phase 11: HITL Data Model & Backend, Phase 12: Plans 1-2 complete)
 
-**Next:** Phase 12 — Review Dashboard & UI
+**Next:** Phase 12 Plan 3 — remaining UI work
 
 ---
 
@@ -212,11 +212,40 @@ None.
   - Enhanced PDF reports (rubric-aware, per-repository)
   - Feedback Agent summary field with retry and fallback
 
+### Previous Session (v4.0 Plan 11-02)
+
+- **Executed Phase 11 Plan 2 (11-02)** — HITL Review Service & API Endpoints:
+  - Created `services/review_service.py` with ReviewService class (12 methods)
+  - Created `controllers/review_controller.py` with 6 REST endpoints under `/api/reviews/`
+  - Wired ReviewController in `controllers/__init__.py` and `app.py`
+  - Added `reviews: ReviewService` to ServiceContainer dataclass
+  - Added `needs_review` boolean to session_context() response
+  - Added `pending_reviews` count to dashboard API
+  - Added auto-queue logic in pipeline_service.py
+
+### Previous Session (v4.0 Plan 12-01)
+
+- **Executed Phase 12 Plan 1 (12-01)** — Review Dashboard & Navigation UI:
+  - Created Reviews nav link in sidebar and command palette
+  - Added `/reviews` route in session_controller.py
+  - Created `templates/reviews.html` with stats grid, toolbar, filter chips, data table
+  - Created `static/js/reviews.js` with full review queue page logic (session filter, status filter, dual-mode loading, start review action)
+  - Updated dashboard.js to show pending_reviews count
+  - Added review badges to session page repo cards (needs_review flag)
+  - 5 atomic commits
+
+### Last Session (v4.0 Plan 12-02)
+
+- **Executed Phase 12 Plan 2 (12-02)** — Review Panel & Score Override Controls:
+  - Added Review tab button and panel to repository detail template
+  - Created `static/js/review_detail.js` with full review panel logic (status hero, action buttons, score override inputs, submitted overrides, audit trail timeline)
+  - Added review panel CSS classes to dashboard.css (review-hero, override-criteria, override-input, audit-timeline, etc.)
+  - 3 atomic commits
+
 ### Next Session
 
-- Phase 11 (HITL Data Model & Backend) is fully complete — all database tables, repositories, services, and API endpoints are ready
-- Next: Phase 12 (Review Dashboard & UI) — Reviewer dashboard, review workflow interface, score override controls
-- Next: Phase 13 (Audit Trail, Badges & Roles) — Audit log, visual badges, report notes, instructor/admin distinction
+- Phase 12 Plan 3 (if planned) — remaining Review Dashboard & UI work
+- Phase 13 (Audit Trail, Badges & Roles) — Audit log, visual badges, report notes, instructor/admin distinction
 
 ---
 

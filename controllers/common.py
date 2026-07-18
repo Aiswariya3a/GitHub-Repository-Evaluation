@@ -67,7 +67,7 @@ def session_context(session_id):
         rid = str(row.get("id", ""))
         if rid in ingestion_commits and ingestion_commits[rid] > (row.get("commit_count") or 0):
             row["commit_count"] = ingestion_commits[rid]
-    # Fetch low_confidence flags from evaluation_results
+    # Fetch low_confidence flags and needs_review from evaluation_results / review_queue
     try:
         for row in rows:
             rid = str(row.get("id", ""))
@@ -77,11 +77,14 @@ def session_context(session_id):
                     row["has_low_confidence"] = bool(eval_result.get("low_confidence_criteria"))
                 else:
                     row["has_low_confidence"] = False
+                row["needs_review"] = container.reviews.needs_review(rid, session_id)
             else:
                 row["has_low_confidence"] = False
+                row["needs_review"] = False
     except Exception:
         for row in rows:
             row["has_low_confidence"] = False
+            row["needs_review"] = False
     # Fetch plagiarism data for the session
     plagiarism = []
     try:

@@ -41,7 +41,10 @@ def detail_api(session_id):
                    plagiarism=plagiarism, insights=services().repositories.session_insights(session_id))
 
 @session_controller.get("/api/dashboard")
-def dashboard_api(): return jsonify(services().repositories.dashboard())
+def dashboard_api():
+    data = services().repositories.dashboard()
+    data["pending_reviews"] = services().reviews.review_queue.total_pending()
+    return jsonify(data)
 
 @session_controller.get("/api/system/status")
 def system_status_api():

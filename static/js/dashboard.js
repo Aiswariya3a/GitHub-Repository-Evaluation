@@ -123,15 +123,13 @@ document.addEventListener('DOMContentLoaded', function() {
     loadRubrics();
 });
 
-// --- Overview page (dashboard KPIs) ---
+// --- Overview page (v3 executive dashboard) ---
 document.addEventListener('DOMContentLoaded', function() {
-    var healthGauge = document.getElementById('healthGauge');
-    if (!healthGauge) return; // Not on overview page
+    var healthCard = document.getElementById('healthCard');
+    if (!healthCard) return;
 
-    function kpi(label, value, caption, tone, trend) {
-        return '<article class="metric-card modern-kpi ' + tone + '"><div class="kpi-top"><p class="metric-label">' + label + '</p>' +
-            '<span class="kpi-icon">' + trend + '</span></div><p class="metric-value">' + value + '</p>' +
-            '<div class="kpi-footer"><span>' + caption + '</span><i class="sparkline"><b></b><b></b><b></b><b></b><b></b></i></div></article>';
+    function kpiV3(label, value, tone) {
+        return '<div class="kpi-card-v3 ' + tone + '"><div class="k3-val">' + value + '</div><div class="k3-lbl">' + label + '</div></div>';
     }
 
     async function loadDashboard() {
@@ -140,59 +138,82 @@ document.addEventListener('DOMContentLoaded', function() {
             var d = await r.json();
             if (!r.ok) throw new Error(d.error || 'Dashboard unavailable');
             var m = d.metrics;
-
-            var dashboardKpis = document.getElementById('dashboardKpis');
-            if (dashboardKpis) {
-                dashboardKpis.innerHTML =
-                    kpi('Evaluation sessions', m.session_count, 'Across all statuses', 'violet', 'S') +
-                    kpi('Repositories evaluated', m.evaluated_count, 'Available in history', 'green', 'R') +
-                    kpi('Average health', Number(m.average_health || 0).toFixed(1) + '/20', 'Portfolio score', 'amber', 'H') +
-                    kpi('Total analyzed', m.repository_count, m.running_count + ' currently running', 'blue', 'A');
-            }
-
             var dist = d.score_distribution || {};
-            var total = Object.values(dist).reduce(function(a, b) { return a + Number(b); }, 0) || 1;
+            var dt = Object.values(dist).reduce(function(a, b) { return a + Number(b); }, 0) || 1;
             var health = Number(m.average_health || 0);
+            var pTotal = Number(m.repository_count || 0);
+            var pDone = Number(m.evaluated_count || 0);
+            var pRun = Number(m.running_count || 0);
+            var pRem = Math.max(0, pTotal - pDone - pRun);
 
-            if (healthGauge) {
-                healthGauge.innerHTML = '<div class="gauge-ring" style="--score:' + (health / 20 * 360) + 'deg"><div><strong>' + health.toFixed(1) + '</strong><span>out of 20</span></div></div>';
-            }
-            var healthLegend = document.getElementById('healthLegend');
-            if (healthLegend) {
-                healthLegend.innerHTML = '<span><i class="good"></i>' + m.evaluated_count + ' evaluated</span><span><i class="pending"></i>' + (m.repository_count - m.evaluated_count) + ' pending</span>';
-            }
-
-            var scoreChart = document.getElementById('scoreChart');
-            if (scoreChart) {
-                var entries = [
-                    ['Needs attention', dist.low, 'red'],
-                    ['Needs review', dist.review, 'amber'],
-                    ['On track', dist.track, 'blue'],
-                    ['Strong', dist.strong, 'green']
-                ];
-                scoreChart.innerHTML = entries.map(function(e) {
-                    return '<div><strong>' + (e[1] || 0) + '</strong><i class="chart-bar ' + e[2] + '" style="height:' + Math.max(8, (e[1] || 0) / total * 150) + 'px"></i><span>' + e[0] + '</span></div>';
-                }).join('');
+            // 1. KPI row (4 simple cards)
+            var kpiEl = document.getElementById('dashboardKpis');
+            if (kpiEl) {
+                kpiEl.innerHTML =
+                    kpiV3(m.session_count + '<span class="k3-unit"> sessions</span>', 'Evaluation Sessions', 'violet') +
+                    kpiV3(pDone + '<span class="k3-unit"> of ' + pTotal + '</span>', 'Repositories Evaluated', 'green') +
+                    kpiV3(health.toFixed(1) + '<span class="k3-unit"> / 20</span>', 'Average Score', 'amber') +
+                    kpiV3(pRem + '<span class="k3-unit"> pending</span>', 'Pending Evaluations', 'blue');
             }
 
+            // 2. Project Health — simple status summary
+            var avgVal = document.getElementById('avgScoreValue');
+            if (avgVal) avgVal.innerHTML = health.toFixed(1) + ' <span class="hps-unit">/ 20</span>';
+            var evVal = document.getElementById('evaluatedValue');
+            if (evVal) evVal.innerHTML = pDone + ' <span class="hps-unit">/ ' + pTotal + '</span>';
+            var pvVal = document.getElementById('pendingValue');
+            if (pvVal) pvVal.textContent = d.pending_reviews || 0;
+            var avVal = document.getElementById('attentionValue');
+            if (avVal) avVal.textContent = (dist.review || 0) + (dist.low || 0) + ' repos';
+
+            var statusBadge = document.getElementById('statusBadge');
+            if (statusBadge) {
+                var badgeCls = health >= 14 ? 'sb-green' : health >= 10 ? 'sb-yellow' : health >= 6 ? 'sb-orange' : 'sb-red';
+                var badgeLabel = health >= 14 ? 'Good' : health >= 10 ? 'Fair' : health >= 6 ? 'Needs Work' : 'Critical';
+                statusBadge.className = 'hps-badge ' + badgeCls;
+                statusBadge.textContent = badgeLabel;
+            }
+
+            var repoStatusList = document.getElementById('repoStatusList');
+            if (repoStatusList) {
+                repoStatusList.innerHTML =
+                    '<div class="hps-sr"><span class="hps-sr-dot dot-green"></span><span class="hps-sr-lbl">Strong</span><span class="hps-sr-val">' + (dist.strong || 0) + ' repos</span></div>' +
+                    '<div class="hps-sr"><span class="hps-sr-dot dot-yellow"></span><span class="hps-sr-lbl">On Track</span><span class="hps-sr-val">' + (dist.track || 0) + ' repos</span></div>' +
+                    '<div class="hps-sr"><span class="hps-sr-dot dot-orange"></span><span class="hps-sr-lbl">Needs Review</span><span class="hps-sr-val">' + (dist.review || 0) + ' repos</span></div>' +
+                    '<div class="hps-sr"><span class="hps-sr-dot dot-red"></span><span class="hps-sr-lbl">Needs Attention</span><span class="hps-sr-val">' + (dist.low || 0) + ' repos</span></div>';
+            }
+
+            // 3. Activity feed with status badges
             var recentActivity = document.getElementById('recentActivity');
             if (recentActivity) {
-                recentActivity.innerHTML = (d.recent_activity || []).map(function(x) {
-                    return '<a class="activity-item" href="/sessions/' + x.session_id + '/repositories/' + x.id + '"><span class="activity-avatar">' + window.esc(x.roll_number).slice(-2) + '</span><div><strong>' + window.esc(x.roll_number) + '</strong><span>' + window.esc(x.session_name) + ' \u00B7 ' + window.esc(x.evaluation_status) + '</span></div><time>' + window.when(x.updated_at) + '</time></a>';
-                }).join('') || '<div class="polished-empty"><span>\u25CE</span><strong>No recent activity</strong><p>Evaluations will appear here.</p></div>';
+                var items = d.recent_activity || [];
+                var acCnt = document.getElementById('activityCount');
+                if (acCnt) acCnt.textContent = items.length;
+                if (items.length === 0) {
+                    recentActivity.innerHTML = '<div class="empty-sm" style="justify-content:center;padding:20px;border:0">No recent activity</div>';
+                } else {
+                    recentActivity.innerHTML = items.slice(0, 8).map(function(x) {
+                        var isDone = x.score != null;
+                        var cls = isDone ? 'ab-green' : 'ab-yellow';
+                        var label = isDone ? 'Completed' : 'In progress';
+                        return '<a class="av3-row" href="/sessions/' + x.session_id + '/repositories/' + x.id + '"><span class="av3-av">' + window.esc(x.roll_number).slice(-2) + '</span><div class="av3-body"><strong>' + window.esc(x.roll_number) + '</strong><span>' + window.esc(x.session_name) + '</span></div><span class="av3-badge ' + cls + '">' + label + '</span></a>';
+                    }).join('');
+                    if (items.length > 8) {
+                        recentActivity.innerHTML += '<a class="av3-more" href="/sessions">View all ' + items.length + ' &rarr;</a>';
+                    }
+                }
             }
 
-            var runningCount = document.getElementById('runningCount');
-            if (runningCount) runningCount.textContent = d.running_evaluations.length;
-
-            var runningEvaluations = document.getElementById('runningEvaluations');
-            if (runningEvaluations) {
-                runningEvaluations.innerHTML = (d.running_evaluations || []).map(function(x) {
-                    var detailUrl = '/sessions/' + x.session_id + '/repositories/' + x.id;
-                    return '<a class="running-item" href="' + detailUrl + '"><span class="running-indicator"></span><div><strong>' + window.esc(x.roll_number) + '</strong><span>' + window.esc(x.session_name) + '</span></div><span class="muted">' + window.when(x.updated_at) + '</span></a>';
-                }).join('') || '<p class="empty-state">No evaluations currently running.</p>';
+            // 4. Running bar
+            var runBar = document.getElementById('runningBar');
+            if (runBar) {
+                runBar.hidden = false;
+                runBar.innerHTML = pRun > 0
+                    ? '<span class="rb3-dot"></span><strong>' + pRun + '</strong> evaluation' + (pRun > 1 ? 's' : '') + ' running'
+                    : '<span class="rb3-off"></span> No evaluations running';
             }
 
+            // 5. Repository Summary (was Portfolio / Tech)
             var techEl = document.getElementById('technologyBreakdown');
             var techCard = document.getElementById('techCard');
             var portfolioCard = document.getElementById('portfolioCard');
@@ -202,51 +223,60 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (techData.length) {
                     techCard.hidden = false;
                     portfolioCard.hidden = true;
+                    var maxT = Math.max.apply(null, techData.map(function(x) { return x.count || 1; }));
                     techEl.innerHTML = techData.map(function(t) {
-                        return '<div><span>' + window.esc(t.language || t.name || t) + '</span><div class="distribution-bar"><i style="width:' + (t.count ? Math.min(100, t.count / Math.max.apply(null, techData.map(function(x) { return x.count || 1; })) * 100) : 10) + '%"></i></div><strong>' + (t.count || 0) + '</strong></div>';
+                        return '<div class="tb3-row"><span>' + window.esc(t.language || t.name || t) + '</span><i style="width:' + Math.min(100, (t.count || 0) / maxT * 100) + '%"></i><strong>' + (t.count || 0) + '</strong></div>';
                     }).join('');
                 } else {
                     techCard.hidden = true;
                     portfolioCard.hidden = false;
-                    var total = Number(m.repository_count || 0);
-                    var done = Number(m.evaluated_count || 0);
-                    var running = Number(m.running_count || 0);
-                    var remaining = total - done - running;
-                    var donePct = total ? (done / total * 100) : 0;
-                    var runPct = total ? (running / total * 100) : 0;
-                    var remPct = total ? (remaining / total * 100) : 0;
-                    var portfolioStatus = total === 0 ? 'no-data' :
-                        done === total ? 'all-done' :
-                        running > 0 ? 'in-progress' : 'not-started';
                     portfolioEl.innerHTML =
-                        '<div class="portfolio-metric"><span class="portfolio-stat-value">' + total + '</span><span class="portfolio-stat-label">Total repositories</span></div>' +
-                        '<div class="portfolio-bar-track"><i class="portfolio-bar-seg portfolio-bar-done" style="width:' + donePct + '%"></i>' +
-                        (running ? '<i class="portfolio-bar-seg portfolio-bar-run" style="width:' + runPct + '%"></i>' : '') +
-                        '<i class="portfolio-bar-seg portfolio-bar-rem" style="width:' + (remaining > 0 ? remPct : 0) + '%"></i></div>' +
-                        '<div class="portfolio-legend">' +
-                        '<span><i class="portfolio-legend-dot dot-done"></i>Completed <strong>' + done + '</strong></span>' +
-                        (running ? '<span><i class="portfolio-legend-dot dot-run"></i>Running <strong>' + running + '</strong></span>' : '') +
-                        '<span><i class="portfolio-legend-dot dot-rem"></i>Pending <strong>' + Math.max(0, remaining) + '</strong></span></div>' +
-                        '<div class="portfolio-caption">' +
-                        (portfolioStatus === 'all-done' ? 'All repositories have been evaluated.' :
-                         portfolioStatus === 'in-progress' ? running + ' evaluation' + (running > 1 ? 's' : '') + ' currently in progress.' :
-                         portfolioStatus === 'not-started' ? 'Evaluations pending for ' + total + ' repositor' + (total > 1 ? 'ies' : 'y') + '.' :
-                         'No repositories tracked yet.') + '</div>';
+                        '<div class="pv3-grid"><div><span>Total repos</span><strong>' + pTotal + '</strong></div><div><span>Evaluated</span><strong>' + pDone + '</strong></div><div><span>Pending</span><strong>' + pRem + '</strong></div><div><span>Avg score</span><strong>' + health.toFixed(1) + '</strong></div></div>';
                 }
             }
 
+            // 6. Repository Analytics — simplified, no donut
+            var raBody = document.getElementById('repoAnalytics');
+            if (raBody) {
+                raBody.innerHTML =
+                    '<div class="ra3-stat"><span>Total repositories</span><strong>' + pTotal + '</strong></div>' +
+                    '<div class="ra3-stat"><span>Evaluated</span><strong>' + pDone + '</strong></div>' +
+                    '<div class="ra3-stat"><span>Pending</span><strong>' + pRem + '</strong></div>' +
+                    '<div class="ra3-stat"><span>Average score</span><strong>' + health.toFixed(1) + '</strong></div>' +
+                    '<div class="ra3-stat"><span>Running</span><strong>' + pRun + '</strong></div>';
+            }
+
+            // 7. Leaderboard (keep top performers)
             var leaderboard = document.getElementById('leaderboard');
             if (leaderboard) {
-                leaderboard.innerHTML = (d.leaderboard || []).slice(0, 5).map(function(x) {
-                    return '<a class="leaderboard-item" href="/sessions/' + x.session_id + '/repositories/' + x.id + '"><span class="leaderboard-rank">' + (x.rank || '—') + '</span><div><strong>' + window.esc(x.roll_number) + '</strong><span>' + window.esc(x.session_name) + '</span></div><strong class="leaderboard-score">' + Number(x.normalized_to_20 || 0).toFixed(1) + '</strong></a>';
-                }).join('') || '<p class="empty-state">No leaderboard data yet.</p>';
+                var mc = ['#f59e0b', '#94a3b8', '#cd7f32'];
+                leaderboard.innerHTML = (d.leaderboard || []).slice(0, 5).map(function(x, i) {
+                    var rn = i < 3 ? '<span class="lr3-medal" style="color:' + mc[i] + '">' + ['&#x1F947;', '&#x1F948;', '&#x1F949;'][i] + '</span>' : '<span class="lr3-num">' + (i + 1) + '</span>';
+                    return '<a class="lr3-row" href="/sessions/' + x.session_id + '/repositories/' + x.id + '">' + rn + '<div class="lr3-body"><strong>' + window.esc(x.roll_number) + '</strong><span>' + window.esc(x.session_name) + '</span></div><span class="lr3-pill">' + Number(x.normalized_to_20 || 0).toFixed(1) + '</span></a>';
+                }).join('') || '<div class="empty-sm">No data</div>';
+            }
+
+            // 8. Recent Sessions
+            var rsEl = document.getElementById('recentSessions');
+            if (rsEl) {
+                try {
+                    var sr = await fetch('/api/sessions');
+                    var sessions = await sr.json();
+                    if (sr.ok && sessions.length) {
+                        rsEl.innerHTML = sessions.slice(0, 5).map(function(s) {
+                            var pct = s.repository_count ? Math.round(s.evaluated_count / s.repository_count * 100) : 0;
+                            return '<a class="rs3-row" href="/sessions/' + s.id + '"><span class="rs3-dot ' + s.status.toLowerCase() + '"></span><div class="rs3-body"><strong>' + window.esc(s.name) + '</strong><span>' + window.esc(s.description || '') + '</span></div><span class="rs3-stat"><strong>' + s.evaluated_count + '</strong>/' + s.repository_count + '</span><div class="rs3-bar"><i style="width:' + pct + '%"></i></div></a>';
+                        }).join('');
+                    } else {
+                        rsEl.innerHTML = '<div class="empty-sm">No sessions yet</div>';
+                    }
+                } catch (_) { rsEl.innerHTML = ''; }
             }
         } catch (e) {
             var err = document.getElementById('dashboardError');
             if (err) { err.hidden = false; err.textContent = e.message; }
         }
     }
-
     loadDashboard();
 });
 

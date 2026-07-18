@@ -1,19 +1,15 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.0
-milestone_name: Frontend Dashboard
-current_plan: 4/4
-status: archived
-last_updated: "2026-07-17T00:00:00.000Z"
-archived_milestones:
-  - v1.0
-  - v2.0
+milestone: v3.0
+milestone_name: Executive AI Dashboard & Async Evaluation
+status: v3.0 Milestone ARCHIVED (2026-07-18)
+last_updated: "2026-07-18T07:24:36.376Z"
 progress:
   total_phases: 5
-  completed_phases: 5
-  total_plans: 16
-  completed_plans: 16
-  percent: 100
+  completed_phases: 4
+  total_plans: 14
+  completed_plans: 13
+  percent: 80
 ---
 
 # STATE.md
@@ -26,21 +22,23 @@ progress:
 
 **Core Value:** Accurately evaluate student code against any instructor-defined rubric using a modular, rubric-agnostic pipeline of specialized SLM agents — where every evaluation is reproducible, evidence-based, and debugging is straightforward.
 
-**Current Focus:** Milestones v1.0 + v2.0 complete — planning next milestone
+**Current Focus:** Milestones v1.0 + v2.0 + v3.0 complete — planning v4.0 (Human-in-the-Loop Review)
 
 ---
 
 ## Current Position
 
-**Status:** v2.0 Milestone ARCHIVED (2026-07-17)
+**Status:** v3.0 Milestone ARCHIVED (2026-07-18)
 
-Both milestones complete:
+All three milestones complete:
+
 - v1.0 — SLM Pipeline Replacement (Phases 1-4, 12 plans)
 - v2.0 — Frontend Dashboard (Phase 5, 4 plans)
+- v3.0 — Executive AI Dashboard & Async Evaluation (Phases 6-10, 15 direct commits)
 
-**Overall Progress:** 16/16 plans complete across all phases
+**Overall Progress:** 16/16 plans + 15 direct commits complete across all phases
 
-**Next:** Planning next milestone
+**Next:** v4.0 — Human-in-the-Loop Review
 
 ---
 
@@ -49,10 +47,12 @@ Both milestones complete:
 | Metric | Value | Target | Notes |
 |--------|-------|--------|-------|
 | Total v1 requirements | 45 | 45 | ✓ Fully scoped |
-| Mapped to phases | 45 | 45 | ✓ 100% coverage |
-| Phases defined | 3 | 3-5 | ✓ Coarse granularity |
-| Plans created | 11 | — | Phase 1 (3) + Phase 2 (4) + Phase 3 (4) |
-| Plans completed | 11 | — | Phase 1 (3) + Phase 2 (4) + Phase 3 (3) |
+| Total v3.0 features | 53 | 53 | ✓ Retroactively documented |
+| Mapped to phases | 98 | 98 | ✓ 100% coverage (all milestones) |
+| Phases defined | 10 | 10 | ✓ All completed |
+| Plans created | 16 | — | Planned phases (1 v1.0 + 4 v2.0) |
+| Plans completed | 16 | — | All planning-driven phases complete |
+| Direct commits (v3.0) | 15 | — | Not formally planned, shipped directly |
 | Tests created | 86 | — | 5 test files covering agents, schemas, aggregation, routing |
 
 ---
@@ -87,12 +87,18 @@ Both milestones complete:
 | Score aggregation is pure Python (no LLM) | aggregate_scores() uses round(), min(), max() only | 2026-07-07 |
 | Missing criteria scored 0 with confidence_warning | Handles partial pipeline failures gracefully | 2026-07-07 |
 
-  | Orchestrator pipeline: 6 steps with file-based recovery | Idempotent step detection via output file existence; partial failure handling | 2026-07-12 |
-  | FeedbackAgent uses "reasoning" model (Phi-4 Mini) | Follows OLL-03 model routing for reasoning tasks | 2026-07-12 |
-  | Agent tests use mocked OllamaClient.infer() returning dict directly | Agents call with format="json", so mock returns parsed dict, not {"response": ...} | 2026-07-12 |
-  | _find_best_routing_key assumes lowercased input | route_evidence() lowercases before calling; internal function tests pass lowercased | 2026-07-12 |
-  | _filter_snapshot preserves '[]' in array wildcard keys | Routing map uses files[].functions notation; output dict uses 'files[]' as key | 2026-07-12 |
-  | Lazy import of generate_pdf inside report_service.generate() | Breaks circular dependency (pdf_gen -> services -> pdf_gen) | 2026-07-13 |
+| Orchestrator pipeline: 6 steps with file-based recovery | Idempotent step detection via output file existence; partial failure handling | 2026-07-12 |
+| FeedbackAgent uses "reasoning" model (Phi-4 Mini) | Follows OLL-03 model routing for reasoning tasks | 2026-07-12 |
+| Agent tests use mocked OllamaClient.infer() returning dict directly | Agents call with format="json", so mock returns parsed dict, not {"response": ...} | 2026-07-12 |
+| _find_best_routing_key assumes lowercased input | route_evidence() lowercases before calling; internal function tests pass lowercased | 2026-07-12 |
+| _filter_snapshot preserves '[]' in array wildcard keys | Routing map uses files[].functions notation; output dict uses 'files[]' as key | 2026-07-12 |
+| Lazy import of generate_pdf inside report_service.generate() | Breaks circular dependency (pdf_gen -> services -> pdf_gen) | 2026-07-13 |
+| Background threads for async evaluation | Simplest Flask approach; no Celery/RQ dependency | 2026-07-17 |
+| progress_pct + current_step on repositories table | Avoids new progress table; sufficient granularity | 2026-07-17 |
+| Dashboard: remove Action Center + Recent Sessions | Non-technical evaluators found them distracting | 2026-07-18 |
+| Light mode via CSS custom properties + data-theme | Clean separation, no preprocessor, instant toggle | 2026-07-18 |
+| Grade letter (A-F) on Overview | Faculty evaluators need at-a-glance scoring | 2026-07-17 |
+| Code Quality → "AI Assessment Report" | Better terminology fit for faculty evaluators | 2026-07-17 |
 
 ### Open Questions
 
@@ -139,7 +145,7 @@ None.
   - Migration 002: evaluation_results table with JSONB columns and indexes
   - All agents wire together: ingestion → capability → rubric → aggregation → feedback → persistence
 
-### Last Session (05-03)
+### Previous Session
 
 - **Executed Phase 5 Plan 3 (05-03)** — Plagiarism Results + JS Extraction + Analytics Enhancement complete:
   - Added plagiarism data + `has_low_confidence` boolean to session API response (4-tuple return from session_context())
@@ -162,10 +168,41 @@ None.
   - Added low-confidence sidebar warning indicators
   - Added `.confidence-badge`, `.detail-row`, `.timeline-item`, `.score-bar` CSS classes to dashboard.css
 
+### Previous Session (v4.0 Plan 11-01)
+
+- **Executed Phase 11 Plan 1 (11-01)** — HITL Data Model & Backend: Database schema + Repository layer:
+  - Added `review_queue`, `score_overrides`, `audit_log` tables to `database/schema.sql` with CHECK constraints, foreign keys, and 7 new indexes
+  - Created `repositories/review_repository.py` with 3 repository classes (ReviewQueueRepository, ScoreOverrideRepository, AuditLogRepository) following existing psycopg/connect() pattern
+  - All 3 classes exported from `repositories/__init__.py`
+  - 3 atomic commits: schema (e10d791), repository classes (dc92c4b), exports (11a69d1)
+  - Import verification passes
+
+### Last Session (v3.0 Audit)
+
+- **Retroactively documented v3.0 milestone** — all changes shipped as direct commits after v2.0 archive
+- **15 commits audited** — 61 files changed, +5,411 lines added since v2.0
+- **53 requirements documented** across 5 logical phases (6-10)
+- **5 planning documents created/updated:** v3.0-REQUIREMENTS.md, v3.0-ROADMAP.md, PROJECT.md, ROADMAP.md, STATE.md
+- **Dashboard redesign completed** as final v3.0 changes:
+  - Fixed dashboard loading gatekeeper (`healthGauge` → `healthCard`)
+  - Removed Action Center and Recent Sessions cards
+  - Aligned dashboard font sizes with session tab sizing
+- **Discovered v3.0 features:**
+  - Collaboration analytics (equity waterfall, contributor profiles, network graph, health score)
+  - Code Quality → AI Assessment Report redesign
+  - Executive AI Dashboard Overview tab with grade letter
+  - Async evaluation with background threads + real-time progress tracking
+  - Settings page with `/api/system/status`
+  - Light mode theme with localStorage persistence
+  - Command palette (Ctrl+K), dynamic repo avatars, font size increase
+  - Enhanced PDF reports (rubric-aware, per-repository)
+  - Feedback Agent summary field with retry and fallback
+
 ### Next Session
 
-- Plan next milestone (Local LLM upgrade, new capability agents, etc.)
+- Execute Plan 11-02: ReviewService + API endpoints for HITL review system
+- Features: dashboard review queue, instructor+admin review, low-confidence flagging, manual score overrides with reasoning notes, full audit trail, visual badges + report notes
 
 ---
 
-*Last updated: 2026-07-17 (v2.0 milestone archived)*
+*Last updated: 2026-07-18 (v3.0 milestone archived)*

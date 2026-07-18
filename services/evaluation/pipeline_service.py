@@ -101,6 +101,12 @@ class PipelineService:
                     progress_callback=progress_callback,
                 )
                 results.append(result)
+                # Auto-queue repositories with low-confidence criteria (best-effort)
+                try:
+                    from services.review_service import ReviewService
+                    ReviewService().auto_queue_repository(str(repo["id"]), session_id)
+                except Exception:
+                    pass
                 repo_data = result.get("repo_data", {})
                 repo_service.repository.save_analysis(
                     repo["id"],

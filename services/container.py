@@ -4,8 +4,9 @@ from pathlib import Path
 from .evaluation.pipeline_service import PipelineService
 from .report_service import ReportService
 from .repository_service import RepositoryService
-from .session_service import SessionService
+from .review_service import ReviewService
 from .rubric_service import RubricService
+from .session_service import SessionService
 
 
 @dataclass
@@ -15,6 +16,7 @@ class ServiceContainer:
     evaluations: PipelineService
     reports: ReportService
     rubrics: RubricService
+    reviews: ReviewService
 
     @classmethod
     def build(cls, root: Path):
@@ -26,4 +28,5 @@ class ServiceContainer:
             pipeline = PipelineService()
         except Exception as exc:
             raise RuntimeError(f"Failed to initialize PipelineService: {exc}") from exc
-        return cls(sessions, repositories, pipeline, ReportService(root, repositories), rubrics)
+        reviews = ReviewService()
+        return cls(sessions, repositories, pipeline, ReportService(root, repositories), rubrics, reviews)

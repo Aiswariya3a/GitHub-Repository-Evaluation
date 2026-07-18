@@ -6,7 +6,8 @@ from flask import Flask
 
 load_dotenv()
 
-from controllers import EvaluationController, ReportController, RepositoryController, RubricController, SessionController
+from controllers import (EvaluationController, ReportController, RepositoryController,
+                         RubricController, SessionController, ReviewController)
 from services.container import ServiceContainer
 
 
@@ -24,6 +25,7 @@ def create_app(service_container=None):
     app.register_blueprint(EvaluationController.blueprint)
     app.register_blueprint(ReportController.blueprint)
     app.register_blueprint(RubricController.blueprint)
+    app.register_blueprint(ReviewController.blueprint)
     return app
 
 

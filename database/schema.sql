@@ -147,6 +147,50 @@ CREATE TABLE IF NOT EXISTS evaluation_results (
     UNIQUE(repository_id, session_id)
 );
 
+CREATE TABLE IF NOT EXISTS review_queue (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    repository_id UUID NOT NULL REFERENCES repositories(id) ON DELETE CASCADE,
+    session_id UUID NOT NULL REFERENCES evaluation_sessions(id) ON DELETE CASCADE,
+    status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending','in_review','reviewed')),
+    assigned_reviewer TEXT NOT NULL DEFAULT '',
+    flag_reason TEXT NOT NULL DEFAULT 'low_confidence' CHECK (flag_reason IN ('low_confidence','manual_override','random_sample')),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    UNIQUE(repository_id)
+);
+
+CREATE TABLE IF NOT EXISTS score_overrides (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    repository_id UUID NOT NULL REFERENCES repositories(id) ON DELETE CASCADE,
+    session_id UUID NOT NULL REFERENCES evaluation_sessions(id) ON DELETE CASCADE,
+    criterion_key TEXT NOT NULL DEFAULT '',
+    original_score NUMERIC(8,2),
+    overridden_score NUMERIC(8,2) NOT NULL,
+    reasoning TEXT NOT NULL,
+    overridden_by TEXT NOT NULL DEFAULT 'instructor',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS audit_log (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    repository_id UUID NOT NULL REFERENCES repositories(id) ON DELETE CASCADE,
+    session_id UUID NOT NULL REFERENCES evaluation_sessions(id) ON DELETE CASCADE,
+    action TEXT NOT NULL,
+    old_value TEXT NOT NULL DEFAULT '',
+    new_value TEXT NOT NULL DEFAULT '',
+    reasoning TEXT NOT NULL DEFAULT '',
+    performed_by TEXT NOT NULL DEFAULT 'instructor',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_review_queue_session ON review_queue(session_id, status);
+CREATE INDEX IF NOT EXISTS idx_review_queue_repository ON review_queue(repository_id);
+CREATE INDEX IF NOT EXISTS idx_score_overrides_session ON score_overrides(session_id);
+CREATE INDEX IF NOT EXISTS idx_score_overrides_repository ON score_overrides(repository_id);
+CREATE INDEX IF NOT EXISTS idx_audit_log_session ON audit_log(session_id);
+CREATE INDEX IF NOT EXISTS idx_audit_log_repository ON audit_log(repository_id, created_at);
+CREATE INDEX IF NOT EXISTS idx_audit_log_action ON audit_log(action);
+
 CREATE INDEX IF NOT EXISTS idx_sessions_status ON evaluation_sessions(status);
 CREATE INDEX IF NOT EXISTS idx_sessions_rubric ON evaluation_sessions(rubric_version_id);
 CREATE INDEX IF NOT EXISTS idx_rubric_versions_rubric ON rubric_versions(rubric_id);

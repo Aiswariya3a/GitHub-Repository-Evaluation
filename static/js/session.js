@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var confidenceWarning = r.has_low_confidence
             ? '<div class="warning-strip">! Low confidence criteria</div>'
             : '';
+        var reviewBadge = r.needs_review
+            ? '<div class="warning-strip review-flag">! Needs review</div>'
+            : '';
         var progressLabel = running ? '<div class="progress-label">' + window.esc(currentStep) + ' &middot; ' + progressPct + '%</div>' : '';
         return '<article class="repository-card' + (selected.has(r.id) ? ' selected' : '') + '">' +
             '<div class="repository-card-top">' +
@@ -75,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             '<div class="progress-bar' + (running ? ' indeterminate' : '') + '"><span style="width:' + progressPct + '%"></span></div>' +
             (r.error ? '<div class="warning-strip">! ' + window.esc(r.error) + '</div>' : '') +
             confidenceWarning +
+            reviewBadge +
             '</article>';
     }
 

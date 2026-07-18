@@ -14,6 +14,9 @@ def sessions_page(): return render_template("dashboard.html", title="Evaluation 
 @session_controller.get("/reports")
 def reports_page(): return render_template("reports.html", title="Reports")
 
+@session_controller.get("/reviews")
+def reviews_page(): return render_template("reviews.html", title="Reviews")
+
 @session_controller.get("/analytics")
 def analytics_page(): return render_template("analytics.html", title="Analytics")
 

@@ -5,7 +5,9 @@
 ## Milestones
 
 - ✅ **v1.0 SLM Pipeline Replacement** — Phases 1-4 (shipped 2026-07-12)
-- ✅ **v2.0 Frontend Dashboard** — Phase 5 (completed 2026-07-13)
+- ✅ **v2.0 Frontend Dashboard** — Phase 5 (shipped 2026-07-13)
+- ✅ **v3.0 Executive AI Dashboard & Async Evaluation** — Phases 6-10 (shipped 2026-07-18)
+- 🔲 **v4.0 Human-in-the-Loop Review** — Phases 11-13 (in planning)
 
 ## Phases
 
@@ -20,12 +22,32 @@
 </details>
 
 <details>
-<summary>✅ v2.0 Frontend Dashboard (Phase 5) — COMPLETED 2026-07-13</summary>
+<summary>✅ v2.0 Frontend Dashboard (Phase 5) — SHIPPED 2026-07-13</summary>
 
 - [x] Plan 01: Fix PDF report generation pipeline — completed 2026-07-13
 - [x] Plan 02: Ingestion snapshot + evaluation detail tabs — completed 2026-07-13
 - [x] Plan 03: Plagiarism results + JS extraction + analytics enhancement — completed 2026-07-13
 - [x] Plan 04: CSS organization + UX polish — completed 2026-07-13
+
+</details>
+
+<details>
+<summary>✅ v3.0 Executive AI Dashboard & Async Evaluation (Phases 6-10) — SHIPPED 2026-07-18</summary>
+
+- [x] Phase 6: Collaboration Analytics & GitHub Metadata Enrichment — completed 2026-07-17
+- [x] Phase 7: Code Quality / AI Assessment Report Redesign — completed 2026-07-17
+- [x] Phase 8: Executive Dashboard (Overview Tab) Redesign — completed 2026-07-17
+- [x] Phase 9: Async Evaluation & Real-time Progress Tracking — completed 2026-07-17
+- [x] Phase 10: Settings, Light Mode, Command Palette, Dashboard Redesign & Global UX — completed 2026-07-18
+
+</details>
+
+<details>
+<summary>🔲 v4.0 Human-in-the-Loop Review (Phases 11-13) — IN PLANNING</summary>
+
+- [x] Phase 11: HITL Data Model & Backend — Review queue schema, API endpoints, backend services — completed 2026-07-18
+- [ ] Phase 12: Review Dashboard & UI — Reviewer dashboard, review workflow interface, score override controls
+- [ ] Phase 13: Audit Trail, Badges & Roles — Audit log, visual badges, report notes, instructor/admin distinction
 
 </details>
 
@@ -38,6 +60,14 @@
 | 3. Cleanup & Testing | v1.0 | 4/4 | Complete | 2026-07-12 |
 | 4. Gap Closure | v1.0 | 1/1 | Complete | 2026-07-12 |
 | 5. Frontend Dashboard | v2.0 | 4/4 | Complete | 2026-07-13 |
+| 6. Collaboration Analytics | v3.0 | direct | Complete | 2026-07-17 |
+| 7. Code Quality Redesign | v3.0 | direct | Complete | 2026-07-17 |
+| 8. Overview Redesign | v3.0 | direct | Complete | 2026-07-17 |
+| 9. Async Evaluation | v3.0 | direct | Complete | 2026-07-17 |
+| 10. Settings/Light Mode/UX | v3.0 | direct | Complete | 2026-07-18 |
+| 11. HITL Data Model & Backend | v4.0 | 2/2 | Complete | 2026-07-18 |
+| 12. Review Dashboard & UI | v4.0 | — | Planning | — |
+| 13. Audit Trail, Badges & Roles | v4.0 | — | Planning | — |
 
 ## Coverage Map
 
@@ -59,3 +89,5 @@
 Full milestone details:
 - [v1.0 SLM Pipeline Replacement](milestones/v1.0-ROADMAP.md)
 - [v2.0 Frontend Dashboard](milestones/v2.0-ROADMAP.md)
+- [v3.0 Executive AI Dashboard & Async Evaluation](milestones/v3.0-ROADMAP.md)
+- [v4.0 Human-in-the-Loop Review](milestones/v4.0-ROADMAP.md) *(in progress)*

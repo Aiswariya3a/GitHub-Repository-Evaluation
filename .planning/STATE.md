@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Executive AI Dashboard & Async Evaluation
 status: v3.0 Milestone ARCHIVED (2026-07-18)
-last_updated: "2026-07-18T07:24:36.376Z"
+last_updated: "2026-07-18T13:10:42.000Z"
 progress:
   total_phases: 5
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 14
-  completed_plans: 13
-  percent: 80
+  completed_plans: 14
+  percent: 100
 ---
 
 # STATE.md
@@ -28,17 +28,18 @@ progress:
 
 ## Current Position
 
-**Status:** v3.0 Milestone ARCHIVED (2026-07-18)
+**Status:** v4.0 Phase 11 Complete (2026-07-18)
 
-All three milestones complete:
+Milestones:
 
-- v1.0 — SLM Pipeline Replacement (Phases 1-4, 12 plans)
-- v2.0 — Frontend Dashboard (Phase 5, 4 plans)
-- v3.0 — Executive AI Dashboard & Async Evaluation (Phases 6-10, 15 direct commits)
+- ✅ v1.0 — SLM Pipeline Replacement (Phases 1-4, 12 plans)
+- ✅ v2.0 — Frontend Dashboard (Phase 5, 4 plans)
+- ✅ v3.0 — Executive AI Dashboard & Async Evaluation (Phases 6-10, 15 direct commits)
+- 🔄 v4.0 — Human-in-the-Loop Review (Phase 11 complete, Phases 12-13 remaining)
 
-**Overall Progress:** 16/16 plans + 15 direct commits complete across all phases
+**v4.0 Progress:** 2/2 plans complete (Phase 11: HITL Data Model & Backend)
 
-**Next:** v4.0 — Human-in-the-Loop Review
+**Next:** Phase 12 — Review Dashboard & UI
 
 ---
 
@@ -177,6 +178,19 @@ None.
   - 3 atomic commits: schema (e10d791), repository classes (dc92c4b), exports (11a69d1)
   - Import verification passes
 
+### Previous Session (v4.0 Plan 11-02)
+
+- **Executed Phase 11 Plan 2 (11-02)** — HITL Review Service & API Endpoints:
+  - Created `services/review_service.py` with ReviewService class (12 methods: auto_queue_repository, start_review, complete_review, list_queue, pending_count, get_queue_entry, override_score, get_overrides, get_audit_trail, evaluation_has_low_confidence, needs_review)
+  - Created `controllers/review_controller.py` with 6 REST endpoints under `/api/reviews/` (list queue, review detail, start review, submit override, complete review, get audit trail)
+  - Wired ReviewController in `controllers/__init__.py` and `app.py`
+  - Added `reviews: ReviewService` to ServiceContainer dataclass with build() instantiation
+  - Added `needs_review` boolean per repository row in `session_context()` alongside existing `has_low_confidence` flag
+  - Added `pending_reviews` count to dashboard API response
+  - Added auto-queue logic in `pipeline_service.py` — after successful evaluation, repositories with low-confidence criteria are auto-queued (best-effort, non-blocking)
+  - 6 atomic commits: ReviewService (91be666), ReviewController (df50e52), registration (b195fc8), container (513375f), dashboard (b080e11), auto-queue (90bdabb)
+  - Import verification passes
+
 ### Last Session (v3.0 Audit)
 
 - **Retroactively documented v3.0 milestone** — all changes shipped as direct commits after v2.0 archive
@@ -200,8 +214,9 @@ None.
 
 ### Next Session
 
-- Execute Plan 11-02: ReviewService + API endpoints for HITL review system
-- Features: dashboard review queue, instructor+admin review, low-confidence flagging, manual score overrides with reasoning notes, full audit trail, visual badges + report notes
+- Phase 11 (HITL Data Model & Backend) is fully complete — all database tables, repositories, services, and API endpoints are ready
+- Next: Phase 12 (Review Dashboard & UI) — Reviewer dashboard, review workflow interface, score override controls
+- Next: Phase 13 (Audit Trail, Badges & Roles) — Audit log, visual badges, report notes, instructor/admin distinction
 
 ---
 

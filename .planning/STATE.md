@@ -37,9 +37,9 @@ Milestones:
 - ✅ v3.0 — Executive AI Dashboard & Async Evaluation (Phases 6-10, 15 direct commits)
 - 🔄 v4.0 — Human-in-the-Loop Review (Phase 11 complete, Phases 12-13 remaining)
 
-**v4.0 Progress:** 3/4 plans complete (Phase 11: HITL Data Model & Backend, Phase 12: Plans 1-2 complete)
+**v4.0 Progress:** 6/6 plans complete (Phases 11-13 all complete)
 
-**Next:** Phase 12 Plan 3 — remaining UI work
+**Next:** All v4.0 phases complete — ready for /gsd-complete-milestone
 
 ---
 
@@ -242,11 +242,20 @@ None.
   - Added review panel CSS classes to dashboard.css (review-hero, override-criteria, override-input, audit-timeline, etc.)
   - 3 atomic commits
 
+### Last Session
+
+- **Executed Phase 13 (13-01 + 13-02)** — Audit Trail, Badges & Roles:
+  - Added green "Reviewed" badge to dashboard activity feed, leaderboard, and session repo cards
+  - Fixed `/audit` route to render new `templates/audit.html` with filterable audit log table
+  - Added "Audit Log" to sidebar navigation
+  - Created SUMMARY.md for both plans
+  - CSS classes for reviewed badges and performer display
+
 ### Next Session
 
-- Phase 12 Plan 3 (if planned) — remaining Review Dashboard & UI work
-- Phase 13 (Audit Trail, Badges & Roles) — Audit log, visual badges, report notes, instructor/admin distinction
+- **v4.0 all phases complete** — run `/gsd-complete-milestone` to archive
+- Next milestone planning (v5.0) if applicable
 
 ---
 
-*Last updated: 2026-07-18 (v3.0 milestone archived)*
+*Last updated: 2026-07-21 (Phase 13 complete)*

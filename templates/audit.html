@@ -1,0 +1,35 @@
+{% extends "base.html" %}{% block content %}<header class="page-heading modern-heading"><div><p class="eyebrow">Audit</p><h1>Audit Log</h1><p class="hero-copy">Complete activity trail across all sessions — review actions, score overrides, and system events.</p></div></header><section class="panel"><div class="panel-header"><div><p class="eyebrow">Activity</p><h2>All audit entries</h2></div><div class="toolbar-group"><select id="actionFilter" class="compact-select"><option value="">All actions</option>{% for a in actions %}<option value="{{ a }}">{{ a | replace('_', ' ') | title }}</option>{% endfor %}</select><select id="sessionFilter" class="compact-select"><option value="">All sessions</option>{% for s in sessions %}<option value="{{ s.id }}">{{ s.name }}</option>{% endfor %}</select></div></div><div id="auditError" class="api-error" hidden></div><div class="table-wrap"><table class="data-table" id="auditTable"><thead><tr><th>Timestamp</th><th>Session</th><th>Repository</th><th>Action</th><th>Performed By</th><th>Details</th></tr></thead><tbody id="auditBody">{% if logs %}{% for entry in logs %}<tr><td class="cell-timestamp">{{ entry.created_at.strftime('%Y-%m-%d %H:%M') if entry.created_at else '—' }}</td><td>{{ entry.session_name }}</td><td><a href="/sessions/{{ entry.session_id }}/repositories/{{ entry.repository_id }}">{{ entry.roll_number or entry.repo_url.split('/')[-1] }}</a></td><td>{% set action_class = 'badge-blue' if entry.action in ('review_started', 'auto_queued') else 'badge-orange' if entry.action == 'score_override' else 'badge-green' if entry.action == 'review_completed' else 'badge-gray' %}<span class="audit-action-badge {{ action_class }}">{{ entry.action | replace('_', ' ') | title }}</span></td><td><span class="performer-badge">{{ entry.performed_by | default('system', true) }}</span></td><td class="cell-details">{% if entry.old_value and entry.new_value %}<span class="audit-old">{{ entry.old_value }}</span> <span class="audit-new">{{ entry.new_value }}</span>{% endif %}{% if entry.reasoning %}<p class="audit-reason-sm">{{ entry.reasoning }}</p>{% endif %}</td></tr>{% endfor %}{% else %}<tr><td colspan="6" class="empty-table">No audit log entries found.</td></tr>{% endif %}</tbody></table></div></section><script>
+document.getElementById('actionFilter')?.addEventListener('change', filterAudit);
+document.getElementById('sessionFilter')?.addEventListener('change', filterAudit);
+async function filterAudit() {
+  var params = new URLSearchParams();
+  var af = document.getElementById('actionFilter').value;
+  var sf = document.getElementById('sessionFilter').value;
+  if (af) params.set('action', af);
+  if (sf) params.set('session_id', sf);
+  try {
+    var r = await fetch('/api/audit?' + params.toString());
+    if (!r.ok) throw new Error('Failed to load');
+    var d = await r.json();
+    var body = document.getElementById('auditBody');
+    if (!d.logs || !d.logs.length) {
+      body.innerHTML = '<tr><td colspan="6" class="empty-table">No matching entries found.</td></tr>';
+    } else {
+      body.innerHTML = d.logs.map(function(entry) {
+        var ts = entry.created_at ? new Date(entry.created_at).toLocaleString() : '—';
+        var repoLink = '/sessions/' + entry.session_id + '/repositories/' + entry.repository_id;
+        var repoName = entry.roll_number || (entry.repo_url || '').split('/').pop();
+        var actionLabel = (entry.action || '').replace(/_/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+        var actionClass = entry.action === 'review_started' || entry.action === 'auto_queued' ? 'badge-blue' : entry.action === 'score_override' ? 'badge-orange' : entry.action === 'review_completed' ? 'badge-green' : 'badge-gray';
+        var details = '';
+        if (entry.old_value && entry.new_value) details += '<span class="audit-old">' + entry.old_value + '</span> <span class="audit-new">' + entry.new_value + '</span>';
+        if (entry.reasoning) details += '<p class="audit-reason-sm">' + entry.reasoning + '</p>';
+        return '<tr><td class="cell-timestamp">' + ts + '</td><td>' + (entry.session_name || '') + '</td><td><a href="' + repoLink + '">' + repoName + '</a></td><td><span class="audit-action-badge ' + actionClass + '">' + actionLabel + '</span></td><td><span class="performer-badge">' + (entry.performed_by || 'system') + '</span></td><td class="cell-details">' + details + '</td></tr>';
+      }).join('');
+    }
+  } catch(e) {
+    var err = document.getElementById('auditError');
+    if (err) { err.hidden = false; err.textContent = e.message; }
+  }
+}
+</script>{% endblock %}

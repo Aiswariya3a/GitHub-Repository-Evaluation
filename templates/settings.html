@@ -24,6 +24,16 @@
     <div class="panel-header bordered"><h2>Runtime</h2><span class="admin-badge">Server info</span></div>
     <div class="admin-runtime" id="runtimeBody"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
   </article>
+
+  <article class="panel" id="auditSection">
+    <div class="panel-header bordered"><h2>Audit Log</h2><span class="admin-badge">Activity trail</span></div>
+    <div class="toolbar-group" style="padding:0 0 12px 0;display:flex;gap:10px">
+      <select id="auditActionFilter" class="compact-select"><option value="">All actions</option></select>
+      <select id="auditSessionFilter" class="compact-select"><option value="">All sessions</option></select>
+    </div>
+    <div id="auditError" class="api-error" hidden></div>
+    <div class="table-wrap"><table class="data-table" id="auditTable"><thead><tr><th>Timestamp</th><th>Session</th><th>Repository</th><th>Action</th><th>Performed By</th><th>Details</th></tr></thead><tbody id="auditBody"><tr><td colspan="6" class="empty-table">Loading audit entries...</td></tr></tbody></table></div>
+  </article>
 </section>
 
 <script src="{{ url_for('static', filename='js/settings.js') }}"></script>

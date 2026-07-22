@@ -125,4 +125,57 @@ function formatBytes(bytes) {
   return (bytes / 1048576).toFixed(1) + ' MB';
 }
 
-document.addEventListener('DOMContentLoaded', refreshStatus);
+function loadAudit() {
+  var actionFilter = document.getElementById('auditActionFilter');
+  var sessionFilter = document.getElementById('auditSessionFilter');
+  var errorEl = document.getElementById('auditError');
+  var body = document.getElementById('auditBody');
+  if (!body) return;
+  var params = new URLSearchParams();
+  var action = actionFilter ? actionFilter.value : '';
+  var session = sessionFilter ? sessionFilter.value : '';
+  if (action) params.set('action', action);
+  if (session) params.set('session_id', session);
+  fetch('/api/audit?' + params.toString()).then(function(r) { return r.json(); }).then(function(data) {
+    var logs = data.logs || [];
+    if (logs.length === 0) { body.innerHTML = '<tr><td colspan="6" class="empty-table">No audit log entries found</td></tr>'; return; }
+    var sessionSet = new Set();
+    var actionSet = new Set();
+    body.innerHTML = logs.map(function(e) {
+      sessionSet.add(e.session_id);
+      actionSet.add(e.action);
+      var cls = { auto_queued: 'badge-blue', review_started: 'badge-green', review_completed: 'badge-green', score_override: 'badge-orange' }[e.action] || 'badge-gray';
+      return '<tr><td class="cell-timestamp">' + new Date(e.created_at).toLocaleString() + '</td>' +
+        '<td>' + window.esc(e.session_name || e.session_id) + '</td>' +
+        '<td>' + (e.roll_number ? window.esc(e.roll_number) : '&mdash;') + '</td>' +
+        '<td><span class="audit-action-badge ' + cls + '">' + window.esc(e.action.replace(/_/g, ' ')) + '</span></td>' +
+        '<td>' + window.esc(e.performed_by) + '</td>' +
+        '<td class="cell-details">' +
+        (e.old_value ? '<span class="audit-old">' + window.esc(e.old_value) + '</span> \u2192 ' : '') +
+        (e.new_value ? '<span class="audit-new">' + window.esc(e.new_value) + '</span>' : '') +
+        (e.reasoning ? '<p class="audit-reason-sm">' + window.esc(e.reasoning) + '</p>' : '') +
+        '</td></tr>';
+    }).join('');
+    if (sessionFilter) {
+      var currentSess = sessionFilter.value;
+      sessionFilter.innerHTML = '<option value="">All sessions</option>' + Array.from(sessionSet).sort().map(function(s) {
+        return '<option value="' + s + '" ' + (s === currentSess ? 'selected' : '') + '>' + window.esc(s.slice(0,8)) + '</option>';
+      }).join('');
+    }
+    if (actionFilter) {
+      var currentAction = actionFilter.value;
+      actionFilter.innerHTML = '<option value="">All actions</option>' + Array.from(actionSet).sort().map(function(a) {
+        return '<option value="' + a + '" ' + (a === currentAction ? 'selected' : '') + '>' + window.esc(a.replace(/_/g, ' ')) + '</option>';
+      }).join('');
+    }
+  }).catch(function(err) { if (errorEl) { errorEl.hidden = false; errorEl.textContent = err.message; } });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  refreshStatus();
+  loadAudit();
+  var af = document.getElementById('auditActionFilter');
+  var sf = document.getElementById('auditSessionFilter');
+  if (af) af.addEventListener('change', loadAudit);
+  if (sf) sf.addEventListener('change', loadAudit);
+});

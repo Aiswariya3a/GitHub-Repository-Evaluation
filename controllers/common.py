@@ -67,24 +67,33 @@ def session_context(session_id):
         rid = str(row.get("id", ""))
         if rid in ingestion_commits and ingestion_commits[rid] > (row.get("commit_count") or 0):
             row["commit_count"] = ingestion_commits[rid]
-    # Fetch low_confidence flags and needs_review from evaluation_results / review_queue
+    # Fetch evaluation results, review flags, override status
     try:
         for row in rows:
             rid = str(row.get("id", ""))
             if rid:
                 eval_result = container.repositories.evaluations.get_evaluation_result(rid, session_id)
+                row["needs_review"] = container.reviews.needs_review(rid, session_id)
+                row["has_review"] = container.reviews.has_review_override(rid, session_id)
                 if eval_result:
-                    row["has_low_confidence"] = bool(eval_result.get("low_confidence_criteria"))
+                    row["normalized"] = float(eval_result.get("normalized_to_20") or 0)
+                    row["score"] = float(eval_result.get("total_score") or 0)
+                    reviewed = row["has_review"] or not row["needs_review"]
+                    row["has_low_confidence"] = bool(eval_result.get("low_confidence_criteria")) and not reviewed
+                    if row["status"] == "Completed":
+                        nrm = row["normalized"]
+                        row["display_status"] = "Strong" if nrm >= 16 else "On track" if nrm >= 12 else "Needs review" if nrm >= 8 else "Needs attention"
                 else:
                     row["has_low_confidence"] = False
-                row["needs_review"] = container.reviews.needs_review(rid, session_id)
             else:
                 row["has_low_confidence"] = False
                 row["needs_review"] = False
+                row["has_review"] = False
     except Exception:
         for row in rows:
             row["has_low_confidence"] = False
             row["needs_review"] = False
+            row["has_review"] = False
     # Fetch plagiarism data for the session
     plagiarism = []
     try:

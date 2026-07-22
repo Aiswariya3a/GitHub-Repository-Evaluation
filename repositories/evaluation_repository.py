@@ -101,3 +101,47 @@ class EvaluationRepository:
                 SELECT * FROM evaluation_results
                 WHERE repository_id=%s AND session_id=%s
             """, (repository_id, session_id)).fetchone()
+
+    def apply_override(self, repository_id: str, session_id: str,
+                       criterion_key: str, new_score: float) -> dict:
+        with connect() as db:
+            row = db.execute("""
+                SELECT criterion_results, max_score FROM evaluation_results
+                WHERE repository_id=%s AND session_id=%s
+            """, (repository_id, session_id)).fetchone()
+            if not row:
+                return {}
+            criteria = list(row["criterion_results"] or [])
+            max_total = float(row.get("max_score") or 80)
+            parts = criterion_key.split(".", 1)
+            cat_code, crit_key = parts[0] if len(parts) > 1 else "", parts[-1] if len(parts) > 1 else criterion_key
+            updated = False
+            for cr in criteria:
+                ck = cr.get("criterion_key", "")
+                cc = cr.get("category_code", "")
+                if ck == crit_key and (not cat_code or cc == cat_code):
+                    cr["score"] = new_score
+                    cr["overridden"] = True
+                    updated = True
+                    break
+            if not updated:
+                for cr in criteria:
+                    ck = cr.get("criterion_key", "") or cr.get("key", "")
+                    if ck == criterion_key:
+                        cr["score"] = new_score
+                        cr["overridden"] = True
+                        updated = True
+                        break
+            total = sum(float(cr.get("score", 0)) for cr in criteria)
+            normalized = round((total / max_total) * 20, 2) if max_total > 0 else 0
+            db.execute("""
+                UPDATE evaluation_results SET
+                    criterion_results=%s,
+                    total_score=%s,
+                    normalized_to_20=%s,
+                    percentage=%s,
+                    updated_at=now()
+                WHERE repository_id=%s AND session_id=%s
+            """, (Jsonb(criteria), total, normalized, round((total / max_total) * 100, 2) if max_total > 0 else 0,
+                  repository_id, session_id))
+            return {"total_score": total, "normalized_to_20": normalized, "max_score": max_total}

@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderCriterionRow(cr, idx) {
         const conf = Number(cr.confidence || 0);
-        const confCls = evalConfClass(conf);
-        const status = evalStatusIcon(conf, Number(cr.score || 0), Number(cr.max_score || 8));
+        const confCls = cr.overridden ? 'high' : evalConfClass(conf);
+        const status = cr.overridden ? { cls: 'pass', icon: '\u2713' } : evalStatusIcon(conf, Number(cr.score || 0), Number(cr.max_score || 8));
         const evItems = (cr.evidence || []);
         const evId = 'ev-' + idx;
 
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span class="eval-criterion-status ${status.cls}">${status.icon}</span>
             <span class="eval-criterion-name">${esc(cr.criterion_key.replace(/_/g, ' '))}</span>
             <span class="eval-criterion-score">${Number(cr.score || 0).toFixed(1)} <span class="max">/ ${Number(cr.max_score || 8).toFixed(0)}</span></span>
-            <span class="eval-criterion-conf ${confCls}">${(conf * 100).toFixed(0)}%</span>
+            <span class="eval-criterion-conf ${confCls}">${cr.overridden ? 'Reviewed' : (conf * 100).toFixed(0) + '%'}</span>
             ${evToggle}
             ${remarks}
             ${evBody}
@@ -122,8 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalMax = allMaxes.reduce((s, v) => s + v, 0);
         const totalPct = totalMax > 0 ? (totalScore / totalMax * 100) : 0;
 
-        const passed = criteria.filter(cr => Number(cr.confidence || 0) >= 0.7 && (Number(cr.score || 0) / Number(cr.max_score || 8)) >= 0.6).length;
+        const passed = criteria.filter(cr => (Number(cr.confidence || 0) >= 0.7 || cr.overridden) && (Number(cr.score || 0) / Number(cr.max_score || 8)) >= 0.6).length;
         const needsReview = criteria.filter(cr => {
+            if (cr.overridden) return false;
             const c = Number(cr.confidence || 0);
             const r = Number(cr.score || 0) / Number(cr.max_score || 8);
             return (c >= 0.5 && c < 0.7) || (r >= 0.3 && r < 0.6);
@@ -133,8 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const scoreTone = totalPct >= 70 ? 'pass' : totalPct >= 45 ? 'review' : 'fail';
         const statusLabel = totalPct >= 70 ? 'Good' : totalPct >= 45 ? 'Needs review' : 'Needs attention';
-        const scoreColor = scoreTone === 'pass' ? '#6ee7b7' : scoreTone === 'review' ? '#fcd34d' : '#fda4af';
-        const lowConfCount = (evaluationResult.low_confidence_criteria || []).length;
+        const scoreColor = scoreTone === 'pass' ? 'var(--score-pass)' : scoreTone === 'review' ? 'var(--score-needs-review)' : 'var(--score-concerning)';
+        const lowConfKeys = evaluationResult.low_confidence_criteria || [];
+        const lowConfCount = lowConfKeys.filter(function(k) {
+            var parts = k.split('.');
+            var cat = parts.length > 1 ? parts[0] : '';
+            var key = parts.length > 1 ? parts[1] : k;
+            return !criteria.some(function(cr) { return (cr.category_code === cat || !cat) && (cr.criterion_key === key) && cr.overridden; });
+        }).length;
 
         // ---- Hero: render at grid level to span both columns ----
         const layout = document.querySelector('.repository-page-layout');
@@ -176,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="eval-hero-footer-item">Evaluated: ${repository.evaluated_at ? new Date(repository.evaluated_at).toLocaleDateString() : 'Never'}</span>
                     <span class="eval-hero-footer-item">Files: ${(repository.ingestion && repository.ingestion.repo_stats && repository.ingestion.repo_stats.file_count) || repository.commit_count || 0}</span>
                     <span class="eval-hero-footer-item">Manual Review: ${needsReview + lowConfCount}</span>
+                    <button class="eval-hero-review-btn" data-tab="review">Review scores</button>
                 </div>
                 <div class="eval-hero-actions">
                     <button id="heroEvaluateButton" class="primary-btn">Re-evaluate</button>
@@ -196,12 +204,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const catConf = items.reduce((s, cr) => s + Number(cr.confidence || 0), 0) / items.length;
             const catConfCls = evalConfClass(catConf);
             const catReviewCount = items.filter(cr => {
+                if (cr.overridden) return false;
                 const c = Number(cr.confidence || 0);
                 return c < 0.7 || cr.confidence_warning;
             }).length;
             const catId = 'cat-' + catIdx;
 
-            const catTone = catPct >= 70 ? '#10b981' : catPct >= 45 ? '#f59e0b' : '#ef4444';
+            const catTone = catPct >= 70 ? 'var(--emerald)' : catPct >= 45 ? 'var(--amber)' : 'var(--red)';
 
             const criteriaHtml = items.map((cr, i) => renderCriterionRow(cr, catIdx + '-' + i)).join('');
 
@@ -213,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="eval-category-name">${esc(catCode.replace(/^C(\d+)$/, 'Category $1'))}</span>
                         <div class="eval-category-meta">
                             <span>${items.length} criter${items.length > 1 ? 'ia' : 'ion'}</span>
-                            ${catReviewCount > 0 ? `<span style="color:#fcd34d">${catReviewCount} need${catReviewCount > 1 ? '' : 's'} review</span>` : ''}
+                            ${catReviewCount > 0 ? `<span style="color:var(--score-needs-review)">${catReviewCount} need${catReviewCount > 1 ? '' : 's'} review</span>` : ''}
                             <div class="eval-category-progress"><span style="width:${catPct}%;background:${catTone}"></span></div>
                         </div>
                     </div>
@@ -438,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const byAuthor = {};
         contributors.forEach(c => { byAuthor[(c.login || c.author || c.name || '').toLowerCase()] = c; });
-        const authorColors = ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#7dd3fc', '#a78bfa', '#f472b6', '#34d399'];
+        const authorColors = ['#6366f1', 'var(--emerald)', 'var(--amber)', 'var(--red)', 'var(--blue)', '#a78bfa', '#f472b6', '#34d399'];
         let colorIdx = 0;
         const authorColorMap = {};
         contributors.forEach(c => {
@@ -740,10 +749,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function classifyScore(score, maxScore) {
         const pct = maxScore > 0 ? score / maxScore : 0;
-        if (pct >= 0.8) return { tone: 'strong', label: 'Strong', color: '#86efac' };
-        if (pct >= 0.6) return { tone: 'satisfactory', label: 'Satisfactory', color: '#7dd3fc' };
-        if (pct >= 0.4) return { tone: 'needs-work', label: 'Needs work', color: '#fcd34d' };
-        return { tone: 'concerning', label: 'Concerning', color: '#fda4af' };
+        if (pct >= 0.8) return { tone: 'strong', label: 'Strong', color: 'var(--score-strong)' };
+        if (pct >= 0.6) return { tone: 'satisfactory', label: 'Satisfactory', color: 'var(--score-satisfactory)' };
+        if (pct >= 0.4) return { tone: 'needs-work', label: 'Needs work', color: 'var(--score-needs-review)' };
+        return { tone: 'concerning', label: 'Concerning', color: 'var(--score-concerning)' };
     }
 
     function assessConfidence(conf) {
@@ -767,8 +776,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const overallTone = classifyScore(totalScore, totalMax);
         const grade = totalPct >= 90 ? 'A' : totalPct >= 80 ? 'B' : totalPct >= 70 ? 'C' : totalPct >= 60 ? 'D' : 'F';
         const avgConf = criteria.reduce((s, cr) => s + Number(cr.confidence || 0), 0) / criteria.length;
-        const lowConfCount = criteria.filter(cr => Number(cr.confidence || 0) < 0.5).length;
-        const needsReview = criteria.filter(cr => Number(cr.confidence || 0) < 0.7).length;
+        const lowConfCount = criteria.filter(cr => Number(cr.confidence || 0) < 0.5 && !cr.overridden).length;
+        const needsReview = criteria.filter(cr => Number(cr.confidence || 0) < 0.7 && !cr.overridden).length;
         const overallRemarks = er.overall_remarks || '';
 
         const sorted = criteria.slice().sort((a, b) => {
@@ -779,9 +788,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const strengths = sorted.filter(c => c.max_score > 0 && Number(c.score) / Number(c.max_score) >= 0.7);
         const concerns = sorted.filter(c => c.max_score > 0 && Number(c.score) / Number(c.max_score) < 0.5);
 
-        const scoreColor = overallTone.tone === 'strong' ? '#86efac'
-            : overallTone.tone === 'satisfactory' ? '#7dd3fc'
-            : overallTone.tone === 'needs-work' ? '#fcd34d' : '#fda4af';
+        const scoreColor = overallTone.tone === 'strong' ? 'var(--score-strong)'
+            : overallTone.tone === 'satisfactory' ? 'var(--score-satisfactory)'
+            : overallTone.tone === 'needs-work' ? 'var(--score-needs-review)' : 'var(--score-concerning)';
 
         let html = '';
 
@@ -800,10 +809,10 @@ document.addEventListener('DOMContentLoaded', () => {
         html += '<div class="ai-verdict-row">';
         var vChips = [
             { label: 'Overall', value: overallTone.label, color: scoreColor },
-            { label: 'Grade', value: grade, color: totalPct >= 70 ? '#86efac' : totalPct >= 45 ? '#fcd34d' : '#fda4af' },
-            { label: 'Confidence', value: assessConfidence(avgConf), color: avgConf >= 0.7 ? '#86efac' : avgConf >= 0.5 ? '#fcd34d' : '#fda4af' },
+            { label: 'Grade', value: grade, color: totalPct >= 70 ? 'var(--score-strong)' : totalPct >= 45 ? 'var(--score-needs-review)' : 'var(--score-concerning)' },
+            { label: 'Confidence', value: assessConfidence(avgConf), color: avgConf >= 0.7 ? 'var(--score-strong)' : avgConf >= 0.5 ? 'var(--score-needs-review)' : 'var(--score-concerning)' },
         ];
-        if (needsReview > 0) vChips.push({ label: 'Review needed', value: needsReview + ' item' + (needsReview > 1 ? 's' : ''), color: '#fda4af' });
+        if (needsReview > 0) vChips.push({ label: 'Review needed', value: needsReview + ' item' + (needsReview > 1 ? 's' : ''), color: 'var(--score-concerning)' });
         vChips.forEach(function (v) {
             html += '<span class="ai-verdict-chip"><span class="ai-verdict-dot" style="background:' + v.color + '"></span>' + esc(v.label) + ': <strong>' + esc(v.value) + '</strong></span>';
         });
@@ -821,7 +830,10 @@ document.addEventListener('DOMContentLoaded', () => {
         html += '<span>Status: ' + esc(r.status || 'Unknown') + '</span>';
         if (needsReview > 0) html += '<span class="ov-review-flag">Manual review recommended</span>';
         html += '</div>';
+        html += '<div class="ov-nav-row">';
         html += '<button class="ov-nav-chip" data-tab="evaluation">View full evaluation breakdown \u2192</button>';
+        html += '<button class="ov-nav-chip secondary" data-tab="review">Review &amp; override scores \u2192</button>';
+        html += '</div>';
         html += '</article>';
 
         // ================================================================
@@ -834,7 +846,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 var dim = getCategoryInfo(cr.category_code) || { label: cr.category_code, desc: '' };
                 html += '<div class="ai-strength-card">';
                 html += '<div class="ai-strength-head"><div><span class="ai-strength-dim">' + esc(dim.label) + '</span><span class="ai-strength-criterion">' + esc(getCriterionLabel(cr.criterion_key)) + '</span></div></div>';
-                html += '<div class="ai-strength-score"><span style="color:#86efac">' + Number(cr.score).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span><span class="ai-strength-pct">' + (cr.max_score > 0 ? (Number(cr.score) / Number(cr.max_score) * 100).toFixed(0) : 0) + '%</span></div>';
+                html += '<div class="ai-strength-score"><span style="color:var(--score-strong)">' + Number(cr.score).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span><span class="ai-strength-pct">' + (cr.max_score > 0 ? (Number(cr.score) / Number(cr.max_score) * 100).toFixed(0) : 0) + '%</span></div>';
                 if (cr.remarks) html += '<p class="ai-strength-remark">' + esc(cr.remarks) + '</p>';
                 html += '</div>';
             });
@@ -860,9 +872,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 var lowConf = Number(cr.confidence || 0) < 0.5;
                 html += '<div class="ai-concern-card' + (lowConf ? ' needs-review' : '') + '">';
                 html += '<div class="ai-concern-head"><div><span class="ai-concern-dim">' + esc(dim.label) + '</span><span class="ai-concern-criterion">' + esc(getCriterionLabel(cr.criterion_key)) + '</span></div></div>';
-                html += '<div class="ai-concern-score"><span style="color:#fda4af">' + Number(cr.score).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span><span class="ai-concern-pct">' + (cr.max_score > 0 ? (Number(cr.score) / Number(cr.max_score) * 100).toFixed(0) : 0) + '%</span></div>';
+                html += '<div class="ai-concern-score"><span style="color:var(--score-concerning)">' + Number(cr.score).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span><span class="ai-concern-pct">' + (cr.max_score > 0 ? (Number(cr.score) / Number(cr.max_score) * 100).toFixed(0) : 0) + '%</span></div>';
                 if (cr.remarks) html += '<p class="ai-concern-remark">' + esc(cr.remarks) + '</p>';
-                if (lowConf) html += '<span class="ai-needs-review-badge">Needs manual review</span>';
+                if (lowConf && !cr.overridden) html += '<span class="ai-needs-review-badge">Needs manual review</span>';
                 html += '</div>';
             });
             html += '</div>';
@@ -921,7 +933,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const overallTone = classifyScore(totalScore, totalMax);
         const grade = totalPct >= 90 ? 'A' : totalPct >= 80 ? 'B' : totalPct >= 70 ? 'C' : totalPct >= 60 ? 'D' : 'F';
         const avgConf = criteria.reduce((s, cr) => s + Number(cr.confidence || 0), 0) / criteria.length;
-        const lowConfCount = criteria.filter(cr => Number(cr.confidence || 0) < 0.5).length;
+        const lowConfCount = criteria.filter(cr => Number(cr.confidence || 0) < 0.5 && !cr.overridden).length;
 
         // Group criteria by category
         const groups = {};
@@ -941,11 +953,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const concerns = sorted.filter(c => c.max_score > 0 && Number(c.score) / Number(c.max_score) < 0.5);
 
         // Score color
-        const scoreColor = overallTone.tone === 'strong' ? '#86efac'
-            : overallTone.tone === 'satisfactory' ? '#7dd3fc'
-            : overallTone.tone === 'needs-work' ? '#fcd34d' : '#fda4af';
+        const scoreColor = overallTone.tone === 'strong' ? 'var(--score-strong)'
+            : overallTone.tone === 'satisfactory' ? 'var(--score-satisfactory)'
+            : overallTone.tone === 'needs-work' ? 'var(--score-needs-review)' : 'var(--score-concerning)';
 
-        const gradeColor = totalPct >= 70 ? '#86efac' : totalPct >= 45 ? '#fcd34d' : '#fda4af';
+        const gradeColor = totalPct >= 70 ? 'var(--score-strong)' : totalPct >= 45 ? 'var(--score-needs-review)' : 'var(--score-concerning)';
 
         let html = '';
 
@@ -970,9 +982,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const verdicts = [
             { label: 'Overall', value: overallTone.label, color: scoreColor },
             { label: 'Grade', value: grade, color: gradeColor },
-            { label: 'Confidence', value: assessConfidence(avgConf), color: avgConf >= 0.7 ? '#86efac' : avgConf >= 0.5 ? '#fcd34d' : '#fda4af' },
+            { label: 'Confidence', value: assessConfidence(avgConf), color: avgConf >= 0.7 ? 'var(--score-strong)' : avgConf >= 0.5 ? 'var(--score-needs-review)' : 'var(--score-concerning)' },
         ];
-        if (lowConfCount) verdicts.push({ label: 'Manual review', value: lowConfCount + ' items', color: '#fda4af' });
+        if (lowConfCount) verdicts.push({ label: 'Manual review', value: lowConfCount + ' items', color: 'var(--score-concerning)' });
         verdicts.forEach(v => {
             html += '<span class="ai-verdict-chip"><span class="ai-verdict-dot" style="background:' + v.color + '"></span>' + esc(v.label) + ': <strong>' + esc(v.value) + '</strong></span>';
         });
@@ -989,7 +1001,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const pct = cr.max_score > 0 ? (Number(cr.score) / Number(cr.max_score) * 100) : 0;
                 html += '<div class="ai-strength-card">';
                 html += '<div class="ai-strength-head"><div><span class="ai-strength-dim">' + esc(dim.label) + '</span><span class="ai-strength-criterion">' + esc(getCriterionLabel(cr.criterion_key)) + '</span></div></div>';
-                html += '<div class="ai-strength-score"><span style="color:#86efac">' + Number(cr.score).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span><span class="ai-strength-pct">' + pct.toFixed(0) + '%</span></div>';
+                html += '<div class="ai-strength-score"><span style="color:var(--score-strong)">' + Number(cr.score).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span><span class="ai-strength-pct">' + pct.toFixed(0) + '%</span></div>';
                 if (cr.remarks) html += '<p class="ai-strength-remark">' + esc(cr.remarks) + '</p>';
                 html += '</div>';
             });
@@ -1011,9 +1023,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const needReview = Number(cr.confidence || 0) < 0.5;
                 html += '<div class="ai-concern-card' + (needReview ? ' needs-review' : '') + '">';
                 html += '<div class="ai-concern-head"><div><span class="ai-concern-dim">' + esc(dim.label) + '</span><span class="ai-concern-criterion">' + esc(getCriterionLabel(cr.criterion_key)) + '</span></div></div>';
-                html += '<div class="ai-concern-score"><span style="color:#fda4af">' + Number(cr.score).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span><span class="ai-concern-pct">' + pct.toFixed(0) + '%</span></div>';
+                html += '<div class="ai-concern-score"><span style="color:var(--score-concerning)">' + Number(cr.score).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span><span class="ai-concern-pct">' + pct.toFixed(0) + '%</span></div>';
                 if (cr.remarks) html += '<p class="ai-concern-remark">' + esc(cr.remarks) + '</p>';
-                if (needReview) html += '<span class="ai-needs-review-badge">Needs manual review</span>';
+                if (needReview && !cr.overridden) html += '<span class="ai-needs-review-badge">Needs manual review</span>';
                 html += '</div>';
             });
             html += '</div>';
@@ -1093,7 +1105,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 html += '<span class="ai-criterion-name">' + esc(getCriterionLabel(cr.criterion_key)) + '</span>';
                 html += '<span class="ai-criterion-bar-track"><span class="ai-criterion-bar-fill" style="width:' + pct + '%;background:' + crTone.color + '"></span></span>';
                 html += '<span class="ai-criterion-score" style="color:' + crTone.color + '">' + Number(cr.score || 0).toFixed(1) + '/' + Number(cr.max_score || 8).toFixed(0) + '</span>';
-                html += '<span class="ai-criterion-conf" style="color:' + (conf >= 0.7 ? '#86efac' : conf >= 0.5 ? '#fcd34d' : '#fda4af') + '">' + (conf * 100).toFixed(0) + '%</span>';
+                html += '<span class="ai-criterion-conf" style="color:' + (conf >= 0.7 ? 'var(--score-strong)' : conf >= 0.5 ? 'var(--score-needs-review)' : 'var(--score-concerning)') + '">' + (conf * 100).toFixed(0) + '%</span>';
                 if (evItems.length) {
                     html += '<span class="ai-evidence-toggle" onclick="document.getElementById(\'' + evId + '\').classList.toggle(\'open\');this.classList.toggle(\'open\')">' + evItems.length + ' evidence</span>';
                 }
@@ -1162,7 +1174,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return n.slice(0, 2).toUpperCase() || '?';
             }
             function getColor(n) {
-                var colors = ['#6366f1','#8b5cf6','#a855f7','#ec4899','#f43f5e','#ef4444','#f97316','#eab308','#84cc16','#22c55e','#14b8a6','#06b6d4','#3b82f6'];
+                var colors = ['#6366f1','#8b5cf6','#a855f7','#ec4899','#f43f5e','var(--red)','#f97316','#eab308','#84cc16','#22c55e','#14b8a6','#06b6d4','#3b82f6'];
                 var hash = 0;
                 for (var i = 0; i < (n || '').length; i++) hash = n.charCodeAt(i) + ((hash << 5) - hash);
                 return colors[Math.abs(hash) % colors.length];
@@ -1278,7 +1290,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
-    // ---- Tab switching (event delegation) ----
+    // ---- Tab switching (re-fetch for data tabs to reflect overrides) ----
 
     document.addEventListener('click', e => {
         const tab = e.target.dataset.tab;
@@ -1287,6 +1299,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!tabs) return;
         tabs.querySelectorAll('button').forEach(x => x.classList.toggle('active', x.dataset.tab === tab));
         document.querySelectorAll('.tab-panel').forEach(x => x.classList.toggle('active', x.id === 'tab-' + tab));
+        if (tab === 'evaluation' || tab === 'overview' || tab === 'quality') {
+            fetch('/api/sessions/' + sid + '/repositories/' + rid)
+                .then(function(r) { return r.json(); })
+                .then(function(d) {
+                    if (!d.repository) return;
+                    repository = d.repository;
+                    var ev = repository.evaluation_result || {};
+                    var er = ev.feedback || {};
+                    var criteria = ev.criterion_results || [];
+                    if (tab === 'evaluation') renderEvaluationDetailTab(ev);
+                    else if (tab === 'overview') renderOverviewTab(repository, ev, er, criteria);
+                    else if (tab === 'quality') renderCodeQualityTab(ev, er, criteria);
+                }).catch(function() {});
+        }
     });
 
     // ---- Initialize ----

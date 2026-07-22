@@ -10,15 +10,15 @@ Accurately evaluate student code against any instructor-defined rubric using a m
 
 ## Current State
 
-**Shipped:** v2.0 — Frontend Dashboard (2026-07-13)
-**Total shipped:** v1.0 SLM Pipeline (2026-07-12) + v2.0 Frontend Dashboard (2026-07-13)
-**Phases:** 5 phases, 16 plans
+**Shipped:** v3.0 — Executive AI Dashboard & Async Evaluation (2026-07-18)
+**Total shipped:** v1.0 SLM Pipeline (2026-07-12) + v2.0 Frontend Dashboard (2026-07-13) + v3.0 Executive Dashboard (2026-07-18)
+**Phases:** 10 phases (5 planned + 5 direct-ship), 16 plans + 15 commits
 **Tests:** 110 passing (2 integration gated)
-**Commits:** 14 for v2.0 (78 files changed, +36,081 lines)
-**Architecture:** Multi-agent SLM pipeline with Ollama + Flask frontend dashboard
+**Commits:** 15 for v3.0 (61 files changed, +5,411 lines)
+**Architecture:** Multi-agent SLM pipeline with Ollama + Flask frontend dashboard (async evaluation)
 **Tech stack:** Python 3.11+, PostgreSQL, Ollama, Flask, pytest, Vanilla JS
 
-All 45 v1 requirements implemented and verified. Frontend dashboard fully enhanced with ingestion/evaluation detail tabs, plagiarism detection display, analytics (score distribution + session comparison), 5 extracted JS files with shared utilities, organized CSS, and polished UX. The old monolithic Gemini-based evaluation engine has been fully replaced with a modular pipeline supporting parallel agent execution, deterministic score aggregation, and file-based recovery.
+All 45 v1 requirements implemented and verified. v2.0 frontend dashboard fully enhanced. v3.0 added async non-blocking evaluation with real-time progress tracking, collaboration analytics (equity waterfall, contributor profiles, network graph), redesigned Code Quality tab as an AI Assessment Report, Executive AI Dashboard Overview tab with grade letter presentation, Settings page with system diagnostics, light mode theme, command palette (Ctrl+K), dynamic repo avatars, and a simplified dashboard for non-technical evaluators. The old monolithic Gemini-based evaluation engine has been fully replaced with a modular pipeline supporting parallel agent execution, deterministic score aggregation, and file-based recovery.
 
 ## Requirements
 
@@ -45,9 +45,21 @@ All 45 v1 requirements implemented and verified. Frontend dashboard fully enhanc
 - ✓ JavaScript extraction to dedicated files with shared utilities — v2.0
 - ✓ CSS organization, error handling, skeleton loading, styled flash messages — v2.0
 
+**v3.0 — Executive AI Dashboard & Async Evaluation:**
+- ✓ Collaboration analytics with equity waterfall, contributor profiles, network graph, health score — v3.0
+- ✓ Code Quality tab redesigned as AI Assessment Report with verdict, dimensions, evidence — v3.0
+- ✓ Executive AI Dashboard Overview tab with grade letter, strengths/improvements, recommendations — v3.0
+- ✓ Async evaluation with background threads and real-time progress tracking — v3.0
+- ✓ Settings page with system diagnostics and `/api/system/status` endpoint — v3.0
+- ✓ Light mode theme with localStorage persistence — v3.0
+- ✓ Dashboard simplified for non-technical evaluators (KPI metrics, health card, leaderboard) — v3.0
+- ✓ Enhanced PDF report generation (rubric-aware, per-repository, dynamic) — v3.0
+- ✓ Feedback Agent summary field with retry and fallback synthesis — v3.0
+- ✓ Global UX enhancements (font size increase, Ctrl+K palette, repo avatars, skeleton states) — v3.0
+
 ### Active
 
-No active requirements remain. Next milestone will define new requirements.
+No active requirements remain. Next milestone (v4.0) will define new requirements.
 
 ### Out of Scope
 
@@ -61,25 +73,27 @@ No active requirements remain. Next milestone will define new requirements.
 
 ## Context
 
-Shipped v2.0 Frontend Dashboard on top of the v1.0 SLM pipeline. Both milestones complete. Current codebase:
+Shipped v3.0 Executive AI Dashboard & Async Evaluation on top of v1.0 + v2.0. Three milestones complete. Current codebase:
 
 - **Language:** Python 3.11+, Vanilla JavaScript (ES6)
-- **Database:** PostgreSQL with 3 migrations (ingestion_records, evaluation_results, archived old tables)
+- **Database:** PostgreSQL with 3 migrations + schema additions for progress tracking, rich GitHub metadata
 - **SLM runtime:** Ollama with Qwen2.5-Coder 3B (code) and Phi-4 Mini (reasoning)
 - **Tests:** 110 passing (100 non-integration + 10 _set_nested + 2 integration gated)
-- **Architecture:** Modular pipeline: ingestion → 3 parallel capability agents → rubric evaluation → aggregation → feedback → persistence
-- **Frontend:** Flask templates with 5 extracted JS files (common.js, session.js, dashboard.js, repository.js, reports.js), organized CSS (14 section headers), no framework dependency
-- **Key design decisions:** File-based agent communication, deterministic score aggregation, configurable model routing, temperature=0 enforcement, lazy import for circular dependency resolution, common.js `window.*` shared utilities
+- **Architecture:** Modular pipeline: ingestion → 3 parallel capability agents → rubric evaluation → aggregation → feedback → persistence (async, non-blocking with background threads)
+- **Frontend:** Flask templates with 6 extracted JS files (common.js, session.js, dashboard.js, repository.js, reports.js, settings.js), organized CSS (light + dark mode via data-theme), command palette, dynamic repo avatars, no framework dependency
+- **Key design decisions:** Background thread async evaluation, progress polling, collaboration analytics equity waterfall, grade letter (A-F) overview, AI Assessment Report terminology, CSS custom properties for theming, common.js `window.*` shared utilities
 
 Prior codebase mapping at `.planning/codebase/` documents the full architecture, stack, conventions, and concerns.
 
 ## Next Milestone Goals
 
-The v1.0 pipeline + v2.0 dashboard are both fully shipped. Future milestones could include:
+The v1.0 pipeline + v2.0 dashboard + v3.0 Executive Dashboard are all fully shipped. Next milestone:
 
+- **v4.0 — Human-in-the-Loop Review** — dashboard review queue, instructor+admin review, low-confidence flagging, manual score overrides with reasoning notes, full audit trail, visual badges + report notes
+
+Future milestones could also include:
 - Local LLM upgrade (new SLM models: Qwen3-Coder, DeepSeek-Coder, etc.)
 - Additional capability agents (Documentation Analysis, Complexity Analysis)
-- Human-in-the-loop review for low-confidence evaluations
 - Performance benchmarks and optimization
 - Containerization for deployment
 - Multi-language parsing via tree-sitter
@@ -112,13 +126,20 @@ The v1.0 pipeline + v2.0 dashboard are both fully shipped. Future milestones cou
 | Shared JS utilities on window.* | Cross-file access without a bundler | ✓ Good — simple, works with Flask static serving |
 | 3 DOMContentLoaded handlers in dashboard.js | One file serves dashboard, overview, analytics pages | ✓ Good — avoids separate files for each page |
 | CSS section headers (BASE/LAYOUT/COMPONENTS/STATES/RESPONSIVE) | Maintainability without a CSS preprocessor | ✓ Good — clear organization |
+| Background threads for async evaluation | Simplest approach for Flask; no Celery/RQ dependency | ✓ Good — works for current scale |
+| progress_pct + current_step on repositories | Avoids new progress table; sufficient granularity for polling | ✓ Good — minimal schema change |
+| Dashboard: remove Action Center + Recent Sessions | Non-technical evaluators found them distracting | ✓ Good — cleaner landing page |
+| Light mode via CSS custom properties + data-theme | Clean separation, no CSS preprocessor, instant toggle | ✓ Good — works across all pages |
+| Grade letter (A-F) on Overview | Faculty evaluators need at-a-glance scoring | ✓ Good — immediately useful |
+| Code Quality → "AI Assessment Report" | Faculty evaluators prefer "assessment" over "quality" | ✓ Good — better terminology fit |
 
 ## Evolution
 
 This document evolves at phase transitions and milestone boundaries.
 
 - **v1.0 shipped:** All 45 requirements moved to Validated. Full review completed. Core Value confirmed correct. Out of Scope audit passed.
-- **v2.0 shipped:** Frontend Dashboard archived. 5 UI items added to Validated. 6 new Key Decisions recorded. ARCHIVE.md updated.
+- **v2.0 shipped:** Frontend Dashboard archived. 5 UI items added to Validated. 6 new Key Decisions recorded.
+- **v3.0 shipped:** Executive AI Dashboard & Async Evaluation archived. 53 requirements documented retroactively. 5 logical phases (6-10) shipped directly as 15 commits. 6 new Key Decisions recorded.
 
 ---
-*Last updated: 2026-07-17 after v2.0 milestone*
+*Last updated: 2026-07-18 after v3.0 milestone audit*

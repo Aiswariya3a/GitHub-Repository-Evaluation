@@ -46,8 +46,8 @@
 <summary>🔲 v4.0 Human-in-the-Loop Review (Phases 11-13) — IN PLANNING</summary>
 
 - [x] Phase 11: HITL Data Model & Backend — Review queue schema, API endpoints, backend services — completed 2026-07-18
-- [ ] Phase 12: Review Dashboard & UI — Reviewer dashboard, review workflow interface, score override controls
-- [ ] Phase 13: Audit Trail, Badges & Roles — Audit log, visual badges, report notes, instructor/admin distinction
+- [x] Phase 12: Review Dashboard & UI — Reviewer dashboard, review workflow interface, score override controls — shipped 2026-07-18
+- [x] Phase 13: Audit Trail, Badges & Roles — Audit log, visual badges, report notes, instructor/admin distinction — completed 2026-07-21
 
 </details>
 
@@ -66,8 +66,8 @@
 | 9. Async Evaluation | v3.0 | direct | Complete | 2026-07-17 |
 | 10. Settings/Light Mode/UX | v3.0 | direct | Complete | 2026-07-18 |
 | 11. HITL Data Model & Backend | v4.0 | 2/2 | Complete | 2026-07-18 |
-| 12. Review Dashboard & UI | v4.0 | — | Planning | — |
-| 13. Audit Trail, Badges & Roles | v4.0 | — | Planning | — |
+| 12. Review Dashboard & UI | v4.0 | 2/2 | Complete | 2026-07-18 |
+| 13. Audit Trail, Badges & Roles | v4.0 | 2/2 | Complete | 2026-07-21 |
 
 ## Coverage Map
 

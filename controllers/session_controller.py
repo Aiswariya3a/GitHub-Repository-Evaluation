@@ -17,6 +17,13 @@ def reports_page(): return render_template("reports.html", title="Reports")
 @session_controller.get("/reviews")
 def reviews_page(): return render_template("reviews.html", title="Reviews")
 
+@session_controller.get("/audit")
+def audit_page():
+    logs = services().reviews.get_all_audit_logs()
+    actions = services().reviews.get_distinct_actions()
+    sessions_list = services().sessions.list_sessions()
+    return render_template("audit.html", title="Audit Log", logs=logs, actions=actions, sessions=sessions_list)
+
 @session_controller.get("/analytics")
 def analytics_page(): return render_template("analytics.html", title="Analytics")
 
@@ -46,8 +53,26 @@ def detail_api(session_id):
 @session_controller.get("/api/dashboard")
 def dashboard_api():
     data = services().repositories.dashboard()
-    data["pending_reviews"] = services().reviews.review_queue.total_pending()
+    svc = services().reviews
+    data["pending_reviews"] = svc.review_queue.total_pending()
+    for item in data.get("recent_activity", []):
+        rid = str(item["id"])
+        sid = str(item["session_id"])
+        item["needs_review"] = svc.needs_review(rid, sid)
+        item["has_review"] = svc.has_review_override(rid, sid)
+    for item in data.get("leaderboard", []):
+        rid = str(item["id"])
+        sid = str(item["session_id"])
+        item["needs_review"] = svc.needs_review(rid, sid)
+        item["has_review"] = svc.has_review_override(rid, sid)
     return jsonify(data)
+
+@session_controller.get("/api/audit")
+def audit_api():
+    session_id = request.args.get("session_id")
+    action = request.args.get("action")
+    logs = services().reviews.get_all_audit_logs(session_id, action)
+    return jsonify(logs=logs)
 
 @session_controller.get("/api/system/status")
 def system_status_api():

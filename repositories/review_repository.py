@@ -120,3 +120,27 @@ class AuditLogRepository:
                 WHERE repository_id=%s AND session_id=%s
                 ORDER BY created_at DESC
             """, (repository_id, session_id)).fetchall()
+
+    def list_all(self, session_id=None, action=None):
+        with connect() as db:
+            q = """
+                SELECT a.*, r.roll_number, r.repo_url, s.name AS session_name
+                FROM audit_log a
+                JOIN repositories r ON r.id = a.repository_id
+                JOIN evaluation_sessions s ON s.id = a.session_id
+                WHERE 1=1
+            """
+            params = []
+            if session_id:
+                q += " AND a.session_id=%s"
+                params.append(session_id)
+            if action:
+                q += " AND a.action=%s"
+                params.append(action)
+            q += " ORDER BY a.created_at DESC LIMIT 200"
+            return db.execute(q, params).fetchall()
+
+    def distinct_actions(self):
+        with connect() as db:
+            rows = db.execute("SELECT DISTINCT action FROM audit_log ORDER BY action").fetchall()
+            return [r["action"] for r in rows]

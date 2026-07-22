@@ -49,6 +49,8 @@ document.addEventListener('DOMContentLoaded', function() {
             : '';
         var reviewBadge = r.needs_review
             ? '<div class="warning-strip review-flag">! Needs review</div>'
+            : r.has_review
+            ? '<div class="warning-strip review-flag reviewed-flag">&#x2713; Reviewed</div>'
             : '';
         var progressLabel = running ? '<div class="progress-label">' + window.esc(currentStep) + ' &middot; ' + progressPct + '%</div>' : '';
         return '<article class="repository-card' + (selected.has(r.id) ? ' selected' : '') + '">' +
@@ -82,14 +84,13 @@ document.addEventListener('DOMContentLoaded', function() {
             '</article>';
     }
 
-    // --- renderRepositories with low-confidence filter support ---
+    // --- renderRepositories ---
     function renderRepositories() {
         var rows = [...(data?.repositories || [])];
         rows = rows.filter(function(r) {
             var statusMatch = (filter === 'All' || r.status === filter);
-            var confMatch = (filter !== 'LowConfidence' || r.has_low_confidence === true);
             var searchMatch = (r.roll_number + ' ' + r.repo_url).toLowerCase().includes(query);
-            return statusMatch && confMatch && searchMatch;
+            return statusMatch && searchMatch;
         });
         rows.sort(function(a, b) {
             if (sort === 'score') return Number(b.normalized) - Number(a.normalized);
@@ -212,13 +213,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (d.plagiarism) {
             renderPlagiarism(d.plagiarism);
         }
-
-        // Update low-confidence filter chip count
-        var lowConfCount = (d.repositories || []).filter(function(r) { return r.has_low_confidence; }).length;
-        var lowConfChip = document.querySelector('[data-status="LowConfidence"]');
-        if (lowConfChip) {
-            lowConfChip.textContent = 'Low confidence (' + lowConfCount + ')';
-        }
     }
 
     // --- load ---
@@ -263,21 +257,22 @@ document.addEventListener('DOMContentLoaded', function() {
         pollOneUntilDone(id);
     };
 
+    var _evalPolls = {};
     function pollOneUntilDone(id) {
-        if (window._evalPoll) clearInterval(window._evalPoll);
-        window._evalPoll = setInterval(async function() {
+        if (_evalPolls[id]) clearInterval(_evalPolls[id]);
+        _evalPolls[id] = setInterval(async function() {
             try {
                 var resp = await fetch('/api/sessions/' + sid + '/repositories/' + id);
                 var d = await resp.json();
                 var status = d.repository && d.repository.status;
                 if (status === 'Completed') {
-                    clearInterval(window._evalPoll);
-                    window._evalPoll = null;
+                    clearInterval(_evalPolls[id]);
+                    delete _evalPolls[id];
                     window.toast('Evaluation completed');
                     load();
                 } else if (status === 'Failed' || status === 'Error') {
-                    clearInterval(window._evalPoll);
-                    window._evalPoll = null;
+                    clearInterval(_evalPolls[id]);
+                    delete _evalPolls[id];
                     window.toast('Evaluation failed', 'error');
                     load();
                 } else if (status === 'Evaluating' && d.repository && data) {
@@ -292,29 +287,45 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (found) renderRepositories();
                 }
             } catch (e) {
-                clearInterval(window._evalPoll);
-                window._evalPoll = null;
+                clearInterval(_evalPolls[id]);
+                delete _evalPolls[id];
             }
         }, 3000);
     }
 
     window.bulkEvaluate = async function() {
         if (!await window.confirmAction('Evaluate ' + selected.size + ' selected repositories?', 'Bulk evaluation')) return;
-        for (var id of [...selected]) {
+        window.toast('Starting evaluations...');
+        selected.forEach(function(id) {
             var r = data.repositories.find(function(x) { return x.id === id; });
-            await evaluateOne(id, r && r.status === 'Completed');
-        }
+            if (r) {
+                var wasCompleted = r.status === 'Completed';
+                r.status = 'Evaluating';
+                r.display_status = 'Evaluating';
+                fetch('/api/sessions/' + sid + '/repositories/' + id + '/' + (wasCompleted ? 'reevaluate' : 'evaluate'), { method: 'POST' })
+                    .then(function(r) { if (!r.ok) r.json().then(function(d) { window.toast(d.error || 'Failed to start', 'error'); }); })
+                    .catch(function() {});
+                pollOneUntilDone(id);
+            }
+        });
         selected.clear();
         renderRepositories();
     };
 
     async function evaluateAll() {
         if (!await window.confirmAction('Evaluate every pending repository in this session?', 'Evaluate pending')) return;
-        window.toast('Batch evaluation started');
-        var r = await fetch('/api/sessions/' + sid + '/evaluate', { method: 'POST' });
-        var d = await r.json();
-        if (!r.ok) { window.toast(d.error, 'error'); } else { window.toast(d.evaluated + ' repositories evaluated'); }
-        load();
+        var pending = data.repositories.filter(function(x) { return x.status === 'Pending' || x.status === 'Failed'; });
+        if (pending.length === 0) { window.toast('No pending repositories', 'error'); return; }
+        window.toast('Starting ' + pending.length + ' evaluations...');
+        pending.forEach(function(repo) {
+            repo.status = 'Evaluating';
+            repo.display_status = 'Evaluating';
+            fetch('/api/sessions/' + sid + '/repositories/' + repo.id + '/evaluate', { method: 'POST' })
+                .then(function(r) { if (!r.ok) r.json().then(function(d) { window.toast(d.error || 'Failed to start', 'error'); }); })
+                .catch(function() {});
+            pollOneUntilDone(repo.id);
+        });
+        renderRepositories();
     }
 
     async function changeSessionStatus() {

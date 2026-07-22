@@ -78,6 +78,9 @@ class ReviewService:
             reasoning=reasoning,
             performed_by=performed_by,
         )
+        self.evaluations.apply_override(
+            repository_id, session_id, criterion_key, overridden_score,
+        )
         return record
 
     def get_overrides(self, repository_id, session_id):
@@ -87,6 +90,16 @@ class ReviewService:
 
     def get_audit_trail(self, repository_id, session_id):
         return self.audit_log.list_by_repository(repository_id, session_id)
+
+    def get_all_audit_logs(self, session_id=None, action=None):
+        return self.audit_log.list_all(session_id, action)
+
+    def get_distinct_actions(self):
+        return self.audit_log.distinct_actions()
+
+    def has_review_override(self, repository_id, session_id):
+        overrides = self.score_overrides.list_by_repository(repository_id, session_id)
+        return len(overrides) > 0
 
     # ── Helpers ───────────────────────────────────────────────────────
 

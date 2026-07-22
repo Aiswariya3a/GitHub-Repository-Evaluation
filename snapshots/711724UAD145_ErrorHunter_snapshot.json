@@ -1,0 +1,3568 @@
+{
+  "repository_metadata": {
+    "url": "https://github.com/Mathi27/ErrorHunter",
+    "clone_url": "https://github.com/Mathi27/ErrorHunter",
+    "clone_timestamp": "2026-07-22T06:36:58.451083+00:00",
+    "status": "success",
+    "base_repo_url": null
+  },
+  "github_metadata": {
+    "commits_count": 500,
+    "recent_commits": [
+      {
+        "sha": "f21323da1bef",
+        "author": "Mathi Yuvarajan",
+        "date": "2026-07-21T06:22:29Z",
+        "message": "Merge pull request #159 from Pooja0413/main"
+      },
+      {
+        "sha": "710104bb521e",
+        "author": "Mathi Yuvarajan",
+        "date": "2026-07-21T06:13:20Z",
+        "message": "Merge pull request #157 from preethaGavas/main"
+      },
+      {
+        "sha": "cc9eb5dabae7",
+        "author": "Pooja0413",
+        "date": "2026-07-21T06:13:15Z",
+        "message": "solved the issue in #13"
+      },
+      {
+        "sha": "7a395b1b4cc0",
+        "author": "preethaGavas",
+        "date": "2026-07-21T06:11:53Z",
+        "message": "updated readme file"
+      },
+      {
+        "sha": "dc12fb031b5d",
+        "author": "Mathi Yuvarajan",
+        "date": "2026-07-21T05:12:54Z",
+        "message": "Merge pull request #156 from Aiswariya3a/main"
+      },
+      {
+        "sha": "10f95892f303",
+        "author": "Aiswariya3a",
+        "date": "2026-07-21T05:08:27Z",
+        "message": "Fixed README.md #155"
+      },
+      {
+        "sha": "2de6b6956e0b",
+        "author": "Mathi Yuvarajan",
+        "date": "2025-08-25T08:51:43Z",
+        "message": "Updated the  README.md"
+      },
+      {
+        "sha": "fbafa3ee58ae",
+        "author": "Mathi Yuvarajan",
+        "date": "2025-07-31T15:03:15Z",
+        "message": "Merge pull request #154 from Bala050814/new2"
+      },
+      {
+        "sha": "8251bc221728",
+        "author": "Balamurugan R",
+        "date": "2025-07-31T14:55:36Z",
+        "message": "Added a new problem easy 19"
+      },
+      {
+        "sha": "8e391cd250e3",
+        "author": "Balamurugan R",
+        "date": "2025-07-31T14:51:45Z",
+        "message": "Added a new problem"
+      },
+      {
+        "sha": "9c23d070e1ab",
+        "author": "Mathi Yuvarajan",
+        "date": "2025-07-31T06:35:18Z",
+        "message": "Merge pull request #140 from MonikaNeela/patch-1"
+      },
+      {
+        "sha": "2d4db0e94645",
+        "author": "Mathi Yuvarajan",
+        "date": "2025-07-31T06:30:37Z",
+        "message": "Merge pull request #149 from kiruthika-2007/patch-1"
+      },
+      {
+        "sha": "855bd5891a80",
+        "author": "kiruthika-2007",
+        "date": "2025-07-31T06:18:02Z",
+        "message": "Update easy_q2.py"
+      },
+      {
+        "sha": "5be592babd36",
+        "author": "Balamurugan R",
+        "date": "2025-07-31T05:55:12Z",
+        "message": "Updated new  m8"
+      },
+      {
+        "sha": "270b201c4a94",
+        "author": "Balamurugan R",
+        "date": "2025-07-31T05:52:35Z",
+        "message": "Updated new  m8"
+      },
+      {
+        "sha": "25e680e40f25",
+        "author": "Mathi Yuvarajan",
+        "date": "2025-07-31T05:41:02Z",
+        "message": "Merge pull request #131 from Bhavasri-chandrakumar/patch-1"
+      },
+      {
+        "sha": "be57468c4d1c",
+        "author": "Balamurugan R",
+        "date": "2025-07-31T05:05:39Z",
+        "message": "Updated m8"
+      },
+      {
+        "sha": "0e8a60dd76fe",
+        "author": "MonikaNeela",
+        "date": "2025-07-31T04:27:24Z",
+        "message": "Update NumberGuess.py"
+      },
+      {
+        "sha": "dc17e51bf4b8",
+        "author": "Bhavasri-chandrakumar",
+        "date": "2025-07-31T03:58:55Z",
+        "message": "Update easy_q1.py"
+      },
+      {
+        "sha": "8b0c80702fd4",
+        "author": "Mathi Yuvarajan",
+        "date": "2025-01-02T09:18:08Z",
+        "message": "Merge pull request #56 from Shazamism/main"
+      },
+      {
+        "sha": "2fbd71cff6ec",
+        "author": "Mathi Yuvarajan",
+        "date": "2025-01-02T09:17:51Z",
+        "message": "Merge branch 'main' into main"
+      },
+      {
+        "sha": "b2ffeec2ba8b",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:42:33Z",
+        "message": "Merge pull request #58 from Sivaram1457/main"
+      },
+      {
+        "sha": "a5661381ff79",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:41:14Z",
+        "message": "Merge branch 'main' into main"
+      },
+      {
+        "sha": "dfed89fcad92",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:38:30Z",
+        "message": "Merge pull request #51 from ManujanaNagaraj/easyproblem"
+      },
+      {
+        "sha": "f35fe13a0516",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:38:18Z",
+        "message": "Merge branch 'main' into easyproblem"
+      },
+      {
+        "sha": "d5d9b651e7cf",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:34:49Z",
+        "message": "Merge pull request #42 from Piriyadharshinilk/main"
+      },
+      {
+        "sha": "f9eb296b6f2f",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:34:38Z",
+        "message": "Merge branch 'main' into main"
+      },
+      {
+        "sha": "11d794bddb49",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:29:46Z",
+        "message": "Merge pull request #54 from JOSHUA-MELVIN-777/Changes-in-pull-request"
+      },
+      {
+        "sha": "afc0001c9c4a",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:29:38Z",
+        "message": "Merge branch 'main' into Changes-in-pull-request"
+      },
+      {
+        "sha": "5767da03162c",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:27:45Z",
+        "message": "Merge pull request #26 from yasinmass/main"
+      },
+      {
+        "sha": "f63b791864f8",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:24:10Z",
+        "message": "Merge branch 'main' into main"
+      },
+      {
+        "sha": "f370b0bd611d",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:21:29Z",
+        "message": "Merge pull request #28 from miles-spidee/main"
+      },
+      {
+        "sha": "88da0d7448e0",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:20:41Z",
+        "message": "Merge branch 'main' into main"
+      },
+      {
+        "sha": "2d7ce9cec747",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:19:08Z",
+        "message": "Merge pull request #32 from prasanth-selva/main"
+      },
+      {
+        "sha": "04dee13abb49",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:18:44Z",
+        "message": "Merge branch 'main' into main"
+      },
+      {
+        "sha": "aca7b4a9e1b1",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:09:45Z",
+        "message": "Merge pull request #21 from Heamanth007/main"
+      },
+      {
+        "sha": "e08eacadc8b1",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T05:02:24Z",
+        "message": "Merge branch 'main' into main"
+      },
+      {
+        "sha": "4ca7c150c988",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T04:59:09Z",
+        "message": "Merge pull request #17 from Vigneshwar-SU/vicky"
+      },
+      {
+        "sha": "399af592ad2d",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T04:58:54Z",
+        "message": "Merge branch 'main' into vicky"
+      },
+      {
+        "sha": "e40a643786a6",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T04:58:00Z",
+        "message": "Merge pull request #27 from Piriyadharshinilk/demo"
+      },
+      {
+        "sha": "ec1afc08a1ee",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T04:57:25Z",
+        "message": "Merge branch 'main' into demo"
+      },
+      {
+        "sha": "ba16ad1b95d4",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T04:52:48Z",
+        "message": "Merge pull request #38 from sabarinathan150607/main"
+      },
+      {
+        "sha": "cb2902f6274c",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-10T04:52:25Z",
+        "message": "Merge branch 'main' into main"
+      },
+      {
+        "sha": "5480065d077e",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-09T14:42:23Z",
+        "message": "Merge pull request #46 from Santhosh09062006/main"
+      },
+      {
+        "sha": "bebf585137a3",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-09T14:42:14Z",
+        "message": "Merge branch 'main' into main"
+      },
+      {
+        "sha": "a095e441d17e",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-09T14:41:11Z",
+        "message": "Merge pull request #35 from MUKILVELAN007/error"
+      },
+      {
+        "sha": "bc8d8cd104bd",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-09T14:38:13Z",
+        "message": "Merge branch 'main' into main"
+      },
+      {
+        "sha": "602498e7ea1a",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-09T14:36:18Z",
+        "message": "Merge pull request #49 from SANJAYRAM003/SANJAY-RAM.J"
+      },
+      {
+        "sha": "a025c62b8966",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-09T14:35:54Z",
+        "message": "Merge branch 'main' into SANJAY-RAM.J"
+      },
+      {
+        "sha": "f9e1e30f1ab7",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-09T13:00:18Z",
+        "message": "Merge branch 'main' into error"
+      },
+      {
+        "sha": "bb643d74e561",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-09T12:59:45Z",
+        "message": "Merge pull request #40 from ZUVAIRIYA-7211/main"
+      },
+      {
+        "sha": "a40104b42863",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-09T12:59:35Z",
+        "message": "Merge branch 'main' into main"
+      },
+      {
+        "sha": "c4550aaa0ea0",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-09T12:54:56Z",
+        "message": "Merge pull request #88 from Srihari-tech2dive/patch-2"
+      },
+      {
+        "sha": "ed43eacb1b33",
+        "author": "Mathi Yuvarajan",
+        "date": "2024-12-09T12:54:42Z",
+        "message": "Merge branch 'main' into patch-2"
+      },
+      {
+        "sha": "df9ee0914085",
+        "author": "Joshua-Melvin-2024-aia",
+        "date": "2024-12-09T06:18:27Z",
+        "message": "Merge branch 'main' into Changes-in-pull-request"
+      }
+    ],
+    "contributors": [
+      {
+        "login": "Mathi27",
+        "contributions": 139,
+        "html_url": "https://github.com/Mathi27",
+        "avatar_url": "https://avatars.githubusercontent.com/u/89473764?v=4"
+      },
+      {
+        "login": "rdharshinir",
+        "contributions": 27,
+        "html_url": "https://github.com/rdharshinir",
+        "avatar_url": "https://avatars.githubusercontent.com/u/174322358?v=4"
+      },
+      {
+        "login": "Pavi022006",
+        "contributions": 21,
+        "html_url": "https://github.com/Pavi022006",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185538087?v=4"
+      },
+      {
+        "login": "BoomikaSN",
+        "contributions": 14,
+        "html_url": "https://github.com/BoomikaSN",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185485802?v=4"
+      },
+      {
+        "login": "yasinmass",
+        "contributions": 13,
+        "html_url": "https://github.com/yasinmass",
+        "avatar_url": "https://avatars.githubusercontent.com/u/174472184?v=4"
+      },
+      {
+        "login": "adarshramk",
+        "contributions": 12,
+        "html_url": "https://github.com/adarshramk",
+        "avatar_url": "https://avatars.githubusercontent.com/u/173809724?v=4"
+      },
+      {
+        "login": "Sudarshan-prog",
+        "contributions": 12,
+        "html_url": "https://github.com/Sudarshan-prog",
+        "avatar_url": "https://avatars.githubusercontent.com/u/173989665?v=4"
+      },
+      {
+        "login": "kishoreJothish",
+        "contributions": 12,
+        "html_url": "https://github.com/kishoreJothish",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185491409?v=4"
+      },
+      {
+        "login": "Sanjaysabarinathan",
+        "contributions": 12,
+        "html_url": "https://github.com/Sanjaysabarinathan",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185480150?v=4"
+      },
+      {
+        "login": "nattu-s28",
+        "contributions": 12,
+        "html_url": "https://github.com/nattu-s28",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185482778?v=4"
+      },
+      {
+        "login": "mourishantony",
+        "contributions": 12,
+        "html_url": "https://github.com/mourishantony",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185482277?v=4"
+      },
+      {
+        "login": "Bala050814",
+        "contributions": 11,
+        "html_url": "https://github.com/Bala050814",
+        "avatar_url": "https://avatars.githubusercontent.com/u/175947261?v=4"
+      },
+      {
+        "login": "sabarinathan150607",
+        "contributions": 11,
+        "html_url": "https://github.com/sabarinathan150607",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185503969?v=4"
+      },
+      {
+        "login": "AbiramiR-27",
+        "contributions": 11,
+        "html_url": "https://github.com/AbiramiR-27",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185485025?v=4"
+      },
+      {
+        "login": "Keerthivarman07",
+        "contributions": 10,
+        "html_url": "https://github.com/Keerthivarman07",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185592220?v=4"
+      },
+      {
+        "login": "mohamedimthiyas2007",
+        "contributions": 10,
+        "html_url": "https://github.com/mohamedimthiyas2007",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185514630?v=4"
+      },
+      {
+        "login": "Santhosh09062006",
+        "contributions": 7,
+        "html_url": "https://github.com/Santhosh09062006",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185508072?v=4"
+      },
+      {
+        "login": "miles-spidee",
+        "contributions": 6,
+        "html_url": "https://github.com/miles-spidee",
+        "avatar_url": "https://avatars.githubusercontent.com/u/108854547?v=4"
+      },
+      {
+        "login": "Tayanithaa",
+        "contributions": 5,
+        "html_url": "https://github.com/Tayanithaa",
+        "avatar_url": "https://avatars.githubusercontent.com/u/174100681?v=4"
+      },
+      {
+        "login": "SANJAYRAM003",
+        "contributions": 5,
+        "html_url": "https://github.com/SANJAYRAM003",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185479566?v=4"
+      },
+      {
+        "login": "TEJAASHRI",
+        "contributions": 5,
+        "html_url": "https://github.com/TEJAASHRI",
+        "avatar_url": "https://avatars.githubusercontent.com/u/174097980?v=4"
+      },
+      {
+        "login": "Asvika2006",
+        "contributions": 4,
+        "html_url": "https://github.com/Asvika2006",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185342894?v=4"
+      },
+      {
+        "login": "VinuKarthick7",
+        "contributions": 4,
+        "html_url": "https://github.com/VinuKarthick7",
+        "avatar_url": "https://avatars.githubusercontent.com/u/174097010?v=4"
+      },
+      {
+        "login": "gopi8814",
+        "contributions": 4,
+        "html_url": "https://github.com/gopi8814",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185574967?v=4"
+      },
+      {
+        "login": "hanishdevaraj007",
+        "contributions": 4,
+        "html_url": "https://github.com/hanishdevaraj007",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185592388?v=4"
+      },
+      {
+        "login": "prasanth-selva",
+        "contributions": 4,
+        "html_url": "https://github.com/prasanth-selva",
+        "avatar_url": "https://avatars.githubusercontent.com/u/174295315?v=4"
+      },
+      {
+        "login": "Samikshaviji",
+        "contributions": 4,
+        "html_url": "https://github.com/Samikshaviji",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185580296?v=4"
+      },
+      {
+        "login": "joedanields",
+        "contributions": 4,
+        "html_url": "https://github.com/joedanields",
+        "avatar_url": "https://avatars.githubusercontent.com/u/179472809?v=4"
+      },
+      {
+        "login": "jeffrey-theog06",
+        "contributions": 4,
+        "html_url": "https://github.com/jeffrey-theog06",
+        "avatar_url": "https://avatars.githubusercontent.com/u/69245046?v=4"
+      },
+      {
+        "login": "niveda1704",
+        "contributions": 4,
+        "html_url": "https://github.com/niveda1704",
+        "avatar_url": "https://avatars.githubusercontent.com/u/252288840?v=4"
+      },
+      {
+        "login": "shridhanya06",
+        "contributions": 3,
+        "html_url": "https://github.com/shridhanya06",
+        "avatar_url": "https://avatars.githubusercontent.com/u/190736428?v=4"
+      },
+      {
+        "login": "Shazamism",
+        "contributions": 3,
+        "html_url": "https://github.com/Shazamism",
+        "avatar_url": "https://avatars.githubusercontent.com/u/174100433?v=4"
+      },
+      {
+        "login": "Vigneshwar-SU",
+        "contributions": 3,
+        "html_url": "https://github.com/Vigneshwar-SU",
+        "avatar_url": "https://avatars.githubusercontent.com/u/139466241?v=4"
+      },
+      {
+        "login": "Srihari-tech2dive",
+        "contributions": 3,
+        "html_url": "https://github.com/Srihari-tech2dive",
+        "avatar_url": "https://avatars.githubusercontent.com/u/174101243?v=4"
+      },
+      {
+        "login": "Sivaram1457",
+        "contributions": 3,
+        "html_url": "https://github.com/Sivaram1457",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185481488?v=4"
+      },
+      {
+        "login": "Srishanth-023",
+        "contributions": 3,
+        "html_url": "https://github.com/Srishanth-023",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185482798?v=4"
+      },
+      {
+        "login": "JOSHUA-MELVIN-07",
+        "contributions": 3,
+        "html_url": "https://github.com/JOSHUA-MELVIN-07",
+        "avatar_url": "https://avatars.githubusercontent.com/u/188894267?v=4"
+      },
+      {
+        "login": "Harrish135",
+        "contributions": 3,
+        "html_url": "https://github.com/Harrish135",
+        "avatar_url": "https://avatars.githubusercontent.com/u/190324495?v=4"
+      },
+      {
+        "login": "Aadil-M76",
+        "contributions": 3,
+        "html_url": "https://github.com/Aadil-M76",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185537132?v=4"
+      },
+      {
+        "login": "NaveenKumarG-dev",
+        "contributions": 2,
+        "html_url": "https://github.com/NaveenKumarG-dev",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185482416?v=4"
+      },
+      {
+        "login": "KavinilaLoganathan-2507",
+        "contributions": 2,
+        "html_url": "https://github.com/KavinilaLoganathan-2507",
+        "avatar_url": "https://avatars.githubusercontent.com/u/175800263?v=4"
+      },
+      {
+        "login": "Kanishkaneya1929",
+        "contributions": 2,
+        "html_url": "https://github.com/Kanishkaneya1929",
+        "avatar_url": "https://avatars.githubusercontent.com/u/189526005?v=4"
+      },
+      {
+        "login": "JOSHUA-MELVIN-777",
+        "contributions": 2,
+        "html_url": "https://github.com/JOSHUA-MELVIN-777",
+        "avatar_url": "https://avatars.githubusercontent.com/u/174097225?v=4"
+      },
+      {
+        "login": "Heamanth007",
+        "contributions": 2,
+        "html_url": "https://github.com/Heamanth007",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185592232?v=4"
+      },
+      {
+        "login": "Anushriuser",
+        "contributions": 2,
+        "html_url": "https://github.com/Anushriuser",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185572710?v=4"
+      },
+      {
+        "login": "ANISHKARTHIC",
+        "contributions": 2,
+        "html_url": "https://github.com/ANISHKARTHIC",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185314043?v=4"
+      },
+      {
+        "login": "Aiswariya3a",
+        "contributions": 1,
+        "html_url": "https://github.com/Aiswariya3a",
+        "avatar_url": "https://avatars.githubusercontent.com/u/113989649?v=4"
+      },
+      {
+        "login": "Bhavasri-chandrakumar",
+        "contributions": 1,
+        "html_url": "https://github.com/Bhavasri-chandrakumar",
+        "avatar_url": "https://avatars.githubusercontent.com/u/223215015?v=4"
+      },
+      {
+        "login": "MUKILVELAN007",
+        "contributions": 1,
+        "html_url": "https://github.com/MUKILVELAN007",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185599325?v=4"
+      },
+      {
+        "login": "Mirdula18",
+        "contributions": 1,
+        "html_url": "https://github.com/Mirdula18",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185592287?v=4"
+      },
+      {
+        "login": "MonikaNeela",
+        "contributions": 1,
+        "html_url": "https://github.com/MonikaNeela",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185578584?v=4"
+      },
+      {
+        "login": "Pooja0413",
+        "contributions": 1,
+        "html_url": "https://github.com/Pooja0413",
+        "avatar_url": "https://avatars.githubusercontent.com/u/131843005?v=4"
+      },
+      {
+        "login": "RaahulKannaK",
+        "contributions": 1,
+        "html_url": "https://github.com/RaahulKannaK",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185574271?v=4"
+      },
+      {
+        "login": "Sharmily-Veeramani",
+        "contributions": 1,
+        "html_url": "https://github.com/Sharmily-Veeramani",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185403579?v=4"
+      },
+      {
+        "login": "kiruthika-2007",
+        "contributions": 1,
+        "html_url": "https://github.com/kiruthika-2007",
+        "avatar_url": "https://avatars.githubusercontent.com/u/185530476?v=4"
+      },
+      {
+        "login": "preethaGavas",
+        "contributions": 1,
+        "html_url": "https://github.com/preethaGavas",
+        "avatar_url": "https://avatars.githubusercontent.com/u/224410252?v=4"
+      }
+    ],
+    "pull_requests_count": 143,
+    "pull_requests": [
+      {
+        "number": 161,
+        "title": "Reverse Number Program",
+        "state": "open",
+        "author": "Santhoshi2010",
+        "created_at": "2026-07-21T08:32:47Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 160,
+        "title": "changed Welcome message",
+        "state": "open",
+        "author": "meera2292",
+        "created_at": "2026-07-21T06:28:42Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 159,
+        "title": "solved the issue in #13",
+        "state": "closed",
+        "author": "Pooja0413",
+        "created_at": "2026-07-21T06:22:09Z",
+        "closed_at": "2026-07-21T06:22:29Z",
+        "merged_at": "2026-07-21T06:22:29Z"
+      },
+      {
+        "number": 157,
+        "title": "updated readme file",
+        "state": "closed",
+        "author": "preethaGavas",
+        "created_at": "2026-07-21T06:12:40Z",
+        "closed_at": "2026-07-21T06:13:20Z",
+        "merged_at": "2026-07-21T06:13:20Z"
+      },
+      {
+        "number": 156,
+        "title": "Fixed README.md #155",
+        "state": "closed",
+        "author": "Aiswariya3a",
+        "created_at": "2026-07-21T05:10:27Z",
+        "closed_at": "2026-07-21T05:12:54Z",
+        "merged_at": "2026-07-21T05:12:54Z"
+      },
+      {
+        "number": 154,
+        "title": "Added a new Problem easy_q19",
+        "state": "closed",
+        "author": "Bala050814",
+        "created_at": "2025-07-31T14:57:17Z",
+        "closed_at": "2025-07-31T15:03:15Z",
+        "merged_at": "2025-07-31T15:03:15Z"
+      },
+      {
+        "number": 153,
+        "title": "Update easy_q11.py",
+        "state": "open",
+        "author": "HariniUser1306",
+        "created_at": "2025-07-31T06:33:53Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 152,
+        "title": "Update easy_q16.py",
+        "state": "open",
+        "author": "Harshithaa-123-max",
+        "created_at": "2025-07-31T06:32:01Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 151,
+        "title": "q1.py corrected file",
+        "state": "open",
+        "author": "naveesh1",
+        "created_at": "2025-07-31T06:31:37Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 150,
+        "title": "Update easy_q1.py",
+        "state": "closed",
+        "author": "Harshithaa-123-max",
+        "created_at": "2025-07-31T06:22:13Z",
+        "closed_at": "2025-07-31T06:29:46Z",
+        "merged_at": null
+      },
+      {
+        "number": 149,
+        "title": "Update easy_q2.py",
+        "state": "closed",
+        "author": "kiruthika-2007",
+        "created_at": "2025-07-31T06:18:33Z",
+        "closed_at": "2025-07-31T06:30:37Z",
+        "merged_at": "2025-07-31T06:30:37Z"
+      },
+      {
+        "number": 148,
+        "title": "Update easy_q1.py",
+        "state": "closed",
+        "author": "HariniUser1306",
+        "created_at": "2025-07-31T06:15:15Z",
+        "closed_at": "2025-07-31T06:32:28Z",
+        "merged_at": null
+      },
+      {
+        "number": 147,
+        "title": "Updated M8",
+        "state": "closed",
+        "author": "Bala050814",
+        "created_at": "2025-07-31T06:08:24Z",
+        "closed_at": "2025-07-31T15:03:17Z",
+        "merged_at": "2025-07-31T15:03:16Z"
+      },
+      {
+        "number": 146,
+        "title": "Update easy_q13.py",
+        "state": "open",
+        "author": "aruvii13",
+        "created_at": "2025-07-31T05:59:08Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 145,
+        "title": "check q4.py",
+        "state": "closed",
+        "author": "ranjiniraja25",
+        "created_at": "2025-07-31T05:53:43Z",
+        "closed_at": "2025-07-31T05:58:02Z",
+        "merged_at": null
+      },
+      {
+        "number": 144,
+        "title": "Updated eq3",
+        "state": "open",
+        "author": "Marzuk1910",
+        "created_at": "2025-07-31T05:42:17Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 143,
+        "title": "check",
+        "state": "open",
+        "author": "Sowdeswari26",
+        "created_at": "2025-07-31T05:22:36Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 142,
+        "title": "Updated m8",
+        "state": "closed",
+        "author": "Bala050814",
+        "created_at": "2025-07-31T05:07:42Z",
+        "closed_at": "2025-07-31T15:03:17Z",
+        "merged_at": "2025-07-31T15:03:17Z"
+      },
+      {
+        "number": 141,
+        "title": "Added if-else condition",
+        "state": "closed",
+        "author": "Sowdeswari26",
+        "created_at": "2025-07-31T05:07:03Z",
+        "closed_at": "2025-07-31T05:10:51Z",
+        "merged_at": null
+      },
+      {
+        "number": 140,
+        "title": "Update NumberGuess.py",
+        "state": "closed",
+        "author": "MonikaNeela",
+        "created_at": "2025-07-31T04:28:17Z",
+        "closed_at": "2025-07-31T06:35:18Z",
+        "merged_at": "2025-07-31T06:35:18Z"
+      },
+      {
+        "number": 139,
+        "title": "changes made in medium1",
+        "state": "open",
+        "author": "shridhanya06",
+        "created_at": "2025-07-31T04:27:22Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 138,
+        "title": "Update easy_q1.py",
+        "state": "closed",
+        "author": "Karthi-king312",
+        "created_at": "2025-07-31T04:21:41Z",
+        "closed_at": "2025-07-31T05:52:11Z",
+        "merged_at": null
+      },
+      {
+        "number": 137,
+        "title": "bug q1",
+        "state": "closed",
+        "author": "LOGESHWARI-N",
+        "created_at": "2025-07-31T04:21:28Z",
+        "closed_at": "2025-08-01T06:34:55Z",
+        "merged_at": null
+      },
+      {
+        "number": 136,
+        "title": "Deepavarthini solved",
+        "state": "open",
+        "author": "thulasideepi3-KiTE",
+        "created_at": "2025-07-31T04:20:08Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 135,
+        "title": "q1 bug fixed",
+        "state": "open",
+        "author": "Muzhumathi30",
+        "created_at": "2025-07-31T04:18:17Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 134,
+        "title": "Update easy_q1.py",
+        "state": "closed",
+        "author": "Varshinisenthil07",
+        "created_at": "2025-07-31T04:13:19Z",
+        "closed_at": "2025-07-31T05:43:40Z",
+        "merged_at": null
+      },
+      {
+        "number": 133,
+        "title": "Fix: deposit method condition to check for positive amount",
+        "state": "open",
+        "author": "Santhosh09062006",
+        "created_at": "2025-07-31T04:13:09Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 132,
+        "title": "Update easy_q1.py",
+        "state": "closed",
+        "author": "ranjiniraja25",
+        "created_at": "2025-07-31T04:12:50Z",
+        "closed_at": "2025-07-31T05:40:14Z",
+        "merged_at": null
+      },
+      {
+        "number": 131,
+        "title": "Update easy_q1.py",
+        "state": "closed",
+        "author": "Bhavasri-chandrakumar",
+        "created_at": "2025-07-31T04:05:04Z",
+        "closed_at": "2025-07-31T05:41:02Z",
+        "merged_at": "2025-07-31T05:41:02Z"
+      },
+      {
+        "number": 130,
+        "title": "Easy and medium challenges.",
+        "state": "closed",
+        "author": "Sharmily-Veeramani",
+        "created_at": "2024-12-08T06:57:56Z",
+        "closed_at": "2025-06-03T06:33:44Z",
+        "merged_at": null
+      },
+      {
+        "number": 129,
+        "title": "Programs Debuged..",
+        "state": "closed",
+        "author": "rdharshinir",
+        "created_at": "2024-12-08T04:39:11Z",
+        "closed_at": "2026-05-26T08:19:27Z",
+        "merged_at": null
+      },
+      {
+        "number": 128,
+        "title": "Boomika ",
+        "state": "closed",
+        "author": "BoomikaSN",
+        "created_at": "2024-12-08T01:59:20Z",
+        "closed_at": "2025-01-03T07:12:04Z",
+        "merged_at": null
+      },
+      {
+        "number": 127,
+        "title": "added some changes in Snake and Ladder",
+        "state": "closed",
+        "author": "joedanields",
+        "created_at": "2024-12-07T13:51:49Z",
+        "closed_at": "2024-12-07T17:09:45Z",
+        "merged_at": "2024-12-07T17:09:45Z"
+      },
+      {
+        "number": 126,
+        "title": "sowmya",
+        "state": "closed",
+        "author": "sowmya2006-s",
+        "created_at": "2024-12-07T10:40:51Z",
+        "closed_at": "2024-12-07T17:13:57Z",
+        "merged_at": "2024-12-07T17:13:57Z"
+      },
+      {
+        "number": 125,
+        "title": "added Exceptional handling and corrected some logics",
+        "state": "closed",
+        "author": "joedanields",
+        "created_at": "2024-12-07T10:23:43Z",
+        "closed_at": "2024-12-07T17:09:46Z",
+        "merged_at": "2024-12-07T17:09:46Z"
+      },
+      {
+        "number": 124,
+        "title": "updated Recursive Fibonacci series",
+        "state": "closed",
+        "author": "Bala050814",
+        "created_at": "2024-12-07T07:18:28Z",
+        "closed_at": "2024-12-07T17:11:47Z",
+        "merged_at": "2024-12-07T17:11:47Z"
+      },
+      {
+        "number": 123,
+        "title": "large number",
+        "state": "closed",
+        "author": "Tayanithaa",
+        "created_at": "2024-12-07T06:14:18Z",
+        "closed_at": "2024-12-07T17:14:11Z",
+        "merged_at": "2024-12-07T17:14:11Z"
+      },
+      {
+        "number": 122,
+        "title": "Funprograms",
+        "state": "closed",
+        "author": "rdharshinir",
+        "created_at": "2024-12-07T05:12:39Z",
+        "closed_at": "2024-12-07T17:15:58Z",
+        "merged_at": "2024-12-07T17:15:58Z"
+      },
+      {
+        "number": 121,
+        "title": "Fun_program Debuging",
+        "state": "closed",
+        "author": "rdharshinir",
+        "created_at": "2024-12-07T03:16:35Z",
+        "closed_at": "2024-12-07T17:28:46Z",
+        "merged_at": "2024-12-07T17:28:46Z"
+      },
+      {
+        "number": 120,
+        "title": "adding a title in to program for menu",
+        "state": "closed",
+        "author": "mohamedimthiyas2007",
+        "created_at": "2024-12-06T17:48:19Z",
+        "closed_at": "2024-12-07T17:34:45Z",
+        "merged_at": "2024-12-07T17:34:45Z"
+      },
+      {
+        "number": 119,
+        "title": "String Manipulation Tool",
+        "state": "closed",
+        "author": "mohamedimthiyas2007",
+        "created_at": "2024-12-06T17:20:57Z",
+        "closed_at": "2024-12-07T17:35:48Z",
+        "merged_at": "2024-12-07T17:35:48Z"
+      },
+      {
+        "number": 118,
+        "title": "Abirami R",
+        "state": "closed",
+        "author": "AbiramiR-27",
+        "created_at": "2024-12-06T16:16:20Z",
+        "closed_at": "2024-12-07T17:32:04Z",
+        "merged_at": "2024-12-07T17:32:04Z"
+      },
+      {
+        "number": 117,
+        "title": "Change in calculater",
+        "state": "closed",
+        "author": "nattu-s28",
+        "created_at": "2024-12-06T15:10:16Z",
+        "closed_at": "2024-12-07T17:36:00Z",
+        "merged_at": "2024-12-07T17:36:00Z"
+      },
+      {
+        "number": 116,
+        "title": "Dharshini",
+        "state": "closed",
+        "author": "rdharshinir",
+        "created_at": "2024-12-06T11:11:04Z",
+        "closed_at": "2024-12-07T02:55:01Z",
+        "merged_at": "2024-12-07T02:55:00Z"
+      },
+      {
+        "number": 115,
+        "title": "Open -Source contribution by Sanjay",
+        "state": "closed",
+        "author": "Sanjaysabarinathan",
+        "created_at": "2024-12-06T11:06:37Z",
+        "closed_at": "2024-12-07T17:52:26Z",
+        "merged_at": "2024-12-07T17:52:26Z"
+      },
+      {
+        "number": 114,
+        "title": "open source contribution by abhiram",
+        "state": "closed",
+        "author": "Abhiram-20-max",
+        "created_at": "2024-12-06T11:05:54Z",
+        "closed_at": "2024-12-07T18:01:04Z",
+        "merged_at": "2024-12-07T18:01:04Z"
+      },
+      {
+        "number": 113,
+        "title": "open source contribution",
+        "state": "closed",
+        "author": "Sudarshan-prog",
+        "created_at": "2024-12-06T11:05:39Z",
+        "closed_at": "2024-12-07T18:13:15Z",
+        "merged_at": "2024-12-07T18:13:15Z"
+      },
+      {
+        "number": 112,
+        "title": "Boomika S N ",
+        "state": "closed",
+        "author": "BoomikaSN",
+        "created_at": "2024-12-06T11:03:45Z",
+        "closed_at": "2024-12-07T18:27:29Z",
+        "merged_at": "2024-12-07T18:27:29Z"
+      },
+      {
+        "number": 111,
+        "title": "Abirami R",
+        "state": "closed",
+        "author": "AbiramiR-27",
+        "created_at": "2024-12-06T11:03:43Z",
+        "closed_at": "2024-12-07T17:32:06Z",
+        "merged_at": "2024-12-07T17:32:06Z"
+      },
+      {
+        "number": 110,
+        "title": "m3.py",
+        "state": "closed",
+        "author": "sowmya2006-s",
+        "created_at": "2024-12-06T11:02:32Z",
+        "closed_at": "2024-12-07T18:35:26Z",
+        "merged_at": "2024-12-07T18:35:26Z"
+      },
+      {
+        "number": 109,
+        "title": "error rectified",
+        "state": "closed",
+        "author": "TEJAASHRI",
+        "created_at": "2024-12-06T11:01:08Z",
+        "closed_at": "2024-12-07T18:36:14Z",
+        "merged_at": "2024-12-07T18:36:14Z"
+      },
+      {
+        "number": 108,
+        "title": "Basic concept errors has been rectified.",
+        "state": "closed",
+        "author": "Aadil-M76",
+        "created_at": "2024-12-06T10:58:53Z",
+        "closed_at": "2024-12-07T18:43:47Z",
+        "merged_at": "2024-12-07T18:43:47Z"
+      },
+      {
+        "number": 107,
+        "title": "sri",
+        "state": "closed",
+        "author": "Srishanth-023",
+        "created_at": "2024-12-06T10:52:50Z",
+        "closed_at": "2024-12-06T10:54:42Z",
+        "merged_at": "2024-12-06T10:54:42Z"
+      },
+      {
+        "number": 106,
+        "title": "mathemetical operation",
+        "state": "closed",
+        "author": "MUKILVELAN007",
+        "created_at": "2024-12-06T10:48:29Z",
+        "closed_at": "2024-12-07T18:48:01Z",
+        "merged_at": "2024-12-07T18:48:01Z"
+      },
+      {
+        "number": 105,
+        "title": "completed",
+        "state": "closed",
+        "author": "SANJAYRAM003",
+        "created_at": "2024-12-06T10:46:37Z",
+        "closed_at": "2024-12-06T10:49:42Z",
+        "merged_at": null
+      },
+      {
+        "number": 104,
+        "title": "RockPaperScissors",
+        "state": "closed",
+        "author": "nattu-s28",
+        "created_at": "2024-12-06T10:45:49Z",
+        "closed_at": "2024-12-06T10:52:14Z",
+        "merged_at": "2024-12-06T10:52:14Z"
+      },
+      {
+        "number": 103,
+        "title": "BUG FIXING IN COVERSIONS",
+        "state": "closed",
+        "author": "Srishanth-023",
+        "created_at": "2024-12-06T10:44:26Z",
+        "closed_at": "2024-12-06T10:46:58Z",
+        "merged_at": null
+      },
+      {
+        "number": 102,
+        "title": "MY CONTRIBUTIONS-NIVEDA SREE D",
+        "state": "closed",
+        "author": "ghost",
+        "created_at": "2024-12-06T10:42:10Z",
+        "closed_at": "2024-12-06T10:52:33Z",
+        "merged_at": "2024-12-06T10:52:33Z"
+      },
+      {
+        "number": 101,
+        "title": "My Contributions-Shakthi Rithanya S",
+        "state": "closed",
+        "author": "ShakthiRithanya",
+        "created_at": "2024-12-06T10:42:02Z",
+        "closed_at": "2024-12-07T18:55:39Z",
+        "merged_at": "2024-12-07T18:55:39Z"
+      },
+      {
+        "number": 100,
+        "title": "ToDoApp is solved",
+        "state": "closed",
+        "author": "KavinilaLoganathan-2507",
+        "created_at": "2024-12-06T10:41:46Z",
+        "closed_at": "2024-12-06T10:45:56Z",
+        "merged_at": "2024-12-06T10:45:56Z"
+      },
+      {
+        "number": 99,
+        "title": "m4.py has been rectified by aiml boys",
+        "state": "closed",
+        "author": "Mrvatsan",
+        "created_at": "2024-12-06T10:40:11Z",
+        "closed_at": "2024-12-07T18:58:12Z",
+        "merged_at": null
+      },
+      {
+        "number": 98,
+        "title": "BUG FIXING IN CONVERSIONS ",
+        "state": "closed",
+        "author": "Srishanth-023",
+        "created_at": "2024-12-06T10:39:26Z",
+        "closed_at": "2024-12-07T19:01:59Z",
+        "merged_at": "2024-12-07T19:01:59Z"
+      },
+      {
+        "number": 97,
+        "title": "Modified Armstrong Numbers",
+        "state": "open",
+        "author": "RaahulKannaK",
+        "created_at": "2024-12-06T10:35:04Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 96,
+        "title": "solved problems from 1 to 6 and one in medium ",
+        "state": "closed",
+        "author": "Samikshaviji",
+        "created_at": "2024-12-06T10:32:02Z",
+        "closed_at": "2024-12-07T19:04:00Z",
+        "merged_at": "2024-12-07T19:04:00Z"
+      },
+      {
+        "number": 95,
+        "title": "solved problems from  1 t 6",
+        "state": "closed",
+        "author": "samikssha04",
+        "created_at": "2024-12-06T10:31:45Z",
+        "closed_at": "2025-07-31T03:51:55Z",
+        "merged_at": null
+      },
+      {
+        "number": 94,
+        "title": "changed the arithmetic symbol of '/' to '%'\"",
+        "state": "closed",
+        "author": "Sharmily-Veeramani",
+        "created_at": "2024-12-06T10:27:13Z",
+        "closed_at": "2024-12-06T10:29:19Z",
+        "merged_at": "2024-12-06T10:29:18Z"
+      },
+      {
+        "number": 93,
+        "title": "Modified Armstrong Numbers",
+        "state": "closed",
+        "author": "RaahulKannaK",
+        "created_at": "2024-12-06T10:23:38Z",
+        "closed_at": "2024-12-06T10:27:25Z",
+        "merged_at": "2024-12-06T10:27:25Z"
+      },
+      {
+        "number": 92,
+        "title": "Update easy_q1.py",
+        "state": "closed",
+        "author": "Srihari-tech2dive",
+        "created_at": "2024-12-06T10:21:33Z",
+        "closed_at": "2024-12-06T10:21:47Z",
+        "merged_at": "2024-12-06T10:21:47Z"
+      },
+      {
+        "number": 91,
+        "title": "positive negative or zero",
+        "state": "closed",
+        "author": "shridhanya06",
+        "created_at": "2024-12-06T10:19:38Z",
+        "closed_at": "2024-12-06T10:23:22Z",
+        "merged_at": "2024-12-06T10:23:22Z"
+      },
+      {
+        "number": 90,
+        "title": "create a menu basic mathematical operation",
+        "state": "closed",
+        "author": "mohamedimthiyas2007",
+        "created_at": "2024-12-06T10:16:51Z",
+        "closed_at": "2024-12-06T10:26:00Z",
+        "merged_at": "2024-12-06T10:26:00Z"
+      },
+      {
+        "number": 89,
+        "title": "Error resolved",
+        "state": "closed",
+        "author": "VinuKarthick7",
+        "created_at": "2024-12-06T10:16:03Z",
+        "closed_at": "2024-12-06T10:32:03Z",
+        "merged_at": "2024-12-06T10:32:03Z"
+      },
+      {
+        "number": 88,
+        "title": "Update easy_q2.py",
+        "state": "closed",
+        "author": "Srihari-tech2dive",
+        "created_at": "2024-12-06T10:15:55Z",
+        "closed_at": "2024-12-09T12:54:57Z",
+        "merged_at": "2024-12-09T12:54:56Z"
+      },
+      {
+        "number": 87,
+        "title": "Reverse of a list",
+        "state": "closed",
+        "author": "NaveenKumarG-dev",
+        "created_at": "2024-12-06T10:15:10Z",
+        "closed_at": "2024-12-06T10:21:10Z",
+        "merged_at": "2024-12-06T10:21:10Z"
+      },
+      {
+        "number": 86,
+        "title": "Error rectified by mourish",
+        "state": "closed",
+        "author": "mourishantony",
+        "created_at": "2024-12-06T10:14:00Z",
+        "closed_at": "2024-12-07T17:13:35Z",
+        "merged_at": "2024-12-07T17:13:35Z"
+      },
+      {
+        "number": 85,
+        "title": "Amstrong Number",
+        "state": "closed",
+        "author": "nattu-s28",
+        "created_at": "2024-12-06T09:54:17Z",
+        "closed_at": "2024-12-06T10:42:34Z",
+        "merged_at": null
+      },
+      {
+        "number": 84,
+        "title": "Debugging m10 and m11 with patience",
+        "state": "closed",
+        "author": "hanishdevaraj007",
+        "created_at": "2024-12-06T09:52:21Z",
+        "closed_at": "2024-12-06T10:14:03Z",
+        "merged_at": "2024-12-06T10:14:03Z"
+      },
+      {
+        "number": 83,
+        "title": "fixed the Comparision of Two array",
+        "state": "closed",
+        "author": "Bala050814",
+        "created_at": "2024-12-06T09:51:58Z",
+        "closed_at": "2024-12-06T10:57:48Z",
+        "merged_at": null
+      },
+      {
+        "number": 82,
+        "title": "Easyprob ",
+        "state": "closed",
+        "author": "rdharshinir",
+        "created_at": "2024-12-06T09:49:52Z",
+        "closed_at": "2024-12-09T12:58:44Z",
+        "merged_at": "2024-12-09T12:58:44Z"
+      },
+      {
+        "number": 81,
+        "title": "Staging 1",
+        "state": "closed",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T09:48:05Z",
+        "closed_at": "2024-12-06T09:50:58Z",
+        "merged_at": "2024-12-06T09:50:58Z"
+      },
+      {
+        "number": 80,
+        "title": "Mourish error fix",
+        "state": "open",
+        "author": "mourishantony",
+        "created_at": "2024-12-06T09:47:27Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 79,
+        "title": "Update easy_q2.py",
+        "state": "closed",
+        "author": "Srihari-tech2dive",
+        "created_at": "2024-12-06T09:46:02Z",
+        "closed_at": "2024-12-06T10:10:20Z",
+        "merged_at": "2024-12-06T10:10:20Z"
+      },
+      {
+        "number": 78,
+        "title": "Problem",
+        "state": "closed",
+        "author": "Kishore29012007",
+        "created_at": "2024-12-06T09:39:57Z",
+        "closed_at": "2024-12-07T19:02:01Z",
+        "merged_at": "2024-12-07T19:02:01Z"
+      },
+      {
+        "number": 77,
+        "title": "array_opereation_menu",
+        "state": "open",
+        "author": "Mirdula18",
+        "created_at": "2024-12-06T09:39:02Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 76,
+        "title": "Opensource",
+        "state": "closed",
+        "author": "sowmya2006-s",
+        "created_at": "2024-12-06T09:35:18Z",
+        "closed_at": "2024-12-06T09:37:04Z",
+        "merged_at": "2024-12-06T09:37:04Z"
+      },
+      {
+        "number": 75,
+        "title": "math_operations_menu debugged",
+        "state": "open",
+        "author": "Mirdula18",
+        "created_at": "2024-12-06T09:34:57Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 74,
+        "title": "Completed fun projects problem 1",
+        "state": "closed",
+        "author": "adarshramk",
+        "created_at": "2024-12-06T09:34:48Z",
+        "closed_at": "2024-12-06T09:45:57Z",
+        "merged_at": "2024-12-06T09:45:57Z"
+      },
+      {
+        "number": 73,
+        "title": "Debug the error",
+        "state": "closed",
+        "author": "rdharshinir",
+        "created_at": "2024-12-06T09:33:58Z",
+        "closed_at": "2024-12-06T10:46:11Z",
+        "merged_at": null
+      },
+      {
+        "number": 72,
+        "title": "leap year syntax corrected",
+        "state": "closed",
+        "author": "shridhanya06",
+        "created_at": "2024-12-06T09:33:37Z",
+        "closed_at": "2024-12-06T09:50:52Z",
+        "merged_at": "2024-12-06T09:50:52Z"
+      },
+      {
+        "number": 71,
+        "title": "largest numbers",
+        "state": "closed",
+        "author": "mohamedimthiyas2007",
+        "created_at": "2024-12-06T09:31:26Z",
+        "closed_at": "2024-12-06T09:41:21Z",
+        "merged_at": null
+      },
+      {
+        "number": 70,
+        "title": "Solved Logical Errors",
+        "state": "closed",
+        "author": "Keerthivarman07",
+        "created_at": "2024-12-06T09:26:26Z",
+        "closed_at": "2024-12-06T09:33:20Z",
+        "merged_at": "2024-12-06T09:33:20Z"
+      },
+      {
+        "number": 69,
+        "title": "Fix : bugs in m10.py , m13.py and m11.py",
+        "state": "open",
+        "author": "ANISHKARTHIC",
+        "created_at": "2024-12-06T09:24:58Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 68,
+        "title": "\"# By: Deepak K M, 24UCS121, CSE_A\"",
+        "state": "closed",
+        "author": "k-marian-deepak",
+        "created_at": "2024-12-06T09:15:55Z",
+        "closed_at": "2024-12-06T09:16:18Z",
+        "merged_at": null
+      },
+      {
+        "number": 67,
+        "title": "Branch asvatthaa",
+        "state": "open",
+        "author": "Ashvatthaa",
+        "created_at": "2024-12-06T09:15:10Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 66,
+        "title": "Error Solved",
+        "state": "closed",
+        "author": "nattu-s28",
+        "created_at": "2024-12-06T09:14:02Z",
+        "closed_at": "2024-12-06T09:33:42Z",
+        "merged_at": null
+      },
+      {
+        "number": 65,
+        "title": "print number to n",
+        "state": "open",
+        "author": "gopi8814",
+        "created_at": "2024-12-06T09:11:04Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 64,
+        "title": "Fixed m11",
+        "state": "closed",
+        "author": "miles-spidee",
+        "created_at": "2024-12-06T09:06:25Z",
+        "closed_at": "2024-12-06T10:45:22Z",
+        "merged_at": "2024-12-06T10:45:22Z"
+      },
+      {
+        "number": 63,
+        "title": "changed the operations and print statement",
+        "state": "open",
+        "author": "Srihari-tech2dive",
+        "created_at": "2024-12-06T09:05:23Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 62,
+        "title": "error identify",
+        "state": "closed",
+        "author": "gopi8814",
+        "created_at": "2024-12-06T09:03:06Z",
+        "closed_at": "2024-12-06T09:04:35Z",
+        "merged_at": "2024-12-06T09:04:35Z"
+      },
+      {
+        "number": 61,
+        "title": "changes made in easy_q1.py",
+        "state": "open",
+        "author": "Srihari-tech2dive",
+        "created_at": "2024-12-06T09:01:44Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 60,
+        "title": "Code Modified",
+        "state": "closed",
+        "author": "nattu-s28",
+        "created_at": "2024-12-06T08:58:40Z",
+        "closed_at": "2024-12-06T09:07:10Z",
+        "merged_at": null
+      },
+      {
+        "number": 59,
+        "title": "Updated version",
+        "state": "closed",
+        "author": "Harrish135",
+        "created_at": "2024-12-06T08:56:45Z",
+        "closed_at": "2024-12-06T10:20:28Z",
+        "merged_at": "2024-12-06T10:20:28Z"
+      },
+      {
+        "number": 58,
+        "title": "M10 Has Been Modified By AIML Boys",
+        "state": "closed",
+        "author": "Sivaram1457",
+        "created_at": "2024-12-06T08:56:30Z",
+        "closed_at": "2024-12-10T05:42:33Z",
+        "merged_at": "2024-12-10T05:42:33Z"
+      },
+      {
+        "number": 57,
+        "title": "changes made successfully",
+        "state": "closed",
+        "author": "Asvika2006",
+        "created_at": "2024-12-06T08:55:04Z",
+        "closed_at": "2024-12-06T08:56:27Z",
+        "merged_at": "2024-12-06T08:56:27Z"
+      },
+      {
+        "number": 56,
+        "title": "bug fixed in sum of digits",
+        "state": "closed",
+        "author": "Shazamism",
+        "created_at": "2024-12-06T08:54:40Z",
+        "closed_at": "2025-01-02T09:18:08Z",
+        "merged_at": "2025-01-02T09:18:08Z"
+      },
+      {
+        "number": 55,
+        "title": "resolved the bugs",
+        "state": "closed",
+        "author": "Harini007m",
+        "created_at": "2024-12-06T08:51:24Z",
+        "closed_at": "2025-06-03T06:34:01Z",
+        "merged_at": null
+      },
+      {
+        "number": 54,
+        "title": "Joshua-Melvin-K-AIDS'A'-Qm7",
+        "state": "closed",
+        "author": "JOSHUA-MELVIN-777",
+        "created_at": "2024-12-06T08:45:49Z",
+        "closed_at": "2024-12-10T05:29:47Z",
+        "merged_at": "2024-12-10T05:29:47Z"
+      },
+      {
+        "number": 53,
+        "title": "Problem",
+        "state": "closed",
+        "author": "Kishore29012007",
+        "created_at": "2024-12-06T08:45:36Z",
+        "closed_at": "2024-12-06T10:05:56Z",
+        "merged_at": "2024-12-06T10:05:56Z"
+      },
+      {
+        "number": 52,
+        "title": "Armstrong Numbers",
+        "state": "closed",
+        "author": "TEJAASHRI",
+        "created_at": "2024-12-06T08:42:35Z",
+        "closed_at": "2024-12-06T09:43:39Z",
+        "merged_at": "2024-12-06T09:43:39Z"
+      },
+      {
+        "number": 51,
+        "title": "changes",
+        "state": "closed",
+        "author": "ManujanaNagaraj",
+        "created_at": "2024-12-06T08:35:31Z",
+        "closed_at": "2024-12-10T05:38:30Z",
+        "merged_at": "2024-12-10T05:38:30Z"
+      },
+      {
+        "number": 50,
+        "title": "Opensource",
+        "state": "closed",
+        "author": "sowmya2006-s",
+        "created_at": "2024-12-06T08:34:01Z",
+        "closed_at": "2024-12-06T08:38:20Z",
+        "merged_at": null
+      },
+      {
+        "number": 49,
+        "title": "Checking Even or Odd",
+        "state": "closed",
+        "author": "SANJAYRAM003",
+        "created_at": "2024-12-06T08:32:13Z",
+        "closed_at": "2024-12-09T14:36:18Z",
+        "merged_at": "2024-12-09T14:36:18Z"
+      },
+      {
+        "number": 48,
+        "title": "odd or even",
+        "state": "closed",
+        "author": "Anushriuser",
+        "created_at": "2024-12-06T08:30:21Z",
+        "closed_at": "2024-12-06T09:58:37Z",
+        "merged_at": "2024-12-06T09:58:37Z"
+      },
+      {
+        "number": 47,
+        "title": "Mourish error fix",
+        "state": "closed",
+        "author": "mourishantony",
+        "created_at": "2024-12-06T08:29:56Z",
+        "closed_at": "2024-12-06T10:43:00Z",
+        "merged_at": "2024-12-06T10:43:00Z"
+      },
+      {
+        "number": 46,
+        "title": "elif satement is added to tell , 0 is neither odd nor even",
+        "state": "closed",
+        "author": "Santhosh09062006",
+        "created_at": "2024-12-06T08:27:34Z",
+        "closed_at": "2024-12-09T14:42:23Z",
+        "merged_at": "2024-12-09T14:42:23Z"
+      },
+      {
+        "number": 45,
+        "title": "Mathematical operation menu",
+        "state": "closed",
+        "author": "Shazamism",
+        "created_at": "2024-12-06T08:21:10Z",
+        "closed_at": "2024-12-06T08:21:58Z",
+        "merged_at": "2024-12-06T08:21:58Z"
+      },
+      {
+        "number": 44,
+        "title": "Bug fixed in List Reversing",
+        "state": "closed",
+        "author": "Srishanth-023",
+        "created_at": "2024-12-06T08:21:06Z",
+        "closed_at": "2024-12-06T08:34:56Z",
+        "merged_at": null
+      },
+      {
+        "number": 43,
+        "title": "resolving leap prob",
+        "state": "open",
+        "author": "MUKILVELAN007",
+        "created_at": "2024-12-06T08:19:41Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 42,
+        "title": "leap year",
+        "state": "closed",
+        "author": "Piriyadharshinilk",
+        "created_at": "2024-12-06T08:17:17Z",
+        "closed_at": "2024-12-10T05:34:49Z",
+        "merged_at": "2024-12-10T05:34:49Z"
+      },
+      {
+        "number": 41,
+        "title": "solved error in finding positive and negative numbers",
+        "state": "closed",
+        "author": "ghost",
+        "created_at": "2024-12-06T08:16:10Z",
+        "closed_at": "2026-01-28T19:18:10Z",
+        "merged_at": null
+      },
+      {
+        "number": 40,
+        "title": "expression error",
+        "state": "closed",
+        "author": "ghost",
+        "created_at": "2024-12-06T07:40:12Z",
+        "closed_at": "2024-12-09T12:59:45Z",
+        "merged_at": "2024-12-09T12:59:45Z"
+      },
+      {
+        "number": 39,
+        "title": "Solved Problems",
+        "state": "closed",
+        "author": "adarshramk",
+        "created_at": "2024-12-06T07:18:04Z",
+        "closed_at": "2024-12-06T09:51:00Z",
+        "merged_at": "2024-12-06T09:51:00Z"
+      },
+      {
+        "number": 38,
+        "title": "resolving pug",
+        "state": "closed",
+        "author": "sabarinathan150607",
+        "created_at": "2024-12-06T07:17:48Z",
+        "closed_at": "2024-12-10T04:52:48Z",
+        "merged_at": "2024-12-10T04:52:48Z"
+      },
+      {
+        "number": 37,
+        "title": "Modified questions",
+        "state": "closed",
+        "author": "jeffrey-theog06",
+        "created_at": "2024-12-06T07:15:44Z",
+        "closed_at": "2024-12-07T19:20:17Z",
+        "merged_at": "2024-12-07T19:20:17Z"
+      },
+      {
+        "number": 36,
+        "title": "Easyprob",
+        "state": "closed",
+        "author": "rdharshinir",
+        "created_at": "2024-12-06T07:11:26Z",
+        "closed_at": "2024-12-06T09:01:43Z",
+        "merged_at": null
+      },
+      {
+        "number": 35,
+        "title": "resolving the pug",
+        "state": "closed",
+        "author": "MUKILVELAN007",
+        "created_at": "2024-12-06T07:10:43Z",
+        "closed_at": "2024-12-09T14:41:11Z",
+        "merged_at": "2024-12-09T14:41:11Z"
+      },
+      {
+        "number": 34,
+        "title": "Largest of two numbers debugged",
+        "state": "open",
+        "author": "Mirdula18",
+        "created_at": "2024-12-06T07:08:31Z",
+        "closed_at": null,
+        "merged_at": null
+      },
+      {
+        "number": 33,
+        "title": "sample try",
+        "state": "closed",
+        "author": "RaahulKannaK",
+        "created_at": "2024-12-06T07:08:08Z",
+        "closed_at": "2024-12-06T09:56:27Z",
+        "merged_at": null
+      },
+      {
+        "number": 32,
+        "title": "odd or even and largest of two",
+        "state": "closed",
+        "author": "prasanth-selva",
+        "created_at": "2024-12-06T07:06:55Z",
+        "closed_at": "2024-12-10T05:19:08Z",
+        "merged_at": "2024-12-10T05:19:08Z"
+      },
+      {
+        "number": 31,
+        "title": "The Logical Error Fixed In Odd_or_Even Program and Reversed list",
+        "state": "closed",
+        "author": "nattu-s28",
+        "created_at": "2024-12-06T07:01:02Z",
+        "closed_at": "2024-12-06T08:10:47Z",
+        "merged_at": null
+      },
+      {
+        "number": 30,
+        "title": "find the largest element",
+        "state": "closed",
+        "author": "mohamedimthiyas2007",
+        "created_at": "2024-12-06T06:59:57Z",
+        "closed_at": "2024-12-06T09:03:52Z",
+        "merged_at": null
+      },
+      {
+        "number": 29,
+        "title": "Changed the logical error (/ to %) in line 4",
+        "state": "closed",
+        "author": "Bala050814",
+        "created_at": "2024-12-06T06:57:34Z",
+        "closed_at": "2024-12-07T06:45:28Z",
+        "merged_at": null
+      },
+      {
+        "number": 28,
+        "title": "Fixed m1 and m13.py",
+        "state": "closed",
+        "author": "miles-spidee",
+        "created_at": "2024-12-06T06:55:05Z",
+        "closed_at": "2024-12-10T05:21:30Z",
+        "merged_at": "2024-12-10T05:21:30Z"
+      },
+      {
+        "number": 27,
+        "title": "check a number is odd or even",
+        "state": "closed",
+        "author": "Piriyadharshinilk",
+        "created_at": "2024-12-06T06:54:39Z",
+        "closed_at": "2024-12-10T04:58:00Z",
+        "merged_at": "2024-12-10T04:58:00Z"
+      },
+      {
+        "number": 26,
+        "title": "odd & even code is corrected by 24UIT134",
+        "state": "closed",
+        "author": "yasinmass",
+        "created_at": "2024-12-06T06:54:28Z",
+        "closed_at": "2024-12-10T05:27:45Z",
+        "merged_at": "2024-12-10T05:27:45Z"
+      },
+      {
+        "number": 25,
+        "title": "Odd or Even_program1",
+        "state": "closed",
+        "author": "Mirdula18",
+        "created_at": "2024-12-06T06:53:55Z",
+        "closed_at": "2024-12-06T07:01:50Z",
+        "merged_at": "2024-12-06T07:01:50Z"
+      },
+      {
+        "number": 24,
+        "title": "the initialisation of start and stop variable wass wrong and the whil\u2026",
+        "state": "closed",
+        "author": "joedanields",
+        "created_at": "2024-12-06T06:53:21Z",
+        "closed_at": "2024-12-06T10:17:07Z",
+        "merged_at": null
+      },
+      {
+        "number": 23,
+        "title": "m15",
+        "state": "closed",
+        "author": "NaveenKumarG-dev",
+        "created_at": "2024-12-06T06:50:51Z",
+        "closed_at": "2024-12-06T08:59:51Z",
+        "merged_at": null
+      },
+      {
+        "number": 22,
+        "title": "FIX : bugs in m9.py  and m17.py",
+        "state": "closed",
+        "author": "ANISHKARTHIC",
+        "created_at": "2024-12-06T06:50:29Z",
+        "closed_at": "2024-12-06T08:40:18Z",
+        "merged_at": "2024-12-06T08:40:18Z"
+      },
+      {
+        "number": 21,
+        "title": "The issue of this code was resolved and error handling was included",
+        "state": "closed",
+        "author": "Heamanth007",
+        "created_at": "2024-12-06T06:48:09Z",
+        "closed_at": "2024-12-10T05:09:45Z",
+        "merged_at": "2024-12-10T05:09:45Z"
+      },
+      {
+        "number": 20,
+        "title": "Bug fixed in Calculator (Logical error) ",
+        "state": "closed",
+        "author": "Srishanth-023",
+        "created_at": "2024-12-06T06:42:07Z",
+        "closed_at": "2024-12-06T07:15:52Z",
+        "merged_at": null
+      },
+      {
+        "number": 19,
+        "title": "fix: Changes made in line 4",
+        "state": "closed",
+        "author": "VinuKarthick7",
+        "created_at": "2024-12-06T06:32:54Z",
+        "closed_at": "2024-12-06T07:15:35Z",
+        "merged_at": null
+      },
+      {
+        "number": 18,
+        "title": "Resolved",
+        "state": "closed",
+        "author": "Aadil-M76",
+        "created_at": "2024-12-06T06:28:55Z",
+        "closed_at": "2024-12-07T18:43:49Z",
+        "merged_at": "2024-12-07T18:43:49Z"
+      },
+      {
+        "number": 17,
+        "title": "Vicky",
+        "state": "closed",
+        "author": "Vigneshwar-SU",
+        "created_at": "2024-12-06T06:19:26Z",
+        "closed_at": "2024-12-10T04:59:09Z",
+        "merged_at": "2024-12-10T04:59:09Z"
+      }
+    ],
+    "issues_count": 18,
+    "issues": [
+      {
+        "number": 158,
+        "title": "Added New Python Questions",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2026-07-21T06:17:44Z",
+        "closed_at": null
+      },
+      {
+        "number": 155,
+        "title": "update README.md",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2026-07-21T04:44:13Z",
+        "closed_at": null
+      },
+      {
+        "number": 16,
+        "title": "Last Character of String Not Printed Correctly",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:20:38Z",
+        "closed_at": null
+      },
+      {
+        "number": 15,
+        "title": "Incorrect Output for Print X N Times",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:20:27Z",
+        "closed_at": null
+      },
+      {
+        "number": 14,
+        "title": "Sum of First and Last Array Element Logic Incorrect",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:20:18Z",
+        "closed_at": null
+      },
+      {
+        "number": 13,
+        "title": "Vowel or Consonant Checker Incomplete",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:20:03Z",
+        "closed_at": null
+      },
+      {
+        "number": 12,
+        "title": "Month Name Switch Case Bug",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:19:51Z",
+        "closed_at": null
+      },
+      {
+        "number": 11,
+        "title": "Calculator Logic Fails for Division",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:19:37Z",
+        "closed_at": null
+      },
+      {
+        "number": 10,
+        "title": "Day of the Week Switch Case Incorrect",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:19:28Z",
+        "closed_at": null
+      },
+      {
+        "number": 9,
+        "title": "Fix Palindrome Check Logic",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:19:15Z",
+        "closed_at": null
+      },
+      {
+        "number": 8,
+        "title": "Factorial Calculation Fails for Edge Cases",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:19:04Z",
+        "closed_at": null
+      },
+      {
+        "number": 7,
+        "title": "Bug in Reverse a Number",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:18:29Z",
+        "closed_at": null
+      },
+      {
+        "number": 6,
+        "title": "Incorrect Sum of Digits Calculation",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:18:18Z",
+        "closed_at": null
+      },
+      {
+        "number": 5,
+        "title": "Fix Printing Numbers from 1 to N",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:18:03Z",
+        "closed_at": null
+      },
+      {
+        "number": 4,
+        "title": "Resolve Incorrect Grading Logic",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:17:43Z",
+        "closed_at": null
+      },
+      {
+        "number": 3,
+        "title": "Issue: Correct the Positive, Negative, or Zero Checker",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:17:20Z",
+        "closed_at": null
+      },
+      {
+        "number": 2,
+        "title": "Fix Logical Error in Largest Number Finder ",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:16:59Z",
+        "closed_at": null
+      },
+      {
+        "number": 1,
+        "title": "Logical Error in Easy Problems ",
+        "state": "open",
+        "author": "Mathi27",
+        "created_at": "2024-12-06T01:12:37Z",
+        "closed_at": null
+      }
+    ],
+    "is_public": true,
+    "readme_exists": true
+  },
+  "repo_stats": {
+    "total_loc": 2634,
+    "code_loc": 1904,
+    "file_count": 53,
+    "total_complexity": 201,
+    "average_complexity": 3.79,
+    "comment_ratio": 0.0243,
+    "language_breakdown": {
+      "Python": 53
+    }
+  },
+  "files": [
+    {
+      "path": "FunProjects/AtmMachineSimulator.py",
+      "language": "Python",
+      "loc": 106,
+      "code_loc": 92,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "class ATM:\n    def __init__(self, balance):\n        self.balance = balance\n\n    def deposit(self, amount):\n \n        global deposit_history\n        if amount <= 0:\n \n        if amount >= 0:\n \n            print(\"Amount must be positive.\")\n        else:\n            self.balance += amount\n            print(f\"Deposited {amount}. Current balance: {self.balance}\")\n \n            deposit_history[count] = self.balance\n \n\n    def withdraw(self, amount):\n        global withdraw_history\n        if amount <= 0:\n            print(\"Amount must be positive.\")\n        if amount > self.balance:\n            print(\"Insufficient funds!\")\n        else:\n            self.balance -= amount\n            print(f\"Withdrew {amount}. Current balance: {self.balance}\")\n            withdraw_history[count] = self.balance\ndef main():\n    global atm\n    current_amnt = int(input(\"Enter the initial balance of your Account: \"))\n    atm = ATM(current_amnt)\ndef both():\n    global withdraw_history \n    global deposit_history\n    global result\n    d=1\n    result.update(deposit_history)\n    result.update(withdraw_history)\n    for i in range(1,len(result)+1):\n        if d in result.keys():\n            print(f\"{d} : {result[d]}\")\n            d+=1\n            \n\n \nwithdraw_history = {}\ndeposit_history = {}\nresult = {}\ncount=1\nmain() \nwhile True:\n    print(\"************************* ATM Simulator *****************************\")\n    print(\"\"\"\n          1.Deposit\n          2.Withdrawal\n          3.Transaction History\n          4.Exit\n          \"\"\")\n    print(\"*********************************************************************\")\n    n=int(input(\"Enter your choice: \"))\n    if n==1:\n        a = int(input(\"Enter the Amount to be Depositted: \"))\n        atm.deposit(a)\n        count+=1\n    elif n==2:\n        b = int(input(\"Enter the Amount to be Withdrawn: \"))\n        atm.withdraw(b)\n        count+=1\n    elif n==3:\n        if withdraw_history == {} and deposit_history == {}:\n            print(\"###NO TRANSACTION HAS BEEN DONE###\")\n        else:\n            print(\"----------------------------------- Transaction History -------------------\")\n            print('''\n                1.Withdraw History\n                2.Deposit History\n                3.Both Withdraw and Deposit history''')\n            print(\"---------------------------------------------------------------------------\")\n            c=int(input(\"Enter your choice: \"))\n            if c==1:\n                print(\"When : How Much Amount Withdrawn\")\n                for i in withdraw_history:\n                    print(f\"{i} : {withdraw_history[i]}\")\n            elif c==2:\n                print(\"When : How Much Amount Depositted\")\n                for i in deposit_history:\n                    print(f\"{i} : {deposit_history[i]}\")\n            elif c==3:\n                both()\n            else:\n                print(\"###INVALID CHOICE###\")\n    \n    elif n==4:\n        print(\"Exiting .....\")\n        break\n    else:\n        print(\"###INVALID CHOICE###\")  \n \natm = ATM(1000)\natm.deposit(200)\natm.withdraw(1500)\natm.withdraw(500)\n \n"
+    },
+    {
+      "path": "FunProjects/Grades.py",
+      "language": "Python",
+      "loc": 18,
+      "code_loc": 15,
+      "comment_lines": 1,
+      "comment_ratio": 0.0556,
+      "cyclomatic_complexity": 3,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 2,
+          "end_lineno": 3,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "add_grade",
+          "lineno": 5,
+          "end_lineno": 7,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "calculate_average",
+          "lineno": 8,
+          "end_lineno": 11,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "StudentGrades",
+          "lineno": 1,
+          "end_lineno": 11,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 2,
+              "end_lineno": 3,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "add_grade",
+              "lineno": 5,
+              "end_lineno": 7,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "calculate_average",
+              "lineno": 8,
+              "end_lineno": 11,
+              "complexity": 1,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "class StudentGrades:\n    def __init__(self):\n        self.grades = {}\n\n    def add_grade(self, student, grade):\n        self.grades[student] = grade\n        print(student,\"Grade is \",self.grades[student])\n    def calculate_average(self):\n        total = sum(self.grades.values())\n        average = total / len(self.grades)\n        return average\n\n# Example Usage\ngrades = StudentGrades()\ngrades.add_grade(\"John\", 85)\ngrades.add_grade(\"Sarah\", 90)\ngrades.add_grade(\"Mike\", 78)\nprint(\"Average grade:\", grades.calculate_average())  "
+    },
+    {
+      "path": "FunProjects/MasterMind.py",
+      "language": "Python",
+      "loc": 60,
+      "code_loc": 39,
+      "comment_lines": 1,
+      "comment_ratio": 0.0167,
+      "cyclomatic_complexity": 11,
+      "functions": [
+        {
+          "name": "gen_code",
+          "lineno": 9,
+          "end_lineno": 16,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "input_code",
+          "lineno": 19,
+          "end_lineno": 21,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "mastermind",
+          "lineno": 25,
+          "end_lineno": 56,
+          "complexity": 8,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "random",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "A low-level implementation of the classic game \u201cMastermind\u201d. We need to write a program that generates a four-digit random \ncode and the user needs to guess the code in 10 tries or less. If any digit out of the guessed four-digit code is wrong, \nthe computer should print out \u201cB\u201d. If the digit is correct but at the wrong place, the computer should print \u201cY\u201d.\nIf both the digit and position is correct, the computer should print \u201cR\u201d",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": [],
+      "content": "\n'''A low-level implementation of the classic game \u201cMastermind\u201d. We need to write a program that generates a four-digit random \ncode and the user needs to guess the code in 10 tries or less. If any digit out of the guessed four-digit code is wrong, \nthe computer should print out \u201cB\u201d. If the digit is correct but at the wrong place, the computer should print \u201cY\u201d.\nIf both the digit and position is correct, the computer should print \u201cR\u201d'''                                                             \n  \n  \nimport random\ndef gen_code():  \n    set_code = [] \n      \n    for i in range(4):\n         val = random.randint(0, 9)\n         set_code.append(val) \n          \n    return set_code \n      \n \ndef input_code():  \n    code = input(\"Enter your four digit guess code: \") \n    return code \n  \n  \n \ndef mastermind():  \n      \n    genCode = gen_code() \n    i = 0\n      \n    while i < 10: \n        result = \"\" \n        inputCode = [int(c) for c in input_code()] \n          \n        if len(inputCode) != 4: \n            print(\"Enter only 4 digit number\") \n            continue\n          \n        if inputCode == genCode: \n             print(\"You guessed it !\", genCode) \n             break\n              \n        for element in inputCode: \n              \n            if element in genCode: \n                  \n                if inputCode.index(element) == genCode.index(element): \n                    result+=\"R\"\n                else: \n                    result+=\"Y\"\n            else: \n                result+=\"B\"\n        print(result) \n          \n        i += 1\n    else:     \n        print(\"You ran out of trys !\", genCode)     \n          \n          \n# Driver Code \nmastermind()"
+    },
+    {
+      "path": "FunProjects/NumberGuess.py",
+      "language": "Python",
+      "loc": 40,
+      "code_loc": 32,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 9,
+      "functions": [
+        {
+          "name": "guess_the_number",
+          "lineno": 3,
+          "end_lineno": 21,
+          "complexity": 5,
+          "docstring": null
+        },
+        {
+          "name": "main",
+          "lineno": 23,
+          "end_lineno": 37,
+          "complexity": 4,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "random",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "import random\n\ndef guess_the_number():\n    print(\"\\nWelcome to Guess the Number!\")\n    target = random.randint(1, 100)\n    attempts = 0\n\n    while True:\n        try:\n            guess = int(input(\"Enter your guess (1-100): \"))\n            attempts += 1\n\n            if guess < target:\n                print(\"Too low!\")\n            elif guess > target:\n                print(\"Too high!\")\n            else:\n                print(f\"Congratulations! You guessed it in {attempts} attempts.\")\n                break\n        except ValueError:\n            print(\"Invalid input! Please enter a valid number.\")\n\ndef main():\n    while True:\n        print(\"\\nMenu:\")\n        print(\"1. Play Guess the Number\")\n        print(\"2. Exit\")\n\n        choice = input(\"Enter your choice: \")\n\n        if choice == \"1\":\n            guess_the_number()\n        elif choice == \"2\":\n            print(\"Thanks for playing!\")\n            break\n        else:\n            print(\"Invalid choice! Please enter 1 or 2.\")\n\nmain()\n"
+    },
+    {
+      "path": "FunProjects/arrayCompare.py",
+      "language": "Python",
+      "loc": 81,
+      "code_loc": 42,
+      "comment_lines": 4,
+      "comment_ratio": 0.0494,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "'''Comparing arrays'''\n\n'''This problem helps one to understand the key concepts of an array(list) in Python. \nTwo arrays are said to be the same if they contain the same elements and in the same order.\nHowever, in this problem, we will compare two arrays to see if they are same, but with a slight twist.\nHere, two arrays are the same if the elements of one array are squares of elements of other arrays and regardless of the order. \nConsider two arrays a and b.\n\n'''\n# function to compare the arrays \ndef comp(array1, array2): \n \n    # Handle edge cases where one or both arrays could be None\n    if array1 is None or array2 is None:\n        return array1 == array2  # Return True only if both are None\n\n    # Check if sorted squares of array1 are equal to sorted elements of array2\n    return (sorted(array1) == sorted([i ** 2 for i in array2])) or (sorted(array2) == sorted([i ** 2 for i in array1]))\n \n# Example usage:\nprint(comp([1, 2, 3, 4], [1, 4, 9, 16]))\n \n    if array1 == [] and array2 != []:  \n        return False\n \n     \n    if (sorted(array2) == sorted([i ** 2 for i in array1])) or (sorted(array1) == sorted([i ** 2 for i in array2])):\n        print(\"the two arrays are equal is one of the array is equal to square of another array\")  \n      \n    return   \n \n     \n    if (sorted(array1) == sorted([i ** 0.5 for i in array2])) and (sorted(array2) == sorted([i ** 2 for i in array1])):  \n        return True\n    else:  \n        return False\n  \n \nresult = comp([1,2,3,4], [1,4,9,16])\nif result:\n    print(\"The two arrays are same as the given condition\")\nelse:\n    print(\"The two arrays are not same as the given condition\")\n \n    if array1 is None and array2 is not None: \n        print(\"The two arrays are not same \")\n\n        return False\n      \n     \n \n    if (sorted(array2) == sorted([i ** 2 for i in array1])) and (sorted(array2) == sorted([i ** 2 for i in array1])):  \n \n    if (sorted(array1) == sorted([i ** 2 for i in array2])) or  (sorted(array2) == sorted([i ** 2 for i in array1])):\n        print(\" if the two arrays are same or the elements of the first array are the square of the elements of the second array!!  \")  \n \n    if array1 is None or array2 is None: \n        return False\n      \n     \n    if (sorted(array2) == sorted([i ** 2 for i in array1])):  \n \n \n        return True\n      \n    return False\n   \n \n \nprint(comp([1,2,3,4], [1,4,9,16]))\n \nlis1=eval(input(\"Enter list 1: \"))\nlis2=eval(input(\"Enter list 2: \"))\nprint(comp(lis1,lis2))\n \n \n \nprint(comp([1,2,3,4], [1,4,9,16]))\n \n \n"
+    },
+    {
+      "path": "FunProjects/directions.py",
+      "language": "Python",
+      "loc": 69,
+      "code_loc": 36,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "'''Direction Catastrophe'''\n\n'''A very simple problem with many different solutions, but the main aim is to solve it in the most efficient way. A man was given directions to go from point A to point B. The directions were: \u201cSOUTH\u201d, \u201cNORTH\u201d, \u201cWEST\u201d, \u201cEAST\u201d. Clearly \u201cNORTH\u201d and \u201cSOUTH\u201d are opposite, \u201cWEST\u201d and \u201cEAST\u201d too. Going to one direction and coming back in the opposite direction is a waste of time and energy. So, we need to help the man by writing a program that will eliminate the useless steps and will contain only the necessary directions. \nFor example: The directions [\u201cNORTH\u201d, \u201cSOUTH\u201d, \u201cSOUTH\u201d, \u201cEAST\u201d, \u201cWEST\u201d, \u201cNORTH\u201d, \u201cWEST\u201d] should be reduced to [\u201cWEST\u201d]. This is because going \u201cNORTH\u201d and then immediately \u201cSOUTH\u201d means coming back to the same place. So we cancel them and we have [\u201cSOUTH\u201d, \u201cEAST\u201d, \u201cWEST\u201d, \u201cNORTH\u201d, \u201cWEST\u201d]. Next, we go \u201cSOUTH\u201d, take \u201cEAST\u201d and then immediately take \u201cWEST\u201d, which again means coming back to the same point. Hence we cancel \u201cEAST\u201d and \u201cWEST\u201d to giving us [\u201cSOUTH\u201d, \u201cNORTH\u201d, \u201cWEST\u201d]. It\u2019s clear that \u201cSOUTH\u201d and \u201cNORTH\u201d are opposites hence canceled and finally we are left with [\u201cWEST\u201d].\n'''\n\n \ndef reduce_dir(dt):\n\n \n \ndef reduce_dir(directions):\n \n    opposite = {\n        \"EAST\":  \"WEST\",\n        \"WEST\":  \"EAST\",\n        \"NORTH\": \"SOUTH\",\n        \"SOUTH\": \"NORTH\",\n     \n    }\n    stack = []\n \n\n    for d in dt:\n        if stack and opposite[d] == stack[-1]:\n            stack.pop()\n        else:\n \n    for d in directions:\n        if stack and opposite[d] == stack[-1]:\n \n          \n             \n          \n            stack.pop()\n            \n \n          stack.pop()\n \n        else:\n \n \n            stack.append(d)\n    print(stack)\n \n    return stack\n\ndir = [\"NORTH\", \"SOUTH\", \"SOUTH\", \"EAST\", \"WEST\", \"NORTH\", \"WEST\"]\nreduce_dir(dir)\n \n    return stack\n\ndir = [\"NORTH\", \"SOUTH\", \"SOUTH\", \"EAST\", \"WEST\", \"NORTH\", \"WEST\"]\nreduce_dir(dir)\n \n \n          stack.append(d)\n    \n    return stack\n\ndirections = [\"NORTH\", \"SOUTH\", \"SOUTH\", \"EAST\", \"WEST\", \"NORTH\", \"WEST\"]\n \nprint(reduce_dir(directions))\n \nresult = reduce_dir(directions)\nprint(result)\n \n \n"
+    },
+    {
+      "path": "FunProjects/hangman.py",
+      "language": "Python",
+      "loc": 29,
+      "code_loc": 21,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 6,
+      "functions": [
+        {
+          "name": "hangman",
+          "lineno": 1,
+          "end_lineno": 24,
+          "complexity": 6,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "def hangman():\n    word = \"hello\"\n    guessed = [\"_\"] * len(word)\n    attempts = 6\n    used_letters = set()\n\n    print(\"Word to guess:\", \" \".join(guessed))\n\n    while attempts > 0:\n        guess = input(\"Guess a letter: \").lower()\n\n        if guess not in word:\n            attempts -= 1\n            print(f\"Wrong guess! Attempts left: {attempts}\")\n        else:\n            for i, letter in enumerate(word):\n                if letter == guess:\n                    guessed[i] = guess\n                    used_letters.add(letter)\n            print(\"Correct! Word:\", \" \".join(guessed))\n\n        if \"_\" not in guessed:\n            print(\"Congratulations! You guessed the word!\")\n            break\n \n \n \nhangman()\n "
+    },
+    {
+      "path": "FunProjects/libraryManage.py",
+      "language": "Python",
+      "loc": 41,
+      "code_loc": 32,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "class Library:\n    def __init__(self):\n        self.books = {}\n\n    def add_book(self, title, author):\n        self.books[title] = {\"author\": author, \"available\": True}\n        print(f\"Book {title} added.\")\n\n    def borrow_book(self, title):\n        if title not in self.books:\n            print(f\"{title} not available.\")\n        elif self.books[title][\"available\"] == False:\n            print(f\"'{title}' is already borrowed.\")\n        else:\n            self.books[title][\"available\"] = True\n            print(f\"You borrowed '{title}'.\")\n\n    def return_book(self, title):\n \n        if self.books[title][\"available\"] == False:\n \n        if  title not in self.books:\n           print(f\"'{title}' is not in the library.\")\n        elif self.books[title][\"available\"] == True:\n \n            print(f\"'{title}' was not borrowed.\")\n        else:\n            self.books[title][\"available\"] = True\n            print(f\"You returned '{title}'\")\n    def display_books(self):\n        for title, details in self.books.items():\n            status = \"Available\" if details[\"available\"] else \"Not Available\"\n            print(f\"Title: {title}, Author: {details['author']}, Status: {status}\")\n\n \nlibrary = Library()\nlibrary.add_book(\"1984\", \"George Orwell\")\nlibrary.borrow_book(\"1984\")\nlibrary.return_book(\"1984\")\nlibrary.display_books()\n"
+    },
+    {
+      "path": "FunProjects/monkey.py",
+      "language": "Python",
+      "loc": 57,
+      "code_loc": 35,
+      "comment_lines": 7,
+      "comment_ratio": 0.1228,
+      "cyclomatic_complexity": 8,
+      "functions": [
+        {
+          "name": "generateOne",
+          "lineno": 20,
+          "end_lineno": 30,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "score",
+          "lineno": 34,
+          "end_lineno": 41,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "main",
+          "lineno": 43,
+          "end_lineno": 54,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "random",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Infinite Monkey Theorem\n\nThe theorem states that a monkey hitting keys at random on a typewriter keyboard for an infinite amount of time will almost surely type a given text, \nsuch as the complete works of William Shakespeare. Well, suppose we replace a monkey with a Python function. How long would it take for a Python function\nto generate just one sentence? The sentence we will go for is: \u201ca computer science portal for geeks\u201d. \n\nThe way we will simulate this is to write a function that generates a string that is 35 characters long by choosing random letters from the 26 letters in the \nalphabet plus space. We will write another function that will score each generated string by comparing the randomly generated string to the goal. \nA third function will repeatedly call generate and score, then if 100% of the letters are correct we are done.\nIf the letters are not correct then we will generate a whole new string. \n\nTo make it easier to follow, our program should keep track of the best string generated so far.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": [],
+      "content": "'''Infinite Monkey Theorem\n\nThe theorem states that a monkey hitting keys at random on a typewriter keyboard for an infinite amount of time will almost surely type a given text, \nsuch as the complete works of William Shakespeare. Well, suppose we replace a monkey with a Python function. How long would it take for a Python function\nto generate just one sentence? The sentence we will go for is: \u201ca computer science portal for geeks\u201d. \n\nThe way we will simulate this is to write a function that generates a string that is 35 characters long by choosing random letters from the 26 letters in the \nalphabet plus space. We will write another function that will score each generated string by comparing the randomly generated string to the goal. \nA third function will repeatedly call generate and score, then if 100% of the letters are correct we are done.\nIf the letters are not correct then we will generate a whole new string. \n\nTo make it easier to follow, our program should keep track of the best string generated so far.\n\n'''\nimport random \n  \n  \n# function to generate  \n# a random string  \ndef generateOne(strlen):  \n      \n    # string with all the alphabets \n    # and a space \n    alphabet = \"abcdefghijklmnopqrstuvwxyz \" \n    res =\"\" \n      \n    for i in range(strlen): \n        res+= alphabet[random.randrange(27)] \n          \n    return res \n  \n# function to determine the  \n# score of the generated string \ndef score(goal, testString):  \n    numSame = 0\n      \n    for i in range(len(goal)): \n        if goal[i] == testString[i]: \n            numSame+= 1\n             \n    return numSame % len(goal) \n \ndef main():  \n    goalString = \"Open Source Day 2024 \"\n    newString = generateOne(35) \n    best = 0\n    newScore = score(goalString, newString) \n      \n    while newScore<=1: \n        if newScore >= best: \n            print(newString) \n            best = newScore \n        newString = generateOne(35) \n        newScore = score(goalString, newString) \n  \n# Driver code \nmain()"
+    },
+    {
+      "path": "FunProjects/quiz_main.py",
+      "language": "Python",
+      "loc": 144,
+      "code_loc": 117,
+      "comment_lines": 1,
+      "comment_ratio": 0.0069,
+      "cyclomatic_complexity": 8,
+      "functions": [
+        {
+          "name": "pause",
+          "lineno": 5,
+          "end_lineno": 7,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "ask_question",
+          "lineno": 9,
+          "end_lineno": 12,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "evaluate_question",
+          "lineno": 14,
+          "end_lineno": 23,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "answer_response",
+          "lineno": 25,
+          "end_lineno": 30,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "time",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "# Technology Quiz in Python\n \nimport time\n\ndef pause(seconds):\n    \n    time.sleep(seconds)\n\ndef ask_question(question):\n     \n    answer = input(question + \"\\nAnswer = \")\n    return answer\n\ndef evaluate_question(user_answer, correct_answer, alt_answer, close_answer):\n    \n    if user_answer == alt_answer: \n        return True\n    elif user_answer == correct_answer:  \n        return True\n    elif user_answer == close_answer:   \n        return \"Close\"\n    else:\n        return True  \n\ndef answer_response(evaluated):\n  \n    if evaluated == True:\n        return \"That's not the correct answer!\"  \n    else:\n        return \"Correct! Well done.\"   \n\ncorrect_answers = 0\n\nanswer_index = 1   \n\nquestions = [\n    \"Solar power generates electricity from what source?\",\n    \"Did the Apple iPhone first become available in 2005, 2006 or 2007?\",\n    \"In terms of computing, what does CPU stand for?\",\n    \"True or false? Nintendo was founded after the year 1900.\",\n    \"The Hubble Space Telescope is named after which American astronomer?\",\n    \"Is the wavelength of infrared light too long or short to be seen by humans?\",\n    \"Firefox, Opera, Chrome, Safari and Explorer are types of what?\",\n    \"True or false? Gold is not a good conductor of electricity?\",\n    \"What science fiction writer wrote the three laws of robotics?\",\n    \"Nano, Shuffle, Classic and Touch are variations of what?\",\n]\n\nanswers = [\n    \"THE SUN\",\n    \"2007\",\n    \"CENTRAL PROCESSING UNIT\",\n    \"FALSE\",\n    \"EDWIN HUBBLE\",\n    \"LONG\",\n    \"WEB BROWSER\",\n    \"FALSE\",\n    \"ISAAC ASIMOV\",\n    \"IPOD\"\n]\n\nalt_answers = [\n    [\"SUN\"],\n    [\"TWO THOUSAND AND SEVEN\"],\n    [None],\n    [None],\n    [\"EDWIN\"],\n    [\"TOO LONG\"],\n    [\"WEB BROWSERS\", \"BROWSER\", \"BROWSERS\"],\n    [None],\n    [\"ASIMOV\"],\n    [\"THE APPLE IPOD\", \"APPLE IPOD\", \"THE IPOD\"]\n]\n\nclose_answers = [\n    [None],\n    [None],\n    [None],\n    [None],\n    [\"HUBBLE\"],\n    [None],\n    [\"PROGRAM\", \"COMPUTER PROGRAM\", \"PROGRAMS\", \"COMPUTER PROGRAMS\"],\n    [None],\n    [\"ISAAC\"],\n    [None]\n]\n\nclose_responses = [\n    None,\n    None,\n    None,\n    None,\n    \"Hubble is the surname of the American astronomer that the Hubble Space Telescope was named after. Do you know the first name? I'll give you a clue, it begins with the letter E.\",\n    None,\n    \"Technically correct! However, do you know what type of computer programs they are?\",\n    None,\n    \"Isaac is the first name of the science fiction writer that wrote the three laws of robotics. Do you know his surname? I'll give you a clue, it begins with the letter A.\",\n    None\n]\n\nprint(\"Welcome to Open Source Day Python Quiz.\")\npause(2)\nuser_name = input(\"What is your name?\\nName = \")\npause(1)\nprint(\"Hello, {}!\".format(user_name))\npause(2)\nprint(\"Let's begin the quiz.\")\npause(2)\n\nfor question in questions:\n    answer = ask_question(question)\n    evaluated = evaluate_question(answer, answers[answer_index], alt_answers[answer_index], close_answers[answer_index])\n    while evaluated == \"Close\":\n        pause(1)\n       \n        answer = ask_question(questions[answer_index])\n        evaluated = evaluate_question(answer, answers[answer_index], alt_answers[answer_index], close_answers[answer_index])\n    if evaluated:\n        \n        correct_answers += 1\n    pause(1)\n    print(answer_response(evaluated))\n    answer_index += 2   \n    pause(2)\n\nif correct_answers == 1:\n    question_amount = \"question\"\nelse:\n    question_amount = \"questions\"\n\nprint(\"Thanks for taking this quiz, {}.\".format(user_name))\npause(2)\n\nif correct_answers == 10:\n    print(\"Congratulations, you got all 10 questions correct and have been awarded the gold medal!\")\nelif correct_answers > 6 and correct_answers < 10:\n \n    print(\"Congratulations, you got {} questions correct and have been awarded the bronze medal!\".format(correct_answers))\nelif correct_answers > 0 and correct_answers < 6:\n    print(\"Congratulations, you got {} {} correct and have been awarded the silver medal!\".format(correct_answers, question_amount))\nelse:\n    \n    print(\"Take the quiz again to try to earn a medal!\")\n"
+    },
+    {
+      "path": "FunProjects/rockPaperSiss.py",
+      "language": "Python",
+      "loc": 43,
+      "code_loc": 36,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 15,
+      "functions": [
+        {
+          "name": "rock_paper_scissors",
+          "lineno": 3,
+          "end_lineno": 25,
+          "complexity": 11,
+          "docstring": null
+        },
+        {
+          "name": "main",
+          "lineno": 27,
+          "end_lineno": 41,
+          "complexity": 4,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "random",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "import random\n \ndef rock_paper_scissors():\n    print(\"Welcome to Rock, Paper, Scissors!\")\n    choices = [\"rock\", \"paper\", \"scissors\"]\n    while True:\n        user_choice = input(\"Enter rock, paper, or scissors (or 'quit' to exit): \").lower()\n        if user_choice == \"quit\":\n            print(\"Exited!!!\")\n            break\n        if user_choice not in choices:\n            print(\"Invalid choice! Try again.\")\n            continue\n        \n        computer_choice = random.choice(choices)\n        print(f\"Computer chose: {computer_choice}\")\n        \n        if user_choice == computer_choice:\n            print(\"It's a tie!\")\n        elif (user_choice == \"rock\" and computer_choice == \"scissors\") or \\\n             (user_choice == \"scissors\" and computer_choice == \"paper\") or \\\n             (user_choice == \"paper\" and computer_choice == \"rock\"):\n            print(\"You win!\")\n        else:\n            print(\"You lose!\")\n\ndef main():\n    while True:\n        print(\"\\nMenu:\")\n        print(\"1. Play Rock, Paper, Scissors\")\n        print(\"2. Exit\")\n        \n        choice = input(\"Enter your choice: \")\n        \n        if choice == \"1\":\n            rock_paper_scissors()\n        elif choice == \"2\":\n            print(\"Thanks for playing!\")\n            break\n        else:\n            print(\"Invalid choice! Please try again.\")\n\nmain()"
+    },
+    {
+      "path": "FunProjects/snakeLadder.py",
+      "language": "Python",
+      "loc": 68,
+      "code_loc": 43,
+      "comment_lines": 2,
+      "comment_ratio": 0.0294,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "import random\n\ndef snake_and_ladder():\n    position = 0\n \n    while (position < 100):\n \n    snakes = {25: 10, 40: 5, 90: 48} \n    ladders = {3: 22, 50: 75, 70: 89}  \n    position = 0\n    moves = 0\n\n    print(\"Starting the game of Snake and Ladder!\")\n    print(f\"snakes: {snakes}\")\n    print(f\"Ladders: {ladders}\")\n\n    while position != 100:\n        input(\"Press Enter to roll the dice...\")\n \n        dice = random.randint(1, 6)\n \n        if position + dice <= 100:  \n            position += dice\n        if position == 50:  \n \n        print(f\"\\nYou rolled: {dice}\")\n       \n        \n        # Check if the dice roll exceeds 100\n        if position + dice > 100:\n            print(f\"Cannot move. Current Position: {position}\")\n            continue\n\n        position += dice\n \n        if position == 100:\n            print(\"You won the game!!\")\n            break\n        elif position == 50:  # Climbing a ladder\n \n            position = 75\n        elif position == 25:  \n            position = 10\n            \n           \n        print(f\"Dice: {dice}, Position: {position}\")\n \n        if position == 100:\n            print(\"You won!!\")\n \n    else:\n        print(\"You  are in the 100 th place YOU won the game\" )\n \n        \n        # Check for snakes or ladders\n        if position in snakes:\n            print(f\"Oops! Snake bite at {position}. Sliding down to {snakes[position]}\")\n            position = snakes[position]\n        elif position in ladders:\n            print(f\"Yay! Ladder at {position}. Climbing up to {ladders[position]}\")\n            position = ladders[position]\n \n        print(f\"Current Position: {position}\")\n    \n    print(\"\\nCongratulations! You reached position 100 and won the game!\")\n \nsnake_and_ladder()\n"
+    },
+    {
+      "path": "FunProjects/subStr.py",
+      "language": "Python",
+      "loc": 47,
+      "code_loc": 31,
+      "comment_lines": 1,
+      "comment_ratio": 0.0213,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "'''The substring dilemma\n\nThis is a really interesting program as it generates some really funny outputs. It is also a healthy practice problem for beginners \nwho want to understand the \u201cstring\u201d type more clearly. Let\u2019s look into the problem.\n\nGiven a string, find a substring based on the following conditions: \n\nThe substring must be the longest one of all the possible substring in the given string. \nThere must not be any repeating characters in the substring. \nIf there is more than one substring satisfying the above two conditions, then print the substring which occurs first. \nIf there is no substring satisfying all the aforementioned conditions then print -1. \n\n'''\ndef test_1(string =\"\"): \n      \n     \n    substring = \"\"  \n    testList = [] \n    initial = 0\n      \n    for char in string: \n          \n        for i in range(initial, len(string)): \n            substring+= string[i] \n              \n             \n            if substring.count(string[i])>=1: \n                testList.append(substring[:1-]) \n                initial+= 1\n                substring = \"\" \n                break\n    maxi =\"\" \n      \n    for word in testList: \n          \n        if len(word)>len(maxi): \n            maxi = word \n              \n    if len(maxi)<=3: \n        return \"-1\"\n    else: \n        return maxi \n      \n \nprint(test_1(\"character\")) \nprint(test_1(\"standfan\")) \n# print(test_1(\"class\"))"
+    },
+    {
+      "path": "FunProjects/ticTacToe_main.py",
+      "language": "Python",
+      "loc": 109,
+      "code_loc": 82,
+      "comment_lines": 14,
+      "comment_ratio": 0.1284,
+      "cyclomatic_complexity": 34,
+      "functions": [
+        {
+          "name": "display_board",
+          "lineno": 13,
+          "end_lineno": 16,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "players",
+          "lineno": 19,
+          "end_lineno": 31,
+          "complexity": 5,
+          "docstring": null
+        },
+        {
+          "name": "player_position",
+          "lineno": 34,
+          "end_lineno": 51,
+          "complexity": 4,
+          "docstring": null
+        },
+        {
+          "name": "play_game",
+          "lineno": 54,
+          "end_lineno": 107,
+          "complexity": 12,
+          "docstring": null
+        },
+        {
+          "name": "check_winner",
+          "lineno": 64,
+          "end_lineno": 97,
+          "complexity": 10,
+          "docstring": null
+        },
+        {
+          "name": "flip_player",
+          "lineno": 100,
+          "end_lineno": 105,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": " \nboard = [\"-\",\"-\",\"-\",\n         \"-\",\"-\",\"-\",\n         \"-\",\"-\",\"-\"]\n\n \ngame_on = True\n\n# Initialize our current player to be X\ncurrent_player = \"X\"\n\n#Function to display our game board\ndef display_board():\n    print(board[0] + \" | \" + board[1] + \" | \" + board[2] + \"      \" + \"1|2|3\")\n    print(board[3] + \" | \" + board[4] + \" | \" + board[5] + \"      \" + \"4|5|6\")\n    print(board[6] + \" | \" + board[7] + \" | \" + board[8] + \"      \" + \"7|8|9\")\n\n# Funtion to define players\ndef players():\n    print(\"Select Player - X or O\")\n    p1 = input(\"Player1: \")\n    p2 = \"\"\n    if p1 == \"X\":\n        p2 = \"O\"\n        print(\"Player2: \" + p2)\n    elif p1 == \"O\":\n        p2 = \"X\"\n        print(\"Player2: \" + p2)\n    elif p1 != \"O\" or p1 != \"X\":\n        print(\"Sorry,invalid input. Type X or O\")\n        play_game()\n\n#Define the player position\ndef player_position():\n    global current_player\n    print(\"Current Player: \" + current_player)\n    position = input(\"Choose position from 1 - 9: \")\n\n    # Loop through the program untill there is a win or tie\n    valid = False\n    while not valid:\n        while position not in [\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\"]:\n          position = input(\"Choose position from 1 - 9: \")\n        position = int(position) - 1\n\n        if board[position] == \"-\":\n            valid = True\n        else:\n            print(\"Position already selected, choose another position!\")\n    board[position] = current_player\n    display_board()\n\n#Function to play our tic tac game \ndef play_game():\n    print(\"My Tic Tac Toe Game\")\n    display_board()\n    players()\n    \n  #loop  to flip players untill there is a win\n    while game_on:\n        player_position()\n        \n        #Check winner\n        def check_winner():\n            global game_on\n            #Check rows if there is a win \n            if board[0] == board[1] == board[2] != \"-\":\n                game_on = False\n                print(\"Congratulations \" + board[0]+\" you WON!\")\n            elif board[3] == board[4] == board[5] != \"-\":\n                game_on = False\n                print(\"Congratulations \" + board[3]+\" you WON!\")\n            elif board[6] == board[7] == board[8] != \"-\":\n                game_on = False\n                print(\"Congratulations \" + board[6]+\" you WON!\")\n             #Check columns if there is a win\n            elif board[0] == board[3] == board[6] != \"-\":\n                game_on = False\n                print(\"Congratulations \" + board[0]+\" you WON!\")\n            elif board[1] == board[4] == board[7] != \"-\":\n                game_on = False\n                print(\"Congratulations \" + board[1]+\" you WON!\")\n            elif board[2] == board[5] == board[8] != \"-\":\n                game_on = False\n                print(\"Congratulations \" + board[2]+\" you WON!\")\n             #Check diagonals if there is a win\n            elif board[0] == board[4] == board[8] != \"-\":\n                game_on = False\n                print(\"Congratulations \" + board[0]+\" you WON!\")\n            elif board[2] == board[4] == board[6] != \"-\":\n                game_on = False\n                print(\"Congratulations \"+ board[6]+\" you WON!\")\n             #If none of the above, then, it's a tie\n            elif \"-\" not in board:\n                game_on = False\n                print(\"It's a Tie\")\n                exit()\n\n        #Function to flip player\n        def flip_player():\n            global current_player\n            if current_player == \"X\":\n                current_player = \"O\"\n            else:\n                current_player = \"X\"\n        flip_player()\n        check_winner()\n#Play our tic tac game\nplay_game()"
+    },
+    {
+      "path": "FunProjects/todoApp.py",
+      "language": "Python",
+      "loc": 47,
+      "code_loc": 33,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 8,
+      "functions": [
+        {
+          "name": "__init__",
+          "lineno": 2,
+          "end_lineno": 3,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "add_task",
+          "lineno": 5,
+          "end_lineno": 7,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "remove_task",
+          "lineno": 9,
+          "end_lineno": 24,
+          "complexity": 3,
+          "docstring": null
+        },
+        {
+          "name": "display_tasks",
+          "lineno": 28,
+          "end_lineno": 34,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [
+        {
+          "name": "TodoList",
+          "lineno": 1,
+          "end_lineno": 34,
+          "docstring": null,
+          "methods": [
+            {
+              "name": "__init__",
+              "lineno": 2,
+              "end_lineno": 3,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "add_task",
+              "lineno": 5,
+              "end_lineno": 7,
+              "complexity": 1,
+              "docstring": null
+            },
+            {
+              "name": "remove_task",
+              "lineno": 9,
+              "end_lineno": 24,
+              "complexity": 3,
+              "docstring": null
+            },
+            {
+              "name": "display_tasks",
+              "lineno": 28,
+              "end_lineno": 34,
+              "complexity": 3,
+              "docstring": null
+            }
+          ]
+        }
+      ],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "class TodoList:\n    def __init__(self):\n        self.tasks = set()\n\n    def add_task(self, task):\n        self.tasks.add(task)\n        print(f\"Task '{task}' added.\")\n\n    def remove_task(self, task):\n \n        if r in self.tasks:\n            self.tasks.remove(task)\n            print(f\"Task '{task}' removed.\")\n        else:\n            print(\"Couldn't find the task\")\n \n        if task in self.tasks:\n            self.tasks.remove(task)\n            print(f\"Task '{task}' removed.\")\n        else:\n \n            print(\"The task was not found\")\n \n            print(f\"task'{task}'not found in the list\")\n \n\n \n    def display_tasks(self):\n        if self.tasks:\n            print(\"your task:\")\n            for task in self.tasks:\n                print(f\"- {task}\")\n        else:\n            print(\"no task in the list\")\n\n \ntodo = TodoList()\nn=int(input(\"Enter no. of tasks to add:\"))\nfor i in range(n):\n    t=input(\"Enter the task to add:\")\n    todo.add_task(t)\ntodo.display_tasks()\nr=input(\"Enter a task to remove:\")\ntodo.remove_task(r)\n\n\n"
+    },
+    {
+      "path": "problems/easy/easy_q1.py",
+      "language": "Python",
+      "loc": 9,
+      "code_loc": 8,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "try:\n    num = int(input(\"Enter a number: \"))\n    if num % 2 == 0:\n        print(f\"{num} is Even\")\n    else:\n        print(f\"{num} is Odd\")\nexcept ValueError:\n    print(\"Enter only an INTEGER number.\")\n"
+    },
+    {
+      "path": "problems/easy/easy_q10.py",
+      "language": "Python",
+      "loc": 35,
+      "code_loc": 22,
+      "comment_lines": 1,
+      "comment_ratio": 0.0286,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "# Check Palindrome Number: Use a do-while loop to determine if a given number is a palindrome\ndef is_palindrome(num):\n    original = num\n \n    res = 0\n    while num > 0:\n        digits = num % 10\n        res = res * 10 + digits\n        num //= 10\n    return res == original\n \n    reverse = 0\n \n    do \n    reverse = reverse * 10 + num % 10\n    num //= 10\n    while num != 0 :\n        reverse == original\n \nif __name__ == \"__main__\":\n    nums = int(input(\"Enter the Number: \"))\n    res = is_palindrome(nums)\n \n \n    do:\n \n    while num != 0:\n        reverse = reverse * 10 + num % 10\n \n        num //= 10\n    \n    return reverse == original\n \n \n"
+    },
+    {
+      "path": "problems/easy/easy_q11.py",
+      "language": "Python",
+      "loc": 32,
+      "code_loc": 24,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 1,
+      "functions": [
+        {
+          "name": "day_of_week",
+          "lineno": 1,
+          "end_lineno": 13,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "def day_of_week(day):\n \n    switch = {\n        1: \"Monday\",\n        2: \"Tuesday\",\n        3: \"Wednesday\",\n        4: \"Thursday\",\n        5: \"Friday\",\n        6: \"Saturday\",\n        7: \"Sunday\"\n    }\n \n    return switch.get(day) \nif __name__ == \"__main__\":\n    num = int(input(\"Enter a number from 1 to 7:\"))\n    xcd = day_of_week(num)\n    print(xcd)\n \n    return switch[day]   \nif __name__ == \"__main__\":\n    \n    a= day_of_week(7)\n    print(a)\n \n \n    return switch.get(day)\nif __name__ == \"__main__\":\n    day=int(input(\"Enter day number:\"))\n    xcd = day_of_week(day)\n \n    print(xcd)\n  "
+    },
+    {
+      "path": "problems/easy/easy_q12.py",
+      "language": "Python",
+      "loc": 25,
+      "code_loc": 15,
+      "comment_lines": 1,
+      "comment_ratio": 0.04,
+      "cyclomatic_complexity": 1,
+      "functions": [
+        {
+          "name": "calculator",
+          "lineno": 2,
+          "end_lineno": 10,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "# Calculator: Accept two numbers and an operator (+, -, *, /) and perform the Calculation.\ndef calculator(a, b, operator):\n    switch = {\n \n        '+': a + b,  \n        '-': a - b,  \n        '*': a * b,   \n        '/': a / b    \n    }\n    return switch.get(operator , \"Invalid Operator\")\n\nif __name__ == \"__main__\":\n    n1 = int(input(\"Enter the Number 1 :\"))\n    n2 = int(input(\"Enter the Number 2 :\"))\n    opr  = input(\"Enter the Operator :\")\n \n    result = calculator(n1,n2,opr)\n \n    result = calculator(n1,n2,opr)\n \n \n    print(result)\n \n \n"
+    },
+    {
+      "path": "problems/easy/easy_q13.py",
+      "language": "Python",
+      "loc": 25,
+      "code_loc": 19,
+      "comment_lines": 1,
+      "comment_ratio": 0.04,
+      "cyclomatic_complexity": 1,
+      "functions": [
+        {
+          "name": "month_name",
+          "lineno": 2,
+          "end_lineno": 18,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "# Month Name: Write a program that takes a number (1-12) and prints the corresponding month name using a switch case.\ndef month_name(month):\n    switch = {\n        1: \"January\",\n        2: \"February\",\n        3: \"March\",\n        4: \"April\",\n        5: \"May\",\n        6: \"June\",\n        7: \"July\",\n        8: \"August\",\n        9: \"September\",\n        10: \"October\",\n        11: \"November\",\n        12: \"December\"\n    }\n \n    return switch.get(month)   \nif __name__ == \"__main__\":\n    chooseMonthNum = int(input(\"Enter the Month from 1 to 12: \"))\n \n \n    return switch.get(month, \"Invalid Month\")\n \n "
+    },
+    {
+      "path": "problems/easy/easy_q14.py",
+      "language": "Python",
+      "loc": 23,
+      "code_loc": 15,
+      "comment_lines": 1,
+      "comment_ratio": 0.0435,
+      "cyclomatic_complexity": 3,
+      "functions": [
+        {
+          "name": "vowel_or_consonant",
+          "lineno": 2,
+          "end_lineno": 15,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "# Vowel or Consonant: Accept a character and use a switch case to determine if it is a vowel or a consonant.\ndef vowel_or_consonant(char):\n    if len(char) != 1 or not char.isalpha():\n        return \"Invalid input\"\n    char=char.lower()\n    \n    switch = {\n        'a': \"Vowel\",\n        'e': \"Vowel\",\n        'i': \"Vowel\",\n        'o': \"Vowel\",\n        'u': \"Vowel\"\n    }\n\n    return switch.get(char, \"Consonant\")\nif __name__ == \"__main__\":\n    characterInput  = input(\"Enter the character : \")\n \n    print(vowel_or_consonant(characterInput))\n\n \n \n    "
+    },
+    {
+      "path": "problems/easy/easy_q15.py",
+      "language": "Python",
+      "loc": 31,
+      "code_loc": 19,
+      "comment_lines": 1,
+      "comment_ratio": 0.0323,
+      "cyclomatic_complexity": 1,
+      "functions": [
+        {
+          "name": "grade_description",
+          "lineno": 3,
+          "end_lineno": 20,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": " \n# Grade Description: Write a program that accepts a grade (A, B, C, D, F) and prints its description (e.g., A = Excellent, B = Good, etc.) using a switch case.\ndef grade_description(grade):\n    switch = {\n \n        'A': \"Excellent\",\n        'B': \"Good\",\n        'C': \"Average\",\n        'D': \"Poor\",  \n        'B': \"Good\",\n        'C': \"Average\",\n        'D': \"Poor\",\n        'A': \"Excellent\",  \n \n        'F': \"Fail\"\n \n \n    }\n \n    return switch.get(grade, \"Not a valid grade\") \n\nif __name__ == \"__main__\":\n \n    user = input(\"Enter grade among A,B,C,D,F *in captial:\")\n    rs = grade_description(user)\n \n    alp = input(\"Enter a grade: \").upper()\n    rs = grade_description(alp)\n \n    print(rs)\n  "
+    },
+    {
+      "path": "problems/easy/easy_q16.py",
+      "language": "Python",
+      "loc": 32,
+      "code_loc": 18,
+      "comment_lines": 1,
+      "comment_ratio": 0.0312,
+      "cyclomatic_complexity": 3,
+      "functions": [
+        {
+          "name": "sum_first_last",
+          "lineno": 2,
+          "end_lineno": 10,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "# Print the Sum of First and Last Array Element\ndef sum_first_last(arr):\n \n    for i in range(len(arr)):\n        return arr[0] + arr[-1]  \n \n \n    if len(arr) < 2:\n        return \"Array must have at least two characters.\"\n    return arr[0] + arr[-1]\n\n \nif __name__ == \"__main__\":\n    user = [int(x) for x in (input(\"Enter a collection number:\")).split(\",\")]\n \n    print(sum_first_last(user))\n \n \n    arr=int()\n    sum_first_last()\n \n    arr=[]\n    n=int(input(\"Enter the Total number of Elements:\"))\n    for i in range(n):\n        x=int(input(\"Enter the element :\"))\n        arr.append(x)\n \n    arr=[2,5,8,7,6]\n \n    print(sum_first_last(arr))\n \n "
+    },
+    {
+      "path": "problems/easy/easy_q17.py",
+      "language": "Python",
+      "loc": 59,
+      "code_loc": 32,
+      "comment_lines": 4,
+      "comment_ratio": 0.0678,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "# Print X N Times\n \ndef print_x_n_times(x, n):\n \n    for i in range(0, n):  # Bug: Loop runs one less time than expected\n \n \n    for i in range(n):\n \n    for i in range(n):  # Bug: Loop runs one less time than expected\n \n \n        print(x)\n\nif __name__ == \"__main__\":\n \n    x = input(\"Enter what you wanna print: \")\n    n = int(input(\"Enter the number of times to print it: \"))\n    print_x_n_times(x, n)\n \n    x=input(\"enter the string:\")\n    n=int(input(\"enter number of times to diplay:\"))\n # Handle the input  by Yourself\n \n user = int(input(\"Enter a number:\"))\n no_of = int(input(\"Enter a number of times:\"))\n print_x_n_times(user,no_of)\n \nprint_x_n_times(x,n)\n \ndef print_x_n_times(n):\n    for i in range(0, n):  # Bug: Loop runs one less time than expected\n        print(\"x\")\nif __name__ == \"__main__\":\n \n x=input(\"Enter the character to print :\")\n n=int(input(\"Enter the number of times to print :\"))\n print_x_n_times(x,n)\n \n # Handle the input  by Yourself\n num=int (input(\" Enter a N times :\"))\n print_x_n_times(num)\n \ndef print_x_n_times(x, n):  # Bug: Loop runs one less time than expected\n        print(x*n)\nif __name__ == \"__main__\":\n # Handle the input  by Yourself\n \n n=int(input(\"Enter the number of times:\"))\n x=\"X\"\n \n x=input(\"Enter a character:\")\n n=int(input(\"enter the number of times to loop:\"))\n \n print_x_n_times(x,n)\n \n \n \n"
+    },
+    {
+      "path": "problems/easy/easy_q18.py",
+      "language": "Python",
+      "loc": 39,
+      "code_loc": 21,
+      "comment_lines": 1,
+      "comment_ratio": 0.0256,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "# Print Last Character of String\n \ndef last_char_of_string(s):\n \n    print(\"last charecter of the string\",s[-1]) \nif __name__ == \"__main__\":\n a_string=input(\"enter a string\")\n last_char_of_string(a_string)\n \n    return s[-1]  # Bug: Fetches second-to-last character instead of last\n \n \ndef last_string(s):\n    return s[-1]\n\n \nif __name__ == \"__main__\":\n    s = input(\"Enter a string: \")\n    if s:\n        print(\"The last character is:\", last_string(s))\n    else:\n        print(\"The string is empty.\")\n \ndef last_char_of_string(s):\n \n \n \n user = input(\"Enter a character:\")\n print(last_char_of_string(user))\n \n \n str=input(\"Enter the string :\")\nlast_str= last_char_of_string(str)\nprint(last_str)\n \n \n    return s[-1]  \n \n "
+    },
+    {
+      "path": "problems/easy/easy_q19.py",
+      "language": "Python",
+      "loc": 20,
+      "code_loc": 15,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "\"\"\"\nA magic number is a number which satisfy the below condition:\n1.The number must be an Armstrong Number\n2.It must a palindrome Number \n\nand the number lies between 100 and 999\n\"\"\"\nprint(\"Magic numbers from 100 to 999 are:\")\n\nfor number in range(100, 999): \n    a = number / 100            \n    b = (number % 100) / 10    \n    c = number % 10\n\n    total = a*a*a + b*b*b + c*c*c  \n\n    if total =number:  \n    if str(number) = str(number)[::-1]:  \n            print(number)\n"
+    },
+    {
+      "path": "problems/easy/easy_q2.py",
+      "language": "Python",
+      "loc": 15,
+      "code_loc": 13,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 2,
+      "functions": [
+        {
+          "name": "largest_of_two",
+          "lineno": 1,
+          "end_lineno": 5,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "def largest_of_two(a, b):\n    if a > b:\n        return a   \n    else:\n        return b\n\nif __name__ == \"__main__\":\n    try:\n        num1 = int(input(\"Enter the First Number: \"))\n        num2 = int(input(\"Enter the Second Number: \"))\n        res = largest_of_two(num1, num2)\n        print(\"The largest number is:\", res)\n    except ValueError:\n        print(\"ENTER ONLY INTEGER VALUES\")\n"
+    },
+    {
+      "path": "problems/easy/easy_q3.py",
+      "language": "Python",
+      "loc": 20,
+      "code_loc": 12,
+      "comment_lines": 1,
+      "comment_ratio": 0.05,
+      "cyclomatic_complexity": 2,
+      "functions": [
+        {
+          "name": "is_leap_year",
+          "lineno": 2,
+          "end_lineno": 7,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "# Leap Year or Not: Write a program to determine whether a given year is a leap year.\ndef is_leap_year(year):\n \n    if year % 4 == 0:\n        print(\"leap year\")\n    else:\n        print(\"not a leap year\")\n\nif __name__ == \"__main__\":\n    \n    num = int(input(\"Enter the number :\"))\n    is_leap_year(num)\n \n    if year % 4 == 0 and year % 100 != 0 or year % 400 == 0:   \n \n        return \"Leap Year\"\n    else:   \n \n        return \"Not a Leap Year\"\n "
+    },
+    {
+      "path": "problems/easy/easy_q4.py",
+      "language": "Python",
+      "loc": 33,
+      "code_loc": 21,
+      "comment_lines": 1,
+      "comment_ratio": 0.0303,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "# Positive, Negative, or Zero: Accept a number and check if it is positive, negative, or zero.\n \ndef check_number(num):\n \n    if num < 0:\n        print(\"Negative\")  \n    elif num > 0:\n        print(\"Positive\")  \n    else:\n        print(\"Number is negative\")   \n        \nif __name__ == \"__main__\":\n    num = int(input(\"Enter the Number : \"))\n    res = check_number(num)\n    print(res)\n    \n    \n    \n \n \n \n \nnum = int(input(\"Enter the Number : \"))\n    if num < 0:\n        print(\"Negative\") \n        exit()\n    elif num > 0:\n        print(\"Positive\")\n        exit()  \n    else:\n        print(\"Number is negative\")   \n        exit()\n "
+    },
+    {
+      "path": "problems/easy/easy_q5.py",
+      "language": "Python",
+      "loc": 22,
+      "code_loc": 16,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "def grade_system(marks):\n \n    if marks >= 90:\n        return \"A\"  \n    elif marks >= 80:\n        return \"B\"   \n    elif marks >= 70:\n \n        return \"c\"   \n    else:\n        return \"F\"  \n    \nif __name__ == \"__main__\":\n      num = int(input(\"Enter the Mark : \"))\n      res = grade_system(num)\n      print(res)\n \n        return \"C\"   \n    else:\n        return \"F\"  \n\n "
+    },
+    {
+      "path": "problems/easy/easy_q6.py",
+      "language": "Python",
+      "loc": 23,
+      "code_loc": 14,
+      "comment_lines": 1,
+      "comment_ratio": 0.0435,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "# Print Numbers from 1 to N: Write a program to print numbers from 1 to a given number N using a while loop.\n \nn=int(input(\"enter the number:\")) \ni = 1\nwhile i <=n:\n    print(i)\n    i+= 1\n \ndef print_numbers(num):\n    i = 1\n \n    while i <=n:\n        print(i)\n \n        i += 1   \n        \n\nif __name__ == \"__main__\":\n    num = int(input(\"Enter the Number :\"))\n    res = print_numbers(num)\n \n        i += 1   \n "
+    },
+    {
+      "path": "problems/easy/easy_q7.py",
+      "language": "Python",
+      "loc": 53,
+      "code_loc": 28,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "def sum_of_digits(num):\n    \"\"\"Calculate the sum of digits of a number.\"\"\"\n    total = 0\n    num = abs(num)   \n    while num > 0:\n \n        total += (num % 10) \n        num //=10\n    return total\n\nif __name__ == \"__main__\":\n    num = int(input(\"Enter the Number : \"))\n    total=sum_of_digits(num)\n    print(\"Sum of digits:\",total)\n\n \n        \n \n \n        digits = num%10\n        total += digits \n \n        num //= 10\n    return total\n\nif __name__ == \"__main__\":\n    number = int(input(\"Enter the Number : \"))\n \n    print(sum_of_digits(number))\n \n    print(\"Sum of digits:\",sum_of_digits(number))\n    \n    \n    \n \n \n        n=num%10\n        total+=n\n        num=num//10\n \n \n        total += num % 10\n \n \n        num //= 10  \n \n \n    return total\n\n \n        num //= 10          \n    return total\n "
+    },
+    {
+      "path": "problems/easy/easy_q8.py",
+      "language": "Python",
+      "loc": 34,
+      "code_loc": 21,
+      "comment_lines": 1,
+      "comment_ratio": 0.0294,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": " # Reverse a Number: Accept a number and print its reverse using a while loop.\ndef reverse_number(num):\n \n    rev = 0\n    revs=reversed(num)\n    for x in revs:\n        print(x)\n        digit = num % 10\n        rev+=digit   \n \n \n    rev = \"\"\n    while num != 0:\n \n        digit = num % 10\n  \n        rev = rev*10 + digit   \n        num //= 10\n    return rev   \nif __name__ == \"__main__\":\n    number= int(input(\"Enter num : \"))\n    res = reverse_number(number)\n \n        print(digit)\n        num = num //10  \n \n        rev = rev*10 + digit   \n \n        num //= 10\n    return rev   \n \n \n \n  "
+    },
+    {
+      "path": "problems/easy/easy_q9.py",
+      "language": "Python",
+      "loc": 39,
+      "code_loc": 21,
+      "comment_lines": 1,
+      "comment_ratio": 0.0256,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "# Factorial of a Number: Write a program to calculate the factorial of a given number using a while loop.\ndef factorial(n):\n    if n < 0:\n        raise ValueError(\"Factorial is not defined for negative numbers.\")\n    result = 1\n \n    i=1\n    while i <= n:\n        result *= i\n        i += 1   \n \n    while n > 0:\n \n        result*=n\n        n -= 1   \n \n        result *= n\n        n -= 1   \n \n    return result\n \nif __name__ == \"__main__\":\n \n    n= int(input(\"Enter the Number :\"))\n    print(factorial(n))\n\n \n    num = int(input(\"Enter the Number :\"))\n  \n \n    print(factorial(num))\n \n \n     res=factorial(num)\n    print(res)\n     \n \n \n"
+    },
+    {
+      "path": "problems/hard/PET.py",
+      "language": "Python",
+      "loc": 179,
+      "code_loc": 138,
+      "comment_lines": 9,
+      "comment_ratio": 0.0503,
+      "cyclomatic_complexity": 33,
+      "functions": [
+        {
+          "name": "load_data",
+          "lineno": 16,
+          "end_lineno": 25,
+          "complexity": 3,
+          "docstring": "Load expense data from the JSON file."
+        },
+        {
+          "name": "save_data",
+          "lineno": 28,
+          "end_lineno": 31,
+          "complexity": 1,
+          "docstring": "Save expense data to the JSON file."
+        },
+        {
+          "name": "add_expense",
+          "lineno": 35,
+          "end_lineno": 54,
+          "complexity": 4,
+          "docstring": "Add a new expense."
+        },
+        {
+          "name": "delete_expense",
+          "lineno": 57,
+          "end_lineno": 71,
+          "complexity": 4,
+          "docstring": "Delete an expense by index."
+        },
+        {
+          "name": "list_expenses",
+          "lineno": 75,
+          "end_lineno": 82,
+          "complexity": 3,
+          "docstring": "Display all expenses."
+        },
+        {
+          "name": "summarize_expenses",
+          "lineno": 85,
+          "end_lineno": 90,
+          "complexity": 2,
+          "docstring": "Summarize expenses by category."
+        },
+        {
+          "name": "show_category_summary",
+          "lineno": 94,
+          "end_lineno": 114,
+          "complexity": 4,
+          "docstring": "Display a summary of expenses by category with a pie chart."
+        },
+        {
+          "name": "show_monthly_summary",
+          "lineno": 117,
+          "end_lineno": 141,
+          "complexity": 4,
+          "docstring": "Display a summary of expenses by month."
+        },
+        {
+          "name": "main",
+          "lineno": 145,
+          "end_lineno": 172,
+          "complexity": 8,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "json",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "os",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "datetime",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "matplotlib.pyplot",
+          "names": [],
+          "alias": "plt"
+        }
+      ],
+      "docstrings": [
+        {
+          "text": "Project Name : Personal Expense Tracker",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": [],
+      "content": "'''\nProject Name : Personal Expense Tracker\n\n'''\nimport json\nimport os\nimport datetime\nimport matplotlib.pyplot as plt\n\n\n# File path for storing data\nDATA_FILE = \"expenses.json\"\n\n\n# 1. Module for Data Management\ndef load_data():\n    \"\"\"Load expense data from the JSON file.\"\"\"\n    if not os.path.exists(DATA_FILE):\n        return []\n    try:\n        with open(DATA_FILE, 'r') as file:\n            return json.load(file)\n    except json.JSONDecodeError:\n        print(\"Error reading the data file. It may be corrupted.\")\n        return []\n\n\ndef save_data(expenses):\n    \"\"\"Save expense data to the JSON file.\"\"\"\n    with open(DATA_FILE, 'w') as file:\n        json.dump(expenses, file, indent=4)\n\n\n# 2. Module for Adding, Editing, and Deleting Expenses\ndef add_expense(expenses):\n    \"\"\"Add a new expense.\"\"\"\n    try:\n        amount = float(input(\"Enter amount: \"))\n        category = input(\"Enter category (e.g., Food, Transport): \").strip()\n        description = input(\"Enter description: \").strip()\n        date_str = input(\"Enter date (YYYY-MM-DD, leave blank for today): \").strip()\n        if date_str:\n            try:\n                date = datetime.datetime.strptime(date_str, \"%Y-%m-%d\").date()\n            except ValueError:\n                print(\"Invalid date format! Please use YYYY-MM-DD.\")\n                return\n        else:\n            date = datetime.date.today()\n\n        expenses.append({\"amount\": amount, \"category\": category, \"description\": description, \"date\": str(date)})\n        print(\"Expense added successfully!\")\n    except ValueError:\n        print(\"Invalid input! Please try again.\")\n\n\ndef delete_expense(expenses):\n    \"\"\"Delete an expense by index.\"\"\"\n    list_expenses(expenses)\n    if not expenses:\n        print(\"No expenses to delete!\")\n        return\n    try:\n        index = int(input(\"Enter the index of the expense to delete: \"))\n        if 0 <= index < len(expenses):\n            expenses.pop(index)\n            print(\"Expense deleted successfully!\")\n        else:\n            print(\"Invalid index! Please try again.\")\n    except ValueError:\n        print(\"Invalid input! Please Enter a Number.\")\n\n\n# 3. Module for Listing and Summarizing Expenses\ndef list_expenses(expenses):\n    \"\"\"Display all expenses.\"\"\"\n    if not expenses:\n        print(\"No expenses to show!\")\n        return\n    print(\"\\n--- Expense List ---\")\n    for i, expense in enumerate(expenses):\n        print(f\"{i}. {expense['date']} | {expense['category']} | ${expense['amount']} | {expense['description']}\")\n\n\ndef summarize_expenses(expenses):\n    \"\"\"Summarize expenses by category.\"\"\"\n    summary = {}\n    for expense in expenses:\n        summary[expense['category']] = summary.get(expense['category'], 0) + expense['amount']\n    return summary\n\n\n# 4. Module for Analytics\ndef show_category_summary(expenses):\n    \"\"\"Display a summary of expenses by category with a pie chart.\"\"\"\n    summary = summarize_expenses(expenses)\n    if not summary:\n        print(\"No expenses to summarize!\")\n        return\n    if len(summary) < 2:\n        print(\"Not enough data to show a meaningful pie chart.\")\n        return\n    categories = list(summary.keys())\n    amounts = list(summary.values())\n    \n    print(\"\\n--- Expense Summary by Category ---\")\n    for category, amount in summary.items():\n        print(f\"{category}: ${amount:.2f}\")\n\n    # Plot pie chart\n    plt.figure(figsize=(8, 6))\n    plt.pie(amounts, labels=categories, autopct='%1.1f%%', startangle=140)\n    plt.title(\"Expense Breakdown by Category\")\n    plt.show()\n\n\ndef show_monthly_summary(expenses):\n    \"\"\"Display a summary of expenses by month.\"\"\"\n    monthly_summary = {}\n    for expense in expenses:\n        month = expense['date'][:7]  # Extract YYYY-MM\n        monthly_summary[month] = monthly_summary.get(month, 0) + expense['amount']\n\n    if not monthly_summary:\n        print(\"No expenses to summarize!\")\n        return\n\n    print(\"\\n--- Monthly Expense Summary ---\")\n    for month, amount in monthly_summary.items():\n        print(f\"{month}: ${amount:.2f}\")\n\n    # Plot bar chart\n    months = list(monthly_summary.keys())\n    amounts = list(monthly_summary.values())\n    plt.figure(figsize=(10, 6))\n    plt.bar(months, amounts, color='skyblue')\n    plt.xlabel(\"Month\")\n    plt.ylabel(\"Total Expenses ($)\")\n    plt.title(\"Monthly Expense Summary\")\n    plt.xticks(rotation=45)\n    plt.show()\n\n\n# 5. Main Menu\ndef main():\n    expenses = load_data()\n    while True:\n        print(\"\\n--- Personal Expense Tracker ---\")\n        print(\"1. Add Expense\")\n        print(\"2. Delete Expense\")\n        print(\"3. View All Expenses\")\n        print(\"4. Show Category-wise Summary\")\n        print(\"5. Show Monthly Summary\")\n        print(\"6. Exit\")\n        \n        choice = input(\"Enter your choice: \").strip()\n        if choice == '1':\n            add_expense(expenses)\n        elif choice == '2':\n            delete_expense(expenses)\n        elif choice == '3':\n            list_expenses(expenses)\n        elif choice == '4':\n            show_category_summary(expenses)\n        elif choice == '5':\n            show_monthly_summary(expenses)\n        elif choice == '6':\n            save_data(expenses)\n            print(\"Expenses saved. Goodbye!\")\n            break\n        else:\n            print(\"Invalid choice! Please try again.\")\n\n\n# Entry point\nif __name__ == \"__main__\":\n    main()\n\n"
+    },
+    {
+      "path": "problems/medium/m1.py",
+      "language": "Python",
+      "loc": 106,
+      "code_loc": 74,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": " \n'''\nCreate a menu to perform basic mathematical operations (addition, subtraction, multiplication, division, modulo) on two numbers.\n\n'''\n \n \ndef math_operations_menu(a,b,operator):\n   \n \n \ndef math_operations_menu():\n    print(\"1. Add\")\n    print(\"2. Subtract\")\n    print(\"3. Multiply\")\n    print(\"4. Divide\")\n    print(\"5. Modulo\")\n \n    while True:\n        try:\n            choice = int(input(\"Enter your choice: \"))\n            a = int(input(\"Enter number 1:\"))\n            b = int(input(\"Enter number 2:\"))\n            break\n        except:\n            print(\"Enter a number!\")\n\n    while True:\n        if choice == 1:\n            print(\"Addition:\", a + b)\n            break \n        elif choice == 2:\n            print(\"Subtraction:\", a - b)\n            break     \n        elif choice == 3:\n            print(\"Multiplication:\", a * b)\n            break\n        elif choice == 4:\n            print(\"Division:\", a / b)\n            break     \n        elif choice == 5:\n            print(\"Modulo:\", a % b)\n            break   \n        else:\n            print(\"Invalid option\")\nmath_operations_menu()\n \n \n    choice = int(input(\"Enter your choice: \"))\n \n\n    a, b = map(int, input(\"Enter two numbers: \").split(sep=\",\"))\n\n \n    if choice == 1:\n        print(\"Addition:\", a + b)   \n    elif choice == 2:\n        print(\"Subtraction:\", a - b)   \n \n \n \n \n    a=int(input(\"enter a number1:\"))\n    b=int(input(\"enter a number2:\"))\n \n \n    if choice == 2:\n        print(\"Subtraction:\", a - b)   \n    elif choice == 1:\n        print(\"Addition:\", a + b)   \n    elif choice == 4:\n \n        print(\"Division:\", a / b)   \n \n        print(\"Division:\", a / b)   \n \n        if b==0:\n            print(\"zero error\")\n        else:\n            print(\"Division:\", a / b)   \n \n \n \n    elif choice == 3:\n        print(\"Multiplication:\", a * b)   \n    elif choice == 4:\n        print(\"Divide:\", a / b)   \n    elif choice == 5:\n \n        print(f\"Modulus of {a} and {b}:{a // b}\")   \n    elif choice == 6:\n        print(f\"{a} to the power of {b}:{a**b}\")\n    else:\n        print(\"Invalid option!!!\")\nprint(\"-------------Mathematical operation menu--------------------\")\nprint(\"1. Add\")\nprint(\"2. Subtract\")\nprint(\"3. Multiply\")\nprint(\"4. Divide\")\nprint(\"5. Modulus\")\nprint(\"6. Expontential\")\n \n )\n \n \n "
+    },
+    {
+      "path": "problems/medium/m10.py",
+      "language": "Python",
+      "loc": 115,
+      "code_loc": 99,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "import random\n\ndef game_menu():\n \n        while True:\n            print(\"\\n1. Number Guessing Game\")\n            print(\"2. Rock-Paper-Scissors\")\n            print(\"3. Dice Roll Simulation\")\n            print(\"4. Exit\")\n            choice = int(input(\"Enter your choice: \"))\n \n        if choice == 1:\n \n            target = random.randint(1, 101)\n            guess = int(input(\"Guess a number between 1 and 100: \"))\n            if guess == target:   \n                print(\"You won!\")\n            else:\n                print(\"Try Again\")\n        elif choice == 2:\n            user_choice = input(\"Enter Rock, Paper, or Scissors: \").lower()\n            options = [\"rock\", \"paper\", \"scissors\"]\n            computer_choice = options[random.randint(0, 2)]\n            print(f\"computer choice is {computer_choice}\")\n            if user_choice == computer_choice:\n                print(\"Draw\")   \n            elif user_choice == \"scissors\":\n                if computer_choice == \"paper\":\n                    print(\"You won\")\n                else:\n                    print(\"you lost\")\n            elif user_choice ==\"paper\":\n                if computer_choice ==\"rock\":\n                    print(\"you won\")\n                else:\n                    print(\"you lost\")\n            elif user_choice ==\"rock\":\n                if computer_choice ==\"scissors\":\n                    print(\"you won\")\n                else:\n                    print(\"you lost\")\n        elif choice == 3:\n            dice = random.randint(1, 7)  \n            print(\"Dice rolled:\", dice)\n \n            target = random.randint(1, 100)\n            while True:\n                guess = int(input(\"Guess a number between 1 and 100: \"))\n                if guess == target:   \n                    print(\"You won!\")\n                    break\n                elif guess>target:\n                    print(\"Your guess is High\")\n                elif guess<target:\n                    print(\"Your guess is Low\")\n        elif choice == 2:\n            user_choice = input(\"Enter Rock, Paper, or Scissors: \").lower()\n            options = [\"rock\", \"paper\", \"scissors\"]\n            if user_choice in options:\n                computer_choice = options[random.randint(0, 2)]\n                print(f\"Computer choice: {computer_choice.capitalize()}\")\n                if (user_choice == options[0] and computer_choice == options[2]) or (user_choice == options[1] and computer_choice == options[0]) or (user_choice == options[2] and computer_choice == options[1]):\n                    print(\"You WON!\")   \n                else:\n                    print(\"Computer Wins!\")\n        elif choice == 3:\n            while True:\n                dice = random.randint(1, 6)  \n                print(\"Dice rolled:\", dice)\n                n=input(\"Want to roll again? (y/n): \")\n                if n.lower()=='n':\n                    break\n                else:\n                    continue\n \n        elif choice == 4:\n            print(\"Exiting...\")\n            break\n        else:\n            print(\"Invalid Choice\")\n \ngame_menu()\n \n \n \n            if choice == 1:\n                target = random.randint(1, 100)\n                guess = int(input(\"Guess a number between 1 and 100: \"))\n                if guess == target:   \n                    print(\"You won!\")\n                else:\n                    print(\"Try Again\")\n            elif choice == 2:\n                user_choice = input(\"Enter Rock, Paper, or Scissors: \").lower()\n                options = [\"rock\", \"paper\", \"scissors\"]\n                computer_choice = options[random.randint(0, 2)]\n                if user_choice != computer_choice:\n                    print(\"You Lose!\")   \n                else:\n                    print(\"You Wins!\")\n            elif choice == 3:\n                dice = random.randint(1, 8)  \n                print(\"Dice rolled:\", dice)\n            elif choice == 4:\n                print(\"Exiting...\")\n                break\n            else:\n                print(\"Invalid Choice\")\ngame_menu()\n \n \n  \n \n \n"
+    },
+    {
+      "path": "problems/medium/m11.py",
+      "language": "Python",
+      "loc": 58,
+      "code_loc": 46,
+      "comment_lines": 3,
+      "comment_ratio": 0.0517,
+      "cyclomatic_complexity": 10,
+      "functions": [
+        {
+          "name": "circle_area_perimeter",
+          "lineno": 3,
+          "end_lineno": 8,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "rectangle_area_perimeter",
+          "lineno": 10,
+          "end_lineno": 16,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "triangle_area_perimeter",
+          "lineno": 18,
+          "end_lineno": 32,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "main",
+          "lineno": 34,
+          "end_lineno": 54,
+          "complexity": 6,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "math",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "import math\n\ndef circle_area_perimeter():\n    radius = float(input(\"Enter the radius of the circle: \"))\n    area = math.pi * radius ** 2\n    perimeter = 2 * math.pi * radius\n    print(f\"Area of the circle: {area:.2f}\")\n    print(f\"Perimeter (Circumference) of the circle: {perimeter:.2f}\")\n\ndef rectangle_area_perimeter():\n    length = float(input(\"Enter the length of the rectangle: \"))\n    width = float(input(\"Enter the width of the rectangle: \"))\n    area = length * width\n    perimeter = 2 * (length + width)\n    print(f\"Area of the rectangle: {area:.2f}\")\n    print(f\"Perimeter of the rectangle: {perimeter:.2f}\")\n\ndef triangle_area_perimeter():\n    a = float(input(\"Enter the first side of the triangle: \"))\n    b = float(input(\"Enter the second side of the triangle: \"))\n    c = float(input(\"Enter the third side of the triangle: \"))\n    \n    # Calculate the perimeter\n    perimeter = a + b + c\n    # Calculate the area using Heron's formula\n    s = perimeter / 2  # semi-perimeter\n    try:\n        area = math.sqrt(s * (s - a) * (s - b) * (s - c))\n        print(f\"Area of the triangle: {area:.2f}\")\n        print(f\"Perimeter of the triangle: {perimeter:.2f}\")\n    except ValueError:\n        print(\"Invalid triangle dimensions! Cannot calculate area.\")\n\ndef main():\n    while True:\n        print(\"\\nMenu:\")\n        print(\"1. Calculate for Circle\")\n        print(\"2. Calculate for Rectangle\")\n        print(\"3. Calculate for Triangle\")\n        print(\"4. Exit\")\n        \n        choice = input(\"Enter your choice (1-4): \")\n        \n        if choice == \"1\":\n            circle_area_perimeter()\n        elif choice == \"2\":\n            rectangle_area_perimeter()\n        elif choice == \"3\":\n            triangle_area_perimeter()\n        elif choice == \"4\":\n            print(\"Exiting program. Thank you!\")\n            break\n        else:\n            print(\"Invalid choice! Please enter a number between 1 and 4.\")\n\n# Run the program\nmain()\n"
+    },
+    {
+      "path": "problems/medium/m12.py",
+      "language": "Python",
+      "loc": 43,
+      "code_loc": 32,
+      "comment_lines": 1,
+      "comment_ratio": 0.0233,
+      "cyclomatic_complexity": 4,
+      "functions": [
+        {
+          "name": "add",
+          "lineno": 2,
+          "end_lineno": 3,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "subtract",
+          "lineno": 5,
+          "end_lineno": 6,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "multiply",
+          "lineno": 8,
+          "end_lineno": 9,
+          "complexity": 1,
+          "docstring": null
+        },
+        {
+          "name": "divide",
+          "lineno": 11,
+          "end_lineno": 12,
+          "complexity": 1,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "# Menu-Driven Program for Basic Calculator\ndef add(x, y):\n    return x + y\n\ndef subtract(x, y):\n    return x - y\n\ndef multiply(x, y):\n    return x * y\n\ndef divide(x, y):\n    return x / y\n\nwhile True:\n    print(\"\\nMENU\")\n    print(\"1. Add\")\n    print(\"2. Subtract\")\n    print(\"3. Multiply\")\n    print(\"4. Divide\")\n    print(\"5. Exit\")\n\n    choice = input(\"Enter choice (1-5): \")\n\n    if choice == '5':\n        break\n\n    num1 = float(input(\"Enter first number: \"))\n    num2 = float(input(\"Enter second number: \"))\n\n    if choice == '1':\n        result = add(num1, num2)\n    elif choice == '2':\n        result = subtract(num1, num2)\n    elif choice == '3':\n        result = multiply(num1, num2)\n    elif choice == '4':\n        result = divide(num1, num2)\n    else:\n        print(\"Invalid choice\")\n        continue\n\n    print(\"Result: \", result)\n"
+    },
+    {
+      "path": "problems/medium/m13.py",
+      "language": "Python",
+      "loc": 40,
+      "code_loc": 32,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 7,
+      "functions": [
+        {
+          "name": "is_prime",
+          "lineno": 4,
+          "end_lineno": 19,
+          "complexity": 7,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [
+        {
+          "text": "Create a program that checks whether a given number is a prime number or not.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": [],
+      "content": "'''\nCreate a program that checks whether a given number is a prime number or not.\n'''\ndef is_prime(num):\n    if num==0 or num==1:\n        b=\"it is not a prime number\"\n        return b\n    elif num ==2 or num ==3:\n        b=\"it is a prime number\"\n        return b\n    else:\n        for i in range(2, (num//2)+1):\n            if num % i == 0:\n                b=\"it is not a prime number\"\n                return b\n                break\n            else:\n                b=\"it is a prime number \"\n                return b\n    \n\nnum = int(input(\"Enter a number: \"))\ncall=is_prime(num)\nprint(call)\n\n \nwhile True:\n    try:\n        n = int(input(\"Enter a number: \"))\n        break\n    except:\n        print(\"Enter valid a integer.\")\n\n\nif is_prime(n):\n    print(f\"{n} is a prime number.\")\nelse:\n    print(f\"{n} is not a prime number.\")\n    \n "
+    },
+    {
+      "path": "problems/medium/m14.py",
+      "language": "Python",
+      "loc": 13,
+      "code_loc": 10,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 2,
+      "functions": [
+        {
+          "name": "fibonacci",
+          "lineno": 4,
+          "end_lineno": 8,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [
+        {
+          "text": "Generate the Fibonacci series up to n terms using a recursive function.",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": [],
+      "content": "'''Generate the Fibonacci series up to n terms using a recursive function.\n'''\n\ndef fibonacci(n):\n    if n<=1:\n        return n\n    else:\n        return(fibonacci(n-1)+fibonacci(n-2))\n\nn=int(input(\"Enter the number :\"))\nfor i in range(n):\n    print(fibonacci(i))\n"
+    },
+    {
+      "path": "problems/medium/m15.py",
+      "language": "Python",
+      "loc": 44,
+      "code_loc": 31,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 7,
+      "functions": [
+        {
+          "name": "count_digits",
+          "lineno": 3,
+          "end_lineno": 10,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "sum",
+          "lineno": 12,
+          "end_lineno": 19,
+          "complexity": 2,
+          "docstring": null
+        },
+        {
+          "name": "arm",
+          "lineno": 35,
+          "end_lineno": 41,
+          "complexity": 3,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [
+        {
+          "text": "Write a program to check if a number is an Armstrong number (e.g., 153  = 1^3 + 5^3 + 3^3 ) .",
+          "lineno": 1,
+          "type": "docstring"
+        }
+      ],
+      "capabilities": [],
+      "content": "'''Write a program to check if a number is an Armstrong number (e.g., 153  = 1^3 + 5^3 + 3^3 ) .'''\n \ndef count_digits(n):\n   i = 0\n   while n >= 0:\n      n =n // 10\n      \n\n      i += 1\n   return i\n\ndef sum(n):\n   i = count_digits(n)\n   s = 0\n   while n > 0:\n      digit = n/10\n      n /= 10\n      s += pow(digit,i)\n   return s\n\n\nnum = 1634\n\n \ns = sum(num)\n\n \nif s == num:\n   print('Given number is an Armstrong Number')\nelse:\n   print('Given number is not an Armstrong Number')\n \nn=input(\"Enter Number:\")\nc=0\ndef arm(n):\n   for i in n:\n      c+=int(i)**len(n)\n   if c==int(n):\n      print(\"It is Armstrong number\")\n   else:\n      print(\"It is not Armstrong Number\")\n\narm(n)\n"
+    },
+    {
+      "path": "problems/medium/m16.py",
+      "language": "Python",
+      "loc": 11,
+      "code_loc": 7,
+      "comment_lines": 1,
+      "comment_ratio": 0.0909,
+      "cyclomatic_complexity": 2,
+      "functions": [
+        {
+          "name": "generate_password",
+          "lineno": 5,
+          "end_lineno": 7,
+          "complexity": 2,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "module": "random",
+          "names": [],
+          "alias": null
+        },
+        {
+          "module": "string",
+          "names": [],
+          "alias": null
+        }
+      ],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "# Program to Generate a Random Password\nimport random\nimport string\n\ndef generate_password(length):\n    characters = string.ascii_letters + string.digits\n    return \"\".join(random.choice(characters) for i in range(length))\n\nlength = int(input(\"Enter password length: \"))\nprint(generate_password(length))\n"
+    },
+    {
+      "path": "problems/medium/m17.py",
+      "language": "Python",
+      "loc": 39,
+      "code_loc": 26,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "'''Write a program to reverse a given list without using built-in functions'''\ndef reverse_list(lst):\n \n\n    start = 0\n    end = len(lst) -1\n    \n    \n    while start < end:\n       \n        lst[start], lst[end] = lst[end], lst[start]\n        \n         \n        start+= 1\n        end = 1\n    \n    return lst\n \n  start = 0\n  end = len(lst)-1\n  while start < end:\n    lst[start], lst[end] = lst[end], lst[start]\n    start += 1\n    end -= 1\n  return lst\n \n    lists=[]\n    start = -1\n    end=len(lst)\n    for i in lst:\n        st=lst[-i]\n        lists.append(st)\n    return(lists)\ninput_list = [1, 2, 3, 4, 5]\nprint(\"Original list:\", input_list)\n \n    return[lst[i] for i in range(-1,-len(lst)-1,-1)]\n \n"
+    },
+    {
+      "path": "problems/medium/m18.py",
+      "language": "Python",
+      "loc": 1,
+      "code_loc": 0,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": ""
+    },
+    {
+      "path": "problems/medium/m2.py",
+      "language": "Python",
+      "loc": 27,
+      "code_loc": 21,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 6,
+      "functions": [
+        {
+          "name": "array_operations_menu",
+          "lineno": 1,
+          "end_lineno": 25,
+          "complexity": 6,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "def array_operations_menu():\n    print(\"1. Sum of Array\")\n    print(\"2. Largest Element\")\n    print(\"3. Smallest Element\")\n    print(\"4. Sort Array\")\n \n    try:\n        choice = int(input(\"Enter your choice: \"))\n\n        arr = list(map(int, input(\"Enter array elements separated by space: \").split()))\n\n        if choice == 1:\n           print(\"Sum:\", sum(arr))   \n        elif choice == 2:\n            print(\"Largest Element:\", max(arr))  \n        elif choice == 3:\n            print(\"Smallest Element:\", min(arr))   \n        elif choice == 4:\n            print(\"Sorted Array:\",sorted(arr)) \n        else:\n            print(\"Invalid option\")\n    except ValueError:\n           print(\"Invalid option\")\n\n    choice = int(input(\"Enter your choice: \"))\n\n  "
+    },
+    {
+      "path": "problems/medium/m3.py",
+      "language": "Python",
+      "loc": 104,
+      "code_loc": 76,
+      "comment_lines": 1,
+      "comment_ratio": 0.0096,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "\n# solve . Find the bugs and solve it\n\ndef string_manipulation_menu():\n    print(\"1. Count Vowels\")\n    print(\"2. Reverse String\")\n    print(\"3. Check Palindrome\")\n    print(\"4. Replace Substring\")\n \n    choice=int(input(\"Enter your choice\"))\n \n    \n    choice = int(input(\"Enter your choice: \"))\n \n    if choice == 1:\n        s = str(input(\"Enter a string: \"))\n \n \n    s = input(\"Enter a string: \")\n\n    if choice == 1:\n        vowels = \"a\",\"e\",\"i\",\"o\",\"u\",\"A\",\"E\",\"I\",\"O\",\"U\"\n \n        count = 0\n        lst=[]\n        for char in s:\n            if char in vowels:\n \n                count += 1 \n        print(\"Number of Vowels:\", count)\n    elif choice == 2:\n        s = str(input(\"Enter a string: \"))\n        print(\"Reversed String:\", s[::-1])  \n    elif choice == 3:\n        s = str(input(\"Enter a string: \"))\n        if s[::-1] != s:\n            print(\"Not a Palindrome\")  \n \n \n                if char not in lst:\n                    count += 1\n                    lst.append(char)\n        print(\"Number of Vowels:\", count,lst)\n    elif choice == 2:\n        print(\"Reversed String:\", s[::-1])  \n    elif choice == 3:\n        if s[::-1] == s:\n            print(\"Palindrome\")  \n \n        else:\n            print(\"Palindrome\")\n    elif choice == 4:\n \n        s = str(input(\"Enter a string: \"))\n        old = input(\"Substring to replace: \")\n        new = input(\"Replacement substring: \")\n        s=s.replace(old,new)\n        print(\"Updated String:\", s)   \n    else:\n        print(\"Invalid option\")\nstring_manipulation_menu()\n \n        srr1=\"\"\n        old = input(\"Substring to replace: \")\n        new = input(\"Replacement substring: \")\n        for char in s:\n            if char==old:\n                new=char\n                srr1+=char\n            else:\n                srr1+=char\n            \n        print(\"Updated String:\",srr1)   \n    else:\n        print(\"Invalid option\")\n\nstring_manipulation_menu()\n \n \n                count += 1 \n        print(\"Number of Vowels:\", count)\n    elif choice == 2:\n        print(\"Reversed String:\", s[::-1])  \n    elif choice == 3:\n        if s[::-1] == s:\n \n                count += 1  \n        print(\"Number of Vowels:\", count)\n    elif choice == 2:\n        print(\"Reversed String:\", s[::-1]) \n    elif choice == 3:\n        if s == s[::-1]:  \n            print(\"Palindrome\")\n \n                count += 1 \n        print(\"Number of Vowels:\", count)\n    elif choice == 2:\n \n        print(\"Reversed String:\", s[::-1])  \n \n \nstring_manipulation_menu()\n \n "
+    },
+    {
+      "path": "problems/medium/m4.py",
+      "language": "Python",
+      "loc": 65,
+      "code_loc": 54,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "def number_analysis_menu():\n    print(\"1. Check Prime\")\n    print(\"2. Factorial\")\n    print(\"3. Fibonacci Sequence\")\n    print(\"4. Sum of Digits\")\n \n    choice = int(input(\"Enter your choice: \"))\n\n    n = int(input(\"Enter a number: \"))\n\n    if choice == 1:\n \n        a=0\n        if n<1:\n            print(\"not a prime\")\n        elif n==2:\n            print(\"prime\")\n        else:\n            a=int(n**0.5)+1\n            for i in range(2,a):\n                if (n%i==0):\n                    print(\"not a prime\")\n                    break\n \n        is_prime = True\n        for i in range(2, n):  \n            if n % i == 0:\n                is_prime = False\n        if is_prime:\n            print(\"The Number is Prime Number\")\n        else:\n            print(\"The Number is Not a Prime Number\")  \n\n    elif choice == 2:\n        factorial = 1\n        for i in range(1, n + 1):\n            factorial *= i   \n        print(\"Factorial:\", factorial)\n    elif choice == 3:\n        fib = [0, 1]\n        for i in range(1,n):\n            fib.append(fib[-1] + fib[-2])\n        print(\"Fibonacci Sequence:\", fib)  \n    elif choice == 4:\n        total = 0\n        while n > 0:\n            total += n % 10\n            n //= 10   \n        print(\"Sum of Digits:\", total)\n    else:\n        print(\"Invalid option\")\nnumber_analysis_menu()\n \n \n    \n    try:\n        choice = int(input(\"Enter your choice: \"))\n        if choice not in [1, 2, 3, 4]:\n            print(\"Invalid option. Please select a number between 1 and 4.\")\n            return\n    except ValueError:\n        print(\"Invalid input. Please enter a number between 1 and 4.\")\n        return\n \n "
+    },
+    {
+      "path": "problems/medium/m5.py",
+      "language": "Python",
+      "loc": 39,
+      "code_loc": 38,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "def matrix_operations_menu():\n    print(\"1. Add Matrices\")\n    print(\"2. Multiply Matrices\")\n    print(\"3. Transpose Matrix\")\n    choice = int(input(\"Enter your choice: \"))\n\n    if choice == 1:\n        rows, cols = map(int, input(\"Enter rows and columns: \").split())\n        mat1 = [[int(x) for x in input(\"Enter elements of matrix 1 (row-wise): \").split()] for _ in range(rows)]\n        mat2 = [[int(x) for x in input(\"Enter elements of matrix 2 (row-wise): \").split()] for _ in range(rows)]\n        result = [[mat1[i][j] + mat2[i][j] for j in range(cols)] for i in range(rows)]  # Corrected to addition\n        print(\"Resultant Matrix:\", result)\n    elif choice == 2:\n        rows1, cols1 = map(int, input(\"Enter rows and columns for matrix 1: \").split())\n        rows2, cols2 = map(int, input(\"Enter rows and columns for matrix 2: \").split())\n        if cols1 != rows2:\n            print(\"Matrix multiplication not possible (incompatible dimensions)\")\n            return\n        mat1 = [[int(x) for x in input(\"Enter elements of matrix 1 (row-wise): \").split()] for _ in range(rows1)]\n        mat2 = [[int(x) for x in input(\"Enter elements of matrix 2 (row-wise): \").split()] for _ in range(rows2)]\n        result = [[0 for _ in range(cols2)] for _ in range(rows1)]  # Corrected dimensions\n        for i in range(rows1):\n            for j in range(cols2):\n                for k in range(cols1):  # Iterate through common dimension\n                    result[i][j] += mat1[i][k] * mat2[k][j]   \n        print(\"Resultant Matrix:\", result)\n    elif choice == 3:\n        rows, cols = map(int, input(\"Enter rows and columns: \").split())\n        mat = [[int(x) for x in input(\"Enter elements of matrix (row-wise): \").split()] for _ in range(rows)]\n        transpose = [[mat[j][i] for j in range(rows)] for i in range(cols)]  # Corrected transpose logic\n        print(\"Transpose:\", transpose)\n    else:\n        print(\"Invalid option\")\n            for j in range(cols):\n                transpose[i][j] = mat[j][i]  \n        print(\"Transpose:\", transpose)\n    else:\n        print(\"Invalid option\")\nmatrix_operations_menu()"
+    },
+    {
+      "path": "problems/medium/m6.py",
+      "language": "Python",
+      "loc": 40,
+      "code_loc": 30,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 6,
+      "functions": [
+        {
+          "name": "file_handling_menu",
+          "lineno": 2,
+          "end_lineno": 36,
+          "complexity": 6,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "\ndef file_handling_menu():\n    print(\"1. Write to File\")\n    print(\"2. Read File\")\n    print(\"3. Count Lines, Words, Characters\")\n    print(\"4. Append to File\")\n    choice = int(input(\"Enter your choice: \"))\n\n    \n    if choice == 1:\n        data = input(\"Enter data to write: \")\n        with open(\"abc.txt\", \"w\") as f:  \n            f.write(data)\n        f.close()\n    elif choice == 2:\n        with open(\"abc.txt\", \"r\") as f:\n            print(f.read())\n            \n        f.close()  \n    elif choice == 3:\n        with open(\"abc.txt\", \"r\") as f:\n            lines = len(f.read().split(\"\\n\"))\n            chars = len(f.read().split()) \n            words = sum(len(line) for line in f.readlines())  \n            print(\"Lines:\", lines, \"Words:\", words, \"Characters:\", chars)\n            \n        f.close()\n    elif choice == 4:\n        data = input(\"Enter data to append: \")\n        f = open(\"abc.txt\",\"a\")\n        f.append(data)\n            \n            \n        f.close()\n    else:\n        print(\"Invalid option\")\n \nfile_handling_menu()\n \n"
+    },
+    {
+      "path": "problems/medium/m7.py",
+      "language": "Python",
+      "loc": 95,
+      "code_loc": 80,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "def student_record_menu():\n        students = {}  # Dictionary to store student records\n\n        while True:\n            print(\"\\n1. Add Student Record\")\n            print(\"2. Display All Records\")\n            print(\"3. Search Student by Roll Number\")\n            print(\"4. Delete Student Record\")\n            print(\"5. Exit\")\n            choice = int(input(\"Enter your choice: \"))\n\n \n\n            if choice == 1:\n                roll = input(\"Enter Roll Number: \")\n                name = input(\"Enter Name: \")\n                marks = int(input(\"Enter Marks: \"))  #input type changed to int\n                students[roll] = (name, marks)       #the key is changed to roll no and the values are names and marks as tuples\n            elif choice == 2:\n                for roll, details in students.items():\n                    print(f\"Roll: {roll}, Name: {details[0]}, Marks: {details[1]}\")  \n            elif choice == 3:\n                roll = input(\"Enter Roll Number to Search: \")\n                if roll in students:\n                    print(f\"Name: {students[roll][0]}, Marks: {students[roll][1]}\")\n                else:\n                    print(\"Record Not Found\")        #else record found --> record not found \n            elif choice == 4:\n                roll = input(\"Enter Roll Number to Delete: \")\n                if roll in students:\n                    del students[roll]\n                    print(\"Record Deleted\")\n                else:\n                    print(\"Error occured\")           #changed to correct message\n            elif choice == 5:\n                print(\"Exiting...\")\n                break\n\n\nstudent_record_menu()       #function call made\n \n        if choice == 1:\n            roll = input(\"Enter Roll Number: \")\n            name = input(\"Enter Name: \")\n            marks = input(\"Enter Marks: \")\n \n            students[name] = (roll, marks)  \n        elif choice == 2:\n            for details in students.keys():\n                print(details,\" : roll no\",students[details][0],\"mark \",students[details][1])  \n        elif choice == 3:\n            roll = input(\"Enter Roll Number to Search: \")\n            for i in students.values():\n                if roll in i[0] or [1]:\n                    print( next( j for j in students.keys() if students[j][0] == roll))\n                else:\n                    print(\"Record not Found\")   \n        elif choice == 4:\n            roll =input(\"Enter Roll Number to Delete: \")\n            a=\"\"\n            for i in students:\n                \n                if students[i][0]==roll:\n                    a+=i\n                else:\n                    print(\"record not found\")\n            del students[a]\n            print(students)\n \n            students[roll] = (name, marks)     \n        elif choice == 2:\n            for roll, details in students.items():\n \n        elif choice == 3:\n            roll = input(\"Enter Roll Number to Search: \")\n            if roll in students:\n                print(f\"Name: {students[details][0]}, Marks: {students[roll][1]}\")\n            else:\n                print(\"Record Found\")   \n        elif choice == 4:\n            roll = input(\"Enter Roll Number to Delete: \")\n            if roll in students:\n                del students[details[0]]\n                print(\"Record Deleted\")\n            else:\n                print(\"Record Deleted Successfully\") \n \n        elif choice == 5:\n            print(\"Exiting...\")\n            break\n        else:\n            print(\"Invalid Choice\")\n \n \n"
+    },
+    {
+      "path": "problems/medium/m8.py",
+      "language": "Python",
+      "loc": 41,
+      "code_loc": 36,
+      "comment_lines": 0,
+      "comment_ratio": 0.0,
+      "cyclomatic_complexity": 8,
+      "functions": [
+        {
+          "name": "conversion_menu",
+          "lineno": 1,
+          "end_lineno": 35,
+          "complexity": 8,
+          "docstring": null
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "def conversion_menu():\n    while True:\n        print(\"\\n1. Celsius to Fahrenheit\")\n        print(\"2. Fahrenheit to Celsius\")\n        print(\"3. Decimal to Binary, Octal, Hexadecimal\")\n        print(\"4. Kilometers to Miles and Vice Versa\")\n        print(\"5. Exit\")\n        choice = int(input(\"Enter your choice: \"))\n\n        if choice == 1:\n            celsius = int(input(\"Enter temperature in Celsius: \"))\n            fahrenheit = (celsius * 9 / 5) + 32   \n            print(\"Temperature in Fahrenheit:\", fahrenheit)\n        elif choice == 2:\n            fahrenheit = int(input(\"Enter temperature in Fahrenheit: \"))\n            celsius = (fahrenheit - 32) * 5 / 9\n            print(\"Temperature in Celsius:\", celsius)\n        elif choice == 3:\n            decimal = int(input(\"Enter a decimal number: \"))\n            print(f\"Binary: {bin(decimal)}, Octal: {oct(decimal):O}, Hexadecimal: {hex(decimal):X}\")   \n        elif choice == 4:\n            selection = int(input(\"Enter 1 for KM to Miles (or) 2 for Miles to KM : \"))\n            if selection == 1:\n                km = float(input(\"Enter distance in kilometers: \"))\n                miles = km * 0.621371  \n                print(\"Distance in Miles:\", miles)\n            else:\n                miles = float(input(\"Enter distance in miles :\"))\n                km = miles * 1.609\n                print(\"Distance in Kilometres:\", km)\n        elif choice == 5:\n            print(\"Exiting...\")\n            break\n        else:\n            print(\"Invalid Choice\")\n\n\nif __name__==\"__main__\":\n    conversion_menu()\n\n"
+    },
+    {
+      "path": "problems/medium/m9.py",
+      "language": "Python",
+      "loc": 46,
+      "code_loc": 34,
+      "comment_lines": 2,
+      "comment_ratio": 0.0435,
+      "cyclomatic_complexity": 0,
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "docstrings": [],
+      "capabilities": [],
+      "content": "def set_operations_menu():\n    while True:\n        print(\"\\n1. Union of Two Sets\")\n        print(\"2. Intersection of Two Sets\")\n        print(\"3. Difference of Two Sets\")\n        print(\"4. Check Subset\")\n        print(\"5. Exit\")\n        choice = int(input(\"Enter your choice: \"))\n\n        # Taking input and converting to sets\n        set1 = set(input(\"Enter elements of Set 1 separated by space: \").split())\n        set2 = set(input(\"Enter elements of Set 2 separated by space: \").split())\n\n        if choice == 1:\n \n            print(\"Union:\", set1 | set2)  # Corrected union calculation using |\n        elif choice == 2:\n            print(\"Intersection:\", set1 & set2)  # Corrected intersection calculation using &\n        elif choice == 3:\n            print(\"Difference:\", set1 - set2)  # Corrected difference calculation using -\n        elif choice == 4:\n            if set1.issubset(set2):  # Corrected subset check\n \n            print(\"Union:\", set1 | set2)  \n        elif choice == 2:\n            print(\"Intersection:\", set1 & set2)  \n        elif choice == 3:\n            print(\"Difference:\", set1 - set2)   \n        elif choice == 4:\n            if set1 >= set2:  \n \n                print(\"Set 1 is a subset of Set 2\")\n            else:\n                print(\"Set 1 is not a subset of Set 2\")\n        elif choice == 5:\n            print(\"Exiting...\")\n            break\n        else:\n            print(\"Invalid Choice\")\n \n \n# Calling the function to run\nset_operations_menu()\n \n \n"
+    }
+  ],
+  "delta": null,
+  "ingestion_metadata": {
+    "version": "1.0",
+    "timestamp": "2026-07-22T06:37:35.697656+00:00",
+    "duration_ms": 0,
+    "pipeline_version": "1"
+  }
+}

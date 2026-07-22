@@ -53,16 +53,52 @@ window.empty = function(title, text) {
     if (theme === 'light') {
         document.documentElement.setAttribute('data-theme', 'light');
     }
+    updateAriaLabel();
 })();
+
+function updateAriaLabel() {
+    var btn = document.querySelector('.theme-toggle');
+    if (!btn) return;
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    btn.setAttribute('aria-label', isLight ? 'Switch to Dark Mode' : 'Switch to Light Mode');
+}
 
 window.toggleTheme = function() {
     var html = document.documentElement;
+    var btn = document.querySelector('.theme-toggle');
     var isLight = html.getAttribute('data-theme') === 'light';
+
     if (isLight) {
         html.removeAttribute('data-theme');
         localStorage.setItem('theme', 'dark');
+        spawnStars(btn);
     } else {
         html.setAttribute('data-theme', 'light');
         localStorage.setItem('theme', 'light');
     }
+
+    updateAriaLabel();
 };
+
+function spawnStars(btn) {
+    if (!btn) return;
+    var existing = btn.querySelectorAll('.theme-star');
+    for (var i = 0; i < existing.length; i++) existing[i].remove();
+    for (var j = 0; j < 4; j++) {
+        var star = document.createElement('span');
+        star.className = 'theme-star';
+        star.style.left = (20 + Math.random() * 60) + '%';
+        star.style.top = (10 + Math.random() * 60) + '%';
+        star.style.animationDelay = (Math.random() * 0.15) + 's';
+        star.style.width = star.style.height = (2 + Math.random() * 2) + 'px';
+        btn.appendChild(star);
+        setTimeout(function(s) { if (s && s.parentNode) s.remove(); }, 700 + Math.random() * 300, star);
+    }
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 't' && (e.ctrlKey || e.metaKey) && e.shiftKey) {
+        e.preventDefault();
+        toggleTheme();
+    }
+});

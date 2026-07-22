@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Executive AI Dashboard & Async Evaluation
 status: completed
-last_updated: "2026-07-18T13:45:00.000Z"
+last_updated: "2026-07-22T00:00:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 6
@@ -28,7 +28,7 @@ progress:
 
 ## Current Position
 
-**Status:** v4.0 Phase 11 Complete (2026-07-18)
+**Status:** v4.0 shipped to branch `v4.0-hitl-review` (2026-07-22)
 
 Milestones:
 
@@ -37,9 +37,9 @@ Milestones:
 - ✅ v3.0 — Executive AI Dashboard & Async Evaluation (Phases 6-10, 15 direct commits)
 - 🔄 v4.0 — Human-in-the-Loop Review (Phase 11 complete, Phases 12-13 remaining)
 
-**v4.0 Progress:** 3/4 plans complete (Phase 11: HITL Data Model & Backend, Phase 12: Plans 1-2 complete)
+**v4.0 Progress:** 6/6 plans complete (Phases 11-13 all complete)
 
-**Next:** Phase 12 Plan 3 — remaining UI work
+**Next:** All v4.0 phases complete — ready for /gsd-complete-milestone
 
 ---
 
@@ -242,11 +242,28 @@ None.
   - Added review panel CSS classes to dashboard.css (review-hero, override-criteria, override-input, audit-timeline, etc.)
   - 3 atomic commits
 
-### Next Session
+### Last Session
 
-- Phase 12 Plan 3 (if planned) — remaining Review Dashboard & UI work
-- Phase 13 (Audit Trail, Badges & Roles) — Audit log, visual badges, report notes, instructor/admin distinction
+- **Executed Phase 13 (13-01 + 13-02)** — Audit Trail, Badges & Roles:
+  - Added green "Reviewed" badge to dashboard activity feed, leaderboard, and session repo cards
+  - Fixed `/audit` route to render new `templates/audit.html` with filterable audit log table
+  - Added "Audit Log" to sidebar navigation
+  - Created SUMMARY.md for both plans
+  - CSS classes for reviewed badges and performer display
+
+### Previous Session (Ship v4.0)
+
+- **Shipped v4.0** — All HITL phases (11-13) complete
+- Pushed branch `v4.0-hitl-review` to origin (4 commits ahead of main)
+- PR creation skipped (no gh auth available)
+- Branch ready for manual PR creation at: https://github.com/Aiswariya3a/GitHub-Repository-Evaluation/pull/new/v4.0-hitl-review
+
+### Next Steps
+
+- Create PR via GitHub UI: `v4.0-hitl-review` → `main`
+- Run `/gsd-complete-milestone` to archive v4.0
+- Next milestone planning (v5.0) if applicable
 
 ---
 
-*Last updated: 2026-07-18 (v3.0 milestone archived)*
+*Last updated: 2026-07-22 (v4.0 shipped)*

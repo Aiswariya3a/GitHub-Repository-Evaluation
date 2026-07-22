@@ -50,8 +50,14 @@ document.addEventListener('DOMContentLoaded', function() {
             var response = await fetch('/api/sessions');
             if (!response.ok) throw new Error('Unable to load sessions.');
             var items = await response.json();
-            var groups = { Active: [], Completed: [], Archived: [] };
-            items.forEach(function(item) { (groups[item.status] || groups.Archived).push(item); });
+            var groups = { Active: [], Completed: [] };
+            items.forEach(function(item) {
+                if (item.status === 'Completed') {
+                    groups.Completed.push(item);
+                } else {
+                    groups.Active.push(item);
+                }
+            });
             for (var status in groups) {
                 var list = groups[status];
                 var countEl = document.getElementById(status.toLowerCase() + 'Count');
@@ -196,7 +202,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         var isDone = x.score != null;
                         var cls = isDone ? 'ab-green' : 'ab-yellow';
                         var label = isDone ? 'Completed' : 'In progress';
-                        return '<a class="av3-row" href="/sessions/' + x.session_id + '/repositories/' + x.id + '"><span class="av3-av">' + window.esc(x.roll_number).slice(-2) + '</span><div class="av3-body"><strong>' + window.esc(x.roll_number) + '</strong><span>' + window.esc(x.session_name) + '</span></div><span class="av3-badge ' + cls + '">' + label + '</span></a>';
+                        var reviewBadge = x.needs_review
+                            ? '<span class="review-badge-sm pending" title="Needs review">!</span>'
+                            : x.has_review
+                            ? '<span class="review-badge-sm reviewed" title="Reviewed">&#x2713;</span>'
+                            : '';
+                        return '<a class="av3-row" href="/sessions/' + x.session_id + '/repositories/' + x.id + '"><span class="av3-av">' + window.esc(x.roll_number).slice(-2) + '</span><div class="av3-body"><strong>' + window.esc(x.roll_number) + '</strong><span>' + window.esc(x.session_name) + '</span></div>' + reviewBadge + '<span class="av3-badge ' + cls + '">' + label + '</span></a>';
                     }).join('');
                     if (items.length > 8) {
                         recentActivity.innerHTML += '<a class="av3-more" href="/sessions">View all ' + items.length + ' &rarr;</a>';
@@ -252,7 +263,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 var mc = ['#f59e0b', '#94a3b8', '#cd7f32'];
                 leaderboard.innerHTML = (d.leaderboard || []).slice(0, 5).map(function(x, i) {
                     var rn = i < 3 ? '<span class="lr3-medal" style="color:' + mc[i] + '">' + ['&#x1F947;', '&#x1F948;', '&#x1F949;'][i] + '</span>' : '<span class="lr3-num">' + (i + 1) + '</span>';
-                    return '<a class="lr3-row" href="/sessions/' + x.session_id + '/repositories/' + x.id + '">' + rn + '<div class="lr3-body"><strong>' + window.esc(x.roll_number) + '</strong><span>' + window.esc(x.session_name) + '</span></div><span class="lr3-pill">' + Number(x.normalized_to_20 || 0).toFixed(1) + '</span></a>';
+                    var rb = x.needs_review
+                        ? '<span class="review-badge-sm pending" title="Needs review">!</span>'
+                        : x.has_review
+                        ? '<span class="review-badge-sm reviewed" title="Reviewed">&#x2713;</span>'
+                        : '';
+                    return '<a class="lr3-row" href="/sessions/' + x.session_id + '/repositories/' + x.id + '">' + rn + '<div class="lr3-body"><strong>' + window.esc(x.roll_number) + '</strong><span>' + window.esc(x.session_name) + '</span></div>' + rb + '<span class="lr3-pill">' + Number(x.normalized_to_20 || 0).toFixed(1) + '</span></a>';
                 }).join('') || '<div class="empty-sm">No data</div>';
             }
 

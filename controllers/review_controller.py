@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 
 from .common import services
+from services.rubric_service import RubricService
 
 review_controller = Blueprint("review", __name__)
 
@@ -25,7 +26,13 @@ def review_detail(session_id, repository_id):
         pass
     overrides = svc.get_overrides(repository_id, session_id)
     audit = svc.get_audit_trail(repository_id, session_id)
-    return jsonify(queue=entry, evaluation=evaluation, overrides=overrides, audit=audit)
+    rubric = None
+    if evaluation and evaluation.get("rubric_version_id"):
+        try:
+            rubric = RubricService().get_version(evaluation["rubric_version_id"])
+        except Exception:
+            pass
+    return jsonify(queue=entry, evaluation=evaluation, overrides=overrides, audit=audit, rubric=rubric)
 
 
 @review_controller.post("/api/reviews/<session_id>/<repository_id>/start")

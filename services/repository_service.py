@@ -99,6 +99,11 @@ class RepositoryService:
             repository["insights"] = self.repository.related_data(repository_id)
         except Exception:
             repository["insights"] = {}
+        try:
+            from services.review_service import ReviewService
+            repository["overrides"] = ReviewService().get_overrides(repository_id, session_id)
+        except Exception:
+            repository["overrides"] = []
         return repository
 
     def session_insights(self, session_id):

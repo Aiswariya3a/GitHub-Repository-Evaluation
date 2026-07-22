@@ -10,6 +10,7 @@ from PyPDF2 import PdfMerger
 from services.repository_service import RepositoryService
 from repositories.session_repository import SessionRepository
 from services.rubric_service import RubricService
+from services.review_service import ReviewService
 
 
 def normalize_roll(value):
@@ -427,6 +428,44 @@ def generate_pdf(session_id: str, output_dir: str) -> str:
         content.append(Spacer(1, 8))
         content.append(Paragraph(f"<b>Overall Remarks:</b> {overall_remarks}", body_style))
         content.append(Spacer(1, 12))
+
+        # Human Review Notes (if score overrides exist)
+        try:
+            review_svc = ReviewService()
+            overrides = review_svc.get_overrides(repo.get("id"), session_id)
+            if overrides:
+                content.append(Paragraph("HUMAN REVIEW NOTES", section_style))
+                review_rows = [
+                    [Paragraph("<b>Criterion</b>", body_style),
+                     Paragraph("<b>Original</b>", body_style),
+                     Paragraph("<b>Override</b>", body_style),
+                     Paragraph("<b>Reasoning</b>", body_style),
+                     Paragraph("<b>By</b>", body_style)]
+                ]
+                for o in overrides:
+                    review_rows.append([
+                        Paragraph(str(o.get("criterion_key", "Overall")), body_style),
+                        Paragraph(str(o.get("original_score", "")), body_style),
+                        Paragraph(str(o.get("overridden_score", "")), body_style),
+                        Paragraph(str(o.get("reasoning", "")), body_style),
+                        Paragraph(str(o.get("overridden_by", "")), body_style),
+                    ])
+                review_table = Table(review_rows, colWidths=[100, 60, 70, 180, 70], repeatRows=1)
+                review_table.setStyle(TableStyle([
+                    ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#FFF3CD")),
+                    ("TEXTCOLOR", (0, 0), (-1, 0), colors.HexColor("#856404")),
+                    ("GRID", (0, 0), (-1, -1), 0.35, colors.HexColor("#D4A017")),
+                    ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                    ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#FFFDF5")]),
+                    ("LEFTPADDING", (0, 0), (-1, -1), 4),
+                    ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+                    ("TOPPADDING", (0, 0), (-1, -1), 3),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+                ]))
+                content.append(review_table)
+                content.append(Spacer(1, 10))
+        except Exception:
+            pass
 
         # Question-wise Evaluation
         content.append(Paragraph("QUESTION-WISE EVALUATION", section_style))

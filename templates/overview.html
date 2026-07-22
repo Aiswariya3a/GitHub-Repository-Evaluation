@@ -1,113 +1,120 @@
 {% extends "base.html" %}{% block content %}
-<header class="page-heading modern-heading">
+<header class="ov-heading">
   <div>
-    <div class="heading-line">
-      <p class="eyebrow">Command center</p>
-      <span class="live-indicator">Live data</span>
+    <div class="ov-heading-top">
+      <span class="ov-eyebrow">Repository Intelligence</span>
+      <span class="live-indicator">Live</span>
     </div>
-    <h1>Good evening, Evaluator</h1>
-    <p class="hero-copy">
-      Everything happening across your evaluation workspace, at a glance.
-    </p>
+    <h1 class="ov-title">Good evening, Evaluator</h1>
+    <p class="ov-sub">Everything across your evaluation workspace at a glance.</p>
   </div>
-  <div class="action-row">
-    <button class="secondary-btn" onclick="openCommandPalette()">Search</button
-    ><a
-      class="primary-btn link-btn"
-      href="{{ url_for('session.sessions_page') }}"
-      >New evaluation</a
-    >
+  <div class="ov-actions">
+    <button class="secondary-btn ov-btn" onclick="openCommandPalette()">Search</button>
+    <a class="primary-btn link-btn ov-btn" href="{{ url_for('session.sessions_page') }}">New evaluation</a>
   </div>
 </header>
 <div id="dashboardError" class="api-error" hidden></div>
-<section class="stats-grid dashboard-kpis" id="dashboardKpis">
+
+<section class="kpi-strip-v3" id="dashboardKpis">
   {% for _ in range(4) %}
-  <article class="metric-card skeleton-card">
-    <div class="skeleton-line short"></div>
-    <div class="skeleton-block"></div>
-  </article>
+  <div class="kpi-card-v3 skeleton-card"><div class="skeleton-line short" style="margin-bottom:7px"></div><div class="skeleton-block" style="height:26px;margin-bottom:5px"></div><div class="skeleton-line" style="width:55%"></div></div>
   {% endfor %}
 </section>
-<section class="dashboard-component-grid">
-  <article class="panel health-card">
-    <div class="panel-header">
-      <div>
-        <p class="eyebrow">Health overview</p>
-        <h2>Project health</h2>
+
+<div class="dash-v3">
+  <div class="dash-row-hero">
+    <div class="dash-card health-panel" id="healthCard">
+      <div class="hp-head">
+        <span class="hp-eyebrow">Overview</span>
+        <h2 class="hp-title">Project Health</h2>
       </div>
-      <select class="compact-select">
-        <option>All time</option>
-      </select>
-    </div>
-    <div id="healthGauge" class="health-gauge skeleton-block"></div>
-    <div id="healthLegend" class="health-legend"></div>
-  </article>
-  <article class="panel score-chart-card">
-    <div class="panel-header">
-      <div>
-        <p class="eyebrow">Distribution</p>
-        <h2>Evaluation scores</h2>
-      </div>
-      <a href="/analytics" class="text-link">Explore</a>
-    </div>
-    <div id="scoreChart" class="vertical-chart">
-      <div class="skeleton-block"></div>
-    </div>
-  </article>
-  <article class="panel activity-card">
-    <div class="panel-header">
-      <div>
-        <p class="eyebrow">Activity feed</p>
-        <h2>Recent evaluations</h2>
-      </div>
-      <button class="icon-btn" title="More actions">•••</button>
-    </div>
-    <div id="recentActivity" class="activity-list">
-      <div class="skeleton-row"></div>
-      <div class="skeleton-row"></div>
-      <div class="skeleton-row"></div>
-    </div>
-  </article>
-  <article class="panel running-card">
-    <div class="panel-header">
-      <div>
-        <p class="eyebrow">In progress</p>
-        <h2>Running evaluations</h2>
-      </div>
-      <span id="runningCount" class="count-pill">0</span>
-    </div>
-    <div id="runningEvaluations" class="activity-list">
-      <div class="skeleton-row"></div>
-    </div>
-  </article>
-  <article class="panel technology-card" id="techCard">
-    <div class="panel-header">
-      <div>
-        <p class="eyebrow">Technology</p>
-        <h2>Stack breakdown</h2>
+      <div class="hp-body hp-simple" id="healthSummary">
+        <div class="hps-row">
+          <span class="hps-label">Overall Status</span>
+          <span class="hps-badge" id="statusBadge">Loading...</span>
+        </div>
+        <div class="hps-row">
+          <span class="hps-label">Average Score</span>
+          <span class="hps-value" id="avgScoreValue">0.0 <span class="hps-unit">/ 20</span></span>
+        </div>
+        <div class="hps-row">
+          <span class="hps-label">Repositories Evaluated</span>
+          <span class="hps-value" id="evaluatedValue">0 <span class="hps-unit">/ 0</span></span>
+        </div>
+        <div class="hps-row">
+          <span class="hps-label">Pending Reviews</span>
+          <span class="hps-value" id="pendingValue">0</span>
+        </div>
+        <div class="hps-row">
+          <span class="hps-label">Needs Attention</span>
+          <span class="hps-value hps-attention" id="attentionValue">0</span>
+        </div>
+        <div class="hps-divider"></div>
+        <div class="hps-status-list" id="repoStatusList"></div>
       </div>
     </div>
-    <div id="technologyBreakdown" class="technology-bars"></div>
-  </article>
-  <article class="panel portfolio-card" id="portfolioCard" hidden>
-    <div class="panel-header">
-      <div>
-        <p class="eyebrow">Portfolio</p>
-        <h2>Repository status</h2>
+
+    <div class="dash-card">
+      <div class="dash-card-head">
+        <div>
+          <span class="dash-eyebrow">Activity</span>
+          <span class="dash-title">Recent evaluations</span>
+        </div>
+        <span id="activityCount" class="count-pill">0</span>
       </div>
+      <div id="recentActivity" class="av3"></div>
+      <div id="runningBar" class="rb3" hidden></div>
     </div>
-    <div id="portfolioBreakdown" class="portfolio-bars"></div>
-  </article>
-  <article class="panel leaderboard-card">
-    <div class="panel-header">
-      <div>
-        <p class="eyebrow">Top performers</p>
-        <h2>Repository leaderboard</h2>
+  </div>
+
+  <div class="dash-row-tertiary">
+    <div class="dash-card" id="repoAnalyticsCard">
+      <div class="dash-card-head">
+        <span class="dash-eyebrow">Summary</span>
+        <span class="dash-title">Repository summary</span>
       </div>
-      <a href="/analytics" class="text-link">View all</a>
+      <div id="repoAnalytics" class="ra3"></div>
     </div>
-    <div id="leaderboard" class="leaderboard"></div>
-  </article>
-</section>
+
+    <div class="dash-card">
+      <div class="dash-card-head">
+        <div>
+          <span class="dash-eyebrow">Top performers</span>
+          <span class="dash-title">Top performing repositories</span>
+        </div>
+        <a href="/analytics" class="dash-link">View all</a>
+      </div>
+      <div id="leaderboard" class="lr3"></div>
+    </div>
+
+    <div class="dash-card" id="portfolioCard">
+      <div class="dash-card-head">
+        <span class="dash-eyebrow">Portfolio</span>
+        <span class="dash-title">Repository summary</span>
+      </div>
+      <div id="portfolioBreakdown" class="pv3"></div>
+    </div>
+
+    <div class="dash-card" id="techCard" hidden>
+      <div class="dash-card-head">
+        <span class="dash-eyebrow">Technology</span>
+        <span class="dash-title">Stack breakdown</span>
+      </div>
+      <div id="technologyBreakdown" class="tb3"></div>
+    </div>
+  </div>
+
+  <div class="dash-card" id="recentSessionsCard">
+    <div class="dash-card-head">
+      <div>
+        <span class="dash-eyebrow">History</span>
+        <span class="dash-title">Recent sessions</span>
+      </div>
+      <a href="/sessions" class="dash-link">View all</a>
+    </div>
+    <div id="recentSessions" class="rs3"></div>
+  </div>
+</div>
+
 <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 {% endblock %}

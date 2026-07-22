@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Executive AI Dashboard & Async Evaluation
 status: completed
-last_updated: "2026-07-18T13:45:00.000Z"
+last_updated: "2026-07-22T00:00:00.000Z"
 progress:
   total_phases: 6
   completed_phases: 6
@@ -28,7 +28,7 @@ progress:
 
 ## Current Position
 
-**Status:** v4.0 Phase 11 Complete (2026-07-18)
+**Status:** v4.0 shipped to branch `v4.0-hitl-review` (2026-07-22)
 
 Milestones:
 
@@ -251,11 +251,19 @@ None.
   - Created SUMMARY.md for both plans
   - CSS classes for reviewed badges and performer display
 
-### Next Session
+### Previous Session (Ship v4.0)
 
-- **v4.0 all phases complete** — run `/gsd-complete-milestone` to archive
+- **Shipped v4.0** — All HITL phases (11-13) complete
+- Pushed branch `v4.0-hitl-review` to origin (4 commits ahead of main)
+- PR creation skipped (no gh auth available)
+- Branch ready for manual PR creation at: https://github.com/Aiswariya3a/GitHub-Repository-Evaluation/pull/new/v4.0-hitl-review
+
+### Next Steps
+
+- Create PR via GitHub UI: `v4.0-hitl-review` → `main`
+- Run `/gsd-complete-milestone` to archive v4.0
 - Next milestone planning (v5.0) if applicable
 
 ---
 
-*Last updated: 2026-07-21 (Phase 13 complete)*
+*Last updated: 2026-07-22 (v4.0 shipped)*
